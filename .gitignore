@@ -2,3 +2,6 @@
 /grammar tests/JavaGrammar/build/
 /grammar tests/JavaGrammar/dist/
 /grammar tests/Teste/nbproject/private/
+/grammar tests/CGrammar/nbproject/private/
+/grammar tests/CGrammar/build/
+/grammar tests/CGrammar/dist/
