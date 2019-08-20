@@ -1,6 +1,6 @@
 package javagrammar;
 
-public class Run {
+public class Teste {
 
     public static void main(String[] args) {
             

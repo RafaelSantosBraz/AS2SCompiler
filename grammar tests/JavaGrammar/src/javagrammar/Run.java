@@ -8,14 +8,18 @@ package javagrammar;
 import java.awt.HeadlessException;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Collections;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import org.antlr.v4.gui.TreeViewer;
 import org.antlr.v4.runtime.ANTLRFileStream;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.TokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.tree.ParseTreeWalker;
+import org.antlr.v4.runtime.tree.TerminalNode;
 import parser.*;
 
 /**
@@ -33,7 +37,38 @@ public class Run {
         JavaGrammarParser.CompilationUnitContext prog
                 = parser.compilationUnit();        //Exec Parser prog
         //exibir(prog);
-        showParseTreeFrame(prog, parser);        
+        //showParseTreeFrame(prog, parser);        
+        ParseTreeWalker.DEFAULT.walk(new JavaGrammarBaseListener() {
+            final String INDENT = "    ";
+            int level = 0;
+
+            @Override
+            public void enterEveryRule(final ParserRuleContext ctx) {
+                System.out.printf("%s<%s>%n", indent(), parser.getRuleNames()[ctx.getRuleIndex()]);
+                ++level;
+                super.enterEveryRule(ctx);
+            }
+
+            @Override
+            public void exitEveryRule(final ParserRuleContext ctx) {
+                --level;
+                System.out.printf("%s</%s>%n", indent(), parser.getRuleNames()[ctx.getRuleIndex()]);
+                super.exitEveryRule(ctx);
+            }
+
+            @Override
+            public void visitTerminal(final TerminalNode node) {
+                final String value = node.getText();
+                if (!value.matches("\\s+")) {
+                    System.out.printf("%s<t>%s</t>%n", indent(), node.getText());
+                }
+                super.visitTerminal(node);
+            }
+
+            private String indent() {
+                return String.join("", Collections.nCopies(level, INDENT));
+            }
+        }, prog);
     }
 
     public static void exibir(ParseTree tree) {
