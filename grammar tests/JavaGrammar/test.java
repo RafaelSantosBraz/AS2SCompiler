@@ -1,13 +1,11 @@
-class Principal{
-  public static void main(){
-      Goal g = new Goal();
-      g.print();
+class Principal {
+  void something() {
+    new Goal().sum(40, 2);   
   }
-
 }
 
-class Goal{  
-    void print(){
-      System.out.println("hello world!");
-    }
+class Goal {
+  int sum(int x, int y) {
+    return x + y;
+  }
 }

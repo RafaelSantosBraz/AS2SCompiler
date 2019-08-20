@@ -5,12 +5,18 @@
  */
 package javagrammar;
 
+import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.HeadlessException;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import org.antlr.v4.gui.TreeViewer;
 import org.antlr.v4.runtime.ANTLRFileStream;
 import org.antlr.v4.runtime.CharStream;
@@ -37,21 +43,35 @@ public class Run {
         JavaGrammarParser parser = new JavaGrammarParser(tokens);         //Parser
         JavaGrammarParser.CompilationUnitContext prog
                 = parser.compilationUnit();        //Exec Parser prog        
-        showParseTreeFrame(prog, parser);  
+        showParseTreeFrame(prog, parser);
         CSTtoXMLConverter.generateXMLFileVersion(parser, prog, "result.xml");
     }
 
     private static void showParseTreeFrame(ParseTree tree, JavaGrammarParser parser) throws HeadlessException {
         JFrame frame = new JFrame("SRC: " + tree.getText());
-        JPanel panel = new JPanel();
         TreeViewer viewr = new TreeViewer(Arrays.asList(
                 parser.getRuleNames()), tree);
         viewr.setScale(1);
-        panel.add(viewr);
-        frame.add(panel);
+        JPanel panel = new JPanel();
+        panel.add(viewr);        
+        JScrollPane scroll = new JScrollPane(panel);
+        scroll.setAutoscrolls(true);
+        frame.add(scroll);
         frame.setSize(1000, 600);
-        frame.setState(JFrame.MAXIMIZED_HORIZ);
+        frame.setState(JFrame.MAXIMIZED_BOTH);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
+        panelToImagem(panel);        
+    }
+    
+    private static void panelToImagem(JPanel panel){
+        BufferedImage image = new BufferedImage(panel.getWidth(), panel.getHeight(), BufferedImage.TYPE_INT_ARGB);
+        Graphics g = image.createGraphics();
+        panel.paint(g);
+        g.dispose();
+        try {
+            ImageIO.write(image, "png", new File("CST.png"));
+        } catch (Exception e) {
+        }
     }
 }
