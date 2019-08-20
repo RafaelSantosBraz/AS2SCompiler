@@ -1,9 +1,13 @@
-package javagrammar;
+class Principal{
+  public static void main(){
+      Goal g = new Goal();
+      g.print();
+  }
 
-public class Teste {
+}
 
-    public static void main(String[] args) {
-            
+class Goal{  
+    void print(){
+      System.out.println("hello world!");
     }
-
 }

@@ -21,6 +21,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.antlr.v4.runtime.tree.TerminalNode;
 import parser.*;
+import xmlgenerator.CSTtoXMLConverter;
 
 /**
  *
@@ -35,47 +36,9 @@ public class Run {
         TokenStream tokens = new CommonTokenStream(lexer);  //nextToken 
         JavaGrammarParser parser = new JavaGrammarParser(tokens);         //Parser
         JavaGrammarParser.CompilationUnitContext prog
-                = parser.compilationUnit();        //Exec Parser prog
-        //exibir(prog);
-        //showParseTreeFrame(prog, parser);        
-        ParseTreeWalker.DEFAULT.walk(new JavaGrammarBaseListener() {
-            final String INDENT = "    ";
-            int level = 0;
-
-            @Override
-            public void enterEveryRule(final ParserRuleContext ctx) {
-                System.out.printf("%s<%s>%n", indent(), parser.getRuleNames()[ctx.getRuleIndex()]);
-                ++level;
-                super.enterEveryRule(ctx);
-            }
-
-            @Override
-            public void exitEveryRule(final ParserRuleContext ctx) {
-                --level;
-                System.out.printf("%s</%s>%n", indent(), parser.getRuleNames()[ctx.getRuleIndex()]);
-                super.exitEveryRule(ctx);
-            }
-
-            @Override
-            public void visitTerminal(final TerminalNode node) {
-                final String value = node.getText();
-                if (!value.matches("\\s+")) {
-                    System.out.printf("%s<t>%s</t>%n", indent(), node.getText());
-                }
-                super.visitTerminal(node);
-            }
-
-            private String indent() {
-                return String.join("", Collections.nCopies(level, INDENT));
-            }
-        }, prog);
-    }
-
-    public static void exibir(ParseTree tree) {
-        for (int c = 0; c < tree.getChildCount(); c++) {
-            System.out.println(tree.getChild(c).getPayload());
-            exibir(tree.getChild(c));
-        }
+                = parser.compilationUnit();        //Exec Parser prog        
+        showParseTreeFrame(prog, parser);  
+        CSTtoXMLConverter.generateXMLFileVersion(parser, prog, "result.xml");
     }
 
     private static void showParseTreeFrame(ParseTree tree, JavaGrammarParser parser) throws HeadlessException {
