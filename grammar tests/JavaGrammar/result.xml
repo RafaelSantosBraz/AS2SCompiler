@@ -14,7 +14,7 @@
                                         <t>void</t>
                                     </result>
                                     <methodDeclarator>
-                                        <t>something</t>
+                                        <t>main</t>
                                         <t>(</t>
                                         <t>)</t>
                                     </methodDeclarator>
@@ -24,105 +24,85 @@
                                         <t>{</t>
                                         <blockStatements>
                                             <blockStatement>
+                                                <localVariableDeclarationStatement>
+                                                    <localVariableDeclaration>
+                                                        <unannType>
+                                                            <unannReferenceType>
+                                                                <unannClassOrInterfaceType>
+                                                                    <unannClassType_lfno_unannClassOrInterfaceType>
+                                                                        <t>Goal</t>
+                                                                    </unannClassType_lfno_unannClassOrInterfaceType>
+                                                                </unannClassOrInterfaceType>
+                                                            </unannReferenceType>
+                                                        </unannType>
+                                                        <variableDeclaratorList>
+                                                            <variableDeclarator>
+                                                                <variableDeclaratorId>
+                                                                    <t>g</t>
+                                                                </variableDeclaratorId>
+                                                                <t>=</t>
+                                                                <variableInitializer>
+                                                                    <expression>
+                                                                        <assignmentExpression>
+                                                                            <conditionalExpression>
+                                                                                <conditionalOrExpression>
+                                                                                    <conditionalAndExpression>
+                                                                                        <inclusiveOrExpression>
+                                                                                            <exclusiveOrExpression>
+                                                                                                <andExpression>
+                                                                                                    <equalityExpression>
+                                                                                                        <relationalExpression>
+                                                                                                            <shiftExpression>
+                                                                                                                <additiveExpression>
+                                                                                                                    <multiplicativeExpression>
+                                                                                                                        <unaryExpression>
+                                                                                                                            <unaryExpressionNotPlusMinus>
+                                                                                                                                <postfixExpression>
+                                                                                                                                    <primary>
+                                                                                                                                        <primaryNoNewArray_lfno_primary>
+                                                                                                                                            <classInstanceCreationExpression_lfno_primary>
+                                                                                                                                                <t>new</t>
+                                                                                                                                                <t>Goal</t>
+                                                                                                                                                <t>(</t>
+                                                                                                                                                <t>)</t>
+                                                                                                                                            </classInstanceCreationExpression_lfno_primary>
+                                                                                                                                        </primaryNoNewArray_lfno_primary>
+                                                                                                                                    </primary>
+                                                                                                                                </postfixExpression>
+                                                                                                                            </unaryExpressionNotPlusMinus>
+                                                                                                                        </unaryExpression>
+                                                                                                                    </multiplicativeExpression>
+                                                                                                                </additiveExpression>
+                                                                                                            </shiftExpression>
+                                                                                                        </relationalExpression>
+                                                                                                    </equalityExpression>
+                                                                                                </andExpression>
+                                                                                            </exclusiveOrExpression>
+                                                                                        </inclusiveOrExpression>
+                                                                                    </conditionalAndExpression>
+                                                                                </conditionalOrExpression>
+                                                                            </conditionalExpression>
+                                                                        </assignmentExpression>
+                                                                    </expression>
+                                                                </variableInitializer>
+                                                            </variableDeclarator>
+                                                        </variableDeclaratorList>
+                                                    </localVariableDeclaration>
+                                                    <t>;</t>
+                                                </localVariableDeclarationStatement>
+                                            </blockStatement>
+                                            <blockStatement>
                                                 <statement>
                                                     <statementWithoutTrailingSubstatement>
                                                         <expressionStatement>
                                                             <statementExpression>
                                                                 <methodInvocation>
-                                                                    <primary>
-                                                                        <primaryNoNewArray_lfno_primary>
-                                                                            <classInstanceCreationExpression_lfno_primary>
-                                                                                <t>new</t>
-                                                                                <t>Goal</t>
-                                                                                <t>(</t>
-                                                                                <t>)</t>
-                                                                            </classInstanceCreationExpression_lfno_primary>
-                                                                        </primaryNoNewArray_lfno_primary>
-                                                                    </primary>
+                                                                    <typeName>
+                                                                        <t>g</t>
+                                                                    </typeName>
                                                                     <t>.</t>
                                                                     <t>sum</t>
                                                                     <t>(</t>
-                                                                    <argumentList>
-                                                                        <expression>
-                                                                            <assignmentExpression>
-                                                                                <conditionalExpression>
-                                                                                    <conditionalOrExpression>
-                                                                                        <conditionalAndExpression>
-                                                                                            <inclusiveOrExpression>
-                                                                                                <exclusiveOrExpression>
-                                                                                                    <andExpression>
-                                                                                                        <equalityExpression>
-                                                                                                            <relationalExpression>
-                                                                                                                <shiftExpression>
-                                                                                                                    <additiveExpression>
-                                                                                                                        <multiplicativeExpression>
-                                                                                                                            <unaryExpression>
-                                                                                                                                <unaryExpressionNotPlusMinus>
-                                                                                                                                    <postfixExpression>
-                                                                                                                                        <primary>
-                                                                                                                                            <primaryNoNewArray_lfno_primary>
-                                                                                                                                                <literal>
-                                                                                                                                                    <t>40</t>
-                                                                                                                                                </literal>
-                                                                                                                                            </primaryNoNewArray_lfno_primary>
-                                                                                                                                        </primary>
-                                                                                                                                    </postfixExpression>
-                                                                                                                                </unaryExpressionNotPlusMinus>
-                                                                                                                            </unaryExpression>
-                                                                                                                        </multiplicativeExpression>
-                                                                                                                    </additiveExpression>
-                                                                                                                </shiftExpression>
-                                                                                                            </relationalExpression>
-                                                                                                        </equalityExpression>
-                                                                                                    </andExpression>
-                                                                                                </exclusiveOrExpression>
-                                                                                            </inclusiveOrExpression>
-                                                                                        </conditionalAndExpression>
-                                                                                    </conditionalOrExpression>
-                                                                                </conditionalExpression>
-                                                                            </assignmentExpression>
-                                                                        </expression>
-                                                                        <t>,</t>
-                                                                        <expression>
-                                                                            <assignmentExpression>
-                                                                                <conditionalExpression>
-                                                                                    <conditionalOrExpression>
-                                                                                        <conditionalAndExpression>
-                                                                                            <inclusiveOrExpression>
-                                                                                                <exclusiveOrExpression>
-                                                                                                    <andExpression>
-                                                                                                        <equalityExpression>
-                                                                                                            <relationalExpression>
-                                                                                                                <shiftExpression>
-                                                                                                                    <additiveExpression>
-                                                                                                                        <multiplicativeExpression>
-                                                                                                                            <unaryExpression>
-                                                                                                                                <unaryExpressionNotPlusMinus>
-                                                                                                                                    <postfixExpression>
-                                                                                                                                        <primary>
-                                                                                                                                            <primaryNoNewArray_lfno_primary>
-                                                                                                                                                <literal>
-                                                                                                                                                    <t>2</t>
-                                                                                                                                                </literal>
-                                                                                                                                            </primaryNoNewArray_lfno_primary>
-                                                                                                                                        </primary>
-                                                                                                                                    </postfixExpression>
-                                                                                                                                </unaryExpressionNotPlusMinus>
-                                                                                                                            </unaryExpression>
-                                                                                                                        </multiplicativeExpression>
-                                                                                                                    </additiveExpression>
-                                                                                                                </shiftExpression>
-                                                                                                            </relationalExpression>
-                                                                                                        </equalityExpression>
-                                                                                                    </andExpression>
-                                                                                                </exclusiveOrExpression>
-                                                                                            </inclusiveOrExpression>
-                                                                                        </conditionalAndExpression>
-                                                                                    </conditionalOrExpression>
-                                                                                </conditionalExpression>
-                                                                            </assignmentExpression>
-                                                                        </expression>
-                                                                    </argumentList>
                                                                     <t>)</t>
                                                                 </methodInvocation>
                                                             </statementExpression>
@@ -152,6 +132,52 @@
                     <t>{</t>
                     <classBodyDeclaration>
                         <classMemberDeclaration>
+                            <fieldDeclaration>
+                                <unannType>
+                                    <unannPrimitiveType>
+                                        <numericType>
+                                            <integralType>
+                                                <t>int</t>
+                                            </integralType>
+                                        </numericType>
+                                    </unannPrimitiveType>
+                                </unannType>
+                                <variableDeclaratorList>
+                                    <variableDeclarator>
+                                        <variableDeclaratorId>
+                                            <t>x</t>
+                                        </variableDeclaratorId>
+                                    </variableDeclarator>
+                                </variableDeclaratorList>
+                                <t>;</t>
+                            </fieldDeclaration>
+                        </classMemberDeclaration>
+                    </classBodyDeclaration>
+                    <classBodyDeclaration>
+                        <classMemberDeclaration>
+                            <fieldDeclaration>
+                                <unannType>
+                                    <unannPrimitiveType>
+                                        <numericType>
+                                            <integralType>
+                                                <t>int</t>
+                                            </integralType>
+                                        </numericType>
+                                    </unannPrimitiveType>
+                                </unannType>
+                                <variableDeclaratorList>
+                                    <variableDeclarator>
+                                        <variableDeclaratorId>
+                                            <t>y</t>
+                                        </variableDeclaratorId>
+                                    </variableDeclarator>
+                                </variableDeclaratorList>
+                                <t>;</t>
+                            </fieldDeclaration>
+                        </classMemberDeclaration>
+                    </classBodyDeclaration>
+                    <classBodyDeclaration>
+                        <classMemberDeclaration>
                             <methodDeclaration>
                                 <methodHeader>
                                     <result>
@@ -168,41 +194,6 @@
                                     <methodDeclarator>
                                         <t>sum</t>
                                         <t>(</t>
-                                        <formalParameterList>
-                                            <formalParameters>
-                                                <formalParameter>
-                                                    <unannType>
-                                                        <unannPrimitiveType>
-                                                            <numericType>
-                                                                <integralType>
-                                                                    <t>int</t>
-                                                                </integralType>
-                                                            </numericType>
-                                                        </unannPrimitiveType>
-                                                    </unannType>
-                                                    <variableDeclaratorId>
-                                                        <t>x</t>
-                                                    </variableDeclaratorId>
-                                                </formalParameter>
-                                            </formalParameters>
-                                            <t>,</t>
-                                            <lastFormalParameter>
-                                                <formalParameter>
-                                                    <unannType>
-                                                        <unannPrimitiveType>
-                                                            <numericType>
-                                                                <integralType>
-                                                                    <t>int</t>
-                                                                </integralType>
-                                                            </numericType>
-                                                        </unannPrimitiveType>
-                                                    </unannType>
-                                                    <variableDeclaratorId>
-                                                        <t>y</t>
-                                                    </variableDeclaratorId>
-                                                </formalParameter>
-                                            </lastFormalParameter>
-                                        </formalParameterList>
                                         <t>)</t>
                                     </methodDeclarator>
                                 </methodHeader>

@@ -220,7 +220,7 @@ typeSpecifier
     ;
 
 structOrUnionSpecifier
-    :   structOrUnion Identifier? '{' structDeclarationList '}'
+    :   structOrUnion Identifier? '{' structDeclarationList? '}' // adding support to empty structures from GCC 4.0+ C language
     |   structOrUnion Identifier
     ;
 

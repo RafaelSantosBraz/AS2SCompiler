@@ -1,11 +1,15 @@
 class Principal {
   void something() {
-    new Goal().sum(40, 2);   
+    Goal g = new Goal();
+    g.sum();
   }
 }
 
 class Goal {
-  int sum(int x, int y) {
+  int x;
+  int y;
+
+  int sum() {
     return x + y;
   }
 }

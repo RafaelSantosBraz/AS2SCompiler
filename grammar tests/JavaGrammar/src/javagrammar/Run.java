@@ -5,14 +5,12 @@
  */
 package javagrammar;
 
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.HeadlessException;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Collections;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -21,11 +19,8 @@ import org.antlr.v4.gui.TreeViewer;
 import org.antlr.v4.runtime.ANTLRFileStream;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.TokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
-import org.antlr.v4.runtime.tree.ParseTreeWalker;
-import org.antlr.v4.runtime.tree.TerminalNode;
 import parser.*;
 import xmlgenerator.CSTtoXMLConverter;
 
@@ -36,13 +31,12 @@ import xmlgenerator.CSTtoXMLConverter;
 public class Run {
 
     public static void main(String[] args) throws IOException {
-        String filename = "test.java";
-        CharStream stream = new ANTLRFileStream(filename);
-        JavaGrammarLexer lexer = new JavaGrammarLexer(stream);            //Lexer
-        TokenStream tokens = new CommonTokenStream(lexer);  //nextToken 
-        JavaGrammarParser parser = new JavaGrammarParser(tokens);         //Parser
+        CharStream stream = new ANTLRFileStream("test.java");
+        JavaGrammarLexer lexer = new JavaGrammarLexer(stream);
+        TokenStream tokens = new CommonTokenStream(lexer);
+        JavaGrammarParser parser = new JavaGrammarParser(tokens);
         JavaGrammarParser.CompilationUnitContext prog
-                = parser.compilationUnit();        //Exec Parser prog        
+                = parser.compilationUnit();       
         showParseTreeFrame(prog, parser);
         CSTtoXMLConverter.generateXMLFileVersion(parser, prog, "result.xml");
     }
