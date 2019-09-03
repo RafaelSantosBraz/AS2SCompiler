@@ -25,11 +25,11 @@ public class XMLConverter<T> {
     }
 
     public boolean convertToFile(String outputPath) {
-
+        
         return true;
     }
 
-    public String convertToString(String outputPath) {
+    public String convertToString() {
         
         return null;
     }
