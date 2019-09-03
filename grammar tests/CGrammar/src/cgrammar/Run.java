@@ -38,7 +38,7 @@ public class Run {
         CGrammarParser.CompilationUnitContext prog
                 = parser.compilationUnit();
         showParseTreeFrame(prog, parser);
-        CSTtoXMLConverter.generateXMLFileVersion(parser, prog, "result.xml");
+        CSTtoXMLConverter.generateXMLFileVersion(parser, prog, "result.xml");                
     }
 
     private static void showParseTreeFrame(ParseTree tree, CGrammarParser parser) throws HeadlessException {

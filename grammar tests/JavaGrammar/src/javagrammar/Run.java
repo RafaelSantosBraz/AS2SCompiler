@@ -31,14 +31,14 @@ import xmlgenerator.CSTtoXMLConverter;
 public class Run {
 
     public static void main(String[] args) throws IOException {
-        CharStream stream = new ANTLRFileStream("test.java");
+        CharStream stream = new ANTLRFileStream("exemplo.java");
         JavaGrammarLexer lexer = new JavaGrammarLexer(stream);
         TokenStream tokens = new CommonTokenStream(lexer);
         JavaGrammarParser parser = new JavaGrammarParser(tokens);
         JavaGrammarParser.CompilationUnitContext prog
                 = parser.compilationUnit();       
         showParseTreeFrame(prog, parser);
-        CSTtoXMLConverter.generateXMLFileVersion(parser, prog, "result.xml");
+        CSTtoXMLConverter.generateXMLFileVersion(parser, prog, "result.xml");        
     }
 
     private static void showParseTreeFrame(ParseTree tree, JavaGrammarParser parser) throws HeadlessException {
@@ -47,7 +47,7 @@ public class Run {
                 parser.getRuleNames()), tree);
         viewr.setScale(1);
         JPanel panel = new JPanel();
-        panel.add(viewr);        
+        panel.add(viewr);
         JScrollPane scroll = new JScrollPane(panel);
         scroll.setAutoscrolls(true);
         frame.add(scroll);
@@ -55,10 +55,10 @@ public class Run {
         frame.setState(JFrame.MAXIMIZED_BOTH);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
-        panelToImagem(panel);        
+        panelToImagem(panel);
     }
-    
-    private static void panelToImagem(JPanel panel){
+
+    private static void panelToImagem(JPanel panel) {
         BufferedImage image = new BufferedImage(panel.getWidth(), panel.getHeight(), BufferedImage.TYPE_INT_ARGB);
         Graphics g = image.createGraphics();
         panel.paint(g);
