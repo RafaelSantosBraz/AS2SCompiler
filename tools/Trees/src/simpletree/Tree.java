@@ -8,24 +8,25 @@ package simpletree;
 /**
  *
  * @author Rafael Braz
+ * @param <T>
  */
-public class Tree {
+public class Tree<T> {
 
-    private Node root;
+    private Node<T> root;
 
     public Tree() {
-        root = new Node();
+        root = new Node<>();
     }
 
-    public Tree(NodeData nodeData) {
-        root = new Node(nodeData);
+    public Tree(T nodeData) {
+        root = new Node<>(nodeData);
     }
 
-    public Node getRoot() {
+    public Node<T> getRoot() {
         return root;
     }
 
-    public void setRoot(Node root) {
+    public void setRoot(Node<T> root) {
         this.root = root;
     }
 

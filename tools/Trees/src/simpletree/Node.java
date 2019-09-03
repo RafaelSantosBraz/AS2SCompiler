@@ -11,26 +11,27 @@ import java.util.List;
 /**
  *
  * @author Rafael Braz
+ * @param <T>
  */
-public class Node {
+public class Node<T> {
 
-    private NodeData nodeData;
-    private Node parent;
-    private List<Node> children;
+    private T nodeData;
+    private Node<T> parent;
+    private List<Node<T>> children;
 
     public Node() {
-        nodeData = new NodeData();
+        nodeData = null;
         parent = null;
         children = new ArrayList<>();
     }
 
-    public Node(NodeData nodeData) {
+    public Node(T nodeData) {
         this.nodeData = nodeData;
         parent = null;
         children = new ArrayList<>();
     }
 
-    public NodeData getNodeData() {
+    public T getNodeData() {
         return nodeData;
     }
 
@@ -38,11 +39,11 @@ public class Node {
         return parent;
     }
 
-    public List<Node> getChildren() {
+    public List<Node<T>> getChildren() {
         return children;
     }
 
-    public void setNodeData(NodeData nodeData) {
+    public void setNodeData(T nodeData) {
         this.nodeData = nodeData;
     }
 
@@ -50,7 +51,7 @@ public class Node {
         this.parent = parent;
     }
 
-    public void setChildren(List<Node> children) {
+    public void setChildren(List<Node<T>> children) {
         this.children = children;
     }
 
