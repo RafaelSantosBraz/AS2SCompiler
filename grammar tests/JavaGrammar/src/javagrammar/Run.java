@@ -38,7 +38,12 @@ public class Run {
         JavaGrammarParser.CompilationUnitContext prog
                 = parser.compilationUnit();       
         showParseTreeFrame(prog, parser);
-        CSTtoXMLConverter.generateXMLFileVersion(parser, prog, "result.xml");        
+        //CSTtoXMLConverter.generateXMLFileVersion(parser, prog, "result.xml");        
+        CSTtoTree conv = new CSTtoTree();
+        conv.startVisiting(prog, conv.getTree().getRoot());        
+        conv.getTree().getTreeAsIndexOrderedList().forEach((t) -> {
+            System.out.println(t.getNodeData().getText() + " : " + t.getNodeData().getIndex());
+        });
     }
 
     private static void showParseTreeFrame(ParseTree tree, JavaGrammarParser parser) throws HeadlessException {

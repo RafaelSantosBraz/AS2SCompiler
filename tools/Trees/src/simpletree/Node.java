@@ -31,11 +31,21 @@ public class Node<T> {
         children = new ArrayList<>();
     }
 
+    public Node(Node<T> parent) {
+        nodeData = null;
+        this.parent = parent;
+        children = new ArrayList<>();
+    }
+
+    public void addChild(Node<T> child) {
+        children.add(child);
+    }
+
     public T getNodeData() {
         return nodeData;
     }
 
-    public Node getParent() {
+    public Node<T> getParent() {
         return parent;
     }
 
@@ -47,7 +57,7 @@ public class Node<T> {
         this.nodeData = nodeData;
     }
 
-    public void setParent(Node parent) {
+    public void setParent(Node<T> parent) {
         this.parent = parent;
     }
 

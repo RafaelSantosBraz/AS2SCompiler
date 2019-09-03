@@ -24,36 +24,4 @@ public class UniversalToken extends TokenAttributes {
         column = ABSTRACT_NODE_COLUMN;
     }
 
-    public int getIndex() {
-        return index;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public int getType() {
-        return type;
-    }
-
-    public int getLine() {
-        return line;
-    }
-
-    public int getColumn() {
-        return column;
-    }
-
-    public void setText(String text) {
-        if (text == null) {
-            this.text = "";
-            return;
-        }
-        this.text = text;
-    }
-
-    public void setType(int type) {
-        this.type = type;
-    }
-
 }
