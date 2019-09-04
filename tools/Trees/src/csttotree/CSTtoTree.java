@@ -17,13 +17,13 @@ import simpletree.*;
  * @author Rafael Braz
  */
 public class CSTtoTree {
-    
+
     private final Tree<TokenAttributes> tree;
-    
+
     public CSTtoTree() {
         tree = new Tree<>();
     }
-    
+
     public void startVisiting(ParseTree visitingNode, Node<TokenAttributes> parent) {
         visit(visitingNode, parent);
         Node<TokenAttributes> newRoot = tree.getRoot().getChildren().get(0);
@@ -36,7 +36,7 @@ public class CSTtoTree {
             }
         });
     }
-    
+
     private void visit(ParseTree visitingNode, Node<TokenAttributes> parent) {
         Object payload = visitingNode.getPayload();
         Node<TokenAttributes> currentNode = tree.createNode(parent);
@@ -51,14 +51,17 @@ public class CSTtoTree {
         Token token = (Token) payload;
         currentNode.setNodeData(new ConcreteToken(-1, token.getText(), token.getType(), token.getLine(), token.getCharPositionInLine()));
     }
-    
+
     private String getRuleRealName(RuleContext rule) {
         String s = rule.getClass().getSimpleName();
-        return s.substring(0, s.length() - 7);
+        if (s.endsWith("Context")) {
+            return s.substring(0, s.length() - 7);
+        }
+        return s;
     }
-    
+
     public Tree<TokenAttributes> getTree() {
         return tree;
     }
-    
+
 }

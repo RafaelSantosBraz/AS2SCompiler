@@ -5,6 +5,8 @@
  */
 package javagrammar;
 
+import converter.XMLConverter;
+import cstecst.TokenAttributes;
 import csttotree.CSTtoTree;
 import java.awt.Graphics;
 import java.awt.HeadlessException;
@@ -36,10 +38,12 @@ public class Run {
         TokenStream tokens = new CommonTokenStream(lexer);
         JavaGrammarParser parser = new JavaGrammarParser(tokens);
         JavaGrammarParser.CompilationUnitContext prog
-                = parser.compilationUnit();       
+                = parser.compilationUnit();
         showParseTreeFrame(prog, parser);     
         CSTtoTree conv = new CSTtoTree();
-        conv.startVisiting(prog, conv.getTree().getRoot());                
+        conv.startVisiting(prog, conv.getTree().getRoot());
+        XMLConverter xml = new XMLConverter(conv.getTree());
+        xml.convertToFile("cstemxml.xml");
     }
 
     private static void showParseTreeFrame(ParseTree tree, JavaGrammarParser parser) throws HeadlessException {
