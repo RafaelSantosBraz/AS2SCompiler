@@ -3,11 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package parser;
+package csttotree;
 
 import cstecst.*;
 import java.util.ArrayList;
-import java.util.List;
 import org.antlr.v4.runtime.RuleContext;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -19,14 +18,13 @@ import simpletree.*;
  */
 public class CSTtoTree {
     
-    private Tree<TokenAttributes> tree;
+    private final Tree<TokenAttributes> tree;
     
     public CSTtoTree() {
         tree = new Tree<>();
     }
     
     public void startVisiting(ParseTree visitingNode, Node<TokenAttributes> parent) {
-        tree = new Tree<>();
         visit(visitingNode, parent);
         Node<TokenAttributes> newRoot = tree.getRoot().getChildren().get(0);
         newRoot.setParent(null);

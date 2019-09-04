@@ -5,6 +5,7 @@
  */
 package cgrammar;
 
+import csttotree.CSTtoTree;
 import java.awt.Graphics;
 import java.awt.HeadlessException;
 import java.awt.image.BufferedImage;
@@ -22,7 +23,6 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.TokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import parser.*;
-import xmlgenerator.CSTtoXMLConverter;
 
 /**
  *
@@ -37,8 +37,9 @@ public class Run {
         CGrammarParser parser = new CGrammarParser(tokens);
         CGrammarParser.CompilationUnitContext prog
                 = parser.compilationUnit();
-        showParseTreeFrame(prog, parser);
-        CSTtoXMLConverter.generateXMLFileVersion(parser, prog, "result.xml");                
+        showParseTreeFrame(prog, parser);     
+        CSTtoTree conv = new CSTtoTree();
+        conv.startVisiting(prog, conv.getTree().getRoot());
     }
 
     private static void showParseTreeFrame(ParseTree tree, CGrammarParser parser) throws HeadlessException {

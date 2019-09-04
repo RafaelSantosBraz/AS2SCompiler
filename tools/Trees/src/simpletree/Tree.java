@@ -41,11 +41,6 @@ public class Tree<T> {
         return currentNode;
     }
 
-    private int getNodeIndexNumber(Node<T> node) {
-        ArrayList<Node<T>> list = (ArrayList<Node<T>>) getTreeAsIndexOrderedList();
-        return list.indexOf(node) + 1;
-    }
-
     public List<Node<T>> getTreeAsIndexOrderedList() {
         ArrayList<Node<T>> tempList = new ArrayList<>();
         tempList.add(root);
