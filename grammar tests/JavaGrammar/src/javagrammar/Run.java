@@ -5,6 +5,7 @@
  */
 package javagrammar;
 
+import converter.DOTConverter;
 import converter.XMLConverter;
 import cstecst.TokenAttributes;
 import csttotree.CSTtoTree;
@@ -39,11 +40,13 @@ public class Run {
         JavaGrammarParser parser = new JavaGrammarParser(tokens);
         JavaGrammarParser.CompilationUnitContext prog
                 = parser.compilationUnit();
-        showParseTreeFrame(prog, parser);     
+        //showParseTreeFrame(prog, parser);     
         CSTtoTree conv = new CSTtoTree();
         conv.startVisiting(prog, conv.getTree().getRoot());
-        XMLConverter xml = new XMLConverter(conv.getTree());
-        xml.convertToFile("cstemxml.xml");
+        //XMLConverter xml = new XMLConverter(conv.getTree());
+        //xml.convertToFile("cstemxml.xml");
+        DOTConverter<TokenAttributes> dot = new DOTConverter<>(conv.getTree());
+        dot.convertToFile("cstemdot.gv");
     }
 
     private static void showParseTreeFrame(ParseTree tree, JavaGrammarParser parser) throws HeadlessException {

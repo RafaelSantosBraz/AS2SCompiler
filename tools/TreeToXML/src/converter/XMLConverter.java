@@ -9,7 +9,6 @@ import cstecst.TokenAttributes;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import simpletree.*;
 
 /**
@@ -32,8 +31,7 @@ public class XMLConverter {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputPath, false))) {
             writer.write("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>");
             writer.newLine();
-            convertion(tree.getRoot(), writer);
-            return true;
+            return convertion(tree.getRoot(), writer);
         } catch (IOException e) {
             return false;
         }
@@ -58,26 +56,6 @@ public class XMLConverter {
         } catch (IOException e) {
             return false;
         }
-    }
-
-    private ArrayList<String> convertNode(Node<TokenAttributes> node) {
-        ArrayList<String> lines = new ArrayList<>();
-        if (node != null && node.getNodeData() != null) {
-            lines.add("<childElement>");
-            lines.add("<token column=\"" + node.getNodeData().getColumn() + "\" index=\"" + node.getNodeData().getIndex() + "\" line=\"" + node.getNodeData().getLine() + "\" text=\"" + node.getNodeData().getText() + "\" type=\"" + node.getNodeData().getType() + "\"/>");
-            if (!node.getChildren().isEmpty()) {
-                node.getChildren().forEach((t) -> {
-                    lines.addAll(convertNode(t));
-                });
-            }
-            lines.add("</childElement>");
-        }
-        return lines;
-    }
-
-    public String convertToString() {
-
-        return null;
     }
 
     public Tree<TokenAttributes> getTree() {

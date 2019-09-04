@@ -68,3 +68,5 @@ $RECYCLE.BIN/
 /tools/Trees/build/
 /tools/Trees/dist/
 /tools/TreeToXML/build/
+/tools/TreeToDOT/nbproject/private/
+/tools/TreeToDOT/build/
