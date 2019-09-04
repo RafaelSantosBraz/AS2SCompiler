@@ -70,3 +70,4 @@ $RECYCLE.BIN/
 /tools/TreeToXML/build/
 /tools/TreeToDOT/nbproject/private/
 /tools/TreeToDOT/build/
+/tools/XMLtoTree/nbproject/private/

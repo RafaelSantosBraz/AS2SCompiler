@@ -6,7 +6,7 @@
 package cstecst;
 
 /**
- *
+ * Represents concrete tokens (terminal nodes) in eCSTs and CSTs
  * @author Rafael Braz
  */
 public class ConcreteToken extends TokenAttributes {

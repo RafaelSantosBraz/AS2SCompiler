@@ -6,6 +6,8 @@
 package cstecst;
 
 /**
+ * Abstract class to handle the defined tokens' attributes. It is necessary to
+ * use the Concrete or Universal classes
  *
  * @author Rafael Braz
  */
@@ -14,10 +16,26 @@ public abstract class TokenAttributes {
     public static final int ABSTRACT_NODE_LINE = -1;
     public static final int ABSTRACT_NODE_COLUMN = 0;
 
+    /**
+     * The position of the node in the ordered tree
+     */
     protected int index;
+    /**
+     * The real value of concrete tokens or the rule name of Universal nodes
+     */
     protected String text;
+    /**
+     * the grammar classification of the token - parser rule number or token
+     * number
+     */
     protected int type;
+    /**
+     * The line number of the token
+     */
     protected int line;
+    /**
+     * The column number of the token
+     */
     protected int column;
 
     public TokenAttributes() {
@@ -54,6 +72,6 @@ public abstract class TokenAttributes {
 
     public void setType(int type) {
         this.type = type;
-    }    
+    }
 
 }

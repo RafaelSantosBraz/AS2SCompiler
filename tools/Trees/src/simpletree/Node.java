@@ -9,14 +9,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Represents each one of the nodes of a simple tree structure
  *
  * @author Rafael Braz
  * @param <T>
  */
 public class Node<T> {
 
+    /**
+     * Represents the stored data -- in CSTs and eCSTs it is going to be a
+     * ConcreteToken or a UniversalToken
+     */
     private T nodeData;
+    /**
+     * The parent node of the current node in the tree
+     */
     private Node<T> parent;
+    /**
+     * All the children nodes of the current node
+     */
     private List<Node<T>> children;
 
     public Node() {

@@ -13,7 +13,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import simpletree.*;
 
 /**
- *
+ * Converts a given ANTLR4 ParseTree to a manipulable tree structure (simple tree)
  * @author Rafael Braz
  */
 public class CSTtoTree {
@@ -23,7 +23,13 @@ public class CSTtoTree {
     public CSTtoTree() {
         tree = new Tree<>();
     }
-
+    
+    /**
+     * Start the convertion process from the root node.
+     * The new root node is corrected and all indexes are calculated
+     * @param visitingNode
+     * @param parent 
+     */
     public void startVisiting(ParseTree visitingNode, Node<TokenAttributes> parent) {
         visit(visitingNode, parent);
         Node<TokenAttributes> newRoot = tree.getRoot().getChildren().get(0);
@@ -37,6 +43,11 @@ public class CSTtoTree {
         });
     }
 
+    /**
+     * Recursive method for visiting all tree nodes
+     * @param visitingNode
+     * @param parent 
+     */
     private void visit(ParseTree visitingNode, Node<TokenAttributes> parent) {
         Object payload = visitingNode.getPayload();
         Node<TokenAttributes> currentNode = tree.createNode(parent);
@@ -52,6 +63,11 @@ public class CSTtoTree {
         currentNode.setNodeData(new ConcreteToken(-1, token.getText(), token.getType(), token.getLine(), token.getCharPositionInLine()));
     }
 
+    /**
+     * Changes the ANTLR4 rule name to CSTs and eCSTs style
+     * @param rule
+     * @return the corrected rule name
+     */
     private String getRuleRealName(RuleContext rule) {
         String s = rule.getClass().getSimpleName();
         if (s.endsWith("Context")) {
