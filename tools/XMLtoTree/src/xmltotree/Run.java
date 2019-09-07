@@ -5,6 +5,8 @@
  */
 package xmltotree;
 
+import converter.TreeXMLConverter;
+
 /**
  *
  * @author Rafael Braz
@@ -15,7 +17,8 @@ public class Run {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
+        TreeXMLConverter conv = new TreeXMLConverter();
+        conv.convertFromFile("D:\\GitHub\\StS-Compilation-Framework\\grammar tests\\JavaGrammar\\cstemxml.xml");
     }
     
 }
