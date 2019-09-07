@@ -5,7 +5,10 @@
  */
 package xmltotree;
 
+import converter.DOTConverter;
 import converter.TreeXMLConverter;
+import cstecst.TokenAttributes;
+import simpletree.Tree;
 
 /**
  *
@@ -18,7 +21,10 @@ public class Run {
      */
     public static void main(String[] args) {
         TreeXMLConverter conv = new TreeXMLConverter();
-        conv.convertFromFile("D:\\GitHub\\StS-Compilation-Framework\\grammar tests\\JavaGrammar\\cstemxml.xml");
+        conv.convertFromFile("D:\\GitHub\\StS-Compilation-Framework\\eCSTgenerator\\output\\teste.java_eCST_V1567882491289.xml");
+        Tree<TokenAttributes> tree = conv.getTree();   
+        DOTConverter<TokenAttributes> dot = new DOTConverter<>(tree);
+        dot.convertToFile("D:\\GitHub\\StS-Compilation-Framework\\eCST.gv");
     }
     
 }

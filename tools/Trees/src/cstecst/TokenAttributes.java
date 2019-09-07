@@ -13,8 +13,8 @@ package cstecst;
  */
 public abstract class TokenAttributes {
 
-    public static final int ABSTRACT_NODE_LINE = -1;
-    public static final int ABSTRACT_NODE_COLUMN = 0;
+    public static final int ABSTRACT_NODE_LINE = 0;
+    public static final int ABSTRACT_NODE_COLUMN = -1;
 
     /**
      * The position of the node in the ordered tree

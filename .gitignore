@@ -72,3 +72,6 @@ $RECYCLE.BIN/
 /tools/TreeToDOT/build/
 /tools/XMLtoTree/nbproject/private/
 /tools/XMLtoTree/build/
+/tools/ExportCSTeCSTXML/nbproject/private/
+/tools/ExportCSTeCSTXML/build/
+/tools/ExportCSTeCSTXML/dist/

@@ -13,7 +13,7 @@ public class UniversalToken extends TokenAttributes {
 
     public UniversalToken(String text, int type) {
         super();
-        index = ABSTRACT_NODE_LINE;
+        index = ABSTRACT_NODE_COLUMN;
         if (text == null) {
             this.text = "";
         } else {
