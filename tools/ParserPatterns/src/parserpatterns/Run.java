@@ -3,9 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package xmltotree;
-
-import converter.TreeXMLConverter;
+package parserpatterns;
 
 /**
  *
@@ -17,8 +15,7 @@ public class Run {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        TreeXMLConverter conv = new TreeXMLConverter();
-        conv.convertFromFile("D:\\GitHub\\StS-Compilation-Framework\\eCSTgenerator\\output\\teste.java_eCST_V1567882491289.xml");
+        // TODO code application logic here
     }
     
 }
