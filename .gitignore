@@ -76,3 +76,5 @@ $RECYCLE.BIN/
 /tools/ExportCSTeCSTXML/build/
 /tools/ExportCSTeCSTXML/dist/
 /tools/ParserPatterns/nbproject/private/
+/tools/JavaParser/nbproject/private/
+/tools/JavaParser/build/

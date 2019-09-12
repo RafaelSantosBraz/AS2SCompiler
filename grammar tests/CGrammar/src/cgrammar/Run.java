@@ -31,7 +31,7 @@ import parser.*;
 public class Run {
 
     public static void main(String[] args) throws IOException {
-        CharStream stream = new ANTLRFileStream("test.c");
+        CharStream stream = new ANTLRFileStream("teste.c");
         CGrammarLexer lexer = new CGrammarLexer(stream);
         TokenStream tokens = new CommonTokenStream(lexer);
         CGrammarParser parser = new CGrammarParser(tokens);

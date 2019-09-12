@@ -52,6 +52,10 @@ public class Node<T> {
         children.add(child);
     }
 
+    public void addChildren(List<Node<T>> children){
+        this.children.addAll(children);
+    }
+    
     public T getNodeData() {
         return nodeData;
     }

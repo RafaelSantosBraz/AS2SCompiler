@@ -34,19 +34,19 @@ import parser.*;
 public class Run {
 
     public static void main(String[] args) throws IOException {
-        CharStream stream = new ANTLRFileStream("exemplo.java");
+        CharStream stream = new ANTLRFileStream("test.java");
         JavaGrammarLexer lexer = new JavaGrammarLexer(stream);
         TokenStream tokens = new CommonTokenStream(lexer);
         JavaGrammarParser parser = new JavaGrammarParser(tokens);
         JavaGrammarParser.CompilationUnitContext prog
                 = parser.compilationUnit();
-        //showParseTreeFrame(prog, parser);     
-        CSTtoTree conv = new CSTtoTree();
-        conv.startVisiting(prog, conv.getTree().getRoot());
+        showParseTreeFrame(prog, parser);     
+        //CSTtoTree conv = new CSTtoTree();
+        //conv.startVisiting(prog, conv.getTree().getRoot());
         //XMLConverter xml = new XMLConverter(conv.getTree());
         //xml.convertToFile("cstemxml.xml");
-        DOTConverter<TokenAttributes> dot = new DOTConverter<>(conv.getTree());
-        dot.convertToFile("cstemdot.gv");
+        //DOTConverter<TokenAttributes> dot = new DOTConverter<>(conv.getTree());
+        //dot.convertToFile("cstemdot.gv");
     }
 
     private static void showParseTreeFrame(ParseTree tree, JavaGrammarParser parser) throws HeadlessException {

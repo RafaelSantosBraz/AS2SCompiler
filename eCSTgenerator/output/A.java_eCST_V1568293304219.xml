@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<childElement>
+<token column="-1" index="-1" line="0" text="COMPILATION_UNIT" type="104"/>
+<childElement>
+<token column="-1" index="-1" line="0" text="PACKAGE_DECL" type="106"/>
+<childElement>
+<token column="-1" index="-1" line="0" text="INTERFACE_UNIT_DECL" type="108"/>
+<childElement>
+<token column="-1" index="-1" line="0" text="MODIFIER_LIST" type="139"/>
+<childElement>
+<token column="0" index="0" line="1" text="public" type="87"/>
+</childElement>
+</childElement>
+<childElement>
+<token column="-1" index="-1" line="0" text="NAME" type="118"/>
+<childElement>
+<token column="17" index="4" line="1" text="A" type="149"/>
+</childElement>
+</childElement>
+<childElement>
+<token column="19" index="6" line="1" text="{" type="23"/>
+</childElement>
+<childElement>
+<token column="-1" index="-1" line="0" text="FUNCTION_DECL" type="115"/>
+<childElement>
+<token column="-1" index="-1" line="0" text="MODIFIER_LIST" type="139"/>
+<childElement>
+<token column="4" index="13" line="2" text="public" type="87"/>
+</childElement>
+</childElement>
+<childElement>
+<token column="-1" index="-1" line="0" text="TYPE" type="119"/>
+<childElement>
+<token column="11" index="15" line="2" text="void" type="101"/>
+</childElement>
+</childElement>
+<childElement>
+<token column="-1" index="-1" line="0" text="NAME" type="118"/>
+<childElement>
+<token column="16" index="17" line="2" text="teste" type="149"/>
+</childElement>
+</childElement>
+<childElement>
+<token column="21" index="18" line="2" text="FORMAL_PARAM_LIST" type="116"/>
+</childElement>
+</childElement>
+<childElement>
+<token column="0" index="23" line="3" text="}" type="42"/>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
