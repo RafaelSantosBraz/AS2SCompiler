@@ -7,9 +7,9 @@ package parser;
 
 import converter.DOTConverter;
 import converter.XMLConverter;
-import cstecst.TokenAttributes;
-import cstecst.UniversalToken;
-import csttotree.CSTtoTree;
+import trees.cstecst.TokenAttributes;
+import trees.cstecst.UniversalToken;
+import trees.csttotree.CSTtoTree;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,8 +20,8 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.TokenStream;
-import simpletree.Node;
-import simpletree.Tree;
+import trees.simpletree.Node;
+import trees.simpletree.Tree;
 
 /**
  *
