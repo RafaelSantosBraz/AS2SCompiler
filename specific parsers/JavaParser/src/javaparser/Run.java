@@ -18,9 +18,9 @@ public class Run {
      */
     public static void main(String[] args) {
         JavaParser parser = new JavaParser();
-        parser.startParsing(
-                "D:\\GitHub\\StS-Compilation-Framework\\eCSTgenerator\\input",
-                "D:\\GitHub\\StS-Compilation-Framework\\eCSTgenerator\\output"
+       parser.startParsing(
+                "D:\\GitHub\\StS-Compilation-Framework\\specific parsers\\JavaParser\\test\\input",
+                "D:\\GitHub\\StS-Compilation-Framework\\specific parsers\\JavaParser\\test\\output"
         );
     }
 

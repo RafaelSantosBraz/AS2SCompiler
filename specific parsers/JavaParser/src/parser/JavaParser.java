@@ -6,7 +6,9 @@
 package parser;
 
 import converter.DOTConverter;
+import converter.XMLConverter;
 import cstecst.TokenAttributes;
+import cstecst.UniversalToken;
 import csttotree.CSTtoTree;
 import java.io.File;
 import java.io.IOException;
@@ -18,6 +20,7 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.TokenStream;
+import simpletree.Node;
 import simpletree.Tree;
 
 /**
@@ -25,18 +28,19 @@ import simpletree.Tree;
  * @author Rafael Braz
  */
 public class JavaParser {
-
+    
     private final List<ParserRuleContext> rootRules;
     private final Tree<TokenAttributes> tree;
-
+    
     public JavaParser() {
         rootRules = new ArrayList<>();
         tree = new Tree<>();
     }
-
+    
     public boolean startParsing(String inputDir, String outputDir) {
         try {
             File directory = new File(inputDir);
+            File outputDirectory = new File(outputDir);
             File[] files = directory.listFiles((File f) -> {
                 return f.isFile() && f.getName().endsWith(".java");
             });
@@ -46,19 +50,16 @@ public class JavaParser {
                 }
             }
             treeUnion(getTrees());
-            if (exportCSTDOT(tree, outputDir + "CST.gv")){
-                return false;
-            }          
-            return true;
+            return exportCSTDOT(tree, outputDirectory.getAbsolutePath() + File.separator + "CST.gv") && exportCSTXML(tree, outputDirectory.getAbsolutePath() + File.separator + "CST.xml");
         } catch (RecognitionException e) {
             return false;
         }
     }
-
+    
     private boolean semanticChecking(File f) {
         return true;
     }
-
+    
     private boolean syntaxChecking(File f) {
         try {
             CharStream stream = new ANTLRFileStream(f.getAbsolutePath(), "UTF-8");
@@ -71,7 +72,7 @@ public class JavaParser {
             return false;
         }
     }
-
+    
     private ArrayList<Tree<TokenAttributes>> getTrees() {
         ArrayList<Tree<TokenAttributes>> trees = new ArrayList<>();
         rootRules.stream().map((r) -> {
@@ -83,24 +84,28 @@ public class JavaParser {
         });
         return trees;
     }
-
+    
     private void treeUnion(ArrayList<Tree<TokenAttributes>> trees) {
+        tree.setRoot(new Node<>(new UniversalToken("CompilationUnit", 31)));
         trees.forEach((t) -> {
             tree.getRoot().addChildren(t.getRoot().getChildren());
         });
     }
-
+    
     private boolean exportCSTDOT(Tree<TokenAttributes> tree, String outputPath) {
         return new DOTConverter<>(tree).convertToFile(outputPath);
-    }    
+    }
+    
+    private boolean exportCSTXML(Tree<TokenAttributes> tree, String outputPath) {
+        return new XMLConverter(tree).convertToFile(outputPath);
+    }
     
     public List<ParserRuleContext> getRootRules() {
         return rootRules;
     }
-
+    
     public Tree<TokenAttributes> getTree() {
         return tree;
     }
-    
     
 }
