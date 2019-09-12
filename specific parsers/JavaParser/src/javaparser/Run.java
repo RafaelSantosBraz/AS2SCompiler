@@ -6,6 +6,7 @@
 package javaparser;
 
 import converter.TreeXMLConverter;
+import converter.XMLDOTConverter;
 import parser.JavaParser;
 
 /**
@@ -22,7 +23,8 @@ public class Run {
         parser.startParsing(
                 "D:\\GitHub\\StS-Compilation-Framework\\specific parsers\\JavaParser\\test\\input",
                 "D:\\GitHub\\StS-Compilation-Framework\\specific parsers\\JavaParser\\test\\output"
-        );       
+        );
+        new XMLDOTConverter().convertFromFile("", "");
     }
 
 }
