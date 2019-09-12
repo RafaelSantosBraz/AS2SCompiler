@@ -5,6 +5,7 @@
  */
 package converter;
 
+import java.io.File;
 import trees.cstecst.TokenAttributes;
 
 /**
@@ -20,5 +21,26 @@ public class XMLDOTConverter {
         }
         DOTConverter<TokenAttributes> convDOT = new DOTConverter<>(convXML.getTree());
         return convDOT.convertToFile(outputPath);
+    }
+
+    public boolean convertFromDir(String inputDir, String outputDir) {
+        try {
+            File directory = new File(inputDir);
+            File outputDirectory = new File(outputDir);
+            File[] files = directory.listFiles((File f) -> {
+                return f.isFile() && f.getName().endsWith(".xml");
+            });
+            for (File f : files) {
+                if (!convertFromFile(
+                        f.getAbsolutePath(),
+                        outputDirectory.getAbsolutePath() + File.separator + f.getName() + ".gv"
+                )) {
+                    return false;
+                }
+            }
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

@@ -24,7 +24,10 @@ public class Run {
                 "D:\\GitHub\\StS-Compilation-Framework\\specific parsers\\JavaParser\\test\\input",
                 "D:\\GitHub\\StS-Compilation-Framework\\specific parsers\\JavaParser\\test\\output"
         );
-        new XMLDOTConverter().convertFromFile("", "");
+        new XMLDOTConverter().convertFromDir(
+                "D:\\GitHub\\StS-Compilation-Framework\\specific parsers\\JavaParser\\test\\temp\\output",
+                "D:\\GitHub\\StS-Compilation-Framework\\specific parsers\\JavaParser\\test\\ecst"
+        );
     }
 
 }
