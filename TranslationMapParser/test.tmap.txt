@@ -1,0 +1,32 @@
+"NormalClassDeclaration" -> {
+    "CONCRETE_UNIT_DECLARATION" = {
+        "NAME" = {
+            "ClassName".child.text
+        },
+        ? "EXTENDS" = {
+            "TYPE" = {
+                "NAME" = {
+                    "Superclass"."ClassType".child.text
+                }
+            }
+        },
+        ? rule("Superinterfaces", "Superinterfaces"."InterfaceTypeList".children("InterfaceType")),        
+        text("{"),
+        ? rule("ClassBody", "ClassBody".children("ClassBodyDeclaration")),
+        text("}")
+    }
+}
+
+"Superinterfaces" -> {
+    "IMPLEMENTS" = {
+        "TYPE" = {
+            "NAME" = {
+                "ClassType".child.text
+            }
+        }
+    }
+}
+
+"ClassBody" -> {
+    ? rule("ConstructorDeclaration", children)
+}

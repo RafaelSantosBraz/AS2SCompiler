@@ -1,4 +1,4 @@
-// Generated from D:\GitHub\StS-Compilation-Framework\tools\JavaParser\grammar\parser\JavaGrammar.g4 by ANTLR 4.6
+// Generated from D:\GitHub\StS-Compilation-Framework\specific parsers\JavaParser\grammar\parser\JavaGrammar.g4 by ANTLR 4.6
 
     package parser;
 

@@ -4,181 +4,202 @@
 <childElement>
 <token column="-1" index="-1" line="0" text="TypeDeclaration" type="39"/>
 <childElement>
-<token column="-1" index="-1" line="0" text="InterfaceDeclaration" type="98"/>
-<childElement>
-<token column="-1" index="-1" line="0" text="NormalInterfaceDeclaration" type="99"/>
-<childElement>
-<token column="-1" index="-1" line="0" text="InterfaceModifier" type="100"/>
-<childElement>
-<token column="0" index="9" line="1" text="public" type="35"/>
-</childElement>
-</childElement>
-<childElement>
-<token column="7" index="6" line="1" text="interface" type="28"/>
-</childElement>
-<childElement>
-<token column="17" index="7" line="1" text="A" type="102"/>
-</childElement>
-<childElement>
-<token column="-1" index="-1" line="0" text="InterfaceBody" type="102"/>
-<childElement>
-<token column="19" index="10" line="1" text="{" type="59"/>
-</childElement>
-<childElement>
-<token column="-1" index="-1" line="0" text="InterfaceMemberDeclaration" type="103"/>
-<childElement>
-<token column="-1" index="-1" line="0" text="InterfaceMethodDeclaration" type="106"/>
-<childElement>
-<token column="-1" index="-1" line="0" text="InterfaceMethodModifier" type="107"/>
-<childElement>
-<token column="4" index="17" line="2" text="public" type="35"/>
-</childElement>
-</childElement>
-<childElement>
-<token column="-1" index="-1" line="0" text="MethodHeader" type="71"/>
-<childElement>
-<token column="-1" index="-1" line="0" text="Result" type="72"/>
-<childElement>
-<token column="11" index="21" line="2" text="void" type="48"/>
-</childElement>
-</childElement>
-<childElement>
-<token column="-1" index="-1" line="0" text="MethodDeclarator" type="73"/>
-<childElement>
-<token column="16" index="22" line="2" text="teste" type="102"/>
-</childElement>
-<childElement>
-<token column="21" index="23" line="2" text="(" type="57"/>
-</childElement>
-<childElement>
-<token column="22" index="24" line="2" text=")" type="58"/>
-</childElement>
-</childElement>
-</childElement>
-<childElement>
-<token column="-1" index="-1" line="0" text="MethodBody" type="83"/>
-<childElement>
-<token column="23" index="20" line="2" text=";" type="63"/>
-</childElement>
-</childElement>
-</childElement>
-</childElement>
-<childElement>
-<token column="0" index="12" line="3" text="}" type="60"/>
-</childElement>
-</childElement>
-</childElement>
-</childElement>
-</childElement>
-<childElement>
-<token column="-1" index="-1" line="0" text="TypeDeclaration" type="39"/>
-<childElement>
 <token column="-1" index="-1" line="0" text="ClassDeclaration" type="40"/>
 <childElement>
 <token column="-1" index="-1" line="0" text="NormalClassDeclaration" type="41"/>
 <childElement>
-<token column="-1" index="-1" line="0" text="ClassModifier" type="42"/>
+<token column="-1" index="-1" line="0" text="ClassModifier" type="43"/>
 <childElement>
-<token column="0" index="10" line="1" text="public" type="35"/>
+<token column="0" index="11" line="1" text="public" type="35"/>
 </childElement>
 </childElement>
 <childElement>
 <token column="7" index="6" line="1" text="class" type="9"/>
 </childElement>
 <childElement>
-<token column="13" index="7" line="1" text="B" type="102"/>
+<token column="-1" index="-1" line="0" text="ClassName" type="42"/>
+<childElement>
+<token column="13" index="12" line="1" text="A" type="102"/>
+</childElement>
 </childElement>
 <childElement>
-<token column="-1" index="-1" line="0" text="Superinterfaces" type="46"/>
+<token column="-1" index="-1" line="0" text="Superclass" type="46"/>
 <childElement>
-<token column="15" index="11" line="1" text="implements" type="24"/>
+<token column="15" index="13" line="1" text="extends" type="17"/>
 </childElement>
 <childElement>
-<token column="-1" index="-1" line="0" text="InterfaceTypeList" type="47"/>
+<token column="-1" index="-1" line="0" text="ClassType" type="7"/>
+<childElement>
+<token column="23" index="22" line="1" text="B" type="102"/>
+</childElement>
+</childElement>
+</childElement>
+<childElement>
+<token column="-1" index="-1" line="0" text="Superinterfaces" type="47"/>
+<childElement>
+<token column="25" index="15" line="1" text="implements" type="24"/>
+</childElement>
+<childElement>
+<token column="-1" index="-1" line="0" text="InterfaceTypeList" type="48"/>
 <childElement>
 <token column="-1" index="-1" line="0" text="InterfaceType" type="10"/>
 <childElement>
 <token column="-1" index="-1" line="0" text="ClassType" type="7"/>
 <childElement>
-<token column="26" index="20" line="1" text="A" type="102"/>
+<token column="36" index="36" line="1" text="C" type="102"/>
+</childElement>
+</childElement>
+</childElement>
+<childElement>
+<token column="37" index="24" line="1" text="," type="64"/>
+</childElement>
+<childElement>
+<token column="-1" index="-1" line="0" text="InterfaceType" type="10"/>
+<childElement>
+<token column="-1" index="-1" line="0" text="ClassType" type="7"/>
+<childElement>
+<token column="39" index="37" line="1" text="D" type="102"/>
 </childElement>
 </childElement>
 </childElement>
 </childElement>
 </childElement>
 <childElement>
-<token column="-1" index="-1" line="0" text="ClassBody" type="48"/>
+<token column="-1" index="-1" line="0" text="ClassBody" type="49"/>
 <childElement>
-<token column="28" index="13" line="1" text="{" type="59"/>
+<token column="41" index="17" line="1" text="{" type="59"/>
 </childElement>
 <childElement>
-<token column="-1" index="-1" line="0" text="ClassBodyDeclaration" type="49"/>
+<token column="-1" index="-1" line="0" text="ClassBodyDeclaration" type="50"/>
 <childElement>
-<token column="-1" index="-1" line="0" text="ClassMemberDeclaration" type="50"/>
+<token column="-1" index="-1" line="0" text="ConstructorDeclaration" type="87"/>
 <childElement>
-<token column="-1" index="-1" line="0" text="MethodDeclaration" type="69"/>
+<token column="-1" index="-1" line="0" text="ConstructorModifier" type="88"/>
 <childElement>
-<token column="-1" index="-1" line="0" text="MethodModifier" type="70"/>
-<childElement>
-<token column="-1" index="-1" line="0" text="Annotation" type="114"/>
-<childElement>
-<token column="-1" index="-1" line="0" text="MarkerAnnotation" type="121"/>
-<childElement>
-<token column="4" index="37" line="2" text="@" type="103"/>
-</childElement>
-<childElement>
-<token column="-1" index="-1" line="0" text="TypeName" type="26"/>
-<childElement>
-<token column="5" index="39" line="2" text="Override" type="102"/>
-</childElement>
-</childElement>
-</childElement>
+<token column="4" index="38" line="3" text="public" type="35"/>
 </childElement>
 </childElement>
 <childElement>
-<token column="-1" index="-1" line="0" text="MethodModifier" type="70"/>
+<token column="-1" index="-1" line="0" text="ConstructorDeclarator" type="89"/>
 <childElement>
-<token column="4" index="26" line="3" text="public" type="35"/>
+<token column="-1" index="-1" line="0" text="SimpleTypeName" type="90"/>
+<childElement>
+<token column="11" index="51" line="3" text="A" type="102"/>
 </childElement>
 </childElement>
 <childElement>
-<token column="-1" index="-1" line="0" text="MethodHeader" type="71"/>
+<token column="12" index="40" line="3" text="(" type="57"/>
+</childElement>
 <childElement>
-<token column="-1" index="-1" line="0" text="Result" type="72"/>
-<childElement>
-<token column="11" index="31" line="3" text="void" type="48"/>
+<token column="13" index="41" line="3" text=")" type="58"/>
 </childElement>
 </childElement>
 <childElement>
-<token column="-1" index="-1" line="0" text="MethodDeclarator" type="73"/>
+<token column="-1" index="-1" line="0" text="ConstructorBody" type="91"/>
 <childElement>
-<token column="16" index="32" line="3" text="teste" type="102"/>
-</childElement>
-<childElement>
-<token column="21" index="33" line="3" text="(" type="57"/>
+<token column="15" index="42" line="3" text="{" type="59"/>
 </childElement>
 <childElement>
-<token column="22" index="34" line="3" text=")" type="58"/>
-</childElement>
-</childElement>
-</childElement>
-<childElement>
-<token column="-1" index="-1" line="0" text="MethodBody" type="83"/>
-<childElement>
-<token column="-1" index="-1" line="0" text="Block" type="125"/>
-<childElement>
-<token column="24" index="35" line="3" text="{" type="59"/>
-</childElement>
-<childElement>
-<token column="4" index="36" line="5" text="}" type="60"/>
-</childElement>
-</childElement>
+<token column="4" index="43" line="5" text="}" type="60"/>
 </childElement>
 </childElement>
 </childElement>
 </childElement>
 <childElement>
-<token column="0" index="15" line="6" text="}" type="60"/>
+<token column="-1" index="-1" line="0" text="ClassBodyDeclaration" type="50"/>
+<childElement>
+<token column="-1" index="-1" line="0" text="ClassMemberDeclaration" type="51"/>
+<childElement>
+<token column="-1" index="-1" line="0" text="FieldDeclaration" type="52"/>
+<childElement>
+<token column="-1" index="-1" line="0" text="FieldModifier" type="53"/>
+<childElement>
+<token column="4" index="52" line="7" text="public" type="35"/>
+</childElement>
+</childElement>
+<childElement>
+<token column="-1" index="-1" line="0" text="UnannType" type="58"/>
+<childElement>
+<token column="-1" index="-1" line="0" text="UnannPrimitiveType" type="59"/>
+<childElement>
+<token column="-1" index="-1" line="0" text="NumericType" type="2"/>
+<childElement>
+<token column="-1" index="-1" line="0" text="IntegralType" type="3"/>
+<childElement>
+<token column="11" index="69" line="7" text="int" type="27"/>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+<childElement>
+<token column="-1" index="-1" line="0" text="VariableDeclaratorList" type="54"/>
+<childElement>
+<token column="-1" index="-1" line="0" text="VariableDeclarator" type="55"/>
+<childElement>
+<token column="-1" index="-1" line="0" text="VariableDeclaratorId" type="56"/>
+<childElement>
+<token column="15" index="68" line="7" text="x" type="102"/>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+<childElement>
+<token column="16" index="47" line="7" text=";" type="63"/>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+<childElement>
+<token column="-1" index="-1" line="0" text="ClassBodyDeclaration" type="50"/>
+<childElement>
+<token column="-1" index="-1" line="0" text="ClassMemberDeclaration" type="51"/>
+<childElement>
+<token column="-1" index="-1" line="0" text="MethodDeclaration" type="70"/>
+<childElement>
+<token column="-1" index="-1" line="0" text="MethodModifier" type="71"/>
+<childElement>
+<token column="4" index="55" line="10" text="public" type="35"/>
+</childElement>
+</childElement>
+<childElement>
+<token column="-1" index="-1" line="0" text="MethodHeader" type="72"/>
+<childElement>
+<token column="-1" index="-1" line="0" text="Result" type="73"/>
+<childElement>
+<token column="11" index="61" line="10" text="void" type="48"/>
+</childElement>
+</childElement>
+<childElement>
+<token column="-1" index="-1" line="0" text="MethodDeclarator" type="74"/>
+<childElement>
+<token column="16" index="62" line="10" text="something" type="102"/>
+</childElement>
+<childElement>
+<token column="25" index="63" line="10" text="(" type="57"/>
+</childElement>
+<childElement>
+<token column="26" index="64" line="10" text=")" type="58"/>
+</childElement>
+</childElement>
+</childElement>
+<childElement>
+<token column="-1" index="-1" line="0" text="MethodBody" type="84"/>
+<childElement>
+<token column="-1" index="-1" line="0" text="Block" type="126"/>
+<childElement>
+<token column="28" index="65" line="10" text="{" type="59"/>
+</childElement>
+<childElement>
+<token column="4" index="66" line="12" text="}" type="60"/>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+<childElement>
+<token column="0" index="21" line="14" text="}" type="60"/>
 </childElement>
 </childElement>
 </childElement>

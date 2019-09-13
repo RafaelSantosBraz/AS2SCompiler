@@ -80,3 +80,8 @@ $RECYCLE.BIN/
 /tools/JavaParser/build/
 /tools/ToolPack/nbproject/private/
 /tools/ToolPack/build/
+/tools/ToolPack/dist/
+/specific parsers/JavaParser/dist/
+/TranslationMapParser/nbproject/private/
+/TranslationMapParser/build/
+/TranslationMapParser/dist/
