@@ -28,5 +28,36 @@
 }
 
 "ClassBody" -> {
-    ? rule("ConstructorDeclaration", children)
+    ? rule("ConstructorDeclaration", any children)
+
+}
+
+"ConstructorDeclaration" -> {
+    "FUNCTION_DECL" = {
+        "MODIFIER_LIST" = {
+            "ConstructorModifier".child.text
+        },
+        "TYPE" = {
+            text("void")
+        },
+        "NAME" = {
+            "ConstructorDeclarator"."SimpleTypeName".child.text
+        },
+        rule("FORMAL_PARAM_LIST", "ConstructorDeclarator"."FormalParameterList".search_children("FormalParameter"))
+        
+    }
+}
+
+"FORMAL_PARAM_LIST" -> {
+    ? "PARAMETER_DECL" = {
+        text("MODIFIER_LIST"),
+        "TYPE" = {
+            "NAME" = {
+                "UnannType".last.text
+            }
+        },
+        "NAME" = {
+            "VariableDeclaratorId".child.text
+        }
+    }
 }

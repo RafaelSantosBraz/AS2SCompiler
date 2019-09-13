@@ -40,7 +40,16 @@ parentsetchildren
         ;
 
 ruleecall
-        : 'rule' '(' NODE_NAME ',' visitingsequence ')' 
+        : 'rule' '(' NODE_NAME ',' nodesreference ')' 
+        ;
+
+nodesreference
+        : visitingsequence
+        | anyvisitingsequence
+        ;
+
+anyvisitingsequence
+        : 'any' visitingsequence
         ;
 
 visitingsequence
@@ -52,6 +61,16 @@ mention
         | childinvoke
         | textinvoke
         | childreninvoke
+        | searchchildreninvoke
+        | lastinvoke
+        ;
+
+lastinvoke
+        : 'last'
+        ;
+
+searchchildreninvoke
+        : 'search_children' '(' NODE_NAME  ')'
         ;
 
 childreninvoke

@@ -1,13 +1,14 @@
 public class A extends B implements C, D {
 
-    public A() {
-
+    public A(String xxx, int y) {
+        y = 0;
+        xxx = "oi";
     }
 
     public int x;
     // ...
 
-    public void something() {
+    public static void something() {
         // ...
     }
 

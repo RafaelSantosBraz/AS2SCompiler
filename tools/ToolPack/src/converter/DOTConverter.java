@@ -55,7 +55,7 @@ public class DOTConverter<T> {
                 if (nodeData instanceof TokenAttributes) {
                     TokenAttributes token = (TokenAttributes) nodeData;
                     if (!node.getChildren().isEmpty()) {
-                        writer.write("\tn_" + treeAsList.indexOf(node) + " [label=\"" + token.getText() + "\", shape=\"rectangle\"]");
+                        writer.write("\tn_" + treeAsList.indexOf(node) + " [label=\"" + normalizeText(token.getText()) + "\", shape=\"rectangle\"]");
                         writer.newLine();
                         for (Node<T> n : node.getChildren()) {
                             writer.write("\tn_" + treeAsList.indexOf(node) + " -> n_" + treeAsList.indexOf(n));
@@ -63,7 +63,7 @@ public class DOTConverter<T> {
                             convertion(n, writer);
                         }
                     } else {
-                        writer.write("\tn_" + treeAsList.indexOf(node) + " [label=\"" + token.getText() + "\", shape=\"ellipse\"]");
+                        writer.write("\tn_" + treeAsList.indexOf(node) + " [label=\"" + normalizeText(token.getText()) + "\", shape=\"ellipse\"]");
                         writer.newLine();
                     }
                 }
@@ -72,6 +72,19 @@ public class DOTConverter<T> {
         } catch (IOException e) {
             return false;
         }
+    }
+
+    private String normalizeText(String text) {
+        String aux = "";
+        for (char c : text.toCharArray()) {
+            if (c == '\"') {
+                aux += "\\\"";
+            } else {
+                aux += c;
+            }
+        }
+        //System.out.println(aux);
+        return aux;
     }
 
     public Tree<T> getTree() {
