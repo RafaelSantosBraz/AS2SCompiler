@@ -21,7 +21,7 @@ public class CSTtoTree {
     private final Tree<TokenAttributes> tree;
 
     public CSTtoTree() {
-        tree = new Tree<>();
+        tree = new Tree<>(new UniversalToken("root", -1));
     }
     
     /**
@@ -32,9 +32,9 @@ public class CSTtoTree {
      */
     public void startVisiting(ParseTree visitingNode, Node<TokenAttributes> parent) {
         visit(visitingNode, parent);
-        Node<TokenAttributes> newRoot = tree.getRoot().getChildren().get(0);
-        newRoot.setParent(null);
-        tree.setRoot(newRoot);
+        //Node<TokenAttributes> newRoot = tree.getRoot().getChildren().get(0);
+        //newRoot.setParent(null);
+        //tree.setRoot(newRoot);
         ArrayList<Node<TokenAttributes>> list = (ArrayList<Node<TokenAttributes>>) tree.getTreeAsIndexOrderedList();
         list.forEach((t) -> {
             if (t.getNodeData() instanceof ConcreteToken) {

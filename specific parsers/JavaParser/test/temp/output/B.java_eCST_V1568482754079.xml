@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<childElement>
+<token column="-1" index="-1" line="0" text="COMPILATION_UNIT" type="104"/>
+<childElement>
+<token column="-1" index="-1" line="0" text="PACKAGE_DECL" type="106"/>
+<childElement>
+<token column="-1" index="-1" line="0" text="NAME" type="118"/>
+<childElement>
+<token column="8" index="2" line="1" text="onother" type="149"/>
+</childElement>
+</childElement>
+<childElement>
+<token column="-1" index="-1" line="0" text="CONCRETE_UNIT_DECL" type="107"/>
+<childElement>
+<token column="-1" index="-1" line="0" text="NAME" type="118"/>
+<childElement>
+<token column="13" index="12" line="3" text="B" type="149"/>
+</childElement>
+</childElement>
+<childElement>
+<token column="15" index="14" line="3" text="{" type="23"/>
+</childElement>
+<childElement>
+<token column="0" index="23" line="5" text="}" type="42"/>
+</childElement>
+</childElement>
+</childElement>
+</childElement>

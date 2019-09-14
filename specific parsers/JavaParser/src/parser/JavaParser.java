@@ -34,7 +34,7 @@ public class JavaParser {
     
     public JavaParser() {
         rootRules = new ArrayList<>();
-        tree = new Tree<>();
+        tree = new Tree<>(new UniversalToken("root", -1));
     }
     
     public boolean startParsing(String inputDir, String outputDir) {
@@ -86,7 +86,7 @@ public class JavaParser {
     }
     
     private void treeUnion(ArrayList<Tree<TokenAttributes>> trees) {
-        tree.setRoot(new Node<>(new UniversalToken("CompilationUnit", 31)));
+        //tree.setRoot(new Node<>(new UniversalToken("CompilationUnit", 31)));
         trees.forEach((t) -> {
             tree.getRoot().addChildren(t.getRoot().getChildren());
         });

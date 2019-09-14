@@ -5,7 +5,6 @@
  */
 package javaparser;
 
-import converter.TreeXMLConverter;
 import converter.XMLDOTConverter;
 import parser.JavaParser;
 

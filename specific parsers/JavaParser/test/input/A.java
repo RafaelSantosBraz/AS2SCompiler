@@ -1,3 +1,5 @@
+package some;
+
 public class A extends B implements C, D {
 
     public A(String xxx, int y) {
