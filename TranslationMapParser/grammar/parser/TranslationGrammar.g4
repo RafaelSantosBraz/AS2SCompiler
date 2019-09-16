@@ -59,18 +59,22 @@ visitingsequence
 mention
         : directnodevisiting 
         | childinvoke
-        | textinvoke
         | childreninvoke
-        | searchchildreninvoke
         | lastinvoke
+        | parentinvoke
+        | currentnodeinvoke
+        ;
+
+currentnodeinvoke
+        : 'current_node'
+        ;
+
+parentinvoke
+        : 'parent'
         ;
 
 lastinvoke
         : 'last'
-        ;
-
-searchchildreninvoke
-        : 'search_children' '(' NODE_NAME  ')'
         ;
 
 childreninvoke
@@ -86,10 +90,6 @@ complexchildreninvoke
         : 'children' '(' NODE_NAME ')'
         ;
 
-textinvoke
-        : 'text'
-        ;
-
 directnodevisiting
         : NODE_NAME
         ;
@@ -99,12 +99,13 @@ childinvoke
         ;
 
 methodcall
-        : textmethod
+        : newleafinvoke
         ;
 
-textmethod
-        : 'text' '(' NODE_NAME  ')'
+newleafinvoke
+        : 'new_leaf' '(' NODE_NAME  ')'
         ;
 
 NODE_NAME : '"'(~["\r\n])+'"';
 WS : [ \t\r\n]+ -> skip;
+COM     : '//'(~[\r\n])*'\r'?'\n' -> skip;

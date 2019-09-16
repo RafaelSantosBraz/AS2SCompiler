@@ -1,63 +1,235 @@
-"NormalClassDeclaration" -> {
-    "CONCRETE_UNIT_DECLARATION" = {
-        "NAME" = {
-            "ClassName".child.text
+"ruleinitial" -> {
+    rule("rule_compilation_unit", children)
+}
+
+"rule_compilation_unit" -> {
+    "COMPILATION_UNIT" = {
+        "PACKAGE_DECL" = {
+            ? "NAME" = {
+                "PackageDeclaration"."PackageName".child
+            },
+            ? "CONCRETE_UNIT_DECL" = {
+                rule("rule_class_declaration", "TypeDeclaration"."ClassDeclaration"."NormalClassDeclaration")                
+            },
+            ? "INTERFACE_UNIT_DECL" = {
+                rule("rule_interface_declaration", "TypeDeclaration"."InterfaceDeclaration"."NormalInterfaceDeclaration")
+            }
+        }
+    }
+}
+
+"rule_class_declaration" -> {
+    "NAME" = {
+        "ClassName".child
+    },
+    ? "EXTENDS" = {
+        "TYPE" = {
+            "NAME" = {
+                "Superclass"."ClassType".child
+            }
+        }
+    },
+    ? rule("rule_implements", "Superinterfaces"."InterfaceTypeList".children("InterfaceType")),
+    rule ("rule_class_body", "ClassBody")
+}
+
+"rule_implements" -> {
+     "IMPLEMENTS" = {
+        "TYPE" = {
+            "NAME" = {
+                "ClassType".child
+            }
+        }
+    }
+}
+
+"rule_class_body" -> {
+    new_leaf("{"),
+    ? rule("rule_class_body_declaration", children("ClassBodyDeclaration")),
+    new_leaf("}")
+}
+
+"rule_class_body_declaration" -> {
+    ? rule("rule_constructor_declaration", children("ConstructorDeclaration")),
+    ? rule("rule_class_member_declaration", children("ClassMemberDeclaration"))
+}
+
+"rule_constructor_declaration" -> {
+    "FUNCTION_DECL" = {
+        "MODIFIER_LIST" = {
+            ? "ConstructorModifier".child
         },
-        ? "EXTENDS" = {
+        "TYPE" = {
+            new_leaf("void")
+        },
+        "NAME" = {
+            "ConstructorDeclarator"."SimpleTypeName".child
+        },
+        "FORMAL_PARAM_LIST" = {
+            ? rule("rule_parameter_declaration", "ConstructorDeclarator"."FormalParameterList")
+        },
+        "BLOCK_SCOPE" = {
+            ? rule("rule_block_scope", "ConstructorBody"."BlockStatements".children("BlockStatement"))
+        }
+    }
+}
+
+"rule_class_member_declaration" -> {
+    ? rule("rule_field_declaration", "FieldDeclaration"),
+    ? rule("rule_method_declaration", "MethodDeclaration")
+}
+
+
+"rule_field_declaration" -> {
+    "ATTRIBUTE_DECL" = {
+        "MODIFIER_LIST" = {
+            ? rule("rule_field_modifier", children("FieldModifier"))
+        },
+        "TYPE" = {
+            "UnannType".last
+        },
+        "NAME" = {
+            "VariableDeclaratorList"."VariableDeclarator"."VariableDeclaratorId".child
+        },
+        "VALUE" = {
+            ? "VariableInitializer".last
+        }
+    }    
+}
+
+"rule_field_modifier" -> {
+    child
+}
+
+"rule_parameter_declaration" -> {
+    ? rule("rule_formal_parameters", any children)
+}
+
+"rule_formal_parameters" -> {
+    rule("rule_formal_parameter", children("FormalParameter"))
+}
+
+"rule_formal_parameter" -> {
+    "PARAMETER_DECL" = {
+        new_leaf("MODIFIER_LIST"),
+        "TYPE" = {
+            "NAME" = {
+                "UnannType".last
+            }
+        },
+        "NAME" = {
+            "VariableDeclaratorId".child
+        }    
+    }
+}
+
+"rule_block_scope" -> {
+    new_leaf("{"),
+    ? rule("rule_statement", child),
+    ? rule("rule_local_variable_declaration_statement", child),
+    new_leaf("}")
+}
+
+"rule_statement" -> {
+    ? rule("rule_statement_without_trailing_substatement", child)
+    // tem mais coisa aqui
+}
+
+"rule_statement_without_trailing_substatement" -> {
+    ? rule("rule_expression_statement", child."StatementExpression")
+    // tem mais coisa aqui
+}
+
+
+"rule_expression_statement" -> {
+    ? rule("rule_assignment", child)
+    // tem mais coisa aqui
+}
+
+"rule_assignment" -> {
+    "ASSIGNMENT_STATEMENT" = {
+        "ASSIGN_OPERATOR" = {
+            "AssignmentOperator".child
+        },
+        "NAME" = {
+            "LeftHandSide".last
+        },
+        "VALUE" = {
+            rule("rule_assignment_value", "Expression".last.parent.parent)
+        }
+    }
+}
+
+"rule_assignment_value" -> {
+    ? rule("rule_assignment_value_literal", current_node),
+    ? "NAME" = {
+        "ExpressionName".child
+    },
+    ? rule("rule_assignment_method_invocation", child."MethodInvocation_lfno_primary"),
+    ? rule("rule_assignment_instantiates", child."ClassInstanceCreationExpression_lfno_primary")
+     
+}
+
+"rule_assignment_instantiates" -> {
+    "INSTANTIATES" = {
+        "TYPE" = {
+            "NAME" = {
+                "MethodNameComplex".child
+            }
+        }
+    },
+    "FUNCTION_CALL" = {
+        "NAME" = {
             "TYPE" = {
                 "NAME" = {
-                    "Superclass"."ClassType".child.text
+                    "MethodNameComplex".child
                 }
             }
         },
-        ? rule("Superinterfaces", "Superinterfaces"."InterfaceTypeList".children("InterfaceType")),        
-        text("{"),
-        ? rule("ClassBody", "ClassBody".children("ClassBodyDeclaration")),
-        text("}")
-    }
-}
-
-"Superinterfaces" -> {
-    "IMPLEMENTS" = {
-        "TYPE" = {
-            "NAME" = {
-                "ClassType".child.text
-            }
+        "ARGUMENT_LIST" = {
+            ? rule("rule_assignment_method_arguments", "ArgumentList".children("Expression"))
         }
     }
 }
 
-"ClassBody" -> {
-    ? rule("ConstructorDeclaration", any children)
-
-}
-
-"ConstructorDeclaration" -> {
-    "FUNCTION_DECL" = {
-        "MODIFIER_LIST" = {
-            "ConstructorModifier".child.text
-        },
-        "TYPE" = {
-            text("void")
-        },
-        "NAME" = {
-            "ConstructorDeclarator"."SimpleTypeName".child.text
-        },
-        rule("FORMAL_PARAM_LIST", "ConstructorDeclarator"."FormalParameterList".search_children("FormalParameter"))
-        
+"rule_assignment_value_literal" -> {
+    "CONST" = {
+        "Literal".child
     }
 }
 
-"FORMAL_PARAM_LIST" -> {
-    ? "PARAMETER_DECL" = {
-        text("MODIFIER_LIST"),
-        "TYPE" = {
-            "NAME" = {
-                "UnannType".last.text
-            }
-        },
-        "NAME" = {
-            "VariableDeclaratorId".child.text
+"rule_assignment_method_invocation" -> {
+    "FUNCTION_CALL" = {
+        rule("rule_assignment_method_name", current_node),
+        "ARGUMENT_LIST" = {
+            ? rule("rule_assignment_method_arguments", "ArgumentList".children("Expression"))
         }
+    }
+}
+
+"rule_assignment_method_arguments" -> {
+    "SEPARATOR" = {
+        new_leaf("(")
+    },
+    ? rule("rule_assignment_value", last.parent.parent),
+    "SEPARATOR" = {
+        new_leaf(")")
+    }
+}
+
+"rule_assignment_method_name" -> {
+    ? "NAME" = {
+        "MethodName".child
+    },
+    ? rule("rule_assignment_method_name_complex", current_node)
+}
+
+"rule_assignment_method_name_complex" -> {
+    "NAME" = {
+        "TypeName".child
+    },
+    new_leaf("."),
+    "NAME" = {
+        "MethodNameComplex".child
     }
 }

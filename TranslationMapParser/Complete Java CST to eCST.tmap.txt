@@ -24,7 +24,7 @@
 
 "rule_class_declaration" -> {
     "NAME" = {
-        "ClassName".chid
+        "ClassName".child
     },
     ? "EXTENDS" = {
         "TYPE" = {
