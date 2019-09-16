@@ -38,8 +38,8 @@ public class Run {
         TokenStream tokens = new CommonTokenStream(lexer);
         TranslationGrammarParser parser = new TranslationGrammarParser(tokens);
         TranslationGrammarParser.ProgContext prog
-                = parser.prog();
-        showParseTreeFrame(prog, parser);    
+                = parser.prog();        
+        showParseTreeFrame(prog, parser);         
     }
  
     private static void showParseTreeFrame(ParseTree tree, TranslationGrammarParser parser) throws HeadlessException {

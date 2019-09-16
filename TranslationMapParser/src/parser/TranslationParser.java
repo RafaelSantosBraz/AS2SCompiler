@@ -9,6 +9,6 @@ package parser;
  *
  * @author Rafael Braz
  */
-public class TranslationParser {
+public class TranslationParser{
     
 }

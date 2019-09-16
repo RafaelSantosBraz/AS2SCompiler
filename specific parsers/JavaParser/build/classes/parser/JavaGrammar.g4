@@ -1062,8 +1062,8 @@ classInstanceCreationExpression_lf_primary
 	;
 
 classInstanceCreationExpression_lfno_primary
-	:	'new' typeArguments? annotation* Identifier ('.' annotation* Identifier)* typeArgumentsOrDiamond? '(' argumentList? ')' classBody?
-	|	expressionName '.' 'new' typeArguments? annotation* Identifier typeArgumentsOrDiamond? '(' argumentList? ')' classBody?
+	:	'new' typeArguments? annotation* methodNameComplex ('.' annotation* Identifier)* typeArgumentsOrDiamond? '(' argumentList? ')' classBody?
+	|	expressionName '.' 'new' typeArguments? annotation* methodNameComplex typeArgumentsOrDiamond? '(' argumentList? ')' classBody?
 	;
 
 typeArgumentsOrDiamond
@@ -1124,11 +1124,15 @@ methodInvocation_lf_primary
 
 methodInvocation_lfno_primary
 	:	methodName '(' argumentList? ')'
-	|	typeName '.' typeArguments? Identifier '(' argumentList? ')'
+	|	typeName '.' typeArguments? methodNameComplex '(' argumentList? ')'
 	|	expressionName '.' typeArguments? Identifier '(' argumentList? ')'
 	|	'super' '.' typeArguments? Identifier '(' argumentList? ')'
 	|	typeName '.' 'super' '.' typeArguments? Identifier '(' argumentList? ')'
 	;
+
+methodNameComplex
+        : Identifier
+        ;
 
 argumentList
 	:	expression (',' expression)*
