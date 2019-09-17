@@ -9,10 +9,62 @@ digraph G {
 	n_3 [label="CONCRETE_UNIT_DECL", shape="rectangle"]
 	n_3 -> n_4
 	n_4 [label="NAME", shape="rectangle"]
-	n_4 -> n_7
-	n_7 [label="A", shape="ellipse"]
+	n_4 -> n_12
+	n_12 [label="A", shape="ellipse"]
 	n_3 -> n_5
-	n_5 [label="{", shape="ellipse"]
+	n_5 [label="EXTENDS", shape="rectangle"]
+	n_5 -> n_13
+	n_13 [label="TYPE", shape="rectangle"]
+	n_13 -> n_24
+	n_24 [label="NAME", shape="rectangle"]
+	n_24 -> n_31
+	n_31 [label="B", shape="ellipse"]
 	n_3 -> n_6
-	n_6 [label="}", shape="ellipse"]
+	n_6 [label="IMPLEMENTS", shape="rectangle"]
+	n_6 -> n_14
+	n_14 [label="TYPE", shape="rectangle"]
+	n_14 -> n_25
+	n_25 [label="NAME", shape="rectangle"]
+	n_25 -> n_32
+	n_32 [label="C", shape="ellipse"]
+	n_3 -> n_7
+	n_7 [label="IMPLEMENTS", shape="rectangle"]
+	n_7 -> n_15
+	n_15 [label="TYPE", shape="rectangle"]
+	n_15 -> n_26
+	n_26 [label="NAME", shape="rectangle"]
+	n_26 -> n_33
+	n_33 [label="D", shape="ellipse"]
+	n_3 -> n_8
+	n_8 [label="{", shape="ellipse"]
+	n_3 -> n_9
+	n_9 [label="ATTRIBUTE_DECL", shape="rectangle"]
+	n_9 -> n_16
+	n_16 [label="MODIFIER_LIST", shape="ellipse"]
+	n_9 -> n_17
+	n_17 [label="TYPE", shape="rectangle"]
+	n_17 -> n_27
+	n_27 [label="int", shape="ellipse"]
+	n_9 -> n_18
+	n_18 [label="NAME", shape="rectangle"]
+	n_18 -> n_28
+	n_28 [label="x", shape="ellipse"]
+	n_9 -> n_19
+	n_19 [label="VALUE", shape="ellipse"]
+	n_3 -> n_10
+	n_10 [label="ATTRIBUTE_DECL", shape="rectangle"]
+	n_10 -> n_20
+	n_20 [label="MODIFIER_LIST", shape="ellipse"]
+	n_10 -> n_21
+	n_21 [label="TYPE", shape="rectangle"]
+	n_21 -> n_29
+	n_29 [label="String", shape="ellipse"]
+	n_10 -> n_22
+	n_22 [label="NAME", shape="rectangle"]
+	n_22 -> n_30
+	n_30 [label="y", shape="ellipse"]
+	n_10 -> n_23
+	n_23 [label="VALUE", shape="ellipse"]
+	n_3 -> n_11
+	n_11 [label="}", shape="ellipse"]
 }
