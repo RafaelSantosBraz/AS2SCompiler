@@ -260,5 +260,5 @@ public class TranslationVisitor extends TranslationGrammarBaseVisitor<Object> {
     private String normalizeTmapText(String text) {
         return text.substring(1, text.length() - 1);
     }
-    
+
 }

@@ -541,11 +541,15 @@ constructorBody
 	;
 
 explicitConstructorInvocation
-	:	typeArguments? 'this' '(' argumentList? ')' ';'
-	|	typeArguments? 'super' '(' argumentList? ')' ';'
+	:	typeArguments? constructorInvocationTS '(' argumentList? ')' ';'
 	|	expressionName '.' typeArguments? 'super' '(' argumentList? ')' ';'
 	|	primary '.' typeArguments? 'super' '(' argumentList? ')' ';'
 	;
+
+constructorInvocationTS
+        : 'this'
+        | 'super'
+        ;
 
 enumDeclaration
 	:	classModifier* 'enum' Identifier superinterfaces? enumBody
@@ -1111,7 +1115,7 @@ arrayAccess_lfno_primary
 
 methodInvocation
 	:	methodName '(' argumentList? ')'
-	|	typeName '.' typeArguments? Identifier '(' argumentList? ')'
+	|	typeName '.' typeArguments? methodNameComplex '(' argumentList? ')'
 	|	expressionName '.' typeArguments? Identifier '(' argumentList? ')'
 	|	primary '.' typeArguments? Identifier '(' argumentList? ')'
 	|	'super' '.' typeArguments? Identifier '(' argumentList? ')'

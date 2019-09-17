@@ -86,7 +86,10 @@
             ? rule("rule_parameter_declaration", "ConstructorDeclarator"."FormalParameterList")
         },
         "BLOCK_SCOPE" = {
-            ? rule("rule_block_scope", "ConstructorBody"."BlockStatements".children("BlockStatement"))
+            new_leaf("{"),
+            ? rule("rule_block_construc_invoke", "ConstructorBody"."ExplicitConstructorInvocation"),
+            ? rule("rule_block_scope", "ConstructorBody"."BlockStatements".children("BlockStatement")),            
+            new_leaf("}")
         }
     }
 }
@@ -139,7 +142,7 @@
 "rule_formal_parameter" -> {
     "PARAMETER_DECL" = {
         new_leaf("MODIFIER_LIST"),
-        "TYPE" = {
+        "TYPE" = {                      
             "NAME" = {
                 "UnannType".last
             }
@@ -150,12 +153,29 @@
     }
 }
 
+// handle with a constructor call inside a block scope : receives "ExplicitConstructorInvocation"
+"rule_block_construc_invoke" -> {
+    "CONSTRUCTOR_CALL" = {
+        "NAME" = {
+            "ConstructorInvocationTS".child
+        },
+        "ARGUMENT_LIST" = {
+            "SEPARATOR" = {
+                new_leaf("(")
+            },
+            ? rule("rule_assignment_method_arguments", "ArgumentList".children("Expression")),
+            "SEPARATOR" = {
+                new_leaf(")")
+            }
+        }
+    }
+}
+
 // handle with the whole block scope : receives "BlockStatement"
 "rule_block_scope" -> {
-    new_leaf("{"),
     ? rule("rule_statement", child),
     ? rule("rule_local_variable_declaration_statement", child),
-    new_leaf("}")
+    new_leaf(";")
 }
 
 // handle with a block statement that does not create a new local variable : receives "Statement"
@@ -177,7 +197,8 @@
 
 // handle with a Statement Expression from a StatementWithoutTrailingSubstatement : receives "StatementExpression"
 "rule_expression_statement" -> {
-    ? rule("rule_assignment", child)
+    ? rule("rule_assignment", child),
+    ? rule("rule_assignment_method_invocation", current_node.child)
     // tem mais coisa aqui
 }
 
@@ -185,14 +206,14 @@
 "rule_assignment" -> {
     "ASSIGNMENT_STATEMENT" = {
         "ASSIGN_OPERATOR" = {
-            "AssignmentOperator".child
-        },
-        "NAME" = {
-            "LeftHandSide".last
-        },
-        "VALUE" = {
-            rule("rule_assignment_value", "Expression".last.parent.parent)
-        }
+            "AssignmentOperator".child,
+            "NAME" = {
+                "LeftHandSide".last
+            },
+            "VALUE" = {
+                rule("rule_assignment_value", "Expression".last.parent.parent)
+            }
+        }        
     }
 }
 
@@ -249,7 +270,13 @@
             }
         },
         "ARGUMENT_LIST" = {
-            ? rule("rule_assignment_method_arguments", "ArgumentList".children("Expression"))
+            "SEPARATOR" = {
+                new_leaf("(")
+            },
+            ? rule("rule_assignment_method_arguments", "ArgumentList".children("Expression")),
+            "SEPARATOR" = {
+                new_leaf(")")
+            }
         }
     }
 }
@@ -266,19 +293,21 @@
     "FUNCTION_CALL" = {
         rule("rule_assignment_method_name", current_node),
         "ARGUMENT_LIST" = {
-            ? rule("rule_assignment_method_arguments", "ArgumentList".children("Expression"))
+            "SEPARATOR" = {
+                new_leaf("(")
+            },
+            ? rule("rule_assignment_method_arguments", "ArgumentList".children("Expression")),
+            "SEPARATOR" = {
+                new_leaf(")")
+            }
         }
     }
 }
 
 // handle with the arguments of a method call : receives "Expression"
 "rule_assignment_method_arguments" -> {
-    "SEPARATOR" = {
-        new_leaf("(")
-    },
-    ? rule("rule_assignment_value", last.parent.parent),
-    "SEPARATOR" = {
-        new_leaf(")")
+    "ARGUMENT" = {
+        ? rule("rule_assignment_value", last.parent.parent)
     }
 }
 
