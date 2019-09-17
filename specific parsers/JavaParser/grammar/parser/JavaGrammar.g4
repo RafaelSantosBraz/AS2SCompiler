@@ -1288,15 +1288,23 @@ shiftExpression
 
 additiveExpression
 	:	multiplicativeExpression
-	|	additiveExpression '+' multiplicativeExpression
-	|	additiveExpression '-' multiplicativeExpression
+	|	additiveExpression mathOperatorSymbol multiplicativeExpression
+	|	additiveExpression mathOperatorSymbol multiplicativeExpression
 	;
+
+mathOperatorSymbol
+        : '+'
+        | '-'
+        | '*'
+        | '/'
+        | '%'
+        ;
 
 multiplicativeExpression
 	:	unaryExpression
-	|	multiplicativeExpression '*' unaryExpression
-	|	multiplicativeExpression '/' unaryExpression
-	|	multiplicativeExpression '%' unaryExpression
+	|	multiplicativeExpression mathOperatorSymbol unaryExpression
+	|	multiplicativeExpression mathOperatorSymbol unaryExpression
+	|	multiplicativeExpression mathOperatorSymbol unaryExpression
 	;
 
 unaryExpression

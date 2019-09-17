@@ -79,5 +79,11 @@ public class Node<T> {
     public void setChildren(List<Node<T>> children) {
         this.children = children;
     }
-
+    
+    public Node<T> getClone(){
+        Node<T> newNode = new Node<>(parent);
+        newNode.setChildren(children);
+        newNode.setNodeData(nodeData);
+        return newNode;
+    }
 }

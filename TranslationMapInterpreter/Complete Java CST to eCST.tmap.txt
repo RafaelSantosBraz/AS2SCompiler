@@ -1,11 +1,14 @@
+// first rule : receives "root"
 "ruleinitial" -> {
     rule("rule_compilation_units", children("CompilationUnit"))
 }
 
+// handle with all the compilation units (files) : receives "CompilationUnit"
 "rule_compilation_units" -> {
     rule("rule_compilation_unit", children)
 }
 
+// handle with each compilation unit : receives "TypeDeclaration"
 "rule_compilation_unit" -> {
     "COMPILATION_UNIT" = {
         "PACKAGE_DECL" = {
@@ -22,10 +25,12 @@
     }
 }
 
+// if the file contains a Java Interface, this rule has to be called : receives "NormalInterfaceDeclaration"
 "rule_interface_declaration" -> {
 
 }
 
+// if the file contains a Class, call this rule : receives "NormalClassDeclaration"
 "rule_class_declaration" -> {
     "NAME" = {
         "ClassName".child
@@ -41,6 +46,7 @@
     rule ("rule_class_body", "ClassBody")
 }
 
+// handle with multiple interface implementations : receives "InterfaceType"
 "rule_implements" -> {
      "IMPLEMENTS" = {
         "TYPE" = {
@@ -51,17 +57,20 @@
     }
 }
 
+// handle with all types of declaration/structures in the class body : receives "ClassBody"
 "rule_class_body" -> {
     new_leaf("{"),
     ? rule("rule_class_body_declaration", children("ClassBodyDeclaration")),
     new_leaf("}")
 }
 
+// handle with each of declarations in class body : receives "ClassBodyDeclaration"
 "rule_class_body_declaration" -> {
     ? rule("rule_constructor_declaration", children("ConstructorDeclaration")),
     ? rule("rule_class_member_declaration", children("ClassMemberDeclaration"))
 }
 
+// handle with constructors : receives "ConstructorDeclaration"
 "rule_constructor_declaration" -> {
     "FUNCTION_DECL" = {
         "MODIFIER_LIST" = {
@@ -82,15 +91,18 @@
     }
 }
 
+// handle with fields and methods in classes : receives "ClassMemberDeclaration"
 "rule_class_member_declaration" -> {
     ? rule("rule_field_declaration", "FieldDeclaration"),
     ? rule("rule_method_declaration", "MethodDeclaration")
 }
 
+// handle with each method in a class : receives "MethodDeclaration"
 "rule_method_declaration" -> {
 
 }
 
+// handle with each field in a class : receives "FieldDeclaration"
 "rule_field_declaration" -> {
     "ATTRIBUTE_DECL" = {
         "MODIFIER_LIST" = {
@@ -108,18 +120,22 @@
     }    
 }
 
+// return each modifier of a field in a class : receives "FieldModifier"
 "rule_field_modifier" -> {
     child
 }
 
+// handle with a list of parameters for a constructor : receives "FormalParameterList"
 "rule_parameter_declaration" -> {
     ? rule("rule_formal_parameters", any children)
 }
 
+// a step to all formal parameters : receives "FormalParameters" or "LastFormalParameters"
 "rule_formal_parameters" -> {
     rule("rule_formal_parameter", children("FormalParameter"))
 }
 
+// handle with each formal parameter : receives "FormalParameter"
 "rule_formal_parameter" -> {
     "PARAMETER_DECL" = {
         new_leaf("MODIFIER_LIST"),
@@ -134,6 +150,7 @@
     }
 }
 
+// handle with the whole block scope : receives "BlockStatement"
 "rule_block_scope" -> {
     new_leaf("{"),
     ? rule("rule_statement", child),
@@ -141,25 +158,30 @@
     new_leaf("}")
 }
 
+// handle with a block statement that does not create a new local variable : receives "Statement"
 "rule_statement" -> {
-    ? rule("rule_statement_without_trailing_substatement", child),
+    ? rule("rule_statement_without_trailing_substatement", child)
     // tem mais coisa aqui
 }
 
+// handle with a Expression statement like an Assignment for example : receives "StatementWithoutTrailingSubstatement"
 "rule_statement_without_trailing_substatement" -> {
     ? rule("rule_expression_statement", child."StatementExpression")
     // tem mais coisa aqui
 }
 
+// handle with the creation of a new local variable in a block scope : receives ""
 "rule_local_variable_declaration_statement" -> {
 
 }
 
+// handle with a Statement Expression from a StatementWithoutTrailingSubstatement : receives "StatementExpression"
 "rule_expression_statement" -> {
-    ? rule("rule_assignment", child),
+    ? rule("rule_assignment", child)
     // tem mais coisa aqui
 }
 
+// handle with an Assignment Expression : receives "Assignment"
 "rule_assignment" -> {
     "ASSIGNMENT_STATEMENT" = {
         "ASSIGN_OPERATOR" = {
@@ -174,6 +196,7 @@
     }
 }
 
+// handle with the value for an Assignment : receives ("Expression", "AdditiveExpression", or "MultiplicativeExpression").last.parent.parent
 "rule_assignment_value" -> {
     ? rule("rule_assignment_value_literal", current_node),
     ? "NAME" = {
@@ -181,9 +204,34 @@
     },
     ? rule("rule_assignment_method_invocation", child."MethodInvocation_lfno_primary"),
     ? rule("rule_assignment_instantiates", child."ClassInstanceCreationExpression_lfno_primary"),
-    ? 
+    ? rule("rule_math_expression", child)
 }
 
+// handle with the order of operators for expressions : receives "Expression".last.parent
+"rule_math_expression" -> {
+    ? rule("rule_plus_minus_expression", "AdditiveExpression"),
+    ? rule("rule_mult_div_expression", "MultiplicativeExpression")
+}
+
+// handle with a expression like x + y or x - y : receives "AdditiveExpression"
+"rule_plus_minus_expression" -> {
+    "OPERATOR" = {
+        "MathOperatorSymbol".child,
+        rule("rule_assignment_value", "AdditiveExpression".last.parent.parent),
+        rule("rule_assignment_value", "MultiplicativeExpression".last.parent.parent)
+    }
+}
+
+// handle with a expression like x * y or x / y : receives "MultiplicativeExpression"
+"rule_mult_div_expression" -> {
+    "OPERATOR" = {
+        "MathOperatorSymbol".child,
+        rule("rule_assignment_value", "MultiplicativeExpression".last.parent.parent),
+        rule("rule_assignment_value", "UnaryExpression".last.parent.parent)
+    }
+}
+
+// handle with the creation of a new instance of a class such as new X() : receives "ClassInstanceCreationExpression_lfno_primary"
 "rule_assignment_instantiates" -> {
     "INSTANTIATES" = {
         "TYPE" = {
@@ -206,12 +254,14 @@
     }
 }
 
+// handle with a constant value (literal) from an Assignment : receives variable but has a "Literal" as a child
 "rule_assignment_value_literal" -> {
     "CONST" = {
         "Literal".child
     }
 }
 
+// handle with a mothod call as the value for an Assignment : receives "MethodInvocation_lfno_primary"
 "rule_assignment_method_invocation" -> {
     "FUNCTION_CALL" = {
         rule("rule_assignment_method_name", current_node),
@@ -221,6 +271,7 @@
     }
 }
 
+// handle with the arguments of a method call : receives "Expression"
 "rule_assignment_method_arguments" -> {
     "SEPARATOR" = {
         new_leaf("(")
@@ -231,6 +282,7 @@
     }
 }
 
+// return the name of the method to be called : receives "MethodInvocation_lfno_primary"
 "rule_assignment_method_name" -> {
     ? "NAME" = {
         "MethodName".child
@@ -238,6 +290,7 @@
     ? rule("rule_assignment_method_name_complex", current_node)
 }
 
+// return a complex name of a method such as x.something() : receives "MethodInvocation_lfno_primary"
 "rule_assignment_method_name_complex" -> {
     "NAME" = {
         "TypeName".child

@@ -6,7 +6,6 @@
 package translationmapparser;
 
 import converter.TreeXMLConverter;
-import interpreter.TranslationInterpreter;
 import interpreter.TranslationVisitor;
 import java.awt.HeadlessException;
 import java.io.IOException;
