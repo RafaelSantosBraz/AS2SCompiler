@@ -85,3 +85,6 @@ $RECYCLE.BIN/
 /TranslationMapParser/nbproject/private/
 /TranslationMapParser/build/
 /TranslationMapParser/dist/
+/TranslationMapInterpreter/nbproject/private/
+/TranslationMapInterpreter/build/
+/TranslationMapInterpreter/dist/

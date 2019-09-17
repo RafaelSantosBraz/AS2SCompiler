@@ -1,4 +1,8 @@
 "ruleinitial" -> {
+    rule("rule_compilation_units", children("CompilationUnit"))
+}
+
+"rule_compilation_units" -> {
     rule("rule_compilation_unit", children)
 }
 
@@ -9,13 +13,17 @@
                 "PackageDeclaration"."PackageName".child
             },
             ? "CONCRETE_UNIT_DECL" = {
-                rule("rule_class_declaration", "TypeDeclaration"."ClassDeclaration"."NormalClassDeclaration")                
+                rule("rule_class_declaration", "ClassDeclaration"."NormalClassDeclaration")                
             },
             ? "INTERFACE_UNIT_DECL" = {
-                rule("rule_interface_declaration", "TypeDeclaration"."InterfaceDeclaration"."NormalInterfaceDeclaration")
+                rule("rule_interface_declaration", "InterfaceDeclaration"."NormalInterfaceDeclaration")
             }
         }
     }
+}
+
+"rule_interface_declaration" -> {
+
 }
 
 "rule_class_declaration" -> {
@@ -79,6 +87,9 @@
     ? rule("rule_method_declaration", "MethodDeclaration")
 }
 
+"rule_method_declaration" -> {
+
+}
 
 "rule_field_declaration" -> {
     "ATTRIBUTE_DECL" = {
@@ -131,7 +142,7 @@
 }
 
 "rule_statement" -> {
-    ? rule("rule_statement_without_trailing_substatement", child)
+    ? rule("rule_statement_without_trailing_substatement", child),
     // tem mais coisa aqui
 }
 
@@ -140,9 +151,12 @@
     // tem mais coisa aqui
 }
 
+"rule_local_variable_declaration_statement" -> {
+
+}
 
 "rule_expression_statement" -> {
-    ? rule("rule_assignment", child)
+    ? rule("rule_assignment", child),
     // tem mais coisa aqui
 }
 
@@ -166,8 +180,8 @@
         "ExpressionName".child
     },
     ? rule("rule_assignment_method_invocation", child."MethodInvocation_lfno_primary"),
-    ? rule("rule_assignment_instantiates", child."ClassInstanceCreationExpression_lfno_primary")
-     
+    ? rule("rule_assignment_instantiates", child."ClassInstanceCreationExpression_lfno_primary"),
+    ? 
 }
 
 "rule_assignment_instantiates" -> {

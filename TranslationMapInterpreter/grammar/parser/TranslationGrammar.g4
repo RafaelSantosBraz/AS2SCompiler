@@ -12,11 +12,11 @@ prog
         ;
 
 rulee
-        : NODE_NAME '->' '{' ruleebody '}' 
+        : NODE_NAME '->' '{' ruleebody? '}' 
         ;
 
 ruleebody
-        : partialrulee (',' ruleebody)*
+        : partialrulee (',' ruleebody)?
         ;
 
 partialrulee
@@ -40,20 +40,12 @@ parentsetchildren
         ;
 
 ruleecall
-        : 'rule' '(' NODE_NAME ',' nodesreference ')' 
+        : 'rule' '(' NODE_NAME ',' ANY? visitingsequence ')' 
         ;
 
-nodesreference
-        : visitingsequence
-        | anyvisitingsequence
-        ;
-
-anyvisitingsequence
-        : 'any' visitingsequence
-        ;
 
 visitingsequence
-        : mention ('.' visitingsequence)*
+        : mention ('.' visitingsequence)?
         ;
 
 mention
@@ -106,6 +98,7 @@ newleafinvoke
         : 'new_leaf' '(' NODE_NAME  ')'
         ;
 
+ANY : 'any';
 NODE_NAME : '"'(~["\r\n])+'"';
 WS : [ \t\r\n]+ -> skip;
 COM     : '//'(~[\r\n])*'\r'?'\n' -> skip;

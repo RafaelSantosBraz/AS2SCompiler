@@ -1,0 +1,30 @@
+"ruleinitial" -> {
+    rule("rule_compilation_units", children("CompilationUnit"))
+}
+
+"rule_compilation_units" -> {
+    rule("rule_compilation_unit", children)
+}
+
+"rule_compilation_unit" -> {
+    "COMPILATION_UNIT" = {
+        "PACKAGE_DECL" = {            
+            "CONCRETE_UNIT_DECL" = {
+                rule("rule_class_declaration", "ClassDeclaration"."NormalClassDeclaration")                
+            }
+        }
+    },
+    ? rule("rule", current_node)
+}
+
+"rule_class_declaration" -> {
+    "NAME" = {
+        "ClassName".child
+    },   
+    new_leaf("{"),
+    new_leaf("}")
+}
+
+"rule" -> {
+
+}

@@ -5,13 +5,13 @@
  */
 package translationmapparser;
 
-import java.awt.Graphics;
+import converter.TreeXMLConverter;
+import interpreter.TranslationInterpreter;
+import interpreter.TranslationVisitor;
 import java.awt.HeadlessException;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
-import javax.imageio.ImageIO;
+import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -22,6 +22,8 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.TokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import parser.*;
+import trees.cstecst.TokenAttributes;
+import trees.simpletree.Tree;
 
 /**
  *
@@ -38,7 +40,12 @@ public class Run {
         TokenStream tokens = new CommonTokenStream(lexer);
         TranslationGrammarParser parser = new TranslationGrammarParser(tokens);
         TranslationGrammarParser.ProgContext prog
-                = parser.prog();        
+                = parser.prog();  
+        TreeXMLConverter conv = new TreeXMLConverter();
+        conv.convertFromFile("D:\\GitHub\\StS-Compilation-Framework\\specific parsers\\JavaParser\\test\\output\\CST.xml");
+        TranslationParser t = new TranslationParser(conv.getTree());
+        t.start("test.tmap.txt", "\"ruleinitial\"");
+        System.out.println(t.geteCST());
         showParseTreeFrame(prog, parser);         
     }
  

@@ -1,0 +1,18 @@
+digraph G {
+	splines="TRUE";
+	n_0 [label="root", shape="rectangle"]
+	n_0 -> n_1
+	n_1 [label="COMPILATION_UNIT", shape="rectangle"]
+	n_1 -> n_2
+	n_2 [label="PACKAGE_DECL", shape="rectangle"]
+	n_2 -> n_3
+	n_3 [label="CONCRETE_UNIT_DECL", shape="rectangle"]
+	n_3 -> n_4
+	n_4 [label="NAME", shape="rectangle"]
+	n_4 -> n_7
+	n_7 [label="A", shape="ellipse"]
+	n_3 -> n_5
+	n_5 [label="{", shape="ellipse"]
+	n_3 -> n_6
+	n_6 [label="}", shape="ellipse"]
+}
