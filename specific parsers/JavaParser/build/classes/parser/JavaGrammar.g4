@@ -215,8 +215,12 @@ packageOrTypeName
 
 expressionName
 	:	Identifier
-	|	ambiguousName '.' Identifier
+	|	ambiguousName '.' expressionNameIdent
 	;
+
+expressionNameIdent
+        : Identifier 
+        ;
 
 methodName
 	:	Identifier
@@ -359,8 +363,13 @@ variableDeclaratorList
 	;
 
 variableDeclarator
-	:	variableDeclaratorId ('=' variableInitializer)?
+        :       variableDeclaratorComplex
+	|	variableDeclaratorId
 	;
+
+variableDeclaratorComplex        
+        : variableDeclaratorId '=' variableInitializer
+        ;
 
 variableDeclaratorId
 	:	Identifier dims?
@@ -1116,10 +1125,10 @@ arrayAccess_lfno_primary
 methodInvocation
 	:	methodName '(' argumentList? ')'
 	|	typeName '.' typeArguments? methodNameComplex '(' argumentList? ')'
-	|	expressionName '.' typeArguments? Identifier '(' argumentList? ')'
-	|	primary '.' typeArguments? Identifier '(' argumentList? ')'
-	|	'super' '.' typeArguments? Identifier '(' argumentList? ')'
-	|	typeName '.' 'super' '.' typeArguments? Identifier '(' argumentList? ')'
+	|	expressionName '.' typeArguments? methodName '(' argumentList? ')'
+	|	primary '.' typeArguments? methodName '(' argumentList? ')'
+	|	'super' '.' typeArguments? methodName '(' argumentList? ')'
+	|	typeName '.' 'super' '.' typeArguments? methodName '(' argumentList? ')'
 	;
 
 methodInvocation_lf_primary
@@ -1270,18 +1279,31 @@ andExpression
 
 equalityExpression
 	:	relationalExpression
-	|	equalityExpression '==' relationalExpression
-	|	equalityExpression '!=' relationalExpression
+	|	equalityExpression equalityOperator relationalExpression
+	|	equalityExpression equalityOperator relationalExpression
 	;
+
+equalityOperator
+        : '=='
+        | '!='
+        ;
 
 relationalExpression
 	:	shiftExpression
-	|	relationalExpression '<' shiftExpression
-	|	relationalExpression '>' shiftExpression
-	|	relationalExpression '<=' shiftExpression
-	|	relationalExpression '>=' shiftExpression
-	|	relationalExpression 'instanceof' referenceType
+	|	relationalExpression relationalOperator shiftExpression
+	|	relationalExpression relationalOperator shiftExpression
+	|	relationalExpression relationalOperator shiftExpression
+	|	relationalExpression relationalOperator shiftExpression
+	|	relationalExpression relationalOperator referenceType
 	;
+
+relationalOperator
+        : '<'
+        | '>'
+        | '<='
+        | '>='
+        | 'instanceof'
+        ;
 
 shiftExpression
 	:	additiveExpression

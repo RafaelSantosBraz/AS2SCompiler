@@ -1,21 +1,27 @@
 public class A {
 
-    int x;
-    int y;
-
-    public A(int x, B b, String jj){
-        super(a);        
-        //int y;
-        //String z = "42";
-        //int r = x + 3;
-        //int p = r * c + 3 - (33 + 22 * 2);
-        something();
-        something(anotherthing(2, ""), c);
-        anotherThing(r, z, 45 + 4);
-        //B b = new B(x);        
-        b.metd(2, "a");
+    public A() {
+        // super();
+        // int y;
+        // String z = "42";
+        // int r = x + 3;
+        // int p = r * something("a", 3);
+        // B b = new B(x);
+        // boolean bool = something(2.0, b.xxx);
+        // f.g();
+        // x = w.y();
+        // something(1, j.d);
+        // j.something(2, j.d);
+        if (x > 3){
+            break;
+        }
+        if (some() < d.j){
+            if (a == b){
+                
+            } else{
+                return j.something();
+            }
+        }
     }
-
-    
 
 }

@@ -86,10 +86,14 @@
             ? rule("rule_parameter_declaration", "ConstructorDeclarator"."FormalParameterList")
         },
         "BLOCK_SCOPE" = {
-            new_leaf("{"),
+            "SEPARATOR" = {
+                new_leaf("{")
+            },
             ? rule("rule_block_construc_invoke", "ConstructorBody"."ExplicitConstructorInvocation"),
             ? rule("rule_block_scope", "ConstructorBody"."BlockStatements".children("BlockStatement")),            
-            new_leaf("}")
+            "SEPARATOR" = {
+                new_leaf("}")
+            }
         }
     }
 }
@@ -174,31 +178,154 @@
 // handle with the whole block scope : receives "BlockStatement"
 "rule_block_scope" -> {
     ? rule("rule_statement", child),
-    ? rule("rule_local_variable_declaration_statement", child),
-    new_leaf(";")
+    ? rule("rule_local_variable_declaration_statement", child)
+    // new_leaf(";")
 }
 
 // handle with a block statement that does not create a new local variable : receives "Statement"
 "rule_statement" -> {
-    ? rule("rule_statement_without_trailing_substatement", child)
+    ? rule("rule_statement_without_trailing_substatement", child),
+    ? rule("rule_if_then_else_statement", "IfThenElseStatement"),
+    ? rule("rule_if_then_statement", "IfThenStatement")
     // tem mais coisa aqui
+}
+
+// handle with a if statement : receives "IfThenStatement"
+"rule_if_then_statement" -> {
+    "BRANCH_STATEMENT" = {
+        "BRANCH" = {
+            "KEYWORD" = {
+                new_leaf("if")
+            },
+            "CONDITION" = {
+                "SEPARATOR" = {
+                    new_leaf("(")
+                },
+                rule("rule_assignment_value", "Expression".last.parent.parent),
+                "SEPARATOR" = {
+                    new_leaf(")")
+                }
+            },
+            "BLOCK_SCOPE" = {
+                "SEPARATOR" = {
+                    new_leaf("{")
+                },
+                ? rule("rule_block_scope", "Statement".last."BlockStatements".children("BlockStatement")),            
+                "SEPARATOR" = {
+                    new_leaf("}")
+                }
+            }
+        }
+    }
+}
+
+// handle with a if/else statement : receives "IfThenElseStatement"
+"rule_if_then_else_statement" -> {
+    "BRANCH_STATEMENT" = {
+        "BRANCH" = {
+            "KEYWORD" = {
+                new_leaf("if")
+            },
+            "CONDITION" = {
+                "SEPARATOR" = {
+                    new_leaf("(")
+                },
+                rule("rule_assignment_value", "Expression".last.parent.parent),
+                "SEPARATOR" = {
+                    new_leaf(")")
+                }
+            },
+            "BLOCK_SCOPE" = {
+                "SEPARATOR" = {
+                    new_leaf("{")
+                },
+                ? rule("rule_block_scope", "StatementNoShortIf".last."BlockStatements".children("BlockStatement")),            
+                "SEPARATOR" = {
+                    new_leaf("}")
+                }
+            }
+        },
+        "BRANCH" = {
+            "KEYWORD" = {
+                new_leaf("else")
+            },            
+            "BLOCK_SCOPE" = {
+                "SEPARATOR" = {
+                    new_leaf("{")
+                },
+                ? rule("rule_block_scope", "Statement".last."BlockStatements".children("BlockStatement")),            
+                "SEPARATOR" = {
+                    new_leaf("}")
+                }
+            }
+        }
+    }
 }
 
 // handle with a Expression statement like an Assignment for example : receives "StatementWithoutTrailingSubstatement"
 "rule_statement_without_trailing_substatement" -> {
-    ? rule("rule_expression_statement", child."StatementExpression")
+    ? rule("rule_expression_statement", child."StatementExpression"),
+    ? rule("rule_return_statement", "ReturnStatement"),
+    ? rule("rule_break_statement", "BreakStatement")
     // tem mais coisa aqui
 }
 
-// handle with the creation of a new local variable in a block scope : receives ""
-"rule_local_variable_declaration_statement" -> {
+// handle with the break statement in a block : receives "BreakStatement"
+"rule_break_statement" -> {
+    "JUMP_STATEMENT" = {
+        "KEYWORD" = {
+            new_leaf("break")
+        }       
+    }
+}
 
+// handle with the return statement in a block : receives "ReturnStatement"
+"rule_return_statement" -> {
+    "JUMP_STATEMENT" = {
+        "KEYWORD" = {
+            new_leaf("return")
+        },
+        ? rule("rule_assignment_value", "Expression".last.parent.parent)
+    }
+}
+
+// handle with the creation of a new local variable in a block scope : receives "LocalVariableDeclarationStatement"
+"rule_local_variable_declaration_statement" -> {
+    "VAR_DECL" = {
+        new_leaf("MODIFIER_LIST"),
+        "TYPE" = {
+            "NAME" = {
+                "LocalVariableDeclaration"."UnannType".last
+            }
+        },    
+        rule("rule_local_variable_name_assignment", "LocalVariableDeclaration"."VariableDeclaratorList")
+    }    
+}
+
+// handle with local variable names or a Assignment : receives "VariableDeclaratorList"
+"rule_local_variable_name_assignment" -> {
+    ? "NAME" = {
+        last.parent.parent."VariableDeclaratorId".child
+    },
+    ? "ASSIGNMENT_STATEMENT" = {
+        "ASSIGN_OPERATOR" = {
+            new_leaf("="),
+            "NAME" = {
+                last.parent."VariableDeclaratorComplex"."VariableDeclaratorId".child
+            },
+            "VALUE" = {
+                ? rule("rule_assignment_value", "VariableDeclarator"."VariableDeclaratorComplex"."VariableInitializer"."Expression".last.parent.parent),
+                ? rule("rule_assignment_value_attr_call", "VariableDeclarator"."VariableDeclaratorComplex"."VariableInitializer"."Expression".last.parent."ExpressionName")
+            }
+        }        
+    }
 }
 
 // handle with a Statement Expression from a StatementWithoutTrailingSubstatement : receives "StatementExpression"
 "rule_expression_statement" -> {
     ? rule("rule_assignment", child),
-    ? rule("rule_assignment_method_invocation", current_node.child)
+    ? rule("rule_assignment_method_invocation", current_node."MethodInvocation_lfno_primary"),
+    ? rule("rule_assignment_method_invocation", current_node."MethodInvocation")
     // tem mais coisa aqui
 }
 
@@ -211,7 +338,8 @@
                 "LeftHandSide".last
             },
             "VALUE" = {
-                rule("rule_assignment_value", "Expression".last.parent.parent)
+                ? rule("rule_assignment_value", "Expression".last.parent.parent),
+                ? rule("rule_assignment_value_attr_call", "Expression".last.parent."ExpressionName")                               
             }
         }        
     }
@@ -225,7 +353,53 @@
     },
     ? rule("rule_assignment_method_invocation", child."MethodInvocation_lfno_primary"),
     ? rule("rule_assignment_instantiates", child."ClassInstanceCreationExpression_lfno_primary"),
-    ? rule("rule_math_expression", child)
+    ? rule("rule_math_expression", child),
+    ? rule("rule_relational_expression", child)
+}
+
+// handle with relational expression : receives "Expression".last.parent
+"rule_relational_expression" -> {
+    ? rule("rule_equality_expression", "EqualityExpression"),
+    ? rule("rule_more_equality_expression", "RelationalExpression")
+}
+
+// handle with a relational COMPARISON expression like x >= x : receives "RelationalExpression"
+"rule_more_equality_expression" -> {
+    "COMPARISON_OPERATOR" = {
+        "RelationalOperator".child,
+        // first part
+        ? rule("rule_assignment_value", "RelationalExpression".last.parent.parent),
+        ? rule("rule_assignment_value_attr_call", "RelationalExpression".last.parent."ExpressionName"),
+        // second part
+        ? rule("rule_assignment_value", "ShiftExpression".last.parent.parent),
+        ? rule("rule_assignment_value_attr_call", "ShiftExpression".last.parent."ExpressionName")
+    }  
+}
+
+// handle with a equality expression like x == y or x != y : receives "EqualityExpression"
+"rule_equality_expression" -> {
+    "COMPARISON_OPERATOR" = {
+        "EqualityOperator".child,
+        // first part
+        ? rule("rule_assignment_value", "EqualityExpression".last.parent.parent),
+        ? rule("rule_assignment_value_attr_call", "EqualityExpression".last.parent."ExpressionName"),
+        // second part
+        ? rule("rule_assignment_value", "RelationalExpression".last.parent.parent),
+        ? rule("rule_assignment_value_attr_call", "RelationalExpression".last.parent."ExpressionName")
+    }    
+}
+
+// handle with a reference to a object's field like x.y : receives "ExpressionName"
+"rule_assignment_value_attr_call" -> {
+    "NAME" = {
+        "NAME" = {
+            "AmbiguousName".child
+        },
+        new_leaf("."),
+        "NAME" = {
+            "ExpressionNameIdent".child
+        }
+    }
 }
 
 // handle with the order of operators for expressions : receives "Expression".last.parent
@@ -238,8 +412,14 @@
 "rule_plus_minus_expression" -> {
     "OPERATOR" = {
         "MathOperatorSymbol".child,
-        rule("rule_assignment_value", "AdditiveExpression".last.parent.parent),
-        rule("rule_assignment_value", "MultiplicativeExpression".last.parent.parent)
+        
+        // first part
+        ? rule("rule_assignment_value", "AdditiveExpression".last.parent.parent),
+        ? rule("rule_assignment_value_attr_call", "AdditiveExpression".last.parent."ExpressionName"),
+        
+        // second part
+        ? rule("rule_assignment_value", "MultiplicativeExpression".last.parent.parent),
+        ? rule("rule_assignment_value_attr_call", "MultiplicativeExpression".last.parent."ExpressionName")
     }
 }
 
@@ -247,8 +427,14 @@
 "rule_mult_div_expression" -> {
     "OPERATOR" = {
         "MathOperatorSymbol".child,
-        rule("rule_assignment_value", "MultiplicativeExpression".last.parent.parent),
-        rule("rule_assignment_value", "UnaryExpression".last.parent.parent)
+        
+        // first part
+        ? rule("rule_assignment_value", "MultiplicativeExpression".last.parent.parent),
+        ? rule("rule_assignment_value_attr_call", "MultiplicativeExpression".last.parent."ExpressionName"),
+        
+        // second part
+        ? rule("rule_assignment_value", "UnaryExpression".last.parent.parent),
+        ? rule("rule_assignment_value_attr_call", "UnaryExpression".last.parent."ExpressionName")
     }
 }
 
@@ -307,7 +493,8 @@
 // handle with the arguments of a method call : receives "Expression"
 "rule_assignment_method_arguments" -> {
     "ARGUMENT" = {
-        ? rule("rule_assignment_value", last.parent.parent)
+        ? rule("rule_assignment_value", last.parent.parent),
+        ? rule("rule_assignment_value_attr_call", last.parent."ExpressionName")
     }
 }
 
@@ -322,10 +509,12 @@
 // return a complex name of a method such as x.something() : receives "MethodInvocation_lfno_primary"
 "rule_assignment_method_name_complex" -> {
     "NAME" = {
-        "TypeName".child
-    },
-    new_leaf("."),
-    "NAME" = {
-        "MethodNameComplex".child
+        "NAME" = {
+            "TypeName".child
+        },
+        new_leaf("."),
+        "NAME" = {
+            "MethodNameComplex".child
+        }
     }
 }

@@ -42,7 +42,7 @@ public class XMLConverter {
             if (node != null && node.getNodeData() != null) {
                 writer.write("<childElement>");
                 writer.newLine();
-                writer.write("<token column=\"" + node.getNodeData().getColumn() + "\" index=\"" + node.getNodeData().getIndex() + "\" line=\"" + node.getNodeData().getLine() + "\" text=\'" + node.getNodeData().getText() + "\' type=\"" + node.getNodeData().getType() + "\"/>");
+                writer.write("<token column=\"" + node.getNodeData().getColumn() + "\" index=\"" + node.getNodeData().getIndex() + "\" line=\"" + node.getNodeData().getLine() + "\" text=\'" + normalizeLessThan(node.getNodeData().getText()) + "\' type=\"" + node.getNodeData().getType() + "\"/>");
                 writer.newLine();
                 if (!node.getChildren().isEmpty()) {
                     node.getChildren().forEach((n) -> {
@@ -58,6 +58,10 @@ public class XMLConverter {
         }
     }
    
+    private String normalizeLessThan(String text){
+        return text.replaceAll("<", "&#60;");
+    }
+    
     public Tree<TokenAttributes> getTree() {
         return tree;
     }
