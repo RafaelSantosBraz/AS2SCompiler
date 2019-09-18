@@ -468,8 +468,12 @@ result
 	;
 
 methodDeclarator
-	:	Identifier '(' formalParameterList? ')' dims?
+	:	methodDeclaratorID '(' formalParameterList? ')' dims?
 	;
+
+methodDeclaratorID
+        : Identifier
+        ;
 
 formalParameterList
 	:	receiverParameter

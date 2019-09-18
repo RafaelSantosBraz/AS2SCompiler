@@ -7,6 +7,7 @@ package interpreter;
 
 import java.util.ArrayList;
 import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.tree.TerminalNode;
 import parser.TranslationGrammarBaseVisitor;
 import parser.TranslationGrammarParser;
 import trees.cstecst.ConcreteToken;
@@ -57,9 +58,88 @@ public class TranslationVisitor extends TranslationGrammarBaseVisitor<Object> {
 
     private Object magicVisit(ParseTree ctx, Node<TokenAttributes> CST_node) {
         current_node = CST_node;
-        ArrayList<Node<TokenAttributes>> result = (ArrayList<Node<TokenAttributes>>) visit(ctx);
+        Object result = visit(ctx);
         current_node = CST_node;
         return result;
+    }
+
+    @Override
+    public Object visitIfstatement(TranslationGrammarParser.IfstatementContext ctx) {
+        ArrayList<Node<TokenAttributes>> result = new ArrayList<>();
+        Boolean cond = (Boolean) magicVisit(ctx.condition(), current_node);
+        if (cond == null) {
+            return null;
+        }
+        if (cond) {
+            ArrayList<Node<TokenAttributes>> temp = (ArrayList<Node<TokenAttributes>>) magicVisit(ctx.ruleebody(), current_node);
+            if (temp == null) {
+                return null;
+            }
+            return temp;
+        }
+        return result;
+    }
+
+    @Override
+    public Object visitIfelsestatement(TranslationGrammarParser.IfelsestatementContext ctx) {
+        //ArrayList<Node<TokenAttributes>> result = new ArrayList<>();
+        Boolean cond = (Boolean) magicVisit(ctx.condition(), current_node);
+        if (cond == null) {
+            return null;
+        }
+        ArrayList<Node<TokenAttributes>> temp;
+        if (cond) {
+            temp = (ArrayList<Node<TokenAttributes>>) magicVisit(ctx.t, current_node);
+        } else {
+            temp = (ArrayList<Node<TokenAttributes>>) magicVisit(ctx.f, current_node);
+        }
+        if (temp == null) {
+            return null;
+        }
+        return temp;
+    }
+
+    @Override
+    public Object visitCondition(TranslationGrammarParser.ConditionContext ctx) {
+        Node<TokenAttributes> temp1 = (Node<TokenAttributes>) magicVisit(ctx.p1, current_node);
+        Node<TokenAttributes> temp2 = (Node<TokenAttributes>) magicVisit(ctx.p2, current_node);
+        TerminalNode op = (TerminalNode) magicVisit(ctx.conditionaloperator(), current_node);
+        if (temp1 == null || temp2 == null) {
+            return null;
+        }
+        switch (op.getSymbol().getType()) {
+            case TranslationGrammarParser.EQUALS:
+                return temp1.getNodeData().getText().equals(temp2.getNodeData().getText());
+            case TranslationGrammarParser.NEQ:
+                return !temp1.getNodeData().getText().equals(temp2.getNodeData().getText());
+        }
+        return null;
+    }
+
+    @Override
+    public Object visitPartialcondition(TranslationGrammarParser.PartialconditionContext ctx) {
+        if (ctx.visitingsequence() != null) {
+            ArrayList<Node<TokenAttributes>> temp = (ArrayList<Node<TokenAttributes>>) magicVisit(ctx.visitingsequence(), current_node);
+            if (temp.size() != 1) {
+                return null;
+            }
+            return temp.get(0);
+        }
+        TerminalNode temp = (TerminalNode) magicVisit(ctx.canonicalreference(), current_node);
+        return new Node<>(new UniversalToken(normalizeTmapText(temp.getSymbol().getText()), -1));
+    }
+
+    @Override
+    public Object visitCanonicalreference(TranslationGrammarParser.CanonicalreferenceContext ctx) {
+        return ctx.NODE_NAME();
+    }
+
+    @Override
+    public Object visitConditionaloperator(TranslationGrammarParser.ConditionaloperatorContext ctx) {
+        if (ctx.EQUALS() != null) {
+            return ctx.EQUALS();
+        }
+        return ctx.NEQ();
     }
 
     @Override
@@ -231,6 +311,24 @@ public class TranslationVisitor extends TranslationGrammarBaseVisitor<Object> {
         return findLast(current_node.getChildren().get(0));
     }
 
+    @Override
+    public Object visitFirstinvoke(TranslationGrammarParser.FirstinvokeContext ctx) {
+        ArrayList<Node<TokenAttributes>> result = new ArrayList<>();
+        Node<TokenAttributes> theFirst = findFirst(current_node);
+        result.add(theFirst);
+        return result;
+    }
+
+    private Node<TokenAttributes> findFirst(Node<TokenAttributes> current_node) {
+        if (current_node.getParent() != null && current_node.getParent().getChildren().size() == 1) {
+            return findFirst(current_node.getParent());
+        }
+        if (current_node.getParent() == null){
+            return current_node;
+        }
+        return current_node;
+    }
+    
     @Override
     public Object visitParentinvoke(TranslationGrammarParser.ParentinvokeContext ctx) {
         ArrayList<Node<TokenAttributes>> result = new ArrayList<>();

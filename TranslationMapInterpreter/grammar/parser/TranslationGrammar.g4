@@ -32,7 +32,35 @@ ruleefragment
         : ruleecall
         | methodcall
         | parentsetchildren
-        | visitingsequence 
+        | visitingsequence
+        | ifstatement
+        | ifelsestatement
+        ;
+
+ifstatement
+        : 'if' '(' condition ')' '{' ruleebody? '}'
+        ;
+
+ifelsestatement
+        : 'if' '(' condition ')' '{' t=ruleebody? '}' 'else' '{' f=ruleebody? '}'
+        ;
+
+condition
+        : p1=partialcondition conditionaloperator p2=partialcondition
+        ;
+
+partialcondition
+        : visitingsequence 
+        | canonicalreference
+        ;
+
+canonicalreference
+        : ':' NODE_NAME 
+        ;
+
+conditionaloperator
+        : EQUALS 
+        | NEQ
         ;
 
 parentsetchildren
@@ -53,6 +81,7 @@ mention
         | childinvoke
         | childreninvoke
         | lastinvoke
+        | firstinvoke
         | parentinvoke
         | currentnodeinvoke
         ;
@@ -67,6 +96,10 @@ parentinvoke
 
 lastinvoke
         : 'last'
+        ;
+
+firstinvoke
+        : 'first'
         ;
 
 childreninvoke
@@ -98,6 +131,8 @@ newleafinvoke
         : 'new_leaf' '(' NODE_NAME  ')'
         ;
 
+EQUALS : '==';
+NEQ : '!=';
 ANY : 'any';
 NODE_NAME : '"'(~["\r\n])+'"';
 WS : [ \t\r\n]+ -> skip;

@@ -101,12 +101,70 @@
 // handle with fields and methods in classes : receives "ClassMemberDeclaration"
 "rule_class_member_declaration" -> {
     ? rule("rule_field_declaration", "FieldDeclaration"),
-    ? rule("rule_method_declaration", "MethodDeclaration")
+    //? rule("rule_psvm_declaration_args_exception", "MethodDeclaration"."MethodHeader"."MethodDeclarator"."MethodDeclaratorID"."main"),
+    ? rule("rule_method_declaration", "MethodDeclaration")    
+}
+
+// handle with a psvm method in a class : receives "MethodDeclaration"
+"rule_psvm_declaration_args_exception" -> {
+    "FUNCTION_DECL" = {
+        "MODIFIER_LIST" = {
+            new_leaf("public"),
+            new_leaf("static")
+        },
+        "TYPE" = {
+            new_leaf("void")
+        },
+        "NAME" = {
+            new_leaf("main")
+        },
+        "FORMAL_PARAM_LIST" = {
+            "TYPE" = {
+                "NAME" = {
+                    new_leaf("String[]")
+                }
+            },
+            "NAME" = {
+                new_leaf("args")
+            }
+        },
+        "BLOCK_SCOPE" = {
+            "SEPARATOR" = {
+                new_leaf("{")
+            },            
+            ? rule("rule_block_scope", parent.parent.parent.parent."MethodBody"."Block"."BlockStatements".children("BlockStatement")),            
+            "SEPARATOR" = {
+                new_leaf("}")
+            }
+        }
+    }
 }
 
 // handle with each method in a class : receives "MethodDeclaration"
 "rule_method_declaration" -> {
-
+    "FUNCTION_DECL" = {
+        "MODIFIER_LIST" = {
+            ? rule("rule_field_modifier", children("MethodModifier"))
+        },
+        "TYPE" = {
+            "MethodHeader"."Result".last
+        },
+        "NAME" = {
+            "MethodHeader"."MethodDeclarator"."MethodDeclaratorID".child
+        },
+        "FORMAL_PARAM_LIST" = {
+            ? rule("rule_parameter_declaration", "MethodHeader"."MethodDeclarator"."FormalParameterList")
+        },
+        "BLOCK_SCOPE" = {
+            "SEPARATOR" = {
+                new_leaf("{")
+            },            
+            ? rule("rule_block_scope", "MethodBody"."Block"."BlockStatements".children("BlockStatement")),            
+            "SEPARATOR" = {
+                new_leaf("}")
+            }
+        }
+    }
 }
 
 // handle with each field in a class : receives "FieldDeclaration"
@@ -148,13 +206,22 @@
         new_leaf("MODIFIER_LIST"),
         "TYPE" = {                      
             "NAME" = {
-                "UnannType".last
+                ? rule("rule_string_array_exception", "UnannType".last)
             }
         },
         "NAME" = {
             "VariableDeclaratorId".child
         }    
     }
+}
+
+// handle with a String[] for psvm method : receives "UnannType".last
+"rule_string_array_exception" -> {
+    if (parent.child == :"UnannArrayType"){
+        "UnannClassOrInterfaceType".last
+    } else{
+        current_node
+    }    
 }
 
 // handle with a constructor call inside a block scope : receives "ExplicitConstructorInvocation"
@@ -186,8 +253,111 @@
 "rule_statement" -> {
     ? rule("rule_statement_without_trailing_substatement", child),
     ? rule("rule_if_then_else_statement", "IfThenElseStatement"),
-    ? rule("rule_if_then_statement", "IfThenStatement")
+    ? rule("rule_if_then_statement", "IfThenStatement"),
+    ? rule("rule_for_statement", "ForStatement"."BasicForStatement"),
+    ? rule("rule_while_statement", "WhileStatement")
     // tem mais coisa aqui
+}
+
+// handle with a do-while statement : receives "DoStatement"
+"rule_do_while_statement" -> {
+     "LOOP_STATEMENT" = {
+        "KEYWORD" = {
+            new_leaf("do")
+        },               
+        "BLOCK_SCOPE" = {
+            "SEPARATOR" = {
+                new_leaf("{")
+            },
+            ? rule("rule_block_scope", "Statement".last."BlockStatements".children("BlockStatement")),            
+            "SEPARATOR" = {
+                new_leaf("}")
+            }
+        },
+        rule("rule_for_condition", "Expression")
+    }
+}
+
+// handle with a while loop : receives "WhileStatement"
+"rule_while_statement" -> {
+    "LOOP_STATEMENT" = {
+        "KEYWORD" = {
+            new_leaf("while")
+        },        
+        rule("rule_for_condition", "Expression"),
+        "BLOCK_SCOPE" = {
+            "SEPARATOR" = {
+                new_leaf("{")
+            },
+            ? rule("rule_block_scope", "Statement".last."BlockStatements".children("BlockStatement")),            
+            "SEPARATOR" = {
+                new_leaf("}")
+            }
+        }
+    }
+}
+
+// handle with a for loop : receives "BasicForStatement"
+"rule_for_statement" -> {
+    "LOOP_STATEMENT" = {
+        "KEYWORD" = {
+            new_leaf("for")
+        },
+        ? rule("rule_for_init", "ForInit"),
+        ? rule("rule_for_condition", "Expression"),
+        ? rule("rule_for_step", "ForUpdate"),
+        "BLOCK_SCOPE" = {
+            "SEPARATOR" = {
+                new_leaf("{")
+            },
+            ? rule("rule_block_scope", "Statement".last."BlockStatements".children("BlockStatement")),            
+            "SEPARATOR" = {
+                new_leaf("}")
+            }
+        }
+    }
+}
+
+// handle with the update statement of a loop : receives "ForUpdate"
+"rule_for_step" -> {
+    "STEP" = {
+        ? rule("rule_assignment", last),
+        ? "ASSIGNMENT_STATEMENT" = {
+            "NAME" = {
+               last."PostfixExpression".last 
+            },
+            "OPERATOR" = {
+                rule("rule_for_++_--", last)
+            }            
+        }
+    }
+}
+
+// handle with a ++ or -- in a loop : receives "ForUpdate".last
+"rule_for_++_--" -> {
+    ? "++",
+    ? "--"
+}
+
+// handle with a CONDITION statement for a for a LOOP_STATEMENT : receives "Expression"
+"rule_for_condition" -> {
+    "CONDITION" = {
+        "SEPARATOR" = {
+            new_leaf("(")
+        },
+        rule("rule_assignment_value", last.parent.parent),
+        "SEPARATOR" = {
+            new_leaf(")")
+        }
+    }
+}
+
+// handle with the INIT section of a LOOP_STATEMENT : receives "ForInit"
+"rule_for_init" -> {
+    "INIT" = {
+        ? rule("rule_local_variable_declaration_statement", current_node),
+        ? rule("rule_assignment", last)
+    }
 }
 
 // handle with a if statement : receives "IfThenStatement"
@@ -266,8 +436,8 @@
 "rule_statement_without_trailing_substatement" -> {
     ? rule("rule_expression_statement", child."StatementExpression"),
     ? rule("rule_return_statement", "ReturnStatement"),
-    ? rule("rule_break_statement", "BreakStatement")
-    // tem mais coisa aqui
+    ? rule("rule_break_statement", "BreakStatement"),
+    ? rule("rule_do_while_statement", "DoStatement")
 }
 
 // handle with the break statement in a block : receives "BreakStatement"
@@ -354,7 +524,7 @@
     ? rule("rule_assignment_method_invocation", child."MethodInvocation_lfno_primary"),
     ? rule("rule_assignment_instantiates", child."ClassInstanceCreationExpression_lfno_primary"),
     ? rule("rule_math_expression", child),
-    ? rule("rule_relational_expression", child)
+    ? rule("rule_relational_expression", child)    
 }
 
 // handle with relational expression : receives "Expression".last.parent
