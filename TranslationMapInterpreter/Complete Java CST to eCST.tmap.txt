@@ -204,10 +204,20 @@
 "rule_formal_parameter" -> {
     "PARAMETER_DECL" = {
         new_leaf("MODIFIER_LIST"),
-        "TYPE" = {                      
-            "NAME" = {
-                ? rule("rule_string_array_exception", "UnannType".last)
-            }
+        "TYPE" = {   
+            if ("UnannType".last == :"UnannArrayType"){
+                "NAME" = {
+                    rule("rule_string_array_exception", "UnannType".last)
+                }
+            } else {
+                if ("UnannType".last.parent == :"UnannClassType_lfno_unannClassOrInterfaceType"){
+                    "NAME" = {
+                        rule("rule_string_array_exception", "UnannType".last)
+                    }
+                } else {                   
+                    rule("rule_string_array_exception", "UnannType".last)                    
+                }
+            }                                      
         },
         "NAME" = {
             "VariableDeclaratorId".child

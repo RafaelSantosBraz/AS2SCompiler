@@ -34,12 +34,11 @@ public class Run {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws IOException {
-        CharStream stream = new ANTLRFileStream("test.tmap.txt");
-        TranslationGrammarLexer lexer = new TranslationGrammarLexer(stream);
-        TokenStream tokens = new CommonTokenStream(lexer);
-        TranslationGrammarParser parser = new TranslationGrammarParser(tokens);
-        TranslationGrammarParser.ProgContext prog
-                = parser.prog();  
+//        CharStream stream = new ANTLRFileStream("test.tmap.txt");
+//        TranslationGrammarLexer lexer = new TranslationGrammarLexer(stream);
+//        TokenStream tokens = new CommonTokenStream(lexer);
+//        TranslationGrammarParser parser = new TranslationGrammarParser(tokens);
+//        TranslationGrammarParser.ProgContext prog = parser.prog();  
         TreeXMLConverter conv = new TreeXMLConverter();
         conv.convertFromFile("D:\\GitHub\\StS-Compilation-Framework\\specific parsers\\JavaParser\\test\\output\\CST.xml");
         TranslationParser t = new TranslationParser(conv.getTree());
