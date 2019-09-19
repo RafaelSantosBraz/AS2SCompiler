@@ -84,6 +84,16 @@ mention
         | firstinvoke
         | parentinvoke
         | currentnodeinvoke
+        | firstchildinvoke
+        | lastchildinvoke
+        ;
+
+firstchildinvoke
+        : 'first_child'
+        ;
+
+lastchildinvoke
+        : 'last_child'
         ;
 
 currentnodeinvoke

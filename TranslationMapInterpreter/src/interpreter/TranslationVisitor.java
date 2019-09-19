@@ -297,6 +297,26 @@ public class TranslationVisitor extends TranslationGrammarBaseVisitor<Object> {
     }
 
     @Override
+    public Object visitFirstchildinvoke(TranslationGrammarParser.FirstchildinvokeContext ctx) {
+        ArrayList<Node<TokenAttributes>> result = new ArrayList<>();
+        if (current_node.getChildren().isEmpty()) {
+            return null;
+        }
+        result.add(current_node.getChildren().get(0));
+        return result;
+    }
+
+    @Override
+    public Object visitLastchildinvoke(TranslationGrammarParser.LastchildinvokeContext ctx) {
+        ArrayList<Node<TokenAttributes>> result = new ArrayList<>();
+        if (current_node.getChildren().isEmpty()) {
+            return null;
+        }
+        result.add(current_node.getChildren().get(current_node.getChildren().size() - 1));
+        return result;
+    }
+
+    @Override
     public Object visitLastinvoke(TranslationGrammarParser.LastinvokeContext ctx) {
         ArrayList<Node<TokenAttributes>> result = new ArrayList<>();
         Node<TokenAttributes> theLast = findLast(current_node);
@@ -323,12 +343,12 @@ public class TranslationVisitor extends TranslationGrammarBaseVisitor<Object> {
         if (current_node.getParent() != null && current_node.getParent().getChildren().size() == 1) {
             return findFirst(current_node.getParent());
         }
-        if (current_node.getParent() == null){
+        if (current_node.getParent() == null) {
             return current_node;
         }
         return current_node;
     }
-    
+
     @Override
     public Object visitParentinvoke(TranslationGrammarParser.ParentinvokeContext ctx) {
         ArrayList<Node<TokenAttributes>> result = new ArrayList<>();

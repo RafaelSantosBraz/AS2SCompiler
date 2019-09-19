@@ -1,28 +1,52 @@
 // first rule : receives "root"
 "ruleinitial" -> {
-    rule("rule_compilation_units", children("CompilationUnit"))
+    rule("rule_compilation_unit", children("CompilationUnit"))
 }
 
-// handle with all the compilation units (files) : receives "CompilationUnit"
-"rule_compilation_units" -> {
-    rule("rule_compilation_unit", children)
-}
-
-// handle with each compilation unit : receives "TypeDeclaration"
+// handle with each compilation unit : receives "CompilationUnit"
 "rule_compilation_unit" -> {
     "COMPILATION_UNIT" = {
         "PACKAGE_DECL" = {
             ? "NAME" = {
                 "PackageDeclaration"."PackageName".child
             },
+            ? rule("rule_import_declaration", children("ImportDeclaration")),            
             ? "CONCRETE_UNIT_DECL" = {
-                rule("rule_class_declaration", "ClassDeclaration"."NormalClassDeclaration")                
+                rule("rule_class_declaration", "TypeDeclaration"."ClassDeclaration"."NormalClassDeclaration")                
             },
             ? "INTERFACE_UNIT_DECL" = {
-                rule("rule_interface_declaration", "InterfaceDeclaration"."NormalInterfaceDeclaration")
+                rule("rule_interface_declaration", "TypeDeclaration"."InterfaceDeclaration"."NormalInterfaceDeclaration")
             }
         }
     }
+}
+
+// handle with the import action : receives "ImportDeclaration"
+"rule_import_declaration" -> {
+    "IMPORT_DECL" = {
+        "NAME" = {
+            rule("rule_import_name", "SingleTypeImportDeclaration"."TypeName")
+        }
+    }
+}
+
+// handle with the name(s) for a import : receives "TypeName"
+"rule_import_name" -> {
+    if (first_child != last_child){
+        "NAME" = {
+            if (first_child == :"PackageOrTypeName"){
+                rule("rule_import_name", "PackageOrTypeName")
+            } else {
+                first_child
+            } 
+        },
+        new_leaf("."),
+        "NAME" = {
+            last_child
+        }
+    } else {       
+        last_child
+    }     
 }
 
 // if the file contains a Java Interface, this rule has to be called : receives "NormalInterfaceDeclaration"
@@ -100,44 +124,8 @@
 
 // handle with fields and methods in classes : receives "ClassMemberDeclaration"
 "rule_class_member_declaration" -> {
-    ? rule("rule_field_declaration", "FieldDeclaration"),
-    //? rule("rule_psvm_declaration_args_exception", "MethodDeclaration"."MethodHeader"."MethodDeclarator"."MethodDeclaratorID"."main"),
+    ? rule("rule_field_declaration", "FieldDeclaration"),    
     ? rule("rule_method_declaration", "MethodDeclaration")    
-}
-
-// handle with a psvm method in a class : receives "MethodDeclaration"
-"rule_psvm_declaration_args_exception" -> {
-    "FUNCTION_DECL" = {
-        "MODIFIER_LIST" = {
-            new_leaf("public"),
-            new_leaf("static")
-        },
-        "TYPE" = {
-            new_leaf("void")
-        },
-        "NAME" = {
-            new_leaf("main")
-        },
-        "FORMAL_PARAM_LIST" = {
-            "TYPE" = {
-                "NAME" = {
-                    new_leaf("String[]")
-                }
-            },
-            "NAME" = {
-                new_leaf("args")
-            }
-        },
-        "BLOCK_SCOPE" = {
-            "SEPARATOR" = {
-                new_leaf("{")
-            },            
-            ? rule("rule_block_scope", parent.parent.parent.parent."MethodBody"."Block"."BlockStatements".children("BlockStatement")),            
-            "SEPARATOR" = {
-                new_leaf("}")
-            }
-        }
-    }
 }
 
 // handle with each method in a class : receives "MethodDeclaration"
@@ -229,7 +217,7 @@
 "rule_string_array_exception" -> {
     if (parent.child == :"UnannArrayType"){
         "UnannClassOrInterfaceType".last
-    } else{
+    } else {
         current_node
     }    
 }
@@ -256,7 +244,6 @@
 "rule_block_scope" -> {
     ? rule("rule_statement", child),
     ? rule("rule_local_variable_declaration_statement", child)
-    // new_leaf(";")
 }
 
 // handle with a block statement that does not create a new local variable : receives "Statement"
@@ -266,7 +253,6 @@
     ? rule("rule_if_then_statement", "IfThenStatement"),
     ? rule("rule_for_statement", "ForStatement"."BasicForStatement"),
     ? rule("rule_while_statement", "WhileStatement")
-    // tem mais coisa aqui
 }
 
 // handle with a do-while statement : receives "DoStatement"
@@ -506,7 +492,6 @@
     ? rule("rule_assignment", child),
     ? rule("rule_assignment_method_invocation", current_node."MethodInvocation_lfno_primary"),
     ? rule("rule_assignment_method_invocation", current_node."MethodInvocation")
-    // tem mais coisa aqui
 }
 
 // handle with an Assignment Expression : receives "Assignment"
@@ -591,12 +576,10 @@
 // handle with a expression like x + y or x - y : receives "AdditiveExpression"
 "rule_plus_minus_expression" -> {
     "OPERATOR" = {
-        "MathOperatorSymbol".child,
-        
+        "MathOperatorSymbol".child,        
         // first part
         ? rule("rule_assignment_value", "AdditiveExpression".last.parent.parent),
-        ? rule("rule_assignment_value_attr_call", "AdditiveExpression".last.parent."ExpressionName"),
-        
+        ? rule("rule_assignment_value_attr_call", "AdditiveExpression".last.parent."ExpressionName"),        
         // second part
         ? rule("rule_assignment_value", "MultiplicativeExpression".last.parent.parent),
         ? rule("rule_assignment_value_attr_call", "MultiplicativeExpression".last.parent."ExpressionName")
@@ -606,12 +589,10 @@
 // handle with a expression like x * y or x / y : receives "MultiplicativeExpression"
 "rule_mult_div_expression" -> {
     "OPERATOR" = {
-        "MathOperatorSymbol".child,
-        
+        "MathOperatorSymbol".child,        
         // first part
         ? rule("rule_assignment_value", "MultiplicativeExpression".last.parent.parent),
-        ? rule("rule_assignment_value_attr_call", "MultiplicativeExpression".last.parent."ExpressionName"),
-        
+        ? rule("rule_assignment_value_attr_call", "MultiplicativeExpression".last.parent."ExpressionName"),        
         // second part
         ? rule("rule_assignment_value", "UnaryExpression".last.parent.parent),
         ? rule("rule_assignment_value_attr_call", "UnaryExpression".last.parent."ExpressionName")
