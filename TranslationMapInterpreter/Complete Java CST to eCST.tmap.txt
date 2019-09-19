@@ -45,7 +45,7 @@
             last_child
         }
     } else {       
-        last_child
+        last_child        
     }     
 }
 
@@ -661,10 +661,20 @@
 
 // return the name of the method to be called : receives "MethodInvocation_lfno_primary"
 "rule_assignment_method_name" -> {
-    ? "NAME" = {
-        "MethodName".child
-    },
-    ? rule("rule_assignment_method_name_complex", current_node)
+    if (child(2) == :"MethodNameComplex"){
+        "NAME" = {
+            "NAME" = {
+                rule("rule_import_name", "TypeName")
+            },
+            "NAME" = {
+                "MethodNameComplex".child
+            }
+        }
+    } else {
+        "NAME" = {
+            "MethodName".child
+        }
+    }    
 }
 
 // return a complex name of a method such as x.something() : receives "MethodInvocation_lfno_primary"

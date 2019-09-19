@@ -271,6 +271,21 @@ public class TranslationVisitor extends TranslationGrammarBaseVisitor<Object> {
     }
 
     @Override
+    public Object visitChildnumberinvoke(TranslationGrammarParser.ChildnumberinvokeContext ctx) {
+        ArrayList<Node<TokenAttributes>> result = new ArrayList<>();
+        if (current_node.getChildren().isEmpty()) {
+            return null;
+        }
+        try {
+            int number = Integer.parseInt(ctx.NUMBER().getSymbol().getText());
+            result.add(current_node.getChildren().get(number));
+            return result;
+        } catch (Exception e) {
+            return null;
+        }        
+    }
+
+    @Override
     public Object visitSimplechildreninvoke(TranslationGrammarParser.SimplechildreninvokeContext ctx) {
         ArrayList<Node<TokenAttributes>> result = new ArrayList<>();
         if (current_node.getChildren().isEmpty()) {

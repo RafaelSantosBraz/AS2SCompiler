@@ -86,6 +86,7 @@ mention
         | currentnodeinvoke
         | firstchildinvoke
         | lastchildinvoke
+        | childnumberinvoke
         ;
 
 firstchildinvoke
@@ -133,6 +134,10 @@ childinvoke
         : 'child'
         ;
 
+childnumberinvoke
+        : 'child' '(' NUMBER ')'
+        ;
+
 methodcall
         : newleafinvoke
         ;
@@ -141,6 +146,7 @@ newleafinvoke
         : 'new_leaf' '(' NODE_NAME  ')'
         ;
 
+NUMBER : [0-9]+;
 EQUALS : '==';
 NEQ : '!=';
 ANY : 'any';
