@@ -676,16 +676,3 @@
         }
     }    
 }
-
-// return a complex name of a method such as x.something() : receives "MethodInvocation_lfno_primary"
-"rule_assignment_method_name_complex" -> {
-    "NAME" = {
-        "NAME" = {
-            "TypeName".child
-        },
-        new_leaf("."),
-        "NAME" = {
-            "MethodNameComplex".child
-        }
-    }
-}
