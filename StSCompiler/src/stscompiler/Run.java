@@ -6,6 +6,7 @@
 package stscompiler;
 
 import analyzer.Analyzer;
+import converter.XMLDOTConverter;
 import java.io.File;
 import translator.Translator;
 
@@ -21,15 +22,28 @@ public class Run {
     public static void main(String[] args) {
         String[] params = new String[]{
             "c",
+            "java",
             "D:\\GitHub\\StS-Compilation-Framework\\runtime\\input",
             "D:\\GitHub\\StS-Compilation-Framework\\runtime\\output",
             "D:\\GitHub\\StS-Compilation-Framework\\runtime\\Tmaps\\C_CST_eCST.tmap"
         };       
-        if (!new Analyzer().createCST(params[0], params[1], params[2])){
+        if (params.length != 5){
+            System.out.println("StSCompiler : <in. lang.> <out. lang.> <in. dir.> <out. dir.> <tmap path>");
+            return;
+        }
+        if (!new Analyzer().createCST(params[0], params[2], params[3])){
             System.out.println("Error: it was not possible to create the CST!");
             return;
-        }    
-        //new Translator().createeCST(params[1] + File.separator + "temp" + File.separator + "CST.xml", params[3], "\"ruleinitial\"", params[2]);
+        }   
+//        Translator translator = new Translator();
+//        if (!translator.createeCST(params[3] + File.separator + "temp" + File.separator + "CST.xml", params[4], "\"ruleinitial\"", params[3])){
+//            System.out.println("Error: it was not possible to create the eCST!");
+//            return;
+//        }       
+        new XMLDOTConverter().convertFromDir(
+                "D:\\GitHub\\StS-Compilation-Framework\\runtime\\output\\temp\\licca",
+                "D:\\GitHub\\StS-Compilation-Framework\\runtime\\output"
+        );
     }
 
 }

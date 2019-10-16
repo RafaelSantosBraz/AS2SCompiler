@@ -3,3 +3,55 @@
     rule("rule_compilation_unit", children("CompilationUnit"))
 }
 
+// handle with each compilation unit : receives "CompilationUnit"
+"rule_compilation_unit" -> {
+    "COMPILATION_UNIT" = {
+        "PACKAGE_DECL" = {
+            "CONCRETE_UNIT_DECL" = {
+                rule("rule_c_file", "TranslationUnit")                
+            }
+        }
+    }
+}
+
+// handle with the concrete C file : receives "TranslationUnit"
+"rule_c_file" -> {
+    ? rule("rule_c_file", "TranslationUnit"),
+    rule("rule_external_declaration", "ExternalDeclaration")
+}
+
+// handle with each of function or declaration definitions : receives "ExternalDeclaration"
+"rule_external_declaration" -> {
+    ? rule("rule_func_definition", "FunctionDefinition"),
+    ? rule("rule_decl_definition", "Declaration")
+}
+
+// handle with the declaration of a function : receives "FunctionDefinition"
+"rule_func_definition" -> {
+    "FUNCTION_DECL" = {
+        "TYPE" = {
+            "TYPE" = {
+                "DeclarationSpecifiers".last
+            }
+        },
+        "NAME" = {
+            "Declarator"."DirectDeclarator"."DirectDeclarator".child
+        },
+        "SEPARATOR" = {
+            new_leaf("(")
+        },
+        ? rule("rule_params_list", "Declarator"."DirectDeclarator"."ParameterTypeList"."ParameterList"),
+        "SEPARATOR" = {
+            new_leaf(")")
+        }
+    }
+}
+
+"rule_params_list" -> {
+    
+}
+
+// handle with global declarations : receives "Declaration"
+"rule_decl_definition" -> {
+
+}

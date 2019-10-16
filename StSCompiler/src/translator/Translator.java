@@ -22,6 +22,7 @@ public class Translator {
         if (!conv.convertFromFile(CSTPath)) {
             return false;
         }
-        return new TranslationParser(conv.getTree()).start(tmapPath, initialRuleName);        
+        return new TranslationParser(conv.getTree()).start(tmapPath, initialRuleName);
     }
+
 }
