@@ -97,3 +97,14 @@ $RECYCLE.BIN/
 /eCST Generation/eCSTfromJava/build/
 /eCST Generation/eCSTfromJava/dist/
 /eCST Generation/eCSTfromJava/nbproject/private/
+/StSCompiler/nbproject/private/
+/CParser/nbproject/private/
+/CParser/build/
+/CParser/dist/
+/specificParsers/CParser/build/
+/specificParsers/CParser/dist/
+/specificParsers/CParser/nbproject/private/
+/specificParsers/JavaParser/build/
+/specificParsers/JavaParser/dist/
+/specificParsers/JavaParser/nbproject/private/
+/StSCompiler/build/

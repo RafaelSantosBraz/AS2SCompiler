@@ -1,0 +1,5 @@
+// first rule : receives "root"
+"ruleinitial" -> {
+    rule("rule_compilation_unit", children("CompilationUnit"))
+}
+
