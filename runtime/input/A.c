@@ -1,13 +1,13 @@
 #include <stdio.h>
 #include <math.h>
 
-char agora(int a, int b){    
-    //int i;
-    for (i = 0; i < 10; i++)
+int agora(int a, int b)
+{
+    if (a == b)
     {
-        a += -1 * b / ((a + b) - 4);
+        return a;
     }
-    
+    return -1;   
 }
 
 int main()

@@ -75,7 +75,55 @@
     ? rule("rule_expression", "ExpressionStatement"."Expression".last.parent),
     ? rule("rule_jump_expression", "JumpStatement"),
     ? rule("rule_iteration_statement", "IterationStatement"),
-    ? rule("rule_block_scope", "CompoundStatement"."BlockItemList")
+    ? rule("rule_block_scope", "CompoundStatement"."BlockItemList"),
+    ? rule("rule_selection_statment", "SelectionStatement")
+}
+
+// handle with selection statements like if and if_else : receives "SelectionStatement"
+"rule_selection_statment" -> {
+    if (first_child == :"if"){
+        "BRANCH_STATEMENT" = {
+            "BRANCH" = {
+                "KEYWORD" = {
+                    new_leaf("if")
+                },
+                "CONDITION" = {
+                    "SEPARATOR" = {
+                        new_leaf("(")
+                    },
+                    rule("rule_expression", "Expression".last.parent),
+                    "SEPARATOR" = {
+                        new_leaf(")")
+                    }
+                },
+                "BLOCK_SCOPE" = {
+                    "SEPARATOR" = {
+                        new_leaf("{")
+                    },
+                    ? rule("rule_statement", child(4)),
+                    "SEPARATOR" = {
+                        new_leaf("}")
+                    }
+                }                
+            }
+        }
+    },
+    if (first_child == :"IfElseStament"){
+        "BRANCH" = {
+            "KEYWORD" = {
+                new_leaf("else")
+            },                    
+            "BLOCK_SCOPE" = {
+                "SEPARATOR" = {
+                    new_leaf("{")
+                },
+                ? rule("rule_statement", "IfElseStament".last_child),
+                "SEPARATOR" = {
+                    new_leaf("}")
+                }
+            }                
+        }
+    }
 }
 
 // handle with a loop statement (for, while, do_while) : receives "IterationStatement"
