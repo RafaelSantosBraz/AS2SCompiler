@@ -35,15 +35,15 @@ public class Run {
             System.out.println("Error: it was not possible to create the CST!");
             return;
         }   
-        Translator translator = new Translator();
-        if (!translator.createeCST(params[3] + File.separator + "temp" + File.separator + "CST.xml", params[4], "\"ruleinitial\"", params[3])){
-            System.out.println("Error: it was not possible to create the eCST!");
-            return;
-        }       
-//        new XMLDOTConverter().convertFromDir(
-//                "D:\\GitHub\\StS-Compilation-Framework\\runtime\\output\\temp\\licca",
-//                "D:\\GitHub\\StS-Compilation-Framework\\runtime\\output"
-//        );
+//        Translator translator = new Translator();
+//        if (!translator.createeCST(params[3] + File.separator + "temp" + File.separator + "CST.xml", params[4], "\"ruleinitial\"", params[3])){
+//            System.out.println("Error: it was not possible to create the eCST!");
+//            return;
+//        }       
+        new XMLDOTConverter().convertFromDir(
+                "D:\\GitHub\\StS-Compilation-Framework\\runtime\\output\\temp\\licca",
+                "D:\\GitHub\\StS-Compilation-Framework\\runtime\\output"
+        );
     }
 
 }

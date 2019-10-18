@@ -73,7 +73,40 @@
 // handle with each statement in a block : receives "Statement"
 "rule_statement" -> {
     ? rule("rule_expression", "ExpressionStatement"."Expression".last.parent),
-    ? rule("rule_jump_expression", "JumpStatement")
+    ? rule("rule_jump_expression", "JumpStatement"),
+    ? rule("rule_iteration_statement", "IterationStatement"),
+    ? rule("rule_block_scope", "CompoundStatement"."BlockItemList")
+}
+
+// handle with a loop statement (for, while, do_while) : receives "IterationStatement"
+"rule_iteration_statement" -> {
+    "LOOP_STATEMENT" = {
+        if (first_child == :"while"){        
+            "KEYWORD" = {
+                first_child
+            },
+            "CONDITION" = {
+                new_leaf("("),
+                rule("rule_expression", "Expression".last.parent),
+                new_leaf(")")
+            },            
+            "BLOCK_SCOPE" = {
+                "SEPARATOR" = {
+                    new_leaf("{")
+                },
+                ? rule("rule_statement", "Statement"),
+                "SEPARATOR" = {
+                    new_leaf("}")
+                }
+            }            
+        },
+        if (first_child == :"do"){
+            
+        },
+        if (first_child == :"for"){
+            
+        }
+    }
 }
 
 // handle with a jump expression like 'return' or 'break' : receives "JumpStatement"
@@ -120,7 +153,7 @@
     },
     if (first_child == :"MultiplicativeExpression"){
         "OPERATOR" = {
-            first_child.child(1).child,
+            first_child.child(1),
             rule("rule_expression", first_child.first_child.last.parent),
             rule("rule_expression", first_child.last_child.last.parent)
         }
@@ -136,7 +169,39 @@
                        ? rule("rule_func_args", first_child."ArgumentExpressionList")
                    }
                }
+            } else {
+                if (first_child.child(1) == :"--"){
+                    "ASSIGNMENT_STATEMENT" = {
+                        "ASSIGN_OPERATOR" = {                            
+                            "NAME" = {
+                                first_child.first_child.last
+                            },
+                            "OPERATOR" = {
+                                new_leaf("--")
+                            }                            
+                        } 
+                    }
+                },
+                if (first_child.child(1) == :"++"){
+                   "ASSIGNMENT_STATEMENT" = {
+                        "ASSIGN_OPERATOR" = {                            
+                            "NAME" = {
+                                first_child.first_child.last
+                            },
+                            "OPERATOR" = {
+                                new_leaf("++")
+                            }                            
+                        } 
+                    }
+                }
             }
+        }
+    },
+    if (first_child == :"RelationalExpression"){
+        "COMPARISON_OPERATOR" = {
+            first_child.child(1),
+            rule("rule_expression", first_child.first_child.last.parent),
+            rule("rule_expression", first_child.last_child.last.parent)
         }
     }
 }
