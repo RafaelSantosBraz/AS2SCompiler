@@ -29,26 +29,26 @@ digraph G {
 	n_20 [label="PARAMETER_DECL", shape="rectangle"]
 	n_20 -> n_36
 	n_36 [label="TYPE", shape="rectangle"]
-	n_36 -> n_52
-	n_52 [label="TYPE", shape="rectangle"]
-	n_52 -> n_66
-	n_66 [label="int", shape="ellipse"]
+	n_36 -> n_55
+	n_55 [label="TYPE", shape="rectangle"]
+	n_55 -> n_78
+	n_78 [label="int", shape="ellipse"]
 	n_20 -> n_37
 	n_37 [label="NAME", shape="rectangle"]
-	n_37 -> n_53
-	n_53 [label="a", shape="ellipse"]
+	n_37 -> n_56
+	n_56 [label="a", shape="ellipse"]
 	n_9 -> n_21
 	n_21 [label="PARAMETER_DECL", shape="rectangle"]
 	n_21 -> n_38
 	n_38 [label="TYPE", shape="rectangle"]
-	n_38 -> n_54
-	n_54 [label="TYPE", shape="rectangle"]
-	n_54 -> n_67
-	n_67 [label="int", shape="ellipse"]
+	n_38 -> n_57
+	n_57 [label="TYPE", shape="rectangle"]
+	n_57 -> n_79
+	n_79 [label="int", shape="ellipse"]
 	n_21 -> n_39
 	n_39 [label="NAME", shape="rectangle"]
-	n_39 -> n_55
-	n_55 [label="b", shape="ellipse"]
+	n_39 -> n_58
+	n_58 [label="b", shape="ellipse"]
 	n_4 -> n_10
 	n_10 [label="SEPARATOR", shape="rectangle"]
 	n_10 -> n_22
@@ -60,51 +60,129 @@ digraph G {
 	n_23 -> n_40
 	n_40 [label="{", shape="ellipse"]
 	n_11 -> n_24
-	n_24 [label="ASSIGNMENT_STATEMENT", shape="rectangle"]
+	n_24 [label="LOOP_STATEMENT", shape="rectangle"]
 	n_24 -> n_41
-	n_41 [label="ASSIGN_OPERATOR", shape="rectangle"]
-	n_41 -> n_56
-	n_56 [label="=", shape="ellipse"]
-	n_41 -> n_57
-	n_57 [label="NAME", shape="rectangle"]
-	n_57 -> n_68
-	n_68 [label="y", shape="ellipse"]
-	n_41 -> n_58
-	n_58 [label="VALUE", shape="rectangle"]
-	n_58 -> n_69
-	n_69 [label="OPERATOR", shape="rectangle"]
-	n_69 -> n_72
-	n_72 [label="+", shape="ellipse"]
-	n_69 -> n_73
-	n_73 [label="NAME", shape="rectangle"]
-	n_73 -> n_77
-	n_77 [label="a", shape="ellipse"]
-	n_69 -> n_74
-	n_74 [label="NAME", shape="rectangle"]
-	n_74 -> n_78
-	n_78 [label="b", shape="ellipse"]
+	n_41 [label="KEYWORD", shape="rectangle"]
+	n_41 -> n_59
+	n_59 [label="while", shape="ellipse"]
+	n_24 -> n_42
+	n_42 [label="CONDITION", shape="rectangle"]
+	n_42 -> n_60
+	n_60 [label="(", shape="ellipse"]
+	n_42 -> n_61
+	n_61 [label="COMPARISON_OPERATOR", shape="rectangle"]
+	n_61 -> n_80
+	n_80 [label=">=", shape="ellipse"]
+	n_61 -> n_81
+	n_81 [label="NAME", shape="rectangle"]
+	n_81 -> n_94
+	n_94 [label="a", shape="ellipse"]
+	n_61 -> n_82
+	n_82 [label="CONST", shape="rectangle"]
+	n_82 -> n_95
+	n_95 [label="0", shape="ellipse"]
+	n_42 -> n_62
+	n_62 [label=")", shape="ellipse"]
+	n_24 -> n_43
+	n_43 [label="BLOCK_SCOPE", shape="rectangle"]
+	n_43 -> n_63
+	n_63 [label="SEPARATOR", shape="rectangle"]
+	n_63 -> n_83
+	n_83 [label="{", shape="ellipse"]
+	n_43 -> n_64
+	n_64 [label="ASSIGNMENT_STATEMENT", shape="rectangle"]
+	n_64 -> n_84
+	n_84 [label="ASSIGN_OPERATOR", shape="rectangle"]
+	n_84 -> n_96
+	n_96 [label="NAME", shape="rectangle"]
+	n_96 -> n_107
+	n_107 [label="a", shape="ellipse"]
+	n_84 -> n_97
+	n_97 [label="OPERATOR", shape="rectangle"]
+	n_97 -> n_108
+	n_108 [label="--", shape="ellipse"]
+	n_43 -> n_65
+	n_65 [label="SEPARATOR", shape="rectangle"]
+	n_65 -> n_85
+	n_85 [label="}", shape="ellipse"]
 	n_11 -> n_25
-	n_25 [label="JUMP_STATEMENT", shape="rectangle"]
-	n_25 -> n_42
-	n_42 [label="KEYWORD", shape="rectangle"]
-	n_42 -> n_59
-	n_59 [label="return", shape="ellipse"]
-	n_25 -> n_43
-	n_43 [label="CONST", shape="rectangle"]
-	n_43 -> n_60
-	n_60 [label="'a'", shape="ellipse"]
+	n_25 [label="LOOP_STATEMENT", shape="rectangle"]
+	n_25 -> n_44
+	n_44 [label="KEYWORD", shape="rectangle"]
+	n_44 -> n_66
+	n_66 [label="while", shape="ellipse"]
+	n_25 -> n_45
+	n_45 [label="CONDITION", shape="rectangle"]
+	n_45 -> n_67
+	n_67 [label="(", shape="ellipse"]
+	n_45 -> n_68
+	n_68 [label="COMPARISON_OPERATOR", shape="rectangle"]
+	n_68 -> n_86
+	n_86 [label="!=", shape="ellipse"]
+	n_68 -> n_87
+	n_87 [label="OPERATOR", shape="rectangle"]
+	n_87 -> n_98
+	n_98 [label="+", shape="ellipse"]
+	n_87 -> n_99
+	n_99 [label="NAME", shape="rectangle"]
+	n_99 -> n_109
+	n_109 [label="a", shape="ellipse"]
+	n_87 -> n_100
+	n_100 [label="NAME", shape="rectangle"]
+	n_100 -> n_110
+	n_110 [label="b", shape="ellipse"]
+	n_68 -> n_88
+	n_88 [label="CONST", shape="rectangle"]
+	n_88 -> n_101
+	n_101 [label="10", shape="ellipse"]
+	n_45 -> n_69
+	n_69 [label=")", shape="ellipse"]
+	n_25 -> n_46
+	n_46 [label="BLOCK_SCOPE", shape="rectangle"]
+	n_46 -> n_70
+	n_70 [label="SEPARATOR", shape="rectangle"]
+	n_70 -> n_89
+	n_89 [label="{", shape="ellipse"]
+	n_46 -> n_71
+	n_71 [label="ASSIGNMENT_STATEMENT", shape="rectangle"]
+	n_71 -> n_90
+	n_90 [label="ASSIGN_OPERATOR", shape="rectangle"]
+	n_90 -> n_102
+	n_102 [label="=", shape="ellipse"]
+	n_90 -> n_103
+	n_103 [label="NAME", shape="rectangle"]
+	n_103 -> n_111
+	n_111 [label="a", shape="ellipse"]
+	n_90 -> n_104
+	n_104 [label="VALUE", shape="rectangle"]
+	n_104 -> n_112
+	n_112 [label="OPERATOR", shape="rectangle"]
+	n_112 -> n_113
+	n_113 [label="+", shape="ellipse"]
+	n_112 -> n_114
+	n_114 [label="NAME", shape="rectangle"]
+	n_114 -> n_116
+	n_116 [label="a", shape="ellipse"]
+	n_112 -> n_115
+	n_115 [label="CONST", shape="rectangle"]
+	n_115 -> n_117
+	n_117 [label="1", shape="ellipse"]
+	n_46 -> n_72
+	n_72 [label="SEPARATOR", shape="rectangle"]
+	n_72 -> n_91
+	n_91 [label="}", shape="ellipse"]
 	n_11 -> n_26
 	n_26 [label="SEPARATOR", shape="rectangle"]
-	n_26 -> n_44
-	n_44 [label="}", shape="ellipse"]
+	n_26 -> n_47
+	n_47 [label="}", shape="ellipse"]
 	n_3 -> n_5
 	n_5 [label="FUNCTION_DECL", shape="rectangle"]
 	n_5 -> n_12
 	n_12 [label="TYPE", shape="rectangle"]
 	n_12 -> n_27
 	n_27 [label="TYPE", shape="rectangle"]
-	n_27 -> n_45
-	n_45 [label="int", shape="ellipse"]
+	n_27 -> n_48
+	n_48 [label="int", shape="ellipse"]
 	n_5 -> n_13
 	n_13 [label="NAME", shape="rectangle"]
 	n_13 -> n_28
@@ -121,40 +199,40 @@ digraph G {
 	n_16 [label="BLOCK_SCOPE", shape="rectangle"]
 	n_16 -> n_31
 	n_31 [label="SEPARATOR", shape="rectangle"]
-	n_31 -> n_46
-	n_46 [label="{", shape="ellipse"]
+	n_31 -> n_49
+	n_49 [label="{", shape="ellipse"]
 	n_16 -> n_32
 	n_32 [label="FUNCTION_CAL", shape="rectangle"]
-	n_32 -> n_47
-	n_47 [label="NAME", shape="rectangle"]
-	n_47 -> n_61
-	n_61 [label="agora", shape="ellipse"]
-	n_32 -> n_48
-	n_48 [label="ARGUMENT_LIST", shape="rectangle"]
-	n_48 -> n_62
-	n_62 [label="ARGUMENT", shape="rectangle"]
-	n_62 -> n_70
-	n_70 [label="CONST", shape="rectangle"]
-	n_70 -> n_75
-	n_75 [label="2", shape="ellipse"]
-	n_48 -> n_63
-	n_63 [label="ARGUMENT", shape="rectangle"]
-	n_63 -> n_71
-	n_71 [label="CONST", shape="rectangle"]
-	n_71 -> n_76
-	n_76 [label="4", shape="ellipse"]
+	n_32 -> n_50
+	n_50 [label="NAME", shape="rectangle"]
+	n_50 -> n_73
+	n_73 [label="agora", shape="ellipse"]
+	n_32 -> n_51
+	n_51 [label="ARGUMENT_LIST", shape="rectangle"]
+	n_51 -> n_74
+	n_74 [label="ARGUMENT", shape="rectangle"]
+	n_74 -> n_92
+	n_92 [label="CONST", shape="rectangle"]
+	n_92 -> n_105
+	n_105 [label="2", shape="ellipse"]
+	n_51 -> n_75
+	n_75 [label="ARGUMENT", shape="rectangle"]
+	n_75 -> n_93
+	n_93 [label="CONST", shape="rectangle"]
+	n_93 -> n_106
+	n_106 [label="4", shape="ellipse"]
 	n_16 -> n_33
 	n_33 [label="JUMP_STATEMENT", shape="rectangle"]
-	n_33 -> n_49
-	n_49 [label="KEYWORD", shape="rectangle"]
-	n_49 -> n_64
-	n_64 [label="return", shape="ellipse"]
-	n_33 -> n_50
-	n_50 [label="CONST", shape="rectangle"]
-	n_50 -> n_65
-	n_65 [label="0", shape="ellipse"]
+	n_33 -> n_52
+	n_52 [label="KEYWORD", shape="rectangle"]
+	n_52 -> n_76
+	n_76 [label="return", shape="ellipse"]
+	n_33 -> n_53
+	n_53 [label="CONST", shape="rectangle"]
+	n_53 -> n_77
+	n_77 [label="0", shape="ellipse"]
 	n_16 -> n_34
 	n_34 [label="SEPARATOR", shape="rectangle"]
-	n_34 -> n_51
-	n_51 [label="}", shape="ellipse"]
+	n_34 -> n_54
+	n_54 [label="}", shape="ellipse"]
 }
