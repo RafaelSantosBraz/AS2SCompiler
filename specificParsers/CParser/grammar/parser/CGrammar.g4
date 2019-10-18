@@ -8,14 +8,22 @@ grammar CGrammar;
 }
 
 primaryExpression
-    :   Identifier
-    |   Constant
-    |   StringLiteral+
+    :   primaryExpressionVar
+    |   primaryExpressionConstLiteral
     |   '(' expression ')'
     |   genericSelection
     |   '__extension__'? '(' compoundStatement ')' // Blocks (GCC extension)
     |   '__builtin_va_arg' '(' unaryExpression ',' typeName ')'
     |   '__builtin_offsetof' '(' typeName ',' unaryExpression ')'
+    ;
+
+primaryExpressionVar
+    :   Identifier 
+    ;
+
+primaryExpressionConstLiteral
+    :   Constant 
+    |   StringLiteral+
     ;
 
 genericSelection

@@ -72,19 +72,81 @@
 
 // handle with each statement in a block : receives "Statement"
 "rule_statement" -> {
-    ? rule("rule_expression", "ExpressionStatement"."Expression"),
-    ? rule("rule_", )
+    ? rule("rule_expression", "ExpressionStatement"."Expression".last.parent),
+    ? rule("rule_jump_expression", "JumpStatement")
 }
 
-// handle with expressions : receives "Expression"
+// handle with a jump expression like 'return' or 'break' : receives "JumpStatement"
+"rule_jump_expression" -> {
+    "JUMP_STATEMENT" = {
+        "KEYWORD" = {
+            first_child
+        },       
+        ? rule("rule_expression", "Expression".last.parent)        
+    }
+}
+
+// handle with expressions : receives "Expression".last.parent
 "rule_expression" -> {
-    ? rule("rule_expression", "Expression"),
-    ? rule("rule_assignment_expression", "AssignmentExpression")
+    if (current_node == :"PrimaryExpressionVar"){
+        "NAME" = {
+            child
+        }
+    } 
+    if (current_node == :"PrimaryExpressionConstLiteral"){
+        "CONST" = {
+            child
+        }
+    } 
+    if (first_child == :"AssignmentExpression"){
+        "ASSIGNMENT_STATEMENT" = {
+           "ASSIGN_OPERATOR" = {
+               first_child."AssignmentOperator".child,
+               "NAME" = {
+                   first_child.first_child.last
+               },
+               "VALUE" = {
+                   rule("rule_expression", first_child.last_child.last.parent)
+               }
+           } 
+        }
+    }
+    if (first_child == :"AdditiveExpression"){
+        "OPERATOR" = {
+            first_child.child(1).child,
+            rule("rule_expression", first_child.first_child.last.parent),
+            rule("rule_expression", first_child.last_child.last.parent)
+        }
+    }
+    if (first_child == :"MultiplicativeExpression"){
+        "OPERATOR" = {
+            first_child.child(1).child,
+            rule("rule_expression", first_child.first_child.last.parent),
+            rule("rule_expression", first_child.last_child.last.parent)
+        }
+    }
+    if (first_child == :"PostfixExpression"){
+        if (first_child.first_child == :"PostfixExpression"){
+            if (first_child.child(1) == :"("){
+               "FUNCTION_CAL" = {
+                   "NAME" = {
+                       first_child.first_child.last
+                   },
+                   "ARGUMENT_LIST" = {
+                       ? rule("rule_func_args", first_child."ArgumentExpressionList")
+                   }
+               }
+            }
+        }
+    }
 }
 
-// handle with an Assignment Expression : receives "AssignmentExpression"
-"rule_assignment_expression" -> {
-    
+// handle with the argument list of a function : receives "ArgumentExpressionList"
+"rule_func_args" -> {
+    ? rule("rule_func_args", "ArgumentExpressionList"),
+    ? "ARGUMENT" = {
+        rule("rule_expression", "AssignmentExpression") 
+    }
 }
 
 //handle with the list of parameters for a function : receives "ParameterList"
