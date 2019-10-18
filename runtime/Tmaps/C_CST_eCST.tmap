@@ -40,15 +40,71 @@
         "SEPARATOR" = {
             new_leaf("(")
         },
-        ? rule("rule_params_list", "Declarator"."DirectDeclarator"."ParameterTypeList"."ParameterList"),
+        ? "FORMAL_PARAM_LIST" = {
+            rule("rule_params_list", "Declarator"."DirectDeclarator"."ParameterTypeList"."ParameterList")
+        },        
         "SEPARATOR" = {
             new_leaf(")")
+        },
+        "BLOCK_SCOPE" = {
+            "SEPARATOR" = {
+                new_leaf("{")
+            },
+            ? rule("rule_block_scope", "CompoundStatement"."BlockItemList"),
+            "SEPARATOR" = {
+                new_leaf("}")
+            }
         }
     }
 }
 
-"rule_params_list" -> {
+// handle with the block scope of a function : receives "BlockItemList"
+"rule_block_scope" -> {
+    ? rule("rule_block_scope", "BlockItemList"),
+    ? rule("rule_block_item", "BlockItem")
+}
+
+// handle with each of the block sope items : receives "BlockItem"
+"rule_block_item" -> {
+    ? rule("rule_statement", "Statement"),
+    ? rule("rule_decl_definition", "Declaration")
+}
+
+// handle with each statement in a block : receives "Statement"
+"rule_statement" -> {
+    ? rule("rule_expression", "ExpressionStatement"."Expression"),
+    ? rule("rule_", )
+}
+
+// handle with expressions : receives "Expression"
+"rule_expression" -> {
+    ? rule("rule_expression", "Expression"),
+    ? rule("rule_assignment_expression", "AssignmentExpression")
+}
+
+// handle with an Assignment Expression : receives "AssignmentExpression"
+"rule_assignment_expression" -> {
     
+}
+
+//handle with the list of parameters for a function : receives "ParameterList"
+"rule_params_list" -> {    
+    ? rule("rule_params_list", "ParameterList"),
+    ? rule("rule_param_decl", "ParameterDeclaration")    
+}
+
+// handle with the conctrete declaration of a function's parameter : receives "ParameterDeclaration"
+"rule_param_decl" -> {
+    "PARAMETER_DECL" = {
+        "TYPE" = {
+            "TYPE" = {
+                "DeclarationSpecifiers".last
+            }
+        },
+        "NAME" = {
+            "Declarator".last
+        }
+    }
 }
 
 // handle with global declarations : receives "Declaration"

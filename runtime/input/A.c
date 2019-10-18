@@ -8,6 +8,7 @@ struct A{
 double x;
 
 char agora(int a, int b){
+    int y = a + b;
     return 'a';
 }
 
