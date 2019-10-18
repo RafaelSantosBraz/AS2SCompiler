@@ -113,7 +113,7 @@
     },
     if (first_child == :"AdditiveExpression"){
         "OPERATOR" = {
-            first_child.child(1).child,
+            first_child.child(1),
             rule("rule_expression", first_child.first_child.last.parent),
             rule("rule_expression", first_child.last_child.last.parent)
         }
@@ -145,7 +145,7 @@
 "rule_func_args" -> {
     ? rule("rule_func_args", "ArgumentExpressionList"),
     ? "ARGUMENT" = {
-        rule("rule_expression", "AssignmentExpression") 
+        rule("rule_expression", "AssignmentExpression".last.parent) 
     }
 }
 
