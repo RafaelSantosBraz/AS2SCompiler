@@ -7,10 +7,12 @@ package parser;
 
 import converter.DOTConverter;
 import interpreter.TranslationVisitor;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
+import javafx.stage.DirectoryChooser;
 import org.antlr.v4.runtime.ANTLRFileStream;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -40,7 +42,7 @@ public class TranslationParser {
         rules = new ArrayList<>();
     }
 
-    public boolean start(String tmapPath, String firstRuleName) {
+    public boolean start(String tmapPath, String firstRuleName, String outputDir) {
         try {
             CharStream stream = new ANTLRFileStream(tmapPath);
             TranslationGrammarLexer lexer = new TranslationGrammarLexer(stream);
@@ -48,7 +50,7 @@ public class TranslationParser {
             TranslationGrammarParser parser = new TranslationGrammarParser(tokens);
             TranslationVisitor t = new TranslationVisitor(CST.getRoot());
             eCST = t.start(parser.prog(), firstRuleName);
-            return exportDOTeCST();
+            return exportDOTeCST(outputDir + File.separator + "eCST.gv");
         } catch (IOException | RecognitionException e) {
             return false;
         }
@@ -58,9 +60,9 @@ public class TranslationParser {
         return eCST;
     }
     
-    private boolean exportDOTeCST(){
+    private boolean exportDOTeCST(String GVeCSTPath){
         DOTConverter<TokenAttributes> conv = new DOTConverter<>(eCST);
-        return conv.convertToFile("eCST.gv");
+        return conv.convertToFile(GVeCSTPath);
     }
 
 }

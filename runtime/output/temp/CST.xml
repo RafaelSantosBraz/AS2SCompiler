@@ -277,7 +277,7 @@
 <childElement>
 <token column="-1" index="-1" line="0" text='PrimaryExpressionConstLiteral' type="2"/>
 <childElement>
-<token column="11" index="169" line="6" text=''a'' type="106"/>
+<token column="11" index="169" line="6" text="'a'" type="106"/>
 </childElement>
 </childElement>
 </childElement>

@@ -42,7 +42,7 @@ public class XMLConverter {
             if (node != null && node.getNodeData() != null) {
                 writer.write("<childElement>");
                 writer.newLine();
-                writer.write("<token column=\"" + node.getNodeData().getColumn() + "\" index=\"" + node.getNodeData().getIndex() + "\" line=\"" + node.getNodeData().getLine() + "\" text=\'" + normalizeLessThan(node.getNodeData().getText()) + "\' type=\"" + node.getNodeData().getType() + "\"/>");
+                writer.write("<token column=\"" + node.getNodeData().getColumn() + "\" index=\"" + node.getNodeData().getIndex() + "\" line=\"" + node.getNodeData().getLine() + "\" text=" + normalizeLessThan(node.getNodeData().getText()) + " type=\"" + node.getNodeData().getType() + "\"/>");
                 writer.newLine();
                 if (!node.getChildren().isEmpty()) {
                     node.getChildren().forEach((n) -> {
@@ -59,7 +59,13 @@ public class XMLConverter {
     }
    
     private String normalizeLessThan(String text){
-        return text.replaceAll("<", "&#60;");
+        String txtTemp = text.replaceAll("<", "&#60;");
+        if (txtTemp.charAt(0) == '\''){
+            txtTemp = "\"" + txtTemp + "\"";
+        } else{
+            txtTemp = "\'" + txtTemp + "\'";
+        }
+        return txtTemp; 
     }
     
     public Tree<TokenAttributes> getTree() {

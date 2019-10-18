@@ -92,12 +92,12 @@
         "NAME" = {
             child
         }
-    } 
+    },
     if (current_node == :"PrimaryExpressionConstLiteral"){
         "CONST" = {
             child
         }
-    } 
+    },
     if (first_child == :"AssignmentExpression"){
         "ASSIGNMENT_STATEMENT" = {
            "ASSIGN_OPERATOR" = {
@@ -110,21 +110,21 @@
                }
            } 
         }
-    }
+    },
     if (first_child == :"AdditiveExpression"){
         "OPERATOR" = {
             first_child.child(1).child,
             rule("rule_expression", first_child.first_child.last.parent),
             rule("rule_expression", first_child.last_child.last.parent)
         }
-    }
+    },
     if (first_child == :"MultiplicativeExpression"){
         "OPERATOR" = {
             first_child.child(1).child,
             rule("rule_expression", first_child.first_child.last.parent),
             rule("rule_expression", first_child.last_child.last.parent)
         }
-    }
+    },
     if (first_child == :"PostfixExpression"){
         if (first_child.first_child == :"PostfixExpression"){
             if (first_child.child(1) == :"("){

@@ -21,7 +21,7 @@ public class Run {
         TreeXMLConverter conv = new TreeXMLConverter();
         conv.convertFromFile("D:\\GitHub\\StS-Compilation-Framework\\specific parsers\\JavaParser\\test\\output\\CST.xml");
         TranslationParser t = new TranslationParser(conv.getTree());
-        boolean resp = t.start("D:\\GitHub\\StS-Compilation-Framework\\TranslationMapInterpreter\\Complete Java CST to eCST.tmap.txt", "\"ruleinitial\"");
+        boolean resp = t.start("D:\\GitHub\\StS-Compilation-Framework\\TranslationMapInterpreter\\Complete Java CST to eCST.tmap.txt", "\"ruleinitial\"", "D:\\GitHub\\StS-Compilation-Framework\\specific parsers\\JavaParser\\test\\output");
         System.out.println(resp);    
     }
 
