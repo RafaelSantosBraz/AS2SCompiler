@@ -138,29 +138,33 @@ digraph G {
 	n_101 -> n_103
 	n_103 [label="*", shape="ellipse"]
 	n_101 -> n_104
-	n_104 [label="NAME", shape="rectangle"]
-	n_104 -> n_108
-	n_108 [label="b", shape="ellipse"]
+	n_104 [label="CONST", shape="rectangle"]
+	n_104 -> n_109
+	n_109 [label="-1", shape="ellipse"]
+	n_101 -> n_105
+	n_105 [label="NAME", shape="rectangle"]
+	n_105 -> n_110
+	n_110 [label="b", shape="ellipse"]
 	n_98 -> n_102
 	n_102 [label="OPERATOR", shape="rectangle"]
-	n_102 -> n_105
-	n_105 [label="-", shape="ellipse"]
 	n_102 -> n_106
-	n_106 [label="OPERATOR", shape="rectangle"]
-	n_106 -> n_109
-	n_109 [label="+", shape="ellipse"]
-	n_106 -> n_110
-	n_110 [label="NAME", shape="rectangle"]
-	n_110 -> n_113
-	n_113 [label="a", shape="ellipse"]
-	n_106 -> n_111
-	n_111 [label="NAME", shape="rectangle"]
-	n_111 -> n_114
-	n_114 [label="b", shape="ellipse"]
+	n_106 [label="-", shape="ellipse"]
 	n_102 -> n_107
-	n_107 [label="CONST", shape="rectangle"]
+	n_107 [label="OPERATOR", shape="rectangle"]
+	n_107 -> n_111
+	n_111 [label="+", shape="ellipse"]
 	n_107 -> n_112
-	n_112 [label="4", shape="ellipse"]
+	n_112 [label="NAME", shape="rectangle"]
+	n_112 -> n_115
+	n_115 [label="a", shape="ellipse"]
+	n_107 -> n_113
+	n_113 [label="NAME", shape="rectangle"]
+	n_113 -> n_116
+	n_116 [label="b", shape="ellipse"]
+	n_102 -> n_108
+	n_108 [label="CONST", shape="rectangle"]
+	n_108 -> n_114
+	n_114 [label="4", shape="ellipse"]
 	n_44 -> n_63
 	n_63 [label="SEPARATOR", shape="rectangle"]
 	n_63 -> n_78

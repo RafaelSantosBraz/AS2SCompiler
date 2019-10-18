@@ -183,6 +183,11 @@
             child
         }
     },
+    if (current_node == :"CastExpression"){
+        "CONST" = {
+            child
+        }
+    },
     if (first_child == :"AssignmentExpression"){
         "ASSIGNMENT_STATEMENT" = {
            "ASSIGN_OPERATOR" = {

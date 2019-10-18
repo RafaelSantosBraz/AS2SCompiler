@@ -786,7 +786,7 @@ Sign
     ;
 
 DigitSequence
-    :   Digit+
+    :   '-'?Digit+
     ;
 
 fragment
