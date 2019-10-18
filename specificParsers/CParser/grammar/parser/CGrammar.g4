@@ -487,9 +487,13 @@ iterationStatement
 //    |   For '(' declaration  expression? ';' expression? ')' statement
 
 forCondition
-	:   forDeclaration ';' forExpression? ';' forExpression?
-	|   expression? ';' forExpression? ';' forExpression?
+	//:   forDeclaration ';' forExpression? ';' forExpression?
+	:   expression? ';' forCond? ';' forExpression?
 	;
+
+forCond
+    : forExpression 
+    ;
 
 forDeclaration
     :   declarationSpecifiers initDeclaratorList

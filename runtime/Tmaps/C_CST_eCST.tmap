@@ -86,9 +86,13 @@
                 first_child
             },
             "CONDITION" = {
-                new_leaf("("),
+                "SEPARATOR" = {
+                    new_leaf("(")
+                },
                 rule("rule_expression", "Expression".last.parent),
-                new_leaf(")")
+                "SEPARATOR" = {
+                    new_leaf(")")
+                }
             },            
             "BLOCK_SCOPE" = {
                 "SEPARATOR" = {
@@ -101,10 +105,53 @@
             }            
         },
         if (first_child == :"do"){
-            
+            "KEYWORD" = {
+                first_child
+            },
+            "CONDITION" = {
+                "SEPARATOR" = {
+                    new_leaf("(")
+                },                
+                rule("rule_expression", "Expression".last.parent),
+                "SEPARATOR" = {
+                    new_leaf(")")
+                }
+            },
+            "KEYWORD" = {
+                new_leaf("while")
+            },         
+            "BLOCK_SCOPE" = {
+                "SEPARATOR" = {
+                    new_leaf("{")
+                },
+                ? rule("rule_statement", "Statement"),
+                "SEPARATOR" = {
+                    new_leaf("}")
+                }
+            }    
         },
         if (first_child == :"for"){
-            
+            "KEYWORD" = {
+                first_child
+            },
+            ? "INIT" = {
+                rule("rule_expression", "ForCondition"."Expression".last.parent)
+            },
+            ? "CONDITION" = {
+                rule("rule_expression", "ForCondition"."ForCond".last.parent)
+            },
+            ? "STEP" = {
+                rule("rule_expression", "ForCondition"."ForExpression".last.parent)
+            },
+            "BLOCK_SCOPE" = {
+                "SEPARATOR" = {
+                    new_leaf("{")
+                },
+                ? rule("rule_statement", "Statement"),
+                "SEPARATOR" = {
+                    new_leaf("}")
+                }
+            }
         }
     }
 }
@@ -125,6 +172,11 @@
         "NAME" = {
             child
         }
+    },
+    if (first_child == :"PrimaryExpression"){
+        if (first_child.first_child == :"("){
+            rule("rule_expression", first_child."Expression".last.parent)
+        }        
     },
     if (current_node == :"PrimaryExpressionConstLiteral"){
         "CONST" = {

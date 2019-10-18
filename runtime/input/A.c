@@ -2,12 +2,12 @@
 #include <math.h>
 
 char agora(int a, int b){    
-    while(a >= 0){
-        a--;
-    }   
-    while (a + b != 10) {
-        a = a + 1;
+    //int i;
+    for (i = 0; i < 10; i++)
+    {
+        a += -1 * b / ((a + b) - 4);
     }
+    
 }
 
 int main()
