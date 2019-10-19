@@ -6,7 +6,6 @@
 package walkers;
 
 import java.lang.reflect.Method;
-import java.util.Arrays;
 import java.util.List;
 import trees.cstecst.TokenAttributes;
 import trees.simpletree.Node;
@@ -30,9 +29,9 @@ public abstract class ActionWalker {
         }
         List<Node<TokenAttributes>> children = node.getChildren();
         if (children != null && !children.isEmpty()) {
-            children.forEach((n) -> {
-                visiting(n);
-            });
+            for (int c = 0; c < children.size(); c++){
+                visiting(children.get(c));
+            }
         }
     }
 
@@ -47,9 +46,6 @@ public abstract class ActionWalker {
     }
 
     protected String getMethodAppropriateName(Node<TokenAttributes> node){
-        //char[] name = node.getNodeData().getText().toCharArray();
-        //name[0] = Character.toUpperCase(name[0]);
-        //return "action" + Arrays.toString(name);
         return "action" + node.getNodeData().getText();
     }
     

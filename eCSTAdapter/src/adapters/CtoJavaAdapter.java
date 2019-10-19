@@ -6,7 +6,9 @@
 package adapters;
 
 import trees.cstecst.TokenAttributes;
+import trees.cstecst.UniversalToken;
 import trees.simpletree.Node;
+import trees.simpletree.Tree;
 import walkers.ActionWalker;
 
 /**
@@ -14,19 +16,12 @@ import walkers.ActionWalker;
  * @author Rafael Braz
  */
 public class CtoJavaAdapter extends ActionWalker {
-
+    
     public void actionconst(Node<TokenAttributes> node) {
-        System.out.println("funcionou " + node.getNodeData().getText());
+        Node<TokenAttributes> newNode = new Node<>(node.getParent());
+        newNode.setNodeData(new UniversalToken("final", -1));
+        newNode.setChildren(node.getChildren());
+        Tree.replaceNode(node, newNode);
     }
-    
-    public void actionroot(Node<TokenAttributes> node) {
-        System.out.println("funcionou " + node.getNodeData().getText());
-    }
-
-    @Override
-    public void defaultAction(Node<TokenAttributes> node) {
-        System.out.println(":)");
-    }
-    
     
 }

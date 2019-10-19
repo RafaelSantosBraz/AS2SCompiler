@@ -6,6 +6,7 @@
 package ecstadapter;
 
 import adapters.CtoJavaAdapter;
+import converter.DOTConverter;
 import converter.TreeXMLConverter;
 import trees.cstecst.TokenAttributes;
 import trees.simpletree.Tree;
@@ -23,7 +24,9 @@ public class Run {
         CtoJavaAdapter adapter = new CtoJavaAdapter();
         TreeXMLConverter conv = new TreeXMLConverter();
         conv.convertFromFile("D:\\GitHub\\StS-Compilation-Framework\\runtime\\output\\eCST.xml");
-        adapter.startWalking(conv.getTree());
+        adapter.startWalking(conv.getTree());   
+        DOTConverter dot = new DOTConverter(conv.getTree());
+        dot.convertToFile("D:\\GitHub\\StS-Compilation-Framework\\runtime\\output\\eCSTAdapted.gv");
     }
     
 }

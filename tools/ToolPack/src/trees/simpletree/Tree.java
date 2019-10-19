@@ -10,6 +10,7 @@ import java.util.List;
 
 /**
  * Generic structure that can represent eCSTs, CSTs, and other tree structures
+ *
  * @author Rafael Braz
  * @param <T>
  */
@@ -35,6 +36,7 @@ public class Tree<T> {
 
     /**
      * Generates a new node and establishes parent-son relationship.
+     *
      * @param parent
      * @return the generated node
      */
@@ -47,8 +49,9 @@ public class Tree<T> {
     }
 
     /**
-     * Method to convert the tree to a list of nodes ordered by index.
-     * It means that nodes with the same level in the tree have consecutive indexes
+     * Method to convert the tree to a list of nodes ordered by index. It means
+     * that nodes with the same level in the tree have consecutive indexes
+     *
      * @return ArrayList of nodes ordered by index
      */
     public List<Node<T>> getTreeAsIndexOrderedList() {
@@ -59,6 +62,7 @@ public class Tree<T> {
 
     /**
      * Recursive method to order all nodes in the tree
+     *
      * @param tempList
      * @return ArrayList of ordered nodes by index
      */
@@ -73,5 +77,23 @@ public class Tree<T> {
             list.addAll(getNodeChildren(newTempList));
         }
         return list;
+    }
+
+    public static void replaceNode(Node originalNode, Node newNode) {
+        if (originalNode == null || newNode == null) {
+            return;
+        }
+        Node parent = originalNode.getParent();
+        if (parent == null) {
+            return;
+        }
+        List<Node> parentChildren = parent.getChildren();
+        if (parentChildren.isEmpty()) {
+            parent.addChild(newNode);
+        } else {
+            int index = parentChildren.indexOf(originalNode);
+            parentChildren.remove(index);
+            parentChildren.add(index, newNode);
+        }
     }
 }
