@@ -303,18 +303,19 @@
         }
     },
     if (first_child == :"RelationalExpression"){
-        "COMPARISON_OPERATOR" = {
-            first_child.child(1),
-            rule("rule_expression", first_child.first_child.last.parent),
-            rule("rule_expression", first_child.last_child.last.parent)
-        }
+        rule("rule_comparison_operator", current_node)
     },
     if (first_child == :"EqualityExpression"){
-        "COMPARISON_OPERATOR" = {
-            first_child.child(1),
-            rule("rule_expression", first_child.first_child.last.parent),
-            rule("rule_expression", first_child.last_child.last.parent)
-        }
+        rule("rule_comparison_operator", current_node)
+    }
+}
+
+// handle with the comparison operation : receives "Expression".last.parent
+"rule_comparison_operator" -> {
+    "COMPARISON_OPERATOR" = {
+        first_child.child(1),
+        rule("rule_expression", first_child.first_child.last.parent),
+        rule("rule_expression", first_child.last_child.last.parent)
     }
 }
 
@@ -335,11 +336,7 @@
 // handle with the conctrete declaration of a function's parameter : receives "ParameterDeclaration"
 "rule_param_decl" -> {
     "PARAMETER_DECL" = {
-        "TYPE" = {
-            "TYPE" = {
-                "DeclarationSpecifiers".last
-            }
-        },
+        rule("rule_modifiers", "DeclarationSpecifiers".children),
         "NAME" = {
             "Declarator".last
         }
@@ -348,5 +345,48 @@
 
 // handle with global declarations : receives "Declaration"
 "rule_decl_definition" -> {
+    if (child(1) == :"InitDeclaratorList"){
+        "VAR_DECL" = {            
+            rule("rule_modifiers", "DeclarationSpecifiers".children),
+            rule("rule_initializer_or_name", "InitDeclaratorList"."InitDeclarator")        
+        }
+    }
+}
 
+// handle with the name or name + initializer for a declaration : receives "InitDeclarator"
+"rule_initializer_or_name" -> {
+    if (last_child == :"Initializer"){
+        "ASSIGNMENT_STATEMENT" = {
+            "ASSIGN_OPERATOR" = {                            
+                "OPERATOR" = {
+                    new_leaf("=")
+                },
+                "NAME" = {
+                   "Declarator".last 
+                },
+                rule("rule_expression", "Initializer".last.parent)                           
+            } 
+        }
+    },
+    if (last_child == :"Declarator"){
+        "NAME" = {
+            "Declarator".last
+        }
+    }
+}
+
+// handle with the modifiers for a declaration like const or int : receives "DeclarationSpecifier"
+"rule_modifiers" -> {
+    if (first_child == :"TypeQualifier"){
+        "MODIFIER" = {
+            first_child.child
+        }
+    },
+    if (first_child == :"TypeSpecifier"){
+        "TYPE" = {
+            "TYPE" = {
+                first_child.child
+            }
+        }
+    }
 }

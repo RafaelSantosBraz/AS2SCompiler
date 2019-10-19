@@ -164,7 +164,7 @@ constantExpression
 
 declaration
     :   declarationSpecifiers initDeclaratorList ';'
-	| 	declarationSpecifiers ';'
+    | 	declarationSpecifiers ';'
     |   staticAssertDeclaration
     ;
 
@@ -492,17 +492,17 @@ iterationStatement
 //    |   For '(' declaration  expression? ';' expression? ')' statement
 
 forCondition
-	//:   forDeclaration ';' forExpression? ';' forExpression?
-	:   expression? ';' forCond? ';' forExpression?
-	;
+    //:   forDeclaration ';' forExpression? ';' forExpression?
+    :   expression? ';' forCond? ';' forExpression?
+    ;
 
 forCond
-    : forExpression 
+    :   forExpression 
     ;
 
 forDeclaration
     :   declarationSpecifiers initDeclaratorList
-	| 	declarationSpecifiers
+    | 	declarationSpecifiers
     ;
 
 forExpression
