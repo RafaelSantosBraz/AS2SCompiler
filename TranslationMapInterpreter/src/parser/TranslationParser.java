@@ -6,6 +6,7 @@
 package parser;
 
 import converter.DOTConverter;
+import converter.XMLConverter;
 import interpreter.TranslationVisitor;
 import java.io.File;
 import java.io.IOException;
@@ -50,7 +51,7 @@ public class TranslationParser {
             TranslationGrammarParser parser = new TranslationGrammarParser(tokens);
             TranslationVisitor t = new TranslationVisitor(CST.getRoot());
             eCST = t.start(parser.prog(), firstRuleName);
-            return exportDOTeCST(outputDir + File.separator + "eCST.gv");
+            return (exportDOTeCST(outputDir + File.separator + "eCST.gv") && exportXMLeCST(eCST, outputDir + File.separator + "eCST.xml"));
         } catch (IOException | RecognitionException e) {
             return false;
         }
@@ -59,10 +60,14 @@ public class TranslationParser {
     public Tree<TokenAttributes> geteCST() {
         return eCST;
     }
-    
-    private boolean exportDOTeCST(String GVeCSTPath){
+
+    private boolean exportDOTeCST(String GVeCSTPath) {
         DOTConverter<TokenAttributes> conv = new DOTConverter<>(eCST);
         return conv.convertToFile(GVeCSTPath);
+    }
+
+    private boolean exportXMLeCST(Tree<TokenAttributes> tree, String outputPath) {
+        return new XMLConverter(tree).convertToFile(outputPath);
     }
 
 }

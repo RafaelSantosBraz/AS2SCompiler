@@ -109,3 +109,5 @@ $RECYCLE.BIN/
 /specificParsers/JavaParser/nbproject/private/
 /StSCompiler/build/
 /StSCompiler/dist/
+/eCSTAdapter/nbproject/private/
+/eCSTAdapter/build/
