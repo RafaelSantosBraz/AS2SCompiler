@@ -232,7 +232,7 @@ digraph G {
 	n_91 -> n_110
 	n_110 [label="CONST", shape="rectangle"]
 	n_110 -> n_123
-	n_123 [label="\"%i\\n\\n\"", shape="ellipse"]
+	n_123 [label="\"%d\\\n\\\n\"", shape="ellipse"]
 	n_68 -> n_92
 	n_92 [label="ARGUMENT", shape="rectangle"]
 	n_92 -> n_111

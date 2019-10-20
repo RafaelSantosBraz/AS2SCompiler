@@ -560,7 +560,7 @@ digraph G {
 	n_325 -> n_330
 	n_330 [label="PrimaryExpressionConstLiteral", shape="rectangle"]
 	n_330 -> n_334
-	n_334 [label="\"%i\n\n\"", shape="ellipse"]
+	n_334 [label="\"%d\\n\\n\"", shape="ellipse"]
 	n_258 -> n_268
 	n_268 [label=",", shape="ellipse"]
 	n_258 -> n_269

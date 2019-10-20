@@ -9,7 +9,6 @@ import trees.cstecst.TokenAttributes;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.regex.Matcher;
 import trees.simpletree.*;
 
 /**
@@ -60,8 +59,6 @@ public class XMLConverter {
     }
 
     private String normalizeLessThan(String text) {
-//        String txtTemp = text.replaceAll("\\n", "--------------------------");
-//        System.out.println(txtTemp);
         String txtTemp = text.replaceAll("<", "&#60;");
         txtTemp = txtTemp.replace("\\n", "\\\\n");
         if (txtTemp.charAt(0) == '\'') {

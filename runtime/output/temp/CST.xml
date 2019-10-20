@@ -794,7 +794,7 @@
 <childElement>
 <token column="-1" index="-1" line="0" text='PrimaryExpressionConstLiteral' type="2"/>
 <childElement>
-<token column="11" index="335" line="18" text='"%i\\n\\n"' type="108"/>
+<token column="11" index="335" line="18" text='"%d\\n\\n"' type="108"/>
 </childElement>
 </childElement>
 </childElement>
