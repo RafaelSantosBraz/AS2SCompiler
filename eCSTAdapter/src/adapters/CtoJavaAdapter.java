@@ -60,9 +60,24 @@ public class CtoJavaAdapter extends ActionWalker {
     }
 
     public void actionFUNCTION_CAL(Node<TokenAttributes> node) {
-         if (BIB.getChildByText(node.getChildren(), "NAME").getChildren().get(0).getNodeData().getText().equals("printf")) {
-             
-         }
+        if (BIB.getChildByText(node.getChildren(), "NAME").getChildren().get(0).getNodeData().getText().equals("printf")) {
+            Node<TokenAttributes> name1 = BIB.createNode("NAME");
+            Node<TokenAttributes> name2 = BIB.createNodeWithParent(name1, "NAME");
+            BIB.createNodeWithParent(name1, ".");
+            Node<TokenAttributes> name3 = BIB.createNodeWithParent(name1, "NAME");
+            BIB.createNodeWithParent(name3, "printf");
+            Node<TokenAttributes> name4 = BIB.createNodeWithParent(name2, "NAME");
+            BIB.createNodeWithParent(name2, ".");
+            Node<TokenAttributes> name5 = BIB.createNodeWithParent(name2, "NAME");
+            BIB.createNodeWithParent(name5, "out");
+            BIB.createNodeWithParent(name4, "System");
+            name1.setParent(node);
+            List<Node<TokenAttributes>> children = node.getChildren();
+            Node<TokenAttributes> child = BIB.getChildByText(children, "NAME");
+            int index = children.indexOf(child);
+            children.remove(child);
+            children.add(index, name1);
+        }
     }
 
 }

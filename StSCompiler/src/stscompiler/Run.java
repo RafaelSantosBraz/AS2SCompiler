@@ -32,14 +32,18 @@ public class Run {
             return;
         }
         if (!new Analyzer().createCST(params[0], params[2], params[3])){
-            System.out.println("Error: it was not possible to create the CST!");
+            System.err.println("Error: it was not possible to create the CST!");
             return;
         }   
         Translator translator = new Translator();
         if (!translator.createeCST(params[3] + File.separator + "temp" + File.separator + "CST.xml", params[4], "\"ruleinitial\"", params[3])){
-            System.out.println("Error: it was not possible to create the eCST!");
+            System.err.println("Error: it was not possible to create the eCST!");
             return;
-        }       
+        }
+        if (!translator.adapteCST(params[3] + File.separator + "eCST.xml", params[0], params[1])){
+            System.err.println("Error: it was not possible to adapt the eCST!");
+            return;
+        }
 //        new XMLDOTConverter().convertFromDir(
 //                "D:\\GitHub\\StS-Compilation-Framework\\runtime\\output\\temp\\licca",
 //                "D:\\GitHub\\StS-Compilation-Framework\\runtime\\output"
