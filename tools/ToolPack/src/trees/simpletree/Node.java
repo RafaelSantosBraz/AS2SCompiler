@@ -7,6 +7,7 @@ package trees.simpletree;
 
 import java.util.ArrayList;
 import java.util.List;
+import trees.cstecst.TokenAttributes;
 
 /**
  * Represents each one of the nodes of a simple tree structure
@@ -52,10 +53,10 @@ public class Node<T> {
         children.add(child);
     }
 
-    public void addChildren(List<Node<T>> children){
+    public void addChildren(List<Node<T>> children) {
         this.children.addAll(children);
     }
-    
+
     public T getNodeData() {
         return nodeData;
     }
@@ -79,8 +80,8 @@ public class Node<T> {
     public void setChildren(List<Node<T>> children) {
         this.children = children;
     }
-    
-    public Node<T> getClone(){
+
+    public Node<T> getClone() {
         Node<T> newNode = new Node<>(parent);
         newNode.setChildren(children);
         newNode.setNodeData(nodeData);

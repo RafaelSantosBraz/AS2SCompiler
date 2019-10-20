@@ -9,10 +9,12 @@ int agora(int a, int b)
    int z = a + b; 
    const int q = 10;
    int w = 4;
+   return 1;
 }
 
 int main()
-{
-    agora(2, 4);
+{    
+    //agora(2, 4);
+    printf("%i\n", agora(2,4));
     return 0;
 }

@@ -26,7 +26,7 @@ public class Run {
         conv.convertFromFile("D:\\GitHub\\StS-Compilation-Framework\\runtime\\output\\eCST.xml");
         adapter.startWalking(conv.getTree());   
         DOTConverter dot = new DOTConverter(conv.getTree());
-        dot.convertToFile("D:\\GitHub\\StS-Compilation-Framework\\runtime\\output\\eCSTAdapted.gv");
+        dot.convertToFile("D:\\GitHub\\StS-Compilation-Framework\\runtime\\output\\eCSTAdapted.gv");        
     }
     
 }

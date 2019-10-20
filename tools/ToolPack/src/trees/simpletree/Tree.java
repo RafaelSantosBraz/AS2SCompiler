@@ -77,23 +77,5 @@ public class Tree<T> {
             list.addAll(getNodeChildren(newTempList));
         }
         return list;
-    }
-
-    public static void replaceNode(Node originalNode, Node newNode) {
-        if (originalNode == null || newNode == null) {
-            return;
-        }
-        Node parent = originalNode.getParent();
-        if (parent == null) {
-            return;
-        }
-        List<Node> parentChildren = parent.getChildren();
-        if (parentChildren.isEmpty()) {
-            parent.addChild(newNode);
-        } else {
-            int index = parentChildren.indexOf(originalNode);
-            parentChildren.remove(index);
-            parentChildren.add(index, newNode);
-        }
-    }
+    }    
 }
