@@ -75,8 +75,10 @@ public class DOTConverter<T> {
     }
 
     private String normalizeText(String text) {
-        String txtTemp = text.replace("\"", "\\\"");
-        txtTemp = txtTemp.replace("\\n", "\\\\n");
+        String txtTemp = text.replace("\\", "\\\\");
+        txtTemp = txtTemp.replace("\"", "\\\"");
+        // comp. previous executions        
+        //txtTemp = txtTemp.replace("\\\\n", "\\n");        
         return txtTemp;
     }
 

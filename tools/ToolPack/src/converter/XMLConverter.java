@@ -59,8 +59,9 @@ public class XMLConverter {
     }
 
     private String normalizeLessThan(String text) {
-        String txtTemp = text.replaceAll("<", "&#60;");
-        txtTemp = txtTemp.replace("\\n", "\\\\n");
+        String txtTemp = text.replace("<", "&#60;");
+        //txtTemp = txtTemp.replace("\\n", "\\\\n");
+        // txtTemp = txtTemp.replace("\\n", "\\n");
         if (txtTemp.charAt(0) == '\'') {
             txtTemp = "\"" + txtTemp + "\"";
         } else {
