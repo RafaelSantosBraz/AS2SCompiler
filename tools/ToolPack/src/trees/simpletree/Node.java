@@ -53,6 +53,9 @@ public class Node<T> {
         children.add(child);
     }
 
+    public void addChildAt(Node<T> child, int index) {
+        children.add(index, child);
+    }
     public void addChildren(List<Node<T>> children) {
         this.children.addAll(children);
     }

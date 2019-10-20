@@ -15,6 +15,6 @@ int agora(int a, int b)
 int main()
 {    
     //agora(2, 4);
-    printf("%i\n", agora(2,4));
+    printf("%i\n\n", agora(2,4));
     return 0;
 }

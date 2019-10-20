@@ -61,11 +61,12 @@ public class BIB {
                     });
                 }
             } else {
+                int index = node.getParent().getChildren().indexOf(node);
                 node.getParent().getChildren().remove(node);
                 if (node.getChildren() != null && !node.getChildren().isEmpty()) {
                     node.getChildren().forEach((t) -> {
                         t.setParent(node.getParent());
-                        node.getParent().addChild(t);
+                        node.getParent().addChildAt(t, index);
                     });
                 }
             }
@@ -77,7 +78,7 @@ public class BIB {
             if (c.getNodeData().getText().equals(text)) {
                 return c;
             }
-        }        
+        }
         return null;
     }
 }

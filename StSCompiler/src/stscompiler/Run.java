@@ -40,10 +40,10 @@ public class Run {
             System.out.println("Error: it was not possible to create the eCST!");
             return;
         }       
-        new XMLDOTConverter().convertFromDir(
-                "D:\\GitHub\\StS-Compilation-Framework\\runtime\\output\\temp\\licca",
-                "D:\\GitHub\\StS-Compilation-Framework\\runtime\\output"
-        );
+//        new XMLDOTConverter().convertFromDir(
+//                "D:\\GitHub\\StS-Compilation-Framework\\runtime\\output\\temp\\licca",
+//                "D:\\GitHub\\StS-Compilation-Framework\\runtime\\output"
+//        );
     }
 
 }

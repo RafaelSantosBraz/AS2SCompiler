@@ -52,4 +52,12 @@ public class CtoJavaAdapter extends ActionWalker {
         }
     }
 
+    // remove C double type
+    public void actionTYPE(Node<TokenAttributes> node) {
+        if (node.getChildren().get(0).getNodeData().getText().equals("TYPE")){
+            BIB.removeNode(node);
+        }
+    }
+    
+    
 }
