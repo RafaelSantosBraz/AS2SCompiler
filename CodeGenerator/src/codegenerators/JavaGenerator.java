@@ -5,14 +5,24 @@
  */
 package codegenerators;
 
+import trees.cstecst.TokenAttributes;
+import trees.simpletree.Node;
 import walkers.TreeVisitor;
 
 /**
  *
  * @author Rafael Braz
  */
-public class JavaGenerator extends TreeVisitor<Object>{
+public class JavaGenerator extends TreeVisitor<Object> {
     
+    public Object actionCOMPILATION_UNIT(Node<TokenAttributes> node) {
+        System.out.println("Nani?");
+        return visit(node.getChildren().get(0));
+    }
     
+    public Object actionFUNCTION_DECL(Node<TokenAttributes> node) {
+        System.out.println("func?");
+        return true;
+    }
     
 }

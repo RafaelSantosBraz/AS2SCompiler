@@ -5,6 +5,10 @@
  */
 package codegenerator;
 
+import codegenerators.JavaGenerator;
+import converter.DOTConverter;
+import converter.TreeXMLConverter;
+
 /**
  *
  * @author Rafael Braz
@@ -15,7 +19,12 @@ public class Run {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        JavaGenerator generator = new JavaGenerator();
+        TreeXMLConverter conv = new TreeXMLConverter();
+        conv.convertFromFile("D:\\GitHub\\StS-Compilation-Framework\\runtime\\output\\eCSTadapted.xml");
+        System.out.println(generator.startWalking(conv.getTree()));   
+        //DOTConverter dot = new DOTConverter(conv.getTree());
+        //dot.convertToFile("D:\\GitHub\\StS-Compilation-Framework\\runtime\\output\\eCSTAdapted.gv");      
     }
     
 }
