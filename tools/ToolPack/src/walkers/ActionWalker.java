@@ -28,7 +28,7 @@ public abstract class ActionWalker {
             defaultAction(node);
         }
         List<Node<TokenAttributes>> children = node.getChildren();
-        if (children != null && !children.isEmpty()) {
+        if (children != null) {
             for (int c = 0; c < children.size(); c++){
                 visiting(children.get(c));
             }
