@@ -32,14 +32,14 @@ public class Translator {
         return new TranslationParser(conv.getTree()).start(tmapPath, initialRuleName, outputDir);
     }
 
-    public boolean adapteCST(String eCSTPath, String inputLang, String outputLang) {
+    public boolean adapteCST(String eCSTPath, String auxTmapsDir, String inputLang, String outputLang) {
         TreeXMLConverter conv = new TreeXMLConverter();
         if (!conv.convertFromFile(eCSTPath)) {
             return false;
         }
         ActionWalker adapter = null;
         if (inputLang.equals(Analyzer.C) && outputLang.equals(Analyzer.JAVA)) {
-            adapter = new CtoJavaAdapter();
+            adapter = new CtoJavaAdapter(auxTmapsDir);
         }
         if (inputLang.equals(Analyzer.JAVA) && outputLang.equals(Analyzer.C)) {
             adapter = new JavatoCAdapter();
@@ -61,4 +61,17 @@ public class Translator {
     private boolean exportCSTXML(Tree<TokenAttributes> tree, String outputPath) {
         return new XMLConverter(tree).convertToFile(outputPath);
     }
+
+    public static String inferAuxTmapsDir(String tmapPath, String inputLang, String outputLang) {
+        int index = tmapPath.lastIndexOf(File.separator);
+        String dir = null;
+        if (inputLang.equals(Analyzer.C) && outputLang.equals(Analyzer.JAVA)) {
+            dir = tmapPath.replace(tmapPath.substring(index + 1), "CtoJava");
+        }
+        if (inputLang.equals(Analyzer.JAVA) && outputLang.equals(Analyzer.C)) {
+            dir = tmapPath.replace(tmapPath.substring(index + 1), "JavatoC");
+        }
+        return dir;
+    }
+
 }
