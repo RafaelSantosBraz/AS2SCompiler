@@ -10,7 +10,6 @@ import java.util.List;
 import trees.cstecst.TokenAttributes;
 import trees.cstecst.UniversalToken;
 import trees.simpletree.Node;
-import trees.simpletree.Tree;
 import walkers.ActionWalker;
 
 /**
@@ -21,7 +20,9 @@ public class CtoJavaAdapter extends ActionWalker {
 
     // const to final
     public void actionconst(Node<TokenAttributes> node) {
-        node.getNodeData().setText("final");
+//        node.getNodeData().setText("final");
+        List<Node<TokenAttributes>> nodes = BIB.tmapOneRuleCodeCall("new_leaf(\"final\")", node);
+        BIB.replaceNode(node, nodes.get(0));
     }
 
     // function main to method main

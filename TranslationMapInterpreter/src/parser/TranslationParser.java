@@ -14,7 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 import javafx.stage.DirectoryChooser;
+import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.v4.runtime.ANTLRFileStream;
+import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.RecognitionException;
@@ -54,6 +56,19 @@ public class TranslationParser {
             return (exportDOTeCST(outputDir + File.separator + "eCST.gv") && exportXMLeCST(eCST, outputDir + File.separator + "eCST.xml"));
         } catch (IOException | RecognitionException e) {
             return false;
+        }
+    }
+
+    public static Tree<TokenAttributes> startFromString(String tmapCode, String firstRuleName, Node<TokenAttributes> currentNode) {
+        try {
+            CharStream stream = new ANTLRInputStream(tmapCode);
+            TranslationGrammarLexer lexer = new TranslationGrammarLexer(stream);
+            TokenStream tokens = new CommonTokenStream(lexer);
+            TranslationGrammarParser parser = new TranslationGrammarParser(tokens);
+            TranslationVisitor t = new TranslationVisitor(currentNode);
+            return t.start(parser.prog(), firstRuleName);
+        } catch (RecognitionException e) {
+            return null;
         }
     }
 

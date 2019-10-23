@@ -6,9 +6,11 @@
 package auxtools;
 
 import java.util.List;
+import parser.TranslationParser;
 import trees.cstecst.TokenAttributes;
 import trees.cstecst.UniversalToken;
 import trees.simpletree.Node;
+import trees.simpletree.Tree;
 
 /**
  *
@@ -81,4 +83,22 @@ public class BIB {
         }
         return null;
     }
+
+    public static List<Node<TokenAttributes>> tmapOneRuleCodeCall(String tmapCode, Node<TokenAttributes> currentNode) {
+        String code = "\"rule_tmap_standard_\" -> {" + tmapCode + "}";
+        Tree<TokenAttributes> tree = TranslationParser.startFromString(code, "\"rule_tmap_standard_\"", currentNode);
+        if (tree.getRoot() != null) {
+            return tree.getRoot().getChildren();
+        }
+        return null;
+    }
+
+    public static List<Node<TokenAttributes>> tmapCompleteCodeCall(String tmapCode, String initialRuleName, Node<TokenAttributes> currentNode) {
+        Tree<TokenAttributes> tree = TranslationParser.startFromString(tmapCode, initialRuleName, currentNode);
+        if (tree.getRoot() != null) {
+            return tree.getRoot().getChildren();
+        }
+        return null;
+    }
+
 }
