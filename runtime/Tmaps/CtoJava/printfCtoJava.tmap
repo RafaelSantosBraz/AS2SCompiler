@@ -1,0 +1,17 @@
+if ("NAME".child == :"printf"){
+    "NAME" = {
+        "NAME" = {
+            "NAME" = {
+                new_leaf("System")
+            },
+            new_leaf("."),
+            "NAME" = {
+                new_leaf("out")
+            }
+        },
+        new_leaf("."),
+        "NAME" = {
+            new_leaf("printf")
+        }
+    }
+}
