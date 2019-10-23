@@ -21,7 +21,7 @@ public class Run {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        CtoJavaAdapter adapter = new CtoJavaAdapter();
+        CtoJavaAdapter adapter = new CtoJavaAdapter("D:\\GitHub\\StS-Compilation-Framework\\runtime\\Tmaps\\CtoJava");
         TreeXMLConverter conv = new TreeXMLConverter();
         conv.convertFromFile("D:\\GitHub\\StS-Compilation-Framework\\runtime\\output\\eCST.xml");
         adapter.startWalking(conv.getTree());   

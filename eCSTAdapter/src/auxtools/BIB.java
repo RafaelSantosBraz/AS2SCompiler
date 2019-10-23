@@ -5,7 +5,13 @@
  */
 package auxtools;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import parser.TranslationParser;
 import trees.cstecst.TokenAttributes;
 import trees.cstecst.UniversalToken;
@@ -17,6 +23,14 @@ import trees.simpletree.Tree;
  * @author Rafael Braz
  */
 public class BIB {
+
+    public static String getTmapCodeFromFile(String auxTmapsDir, String fileName) {
+        try {
+            return new String(Files.readAllBytes(Paths.get(auxTmapsDir + File.separator + fileName)));
+        } catch (IOException ex) {
+            return null;
+        }
+    }
 
     public static Node<TokenAttributes> createNodeWithParent(Node<TokenAttributes> parent, String text) {
         Node<TokenAttributes> node = new Node<>(parent);

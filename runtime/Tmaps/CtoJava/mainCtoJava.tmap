@@ -1,0 +1,28 @@
+if ("NAME".child == :"main") {
+    "FUNCTION_DECL" = {
+        "MODIFIER_LIST" = {
+            new_leaf("public"),
+            new_leaf("static")
+        },
+        "TYPE" = {
+            new_leaf("void")
+        },
+        "NAME" = {
+            new_leaf("main")
+        },
+        "FORMAL_PARAM_LIST" = {
+            "PARAMETER_DECL" = {
+                "TYPE" = {
+                    "NAME" = {
+                        new_leaf("String[]")
+                    }
+                },
+                "NAME" = {
+                    new_leaf("args")
+                }
+            }
+        },
+        "BLOCK_SCOPE"
+    }
+}
+
