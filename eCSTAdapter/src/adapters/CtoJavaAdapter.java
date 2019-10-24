@@ -48,7 +48,7 @@ public class CtoJavaAdapter extends ActionWalker {
         List<Node<TokenAttributes>> nodes = BIB.tmapOneRuleCodeCall(tmapCode, node);
         if (!nodes.isEmpty()) {
             BIB.replaceNode(BIB.getChildByText(node.getChildren(), "NAME"), nodes.get(0));
-        }
+        }        
     }
 
     

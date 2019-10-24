@@ -2,83 +2,83 @@
 <childElement>
 <token column="-1" index="-1" line="0" text='root' type="-1"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='CompilationUnit' type="86"/>
+<token column="-1" index="-1" line="0" text='CompilationUnit' type="59"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='TranslationUnit' type="87"/>
+<token column="-1" index="-1" line="0" text='TranslationUnit' type="60"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='TranslationUnit' type="87"/>
+<token column="-1" index="-1" line="0" text='TranslationUnit' type="60"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='TranslationUnit' type="87"/>
+<token column="-1" index="-1" line="0" text='TranslationUnit' type="60"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='ExternalDeclaration' type="88"/>
+<token column="-1" index="-1" line="0" text='ExternalDeclaration' type="61"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='Declaration' type="26"/>
+<token column="-1" index="-1" line="0" text='Declaration' type="25"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='DeclarationSpecifiers' type="27"/>
+<token column="-1" index="-1" line="0" text='DeclarationSpecifiers' type="26"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='DeclarationSpecifier' type="29"/>
+<token column="-1" index="-1" line="0" text='DeclarationSpecifier' type="27"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='TypeSpecifier' type="33"/>
+<token column="-1" index="-1" line="0" text='TypeSpecifier' type="30"/>
 <childElement>
-<token column="0" index="62" line="4" text='int' type="32"/>
+<token column="0" index="62" line="4" text='int' type="18"/>
 </childElement>
 </childElement>
 </childElement>
 </childElement>
 <childElement>
-<token column="-1" index="-1" line="0" text='InitDeclaratorList' type="30"/>
+<token column="-1" index="-1" line="0" text='InitDeclaratorList' type="28"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='InitDeclarator' type="31"/>
+<token column="-1" index="-1" line="0" text='InitDeclarator' type="29"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='Declarator' type="49"/>
+<token column="-1" index="-1" line="0" text='Declarator' type="32"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='DirectDeclarator' type="50"/>
+<token column="-1" index="-1" line="0" text='DirectDeclarator' type="33"/>
 <childElement>
-<token column="4" index="76" line="4" text='cc' type="105"/>
+<token column="4" index="76" line="4" text='cc' type="91"/>
 </childElement>
 </childElement>
 </childElement>
 <childElement>
-<token column="7" index="52" line="4" text='=' type="89"/>
+<token column="7" index="52" line="4" text='=' type="75"/>
 </childElement>
 <childElement>
-<token column="-1" index="-1" line="0" text='Initializer' type="66"/>
+<token column="-1" index="-1" line="0" text='Initializer' type="41"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='AssignmentExpression' type="22"/>
+<token column="-1" index="-1" line="0" text='AssignmentExpression' type="21"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='ConditionalExpression' type="21"/>
+<token column="-1" index="-1" line="0" text='ConditionalExpression' type="20"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='LogicalOrExpression' type="20"/>
+<token column="-1" index="-1" line="0" text='LogicalOrExpression' type="19"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='LogicalAndExpression' type="19"/>
+<token column="-1" index="-1" line="0" text='LogicalAndExpression' type="18"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='InclusiveOrExpression' type="18"/>
+<token column="-1" index="-1" line="0" text='InclusiveOrExpression' type="17"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='ExclusiveOrExpression' type="17"/>
+<token column="-1" index="-1" line="0" text='ExclusiveOrExpression' type="16"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='AndExpression' type="16"/>
+<token column="-1" index="-1" line="0" text='AndExpression' type="15"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='EqualityExpression' type="15"/>
+<token column="-1" index="-1" line="0" text='EqualityExpression' type="14"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='RelationalExpression' type="14"/>
+<token column="-1" index="-1" line="0" text='RelationalExpression' type="13"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='ShiftExpression' type="13"/>
+<token column="-1" index="-1" line="0" text='ShiftExpression' type="12"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='AdditiveExpression' type="12"/>
+<token column="-1" index="-1" line="0" text='AdditiveExpression' type="11"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='MultiplicativeExpression' type="11"/>
+<token column="-1" index="-1" line="0" text='MultiplicativeExpression' type="10"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='CastExpression' type="10"/>
+<token column="-1" index="-1" line="0" text='CastExpression' type="9"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='UnaryExpression' type="8"/>
+<token column="-1" index="-1" line="0" text='UnaryExpression' type="7"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='PostfixExpression' type="6"/>
+<token column="-1" index="-1" line="0" text='PostfixExpression' type="5"/>
 <childElement>
 <token column="-1" index="-1" line="0" text='PrimaryExpression' type="0"/>
 <childElement>
 <token column="-1" index="-1" line="0" text='PrimaryExpressionConstLiteral' type="2"/>
 <childElement>
-<token column="9" index="250" line="4" text='42' type="106"/>
+<token column="9" index="250" line="4" text='42' type="92"/>
 </childElement>
 </childElement>
 </childElement>
@@ -101,94 +101,94 @@
 </childElement>
 </childElement>
 <childElement>
-<token column="11" index="25" line="4" text=';' type="87"/>
+<token column="11" index="25" line="4" text=';' type="73"/>
 </childElement>
 </childElement>
 </childElement>
 </childElement>
 <childElement>
-<token column="-1" index="-1" line="0" text='ExternalDeclaration' type="88"/>
+<token column="-1" index="-1" line="0" text='ExternalDeclaration' type="61"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='FunctionDefinition' type="89"/>
+<token column="-1" index="-1" line="0" text='FunctionDefinition' type="62"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='DeclarationSpecifiers' type="27"/>
+<token column="-1" index="-1" line="0" text='DeclarationSpecifiers' type="26"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='DeclarationSpecifier' type="29"/>
+<token column="-1" index="-1" line="0" text='DeclarationSpecifier' type="27"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='TypeSpecifier' type="33"/>
+<token column="-1" index="-1" line="0" text='TypeSpecifier' type="30"/>
 <childElement>
-<token column="0" index="54" line="6" text='int' type="32"/>
+<token column="0" index="54" line="6" text='int' type="18"/>
 </childElement>
 </childElement>
 </childElement>
 </childElement>
 <childElement>
-<token column="-1" index="-1" line="0" text='Declarator' type="49"/>
+<token column="-1" index="-1" line="0" text='Declarator' type="32"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='DirectDeclarator' type="50"/>
+<token column="-1" index="-1" line="0" text='DirectDeclarator' type="33"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='DirectDeclarator' type="50"/>
+<token column="-1" index="-1" line="0" text='DirectDeclarator' type="33"/>
 <childElement>
-<token column="4" index="55" line="6" text='agora' type="105"/>
+<token column="4" index="55" line="6" text='agora' type="91"/>
 </childElement>
 </childElement>
 <childElement>
-<token column="9" index="41" line="6" text='(' type="59"/>
+<token column="9" index="41" line="6" text='(' type="45"/>
 </childElement>
 <childElement>
-<token column="-1" index="-1" line="0" text='ParameterTypeList' type="58"/>
+<token column="-1" index="-1" line="0" text='ParameterTypeList' type="36"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='ParameterList' type="59"/>
+<token column="-1" index="-1" line="0" text='ParameterList' type="37"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='ParameterList' type="59"/>
+<token column="-1" index="-1" line="0" text='ParameterList' type="37"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='ParameterDeclaration' type="60"/>
+<token column="-1" index="-1" line="0" text='ParameterDeclaration' type="38"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='DeclarationSpecifiers' type="27"/>
+<token column="-1" index="-1" line="0" text='DeclarationSpecifiers' type="26"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='DeclarationSpecifier' type="29"/>
+<token column="-1" index="-1" line="0" text='DeclarationSpecifier' type="27"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='TypeSpecifier' type="33"/>
+<token column="-1" index="-1" line="0" text='TypeSpecifier' type="30"/>
 <childElement>
-<token column="10" index="148" line="6" text='int' type="32"/>
+<token column="10" index="148" line="6" text='int' type="18"/>
 </childElement>
 </childElement>
 </childElement>
 </childElement>
 <childElement>
-<token column="-1" index="-1" line="0" text='Declarator' type="49"/>
+<token column="-1" index="-1" line="0" text='Declarator' type="32"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='DirectDeclarator' type="50"/>
+<token column="-1" index="-1" line="0" text='DirectDeclarator' type="33"/>
 <childElement>
-<token column="14" index="129" line="6" text='a' type="105"/>
+<token column="14" index="129" line="6" text='a' type="91"/>
 </childElement>
 </childElement>
 </childElement>
 </childElement>
 </childElement>
 <childElement>
-<token column="15" index="66" line="6" text=',' type="88"/>
+<token column="15" index="66" line="6" text=',' type="74"/>
 </childElement>
 <childElement>
-<token column="-1" index="-1" line="0" text='ParameterDeclaration' type="60"/>
+<token column="-1" index="-1" line="0" text='ParameterDeclaration' type="38"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='DeclarationSpecifiers' type="27"/>
+<token column="-1" index="-1" line="0" text='DeclarationSpecifiers' type="26"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='DeclarationSpecifier' type="29"/>
+<token column="-1" index="-1" line="0" text='DeclarationSpecifier' type="27"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='TypeSpecifier' type="33"/>
+<token column="-1" index="-1" line="0" text='TypeSpecifier' type="30"/>
 <childElement>
-<token column="17" index="130" line="6" text='int' type="32"/>
+<token column="17" index="130" line="6" text='int' type="18"/>
 </childElement>
 </childElement>
 </childElement>
 </childElement>
 <childElement>
-<token column="-1" index="-1" line="0" text='Declarator' type="49"/>
+<token column="-1" index="-1" line="0" text='Declarator' type="32"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='DirectDeclarator' type="50"/>
+<token column="-1" index="-1" line="0" text='DirectDeclarator' type="33"/>
 <childElement>
-<token column="21" index="112" line="6" text='b' type="105"/>
+<token column="21" index="112" line="6" text='b' type="91"/>
 </childElement>
 </childElement>
 </childElement>
@@ -196,134 +196,134 @@
 </childElement>
 </childElement>
 <childElement>
-<token column="22" index="43" line="6" text=')' type="60"/>
+<token column="22" index="43" line="6" text=')' type="46"/>
 </childElement>
 </childElement>
 </childElement>
 <childElement>
-<token column="-1" index="-1" line="0" text='CompoundStatement' type="74"/>
+<token column="-1" index="-1" line="0" text='CompoundStatement' type="48"/>
 <childElement>
-<token column="0" index="28" line="7" text='{' type="63"/>
+<token column="0" index="28" line="7" text='{' type="49"/>
 </childElement>
 <childElement>
-<token column="-1" index="-1" line="0" text='BlockItemList' type="75"/>
+<token column="-1" index="-1" line="0" text='BlockItemList' type="49"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='BlockItemList' type="75"/>
+<token column="-1" index="-1" line="0" text='BlockItemList' type="49"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='BlockItemList' type="75"/>
+<token column="-1" index="-1" line="0" text='BlockItemList' type="49"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='BlockItemList' type="75"/>
+<token column="-1" index="-1" line="0" text='BlockItemList' type="49"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='BlockItemList' type="75"/>
+<token column="-1" index="-1" line="0" text='BlockItemList' type="49"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='BlockItem' type="76"/>
+<token column="-1" index="-1" line="0" text='BlockItem' type="50"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='Declaration' type="26"/>
+<token column="-1" index="-1" line="0" text='Declaration' type="25"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='DeclarationSpecifiers' type="27"/>
+<token column="-1" index="-1" line="0" text='DeclarationSpecifiers' type="26"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='DeclarationSpecifier' type="29"/>
+<token column="-1" index="-1" line="0" text='DeclarationSpecifier' type="27"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='TypeSpecifier' type="33"/>
+<token column="-1" index="-1" line="0" text='TypeSpecifier' type="30"/>
 <childElement>
-<token column="3" index="177" line="8" text='int' type="32"/>
+<token column="3" index="177" line="8" text='int' type="18"/>
 </childElement>
 </childElement>
 </childElement>
 </childElement>
 <childElement>
-<token column="-1" index="-1" line="0" text='InitDeclaratorList' type="30"/>
+<token column="-1" index="-1" line="0" text='InitDeclaratorList' type="28"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='InitDeclarator' type="31"/>
+<token column="-1" index="-1" line="0" text='InitDeclarator' type="29"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='Declarator' type="49"/>
+<token column="-1" index="-1" line="0" text='Declarator' type="32"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='DirectDeclarator' type="50"/>
+<token column="-1" index="-1" line="0" text='DirectDeclarator' type="33"/>
 <childElement>
-<token column="7" index="187" line="8" text='y' type="105"/>
+<token column="7" index="187" line="8" text='y' type="91"/>
 </childElement>
 </childElement>
 </childElement>
 </childElement>
 </childElement>
 <childElement>
-<token column="8" index="133" line="8" text=';' type="87"/>
+<token column="8" index="133" line="8" text=';' type="73"/>
 </childElement>
 </childElement>
 </childElement>
 </childElement>
 <childElement>
-<token column="-1" index="-1" line="0" text='BlockItem' type="76"/>
+<token column="-1" index="-1" line="0" text='BlockItem' type="50"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='Declaration' type="26"/>
+<token column="-1" index="-1" line="0" text='Declaration' type="25"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='DeclarationSpecifiers' type="27"/>
+<token column="-1" index="-1" line="0" text='DeclarationSpecifiers' type="26"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='DeclarationSpecifier' type="29"/>
+<token column="-1" index="-1" line="0" text='DeclarationSpecifier' type="27"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='TypeSpecifier' type="33"/>
+<token column="-1" index="-1" line="0" text='TypeSpecifier' type="30"/>
 <childElement>
-<token column="3" index="167" line="9" text='int' type="32"/>
+<token column="3" index="167" line="9" text='int' type="18"/>
 </childElement>
 </childElement>
 </childElement>
 </childElement>
 <childElement>
-<token column="-1" index="-1" line="0" text='InitDeclaratorList' type="30"/>
+<token column="-1" index="-1" line="0" text='InitDeclaratorList' type="28"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='InitDeclarator' type="31"/>
+<token column="-1" index="-1" line="0" text='InitDeclarator' type="29"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='Declarator' type="49"/>
+<token column="-1" index="-1" line="0" text='Declarator' type="32"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='DirectDeclarator' type="50"/>
+<token column="-1" index="-1" line="0" text='DirectDeclarator' type="33"/>
 <childElement>
-<token column="7" index="179" line="9" text='z' type="105"/>
+<token column="7" index="179" line="9" text='z' type="91"/>
 </childElement>
 </childElement>
 </childElement>
 <childElement>
-<token column="9" index="153" line="9" text='=' type="89"/>
+<token column="9" index="153" line="9" text='=' type="75"/>
 </childElement>
 <childElement>
-<token column="-1" index="-1" line="0" text='Initializer' type="66"/>
+<token column="-1" index="-1" line="0" text='Initializer' type="41"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='AssignmentExpression' type="22"/>
+<token column="-1" index="-1" line="0" text='AssignmentExpression' type="21"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='ConditionalExpression' type="21"/>
+<token column="-1" index="-1" line="0" text='ConditionalExpression' type="20"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='LogicalOrExpression' type="20"/>
+<token column="-1" index="-1" line="0" text='LogicalOrExpression' type="19"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='LogicalAndExpression' type="19"/>
+<token column="-1" index="-1" line="0" text='LogicalAndExpression' type="18"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='InclusiveOrExpression' type="18"/>
+<token column="-1" index="-1" line="0" text='InclusiveOrExpression' type="17"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='ExclusiveOrExpression' type="17"/>
+<token column="-1" index="-1" line="0" text='ExclusiveOrExpression' type="16"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='AndExpression' type="16"/>
+<token column="-1" index="-1" line="0" text='AndExpression' type="15"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='EqualityExpression' type="15"/>
+<token column="-1" index="-1" line="0" text='EqualityExpression' type="14"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='RelationalExpression' type="14"/>
+<token column="-1" index="-1" line="0" text='RelationalExpression' type="13"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='ShiftExpression' type="13"/>
+<token column="-1" index="-1" line="0" text='ShiftExpression' type="12"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='AdditiveExpression' type="12"/>
+<token column="-1" index="-1" line="0" text='AdditiveExpression' type="11"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='AdditiveExpression' type="12"/>
+<token column="-1" index="-1" line="0" text='AdditiveExpression' type="11"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='MultiplicativeExpression' type="11"/>
+<token column="-1" index="-1" line="0" text='MultiplicativeExpression' type="10"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='CastExpression' type="10"/>
+<token column="-1" index="-1" line="0" text='CastExpression' type="9"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='UnaryExpression' type="8"/>
+<token column="-1" index="-1" line="0" text='UnaryExpression' type="7"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='PostfixExpression' type="6"/>
+<token column="-1" index="-1" line="0" text='PostfixExpression' type="5"/>
 <childElement>
 <token column="-1" index="-1" line="0" text='PrimaryExpression' type="0"/>
 <childElement>
 <token column="-1" index="-1" line="0" text='PrimaryExpressionVar' type="1"/>
 <childElement>
-<token column="11" index="302" line="9" text='a' type="105"/>
+<token column="11" index="302" line="9" text='a' type="91"/>
 </childElement>
 </childElement>
 </childElement>
@@ -333,22 +333,22 @@
 </childElement>
 </childElement>
 <childElement>
-<token column="13" index="252" line="9" text='+' type="71"/>
+<token column="13" index="252" line="9" text='+' type="57"/>
 </childElement>
 <childElement>
-<token column="-1" index="-1" line="0" text='MultiplicativeExpression' type="11"/>
+<token column="-1" index="-1" line="0" text='MultiplicativeExpression' type="10"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='CastExpression' type="10"/>
+<token column="-1" index="-1" line="0" text='CastExpression' type="9"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='UnaryExpression' type="8"/>
+<token column="-1" index="-1" line="0" text='UnaryExpression' type="7"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='PostfixExpression' type="6"/>
+<token column="-1" index="-1" line="0" text='PostfixExpression' type="5"/>
 <childElement>
 <token column="-1" index="-1" line="0" text='PrimaryExpression' type="0"/>
 <childElement>
 <token column="-1" index="-1" line="0" text='PrimaryExpressionVar' type="1"/>
 <childElement>
-<token column="15" index="299" line="9" text='b' type="105"/>
+<token column="15" index="299" line="9" text='b' type="91"/>
 </childElement>
 </childElement>
 </childElement>
@@ -371,90 +371,90 @@
 </childElement>
 </childElement>
 <childElement>
-<token column="16" index="116" line="9" text=';' type="87"/>
+<token column="16" index="116" line="9" text=';' type="73"/>
 </childElement>
 </childElement>
 </childElement>
 </childElement>
 <childElement>
-<token column="-1" index="-1" line="0" text='BlockItem' type="76"/>
+<token column="-1" index="-1" line="0" text='BlockItem' type="50"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='Declaration' type="26"/>
+<token column="-1" index="-1" line="0" text='Declaration' type="25"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='DeclarationSpecifiers' type="27"/>
+<token column="-1" index="-1" line="0" text='DeclarationSpecifiers' type="26"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='DeclarationSpecifier' type="29"/>
+<token column="-1" index="-1" line="0" text='DeclarationSpecifier' type="27"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='TypeQualifier' type="46"/>
+<token column="-1" index="-1" line="0" text='TypeQualifier' type="31"/>
 <childElement>
-<token column="3" index="155" line="10" text='const' type="19"/>
+<token column="3" index="155" line="10" text='const' type="5"/>
 </childElement>
 </childElement>
 </childElement>
 <childElement>
-<token column="-1" index="-1" line="0" text='DeclarationSpecifier' type="29"/>
+<token column="-1" index="-1" line="0" text='DeclarationSpecifier' type="27"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='TypeSpecifier' type="33"/>
+<token column="-1" index="-1" line="0" text='TypeSpecifier' type="30"/>
 <childElement>
-<token column="9" index="156" line="10" text='int' type="32"/>
+<token column="9" index="156" line="10" text='int' type="18"/>
 </childElement>
 </childElement>
 </childElement>
 </childElement>
 <childElement>
-<token column="-1" index="-1" line="0" text='InitDeclaratorList' type="30"/>
+<token column="-1" index="-1" line="0" text='InitDeclaratorList' type="28"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='InitDeclarator' type="31"/>
+<token column="-1" index="-1" line="0" text='InitDeclarator' type="29"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='Declarator' type="49"/>
+<token column="-1" index="-1" line="0" text='Declarator' type="32"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='DirectDeclarator' type="50"/>
+<token column="-1" index="-1" line="0" text='DirectDeclarator' type="33"/>
 <childElement>
-<token column="13" index="170" line="10" text='q' type="105"/>
+<token column="13" index="170" line="10" text='q' type="91"/>
 </childElement>
 </childElement>
 </childElement>
 <childElement>
-<token column="15" index="139" line="10" text='=' type="89"/>
+<token column="15" index="139" line="10" text='=' type="75"/>
 </childElement>
 <childElement>
-<token column="-1" index="-1" line="0" text='Initializer' type="66"/>
+<token column="-1" index="-1" line="0" text='Initializer' type="41"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='AssignmentExpression' type="22"/>
+<token column="-1" index="-1" line="0" text='AssignmentExpression' type="21"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='ConditionalExpression' type="21"/>
+<token column="-1" index="-1" line="0" text='ConditionalExpression' type="20"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='LogicalOrExpression' type="20"/>
+<token column="-1" index="-1" line="0" text='LogicalOrExpression' type="19"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='LogicalAndExpression' type="19"/>
+<token column="-1" index="-1" line="0" text='LogicalAndExpression' type="18"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='InclusiveOrExpression' type="18"/>
+<token column="-1" index="-1" line="0" text='InclusiveOrExpression' type="17"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='ExclusiveOrExpression' type="17"/>
+<token column="-1" index="-1" line="0" text='ExclusiveOrExpression' type="16"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='AndExpression' type="16"/>
+<token column="-1" index="-1" line="0" text='AndExpression' type="15"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='EqualityExpression' type="15"/>
+<token column="-1" index="-1" line="0" text='EqualityExpression' type="14"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='RelationalExpression' type="14"/>
+<token column="-1" index="-1" line="0" text='RelationalExpression' type="13"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='ShiftExpression' type="13"/>
+<token column="-1" index="-1" line="0" text='ShiftExpression' type="12"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='AdditiveExpression' type="12"/>
+<token column="-1" index="-1" line="0" text='AdditiveExpression' type="11"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='MultiplicativeExpression' type="11"/>
+<token column="-1" index="-1" line="0" text='MultiplicativeExpression' type="10"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='CastExpression' type="10"/>
+<token column="-1" index="-1" line="0" text='CastExpression' type="9"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='UnaryExpression' type="8"/>
+<token column="-1" index="-1" line="0" text='UnaryExpression' type="7"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='PostfixExpression' type="6"/>
+<token column="-1" index="-1" line="0" text='PostfixExpression' type="5"/>
 <childElement>
 <token column="-1" index="-1" line="0" text='PrimaryExpression' type="0"/>
 <childElement>
 <token column="-1" index="-1" line="0" text='PrimaryExpressionConstLiteral' type="2"/>
 <childElement>
-<token column="17" index="295" line="10" text='10' type="106"/>
+<token column="17" index="295" line="10" text='10' type="92"/>
 </childElement>
 </childElement>
 </childElement>
@@ -477,155 +477,155 @@
 </childElement>
 </childElement>
 <childElement>
-<token column="19" index="102" line="10" text=';' type="87"/>
+<token column="19" index="102" line="10" text=';' type="73"/>
 </childElement>
 </childElement>
 </childElement>
 </childElement>
 <childElement>
-<token column="-1" index="-1" line="0" text='BlockItem' type="76"/>
+<token column="-1" index="-1" line="0" text='BlockItem' type="50"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='Declaration' type="26"/>
+<token column="-1" index="-1" line="0" text='Declaration' type="25"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='DeclarationSpecifiers' type="27"/>
+<token column="-1" index="-1" line="0" text='DeclarationSpecifiers' type="26"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='DeclarationSpecifier' type="29"/>
+<token column="-1" index="-1" line="0" text='DeclarationSpecifier' type="27"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='TypeSpecifier' type="33"/>
+<token column="-1" index="-1" line="0" text='TypeSpecifier' type="30"/>
 <childElement>
-<token column="3" index="141" line="11" text='int' type="32"/>
+<token column="3" index="141" line="11" text='int' type="18"/>
 </childElement>
 </childElement>
 </childElement>
 </childElement>
 <childElement>
-<token column="-1" index="-1" line="0" text='InitDeclaratorList' type="30"/>
+<token column="-1" index="-1" line="0" text='InitDeclaratorList' type="28"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='InitDeclarator' type="31"/>
+<token column="-1" index="-1" line="0" text='InitDeclarator' type="29"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='Declarator' type="49"/>
+<token column="-1" index="-1" line="0" text='Declarator' type="32"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='DirectDeclarator' type="50"/>
+<token column="-1" index="-1" line="0" text='DirectDeclarator' type="33"/>
 <childElement>
-<token column="7" index="159" line="11" text='w' type="105"/>
+<token column="7" index="159" line="11" text='w' type="91"/>
 </childElement>
 </childElement>
 </childElement>
 <childElement>
-<token column="9" index="122" line="11" text='=' type="89"/>
+<token column="9" index="122" line="11" text='=' type="75"/>
 </childElement>
 <childElement>
-<token column="-1" index="-1" line="0" text='Initializer' type="66"/>
+<token column="-1" index="-1" line="0" text='Initializer' type="41"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='AssignmentExpression' type="22"/>
+<token column="-1" index="-1" line="0" text='AssignmentExpression' type="21"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='ConditionalExpression' type="21"/>
+<token column="-1" index="-1" line="0" text='ConditionalExpression' type="20"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='LogicalOrExpression' type="20"/>
+<token column="-1" index="-1" line="0" text='LogicalOrExpression' type="19"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='LogicalAndExpression' type="19"/>
+<token column="-1" index="-1" line="0" text='LogicalAndExpression' type="18"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='InclusiveOrExpression' type="18"/>
+<token column="-1" index="-1" line="0" text='InclusiveOrExpression' type="17"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='ExclusiveOrExpression' type="17"/>
+<token column="-1" index="-1" line="0" text='ExclusiveOrExpression' type="16"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='AndExpression' type="16"/>
+<token column="-1" index="-1" line="0" text='AndExpression' type="15"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='EqualityExpression' type="15"/>
+<token column="-1" index="-1" line="0" text='EqualityExpression' type="14"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='RelationalExpression' type="14"/>
+<token column="-1" index="-1" line="0" text='RelationalExpression' type="13"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='ShiftExpression' type="13"/>
+<token column="-1" index="-1" line="0" text='ShiftExpression' type="12"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='AdditiveExpression' type="12"/>
+<token column="-1" index="-1" line="0" text='AdditiveExpression' type="11"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='MultiplicativeExpression' type="11"/>
+<token column="-1" index="-1" line="0" text='MultiplicativeExpression' type="10"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='CastExpression' type="10"/>
+<token column="-1" index="-1" line="0" text='CastExpression' type="9"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='UnaryExpression' type="8"/>
+<token column="-1" index="-1" line="0" text='UnaryExpression' type="7"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='PostfixExpression' type="6"/>
-<childElement>
-<token column="-1" index="-1" line="0" text='PrimaryExpression' type="0"/>
-<childElement>
-<token column="-1" index="-1" line="0" text='PrimaryExpressionConstLiteral' type="2"/>
-<childElement>
-<token column="11" index="290" line="11" text='4' type="106"/>
-</childElement>
-</childElement>
-</childElement>
-</childElement>
-</childElement>
-</childElement>
-</childElement>
-</childElement>
-</childElement>
-</childElement>
-</childElement>
-</childElement>
-</childElement>
-</childElement>
-</childElement>
-</childElement>
-</childElement>
-</childElement>
-</childElement>
-</childElement>
-</childElement>
-<childElement>
-<token column="12" index="86" line="11" text=';' type="87"/>
-</childElement>
-</childElement>
-</childElement>
-</childElement>
-<childElement>
-<token column="-1" index="-1" line="0" text='BlockItem' type="76"/>
-<childElement>
-<token column="-1" index="-1" line="0" text='Statement' type="72"/>
-<childElement>
-<token column="-1" index="-1" line="0" text='JumpStatement' type="85"/>
-<childElement>
-<token column="3" index="87" line="12" text='return' type="36"/>
-</childElement>
-<childElement>
-<token column="-1" index="-1" line="0" text='Expression' type="24"/>
-<childElement>
-<token column="-1" index="-1" line="0" text='AssignmentExpression' type="22"/>
-<childElement>
-<token column="-1" index="-1" line="0" text='ConditionalExpression' type="21"/>
-<childElement>
-<token column="-1" index="-1" line="0" text='LogicalOrExpression' type="20"/>
-<childElement>
-<token column="-1" index="-1" line="0" text='LogicalAndExpression' type="19"/>
-<childElement>
-<token column="-1" index="-1" line="0" text='InclusiveOrExpression' type="18"/>
-<childElement>
-<token column="-1" index="-1" line="0" text='ExclusiveOrExpression' type="17"/>
-<childElement>
-<token column="-1" index="-1" line="0" text='AndExpression' type="16"/>
-<childElement>
-<token column="-1" index="-1" line="0" text='EqualityExpression' type="15"/>
-<childElement>
-<token column="-1" index="-1" line="0" text='RelationalExpression' type="14"/>
-<childElement>
-<token column="-1" index="-1" line="0" text='ShiftExpression' type="13"/>
-<childElement>
-<token column="-1" index="-1" line="0" text='AdditiveExpression' type="12"/>
-<childElement>
-<token column="-1" index="-1" line="0" text='MultiplicativeExpression' type="11"/>
-<childElement>
-<token column="-1" index="-1" line="0" text='CastExpression' type="10"/>
-<childElement>
-<token column="-1" index="-1" line="0" text='UnaryExpression' type="8"/>
-<childElement>
-<token column="-1" index="-1" line="0" text='PostfixExpression' type="6"/>
+<token column="-1" index="-1" line="0" text='PostfixExpression' type="5"/>
 <childElement>
 <token column="-1" index="-1" line="0" text='PrimaryExpression' type="0"/>
 <childElement>
 <token column="-1" index="-1" line="0" text='PrimaryExpressionConstLiteral' type="2"/>
 <childElement>
-<token column="10" index="276" line="12" text='1' type="106"/>
+<token column="11" index="290" line="11" text='4' type="92"/>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+<childElement>
+<token column="12" index="86" line="11" text=';' type="73"/>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+<childElement>
+<token column="-1" index="-1" line="0" text='BlockItem' type="50"/>
+<childElement>
+<token column="-1" index="-1" line="0" text='Statement' type="46"/>
+<childElement>
+<token column="-1" index="-1" line="0" text='JumpStatement' type="58"/>
+<childElement>
+<token column="3" index="87" line="12" text='return' type="22"/>
+</childElement>
+<childElement>
+<token column="-1" index="-1" line="0" text='Expression' type="23"/>
+<childElement>
+<token column="-1" index="-1" line="0" text='AssignmentExpression' type="21"/>
+<childElement>
+<token column="-1" index="-1" line="0" text='ConditionalExpression' type="20"/>
+<childElement>
+<token column="-1" index="-1" line="0" text='LogicalOrExpression' type="19"/>
+<childElement>
+<token column="-1" index="-1" line="0" text='LogicalAndExpression' type="18"/>
+<childElement>
+<token column="-1" index="-1" line="0" text='InclusiveOrExpression' type="17"/>
+<childElement>
+<token column="-1" index="-1" line="0" text='ExclusiveOrExpression' type="16"/>
+<childElement>
+<token column="-1" index="-1" line="0" text='AndExpression' type="15"/>
+<childElement>
+<token column="-1" index="-1" line="0" text='EqualityExpression' type="14"/>
+<childElement>
+<token column="-1" index="-1" line="0" text='RelationalExpression' type="13"/>
+<childElement>
+<token column="-1" index="-1" line="0" text='ShiftExpression' type="12"/>
+<childElement>
+<token column="-1" index="-1" line="0" text='AdditiveExpression' type="11"/>
+<childElement>
+<token column="-1" index="-1" line="0" text='MultiplicativeExpression' type="10"/>
+<childElement>
+<token column="-1" index="-1" line="0" text='CastExpression' type="9"/>
+<childElement>
+<token column="-1" index="-1" line="0" text='UnaryExpression' type="7"/>
+<childElement>
+<token column="-1" index="-1" line="0" text='PostfixExpression' type="5"/>
+<childElement>
+<token column="-1" index="-1" line="0" text='PrimaryExpression' type="0"/>
+<childElement>
+<token column="-1" index="-1" line="0" text='PrimaryExpressionConstLiteral' type="2"/>
+<childElement>
+<token column="10" index="276" line="12" text='1' type="92"/>
 </childElement>
 </childElement>
 </childElement>
@@ -646,155 +646,155 @@
 </childElement>
 </childElement>
 <childElement>
-<token column="11" index="89" line="12" text=';' type="87"/>
+<token column="11" index="89" line="12" text=';' type="73"/>
 </childElement>
 </childElement>
 </childElement>
 </childElement>
 </childElement>
 <childElement>
-<token column="0" index="30" line="13" text='}' type="64"/>
+<token column="0" index="30" line="13" text='}' type="50"/>
 </childElement>
 </childElement>
 </childElement>
 </childElement>
 </childElement>
 <childElement>
-<token column="-1" index="-1" line="0" text='ExternalDeclaration' type="88"/>
+<token column="-1" index="-1" line="0" text='ExternalDeclaration' type="61"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='FunctionDefinition' type="89"/>
+<token column="-1" index="-1" line="0" text='FunctionDefinition' type="62"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='DeclarationSpecifiers' type="27"/>
+<token column="-1" index="-1" line="0" text='DeclarationSpecifiers' type="26"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='DeclarationSpecifier' type="29"/>
+<token column="-1" index="-1" line="0" text='DeclarationSpecifier' type="27"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='TypeSpecifier' type="33"/>
+<token column="-1" index="-1" line="0" text='TypeSpecifier' type="30"/>
 <childElement>
-<token column="0" index="46" line="15" text='int' type="32"/>
+<token column="0" index="46" line="15" text='int' type="18"/>
 </childElement>
 </childElement>
 </childElement>
 </childElement>
 <childElement>
-<token column="-1" index="-1" line="0" text='Declarator' type="49"/>
+<token column="-1" index="-1" line="0" text='Declarator' type="32"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='DirectDeclarator' type="50"/>
+<token column="-1" index="-1" line="0" text='DirectDeclarator' type="33"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='DirectDeclarator' type="50"/>
+<token column="-1" index="-1" line="0" text='DirectDeclarator' type="33"/>
 <childElement>
-<token column="4" index="47" line="15" text='main' type="105"/>
+<token column="4" index="47" line="15" text='main' type="91"/>
 </childElement>
 </childElement>
 <childElement>
-<token column="8" index="33" line="15" text='(' type="59"/>
+<token column="8" index="33" line="15" text='(' type="45"/>
 </childElement>
 <childElement>
-<token column="9" index="34" line="15" text=')' type="60"/>
+<token column="9" index="34" line="15" text=')' type="46"/>
 </childElement>
 </childElement>
 </childElement>
 <childElement>
-<token column="-1" index="-1" line="0" text='CompoundStatement' type="74"/>
+<token column="-1" index="-1" line="0" text='CompoundStatement' type="48"/>
 <childElement>
-<token column="0" index="20" line="16" text='{' type="63"/>
+<token column="0" index="20" line="16" text='{' type="49"/>
 </childElement>
 <childElement>
-<token column="-1" index="-1" line="0" text='BlockItemList' type="75"/>
+<token column="-1" index="-1" line="0" text='BlockItemList' type="49"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='BlockItemList' type="75"/>
+<token column="-1" index="-1" line="0" text='BlockItemList' type="49"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='BlockItem' type="76"/>
+<token column="-1" index="-1" line="0" text='BlockItem' type="50"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='Statement' type="72"/>
+<token column="-1" index="-1" line="0" text='Statement' type="46"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='ExpressionStatement' type="77"/>
+<token column="-1" index="-1" line="0" text='ExpressionStatement' type="51"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='Expression' type="24"/>
+<token column="-1" index="-1" line="0" text='Expression' type="23"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='AssignmentExpression' type="22"/>
+<token column="-1" index="-1" line="0" text='AssignmentExpression' type="21"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='ConditionalExpression' type="21"/>
+<token column="-1" index="-1" line="0" text='ConditionalExpression' type="20"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='LogicalOrExpression' type="20"/>
+<token column="-1" index="-1" line="0" text='LogicalOrExpression' type="19"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='LogicalAndExpression' type="19"/>
+<token column="-1" index="-1" line="0" text='LogicalAndExpression' type="18"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='InclusiveOrExpression' type="18"/>
+<token column="-1" index="-1" line="0" text='InclusiveOrExpression' type="17"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='ExclusiveOrExpression' type="17"/>
+<token column="-1" index="-1" line="0" text='ExclusiveOrExpression' type="16"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='AndExpression' type="16"/>
+<token column="-1" index="-1" line="0" text='AndExpression' type="15"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='EqualityExpression' type="15"/>
+<token column="-1" index="-1" line="0" text='EqualityExpression' type="14"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='RelationalExpression' type="14"/>
+<token column="-1" index="-1" line="0" text='RelationalExpression' type="13"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='ShiftExpression' type="13"/>
+<token column="-1" index="-1" line="0" text='ShiftExpression' type="12"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='AdditiveExpression' type="12"/>
+<token column="-1" index="-1" line="0" text='AdditiveExpression' type="11"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='MultiplicativeExpression' type="11"/>
+<token column="-1" index="-1" line="0" text='MultiplicativeExpression' type="10"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='CastExpression' type="10"/>
+<token column="-1" index="-1" line="0" text='CastExpression' type="9"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='UnaryExpression' type="8"/>
+<token column="-1" index="-1" line="0" text='UnaryExpression' type="7"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='PostfixExpression' type="6"/>
+<token column="-1" index="-1" line="0" text='PostfixExpression' type="5"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='PostfixExpression' type="6"/>
+<token column="-1" index="-1" line="0" text='PostfixExpression' type="5"/>
 <childElement>
 <token column="-1" index="-1" line="0" text='PrimaryExpression' type="0"/>
 <childElement>
 <token column="-1" index="-1" line="0" text='PrimaryExpressionVar' type="1"/>
 <childElement>
-<token column="4" index="284" line="18" text='printf' type="105"/>
+<token column="4" index="284" line="18" text='printf' type="91"/>
 </childElement>
 </childElement>
 </childElement>
 </childElement>
 <childElement>
-<token column="10" index="258" line="18" text='(' type="59"/>
+<token column="10" index="258" line="18" text='(' type="45"/>
 </childElement>
 <childElement>
-<token column="-1" index="-1" line="0" text='ArgumentExpressionList' type="7"/>
+<token column="-1" index="-1" line="0" text='ArgumentExpressionList' type="6"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='ArgumentExpressionList' type="7"/>
+<token column="-1" index="-1" line="0" text='ArgumentExpressionList' type="6"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='AssignmentExpression' type="22"/>
+<token column="-1" index="-1" line="0" text='AssignmentExpression' type="21"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='ConditionalExpression' type="21"/>
+<token column="-1" index="-1" line="0" text='ConditionalExpression' type="20"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='LogicalOrExpression' type="20"/>
+<token column="-1" index="-1" line="0" text='LogicalOrExpression' type="19"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='LogicalAndExpression' type="19"/>
+<token column="-1" index="-1" line="0" text='LogicalAndExpression' type="18"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='InclusiveOrExpression' type="18"/>
+<token column="-1" index="-1" line="0" text='InclusiveOrExpression' type="17"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='ExclusiveOrExpression' type="17"/>
+<token column="-1" index="-1" line="0" text='ExclusiveOrExpression' type="16"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='AndExpression' type="16"/>
+<token column="-1" index="-1" line="0" text='AndExpression' type="15"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='EqualityExpression' type="15"/>
+<token column="-1" index="-1" line="0" text='EqualityExpression' type="14"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='RelationalExpression' type="14"/>
+<token column="-1" index="-1" line="0" text='RelationalExpression' type="13"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='ShiftExpression' type="13"/>
+<token column="-1" index="-1" line="0" text='ShiftExpression' type="12"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='AdditiveExpression' type="12"/>
+<token column="-1" index="-1" line="0" text='AdditiveExpression' type="11"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='MultiplicativeExpression' type="11"/>
+<token column="-1" index="-1" line="0" text='MultiplicativeExpression' type="10"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='CastExpression' type="10"/>
+<token column="-1" index="-1" line="0" text='CastExpression' type="9"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='UnaryExpression' type="8"/>
+<token column="-1" index="-1" line="0" text='UnaryExpression' type="7"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='PostfixExpression' type="6"/>
+<token column="-1" index="-1" line="0" text='PostfixExpression' type="5"/>
 <childElement>
 <token column="-1" index="-1" line="0" text='PrimaryExpression' type="0"/>
 <childElement>
 <token column="-1" index="-1" line="0" text='PrimaryExpressionConstLiteral' type="2"/>
 <childElement>
-<token column="11" index="335" line="18" text='"%d\"\n\n"' type="108"/>
+<token column="11" index="335" line="18" text='"%d\"\n\n"' type="94"/>
 </childElement>
 </childElement>
 </childElement>
@@ -815,151 +815,93 @@
 </childElement>
 </childElement>
 <childElement>
-<token column="21" index="269" line="18" text=',' type="88"/>
+<token column="21" index="269" line="18" text=',' type="74"/>
 </childElement>
 <childElement>
-<token column="-1" index="-1" line="0" text='AssignmentExpression' type="22"/>
+<token column="-1" index="-1" line="0" text='AssignmentExpression' type="21"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='ConditionalExpression' type="21"/>
+<token column="-1" index="-1" line="0" text='ConditionalExpression' type="20"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='LogicalOrExpression' type="20"/>
+<token column="-1" index="-1" line="0" text='LogicalOrExpression' type="19"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='LogicalAndExpression' type="19"/>
+<token column="-1" index="-1" line="0" text='LogicalAndExpression' type="18"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='InclusiveOrExpression' type="18"/>
+<token column="-1" index="-1" line="0" text='InclusiveOrExpression' type="17"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='ExclusiveOrExpression' type="17"/>
+<token column="-1" index="-1" line="0" text='ExclusiveOrExpression' type="16"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='AndExpression' type="16"/>
+<token column="-1" index="-1" line="0" text='AndExpression' type="15"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='EqualityExpression' type="15"/>
+<token column="-1" index="-1" line="0" text='EqualityExpression' type="14"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='RelationalExpression' type="14"/>
+<token column="-1" index="-1" line="0" text='RelationalExpression' type="13"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='ShiftExpression' type="13"/>
+<token column="-1" index="-1" line="0" text='ShiftExpression' type="12"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='AdditiveExpression' type="12"/>
+<token column="-1" index="-1" line="0" text='AdditiveExpression' type="11"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='MultiplicativeExpression' type="11"/>
+<token column="-1" index="-1" line="0" text='MultiplicativeExpression' type="10"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='CastExpression' type="10"/>
+<token column="-1" index="-1" line="0" text='CastExpression' type="9"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='UnaryExpression' type="8"/>
+<token column="-1" index="-1" line="0" text='UnaryExpression' type="7"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='PostfixExpression' type="6"/>
+<token column="-1" index="-1" line="0" text='PostfixExpression' type="5"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='PostfixExpression' type="6"/>
+<token column="-1" index="-1" line="0" text='PostfixExpression' type="5"/>
 <childElement>
 <token column="-1" index="-1" line="0" text='PrimaryExpression' type="0"/>
 <childElement>
 <token column="-1" index="-1" line="0" text='PrimaryExpressionVar' type="1"/>
 <childElement>
-<token column="23" index="336" line="18" text='agora' type="105"/>
+<token column="23" index="336" line="18" text='agora' type="91"/>
 </childElement>
 </childElement>
 </childElement>
 </childElement>
 <childElement>
-<token column="28" index="323" line="18" text='(' type="59"/>
+<token column="28" index="323" line="18" text='(' type="45"/>
 </childElement>
 <childElement>
-<token column="-1" index="-1" line="0" text='ArgumentExpressionList' type="7"/>
+<token column="-1" index="-1" line="0" text='ArgumentExpressionList' type="6"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='ArgumentExpressionList' type="7"/>
+<token column="-1" index="-1" line="0" text='ArgumentExpressionList' type="6"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='AssignmentExpression' type="22"/>
+<token column="-1" index="-1" line="0" text='AssignmentExpression' type="21"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='ConditionalExpression' type="21"/>
+<token column="-1" index="-1" line="0" text='ConditionalExpression' type="20"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='LogicalOrExpression' type="20"/>
+<token column="-1" index="-1" line="0" text='LogicalOrExpression' type="19"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='LogicalAndExpression' type="19"/>
+<token column="-1" index="-1" line="0" text='LogicalAndExpression' type="18"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='InclusiveOrExpression' type="18"/>
+<token column="-1" index="-1" line="0" text='InclusiveOrExpression' type="17"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='ExclusiveOrExpression' type="17"/>
+<token column="-1" index="-1" line="0" text='ExclusiveOrExpression' type="16"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='AndExpression' type="16"/>
+<token column="-1" index="-1" line="0" text='AndExpression' type="15"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='EqualityExpression' type="15"/>
+<token column="-1" index="-1" line="0" text='EqualityExpression' type="14"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='RelationalExpression' type="14"/>
+<token column="-1" index="-1" line="0" text='RelationalExpression' type="13"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='ShiftExpression' type="13"/>
+<token column="-1" index="-1" line="0" text='ShiftExpression' type="12"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='AdditiveExpression' type="12"/>
+<token column="-1" index="-1" line="0" text='AdditiveExpression' type="11"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='MultiplicativeExpression' type="11"/>
+<token column="-1" index="-1" line="0" text='MultiplicativeExpression' type="10"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='CastExpression' type="10"/>
+<token column="-1" index="-1" line="0" text='CastExpression' type="9"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='UnaryExpression' type="8"/>
+<token column="-1" index="-1" line="0" text='UnaryExpression' type="7"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='PostfixExpression' type="6"/>
-<childElement>
-<token column="-1" index="-1" line="0" text='PrimaryExpression' type="0"/>
-<childElement>
-<token column="-1" index="-1" line="0" text='PrimaryExpressionConstLiteral' type="2"/>
-<childElement>
-<token column="29" index="369" line="18" text='2' type="106"/>
-</childElement>
-</childElement>
-</childElement>
-</childElement>
-</childElement>
-</childElement>
-</childElement>
-</childElement>
-</childElement>
-</childElement>
-</childElement>
-</childElement>
-</childElement>
-</childElement>
-</childElement>
-</childElement>
-</childElement>
-</childElement>
-</childElement>
-<childElement>
-<token column="30" index="329" line="18" text=',' type="88"/>
-</childElement>
-<childElement>
-<token column="-1" index="-1" line="0" text='AssignmentExpression' type="22"/>
-<childElement>
-<token column="-1" index="-1" line="0" text='ConditionalExpression' type="21"/>
-<childElement>
-<token column="-1" index="-1" line="0" text='LogicalOrExpression' type="20"/>
-<childElement>
-<token column="-1" index="-1" line="0" text='LogicalAndExpression' type="19"/>
-<childElement>
-<token column="-1" index="-1" line="0" text='InclusiveOrExpression' type="18"/>
-<childElement>
-<token column="-1" index="-1" line="0" text='ExclusiveOrExpression' type="17"/>
-<childElement>
-<token column="-1" index="-1" line="0" text='AndExpression' type="16"/>
-<childElement>
-<token column="-1" index="-1" line="0" text='EqualityExpression' type="15"/>
-<childElement>
-<token column="-1" index="-1" line="0" text='RelationalExpression' type="14"/>
-<childElement>
-<token column="-1" index="-1" line="0" text='ShiftExpression' type="13"/>
-<childElement>
-<token column="-1" index="-1" line="0" text='AdditiveExpression' type="12"/>
-<childElement>
-<token column="-1" index="-1" line="0" text='MultiplicativeExpression' type="11"/>
-<childElement>
-<token column="-1" index="-1" line="0" text='CastExpression' type="10"/>
-<childElement>
-<token column="-1" index="-1" line="0" text='UnaryExpression' type="8"/>
-<childElement>
-<token column="-1" index="-1" line="0" text='PostfixExpression' type="6"/>
+<token column="-1" index="-1" line="0" text='PostfixExpression' type="5"/>
 <childElement>
 <token column="-1" index="-1" line="0" text='PrimaryExpression' type="0"/>
 <childElement>
 <token column="-1" index="-1" line="0" text='PrimaryExpressionConstLiteral' type="2"/>
 <childElement>
-<token column="31" index="368" line="18" text='4' type="106"/>
+<token column="29" index="369" line="18" text='2' type="92"/>
 </childElement>
 </childElement>
 </childElement>
@@ -980,97 +922,44 @@
 </childElement>
 </childElement>
 <childElement>
-<token column="32" index="325" line="18" text=')' type="60"/>
-</childElement>
-</childElement>
-</childElement>
-</childElement>
-</childElement>
-</childElement>
-</childElement>
-</childElement>
-</childElement>
-</childElement>
-</childElement>
-</childElement>
-</childElement>
-</childElement>
-</childElement>
-</childElement>
+<token column="30" index="329" line="18" text=',' type="74"/>
 </childElement>
 <childElement>
-<token column="33" index="260" line="18" text=')' type="60"/>
-</childElement>
-</childElement>
-</childElement>
-</childElement>
-</childElement>
-</childElement>
-</childElement>
-</childElement>
-</childElement>
-</childElement>
-</childElement>
-</childElement>
-</childElement>
-</childElement>
-</childElement>
-</childElement>
-</childElement>
+<token column="-1" index="-1" line="0" text='AssignmentExpression' type="21"/>
 <childElement>
-<token column="34" index="91" line="18" text=';' type="87"/>
-</childElement>
-</childElement>
-</childElement>
-</childElement>
-</childElement>
+<token column="-1" index="-1" line="0" text='ConditionalExpression' type="20"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='BlockItem' type="76"/>
+<token column="-1" index="-1" line="0" text='LogicalOrExpression' type="19"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='Statement' type="72"/>
+<token column="-1" index="-1" line="0" text='LogicalAndExpression' type="18"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='JumpStatement' type="85"/>
+<token column="-1" index="-1" line="0" text='InclusiveOrExpression' type="17"/>
 <childElement>
-<token column="4" index="73" line="19" text='return' type="36"/>
-</childElement>
+<token column="-1" index="-1" line="0" text='ExclusiveOrExpression' type="16"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='Expression' type="24"/>
+<token column="-1" index="-1" line="0" text='AndExpression' type="15"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='AssignmentExpression' type="22"/>
+<token column="-1" index="-1" line="0" text='EqualityExpression' type="14"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='ConditionalExpression' type="21"/>
+<token column="-1" index="-1" line="0" text='RelationalExpression' type="13"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='LogicalOrExpression' type="20"/>
+<token column="-1" index="-1" line="0" text='ShiftExpression' type="12"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='LogicalAndExpression' type="19"/>
+<token column="-1" index="-1" line="0" text='AdditiveExpression' type="11"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='InclusiveOrExpression' type="18"/>
+<token column="-1" index="-1" line="0" text='MultiplicativeExpression' type="10"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='ExclusiveOrExpression' type="17"/>
+<token column="-1" index="-1" line="0" text='CastExpression' type="9"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='AndExpression' type="16"/>
+<token column="-1" index="-1" line="0" text='UnaryExpression' type="7"/>
 <childElement>
-<token column="-1" index="-1" line="0" text='EqualityExpression' type="15"/>
-<childElement>
-<token column="-1" index="-1" line="0" text='RelationalExpression' type="14"/>
-<childElement>
-<token column="-1" index="-1" line="0" text='ShiftExpression' type="13"/>
-<childElement>
-<token column="-1" index="-1" line="0" text='AdditiveExpression' type="12"/>
-<childElement>
-<token column="-1" index="-1" line="0" text='MultiplicativeExpression' type="11"/>
-<childElement>
-<token column="-1" index="-1" line="0" text='CastExpression' type="10"/>
-<childElement>
-<token column="-1" index="-1" line="0" text='UnaryExpression' type="8"/>
-<childElement>
-<token column="-1" index="-1" line="0" text='PostfixExpression' type="6"/>
+<token column="-1" index="-1" line="0" text='PostfixExpression' type="5"/>
 <childElement>
 <token column="-1" index="-1" line="0" text='PrimaryExpression' type="0"/>
 <childElement>
 <token column="-1" index="-1" line="0" text='PrimaryExpressionConstLiteral' type="2"/>
 <childElement>
-<token column="11" index="271" line="19" text='0' type="106"/>
+<token column="31" index="368" line="18" text='4' type="92"/>
 </childElement>
 </childElement>
 </childElement>
@@ -1091,14 +980,125 @@
 </childElement>
 </childElement>
 <childElement>
-<token column="12" index="75" line="19" text=';' type="87"/>
+<token column="32" index="325" line="18" text=')' type="46"/>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
 </childElement>
 </childElement>
 </childElement>
 </childElement>
 </childElement>
 <childElement>
-<token column="0" index="22" line="20" text='}' type="64"/>
+<token column="33" index="260" line="18" text=')' type="46"/>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+<childElement>
+<token column="34" index="91" line="18" text=';' type="73"/>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+<childElement>
+<token column="-1" index="-1" line="0" text='BlockItem' type="50"/>
+<childElement>
+<token column="-1" index="-1" line="0" text='Statement' type="46"/>
+<childElement>
+<token column="-1" index="-1" line="0" text='JumpStatement' type="58"/>
+<childElement>
+<token column="4" index="73" line="20" text='return' type="22"/>
+</childElement>
+<childElement>
+<token column="-1" index="-1" line="0" text='Expression' type="23"/>
+<childElement>
+<token column="-1" index="-1" line="0" text='AssignmentExpression' type="21"/>
+<childElement>
+<token column="-1" index="-1" line="0" text='ConditionalExpression' type="20"/>
+<childElement>
+<token column="-1" index="-1" line="0" text='LogicalOrExpression' type="19"/>
+<childElement>
+<token column="-1" index="-1" line="0" text='LogicalAndExpression' type="18"/>
+<childElement>
+<token column="-1" index="-1" line="0" text='InclusiveOrExpression' type="17"/>
+<childElement>
+<token column="-1" index="-1" line="0" text='ExclusiveOrExpression' type="16"/>
+<childElement>
+<token column="-1" index="-1" line="0" text='AndExpression' type="15"/>
+<childElement>
+<token column="-1" index="-1" line="0" text='EqualityExpression' type="14"/>
+<childElement>
+<token column="-1" index="-1" line="0" text='RelationalExpression' type="13"/>
+<childElement>
+<token column="-1" index="-1" line="0" text='ShiftExpression' type="12"/>
+<childElement>
+<token column="-1" index="-1" line="0" text='AdditiveExpression' type="11"/>
+<childElement>
+<token column="-1" index="-1" line="0" text='MultiplicativeExpression' type="10"/>
+<childElement>
+<token column="-1" index="-1" line="0" text='CastExpression' type="9"/>
+<childElement>
+<token column="-1" index="-1" line="0" text='UnaryExpression' type="7"/>
+<childElement>
+<token column="-1" index="-1" line="0" text='PostfixExpression' type="5"/>
+<childElement>
+<token column="-1" index="-1" line="0" text='PrimaryExpression' type="0"/>
+<childElement>
+<token column="-1" index="-1" line="0" text='PrimaryExpressionConstLiteral' type="2"/>
+<childElement>
+<token column="11" index="271" line="20" text='0' type="92"/>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+<childElement>
+<token column="12" index="75" line="20" text=';' type="73"/>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+<childElement>
+<token column="0" index="22" line="21" text='}' type="50"/>
 </childElement>
 </childElement>
 </childElement>
