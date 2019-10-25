@@ -3,6 +3,12 @@
 
 int cc = 42;
 
+/*
+void func(char text[]){
+    printf("%s\n", text);
+}
+*/
+
 int agora(int a, int b)
 {
    int y;
@@ -16,6 +22,7 @@ int main()
 {    
     //agora(2, 4);
     printf("%d\"\n\n", agora(2,4));   
-    
+//    char xx[] = "aa";
+//    func(xx);
     return 0;
 }

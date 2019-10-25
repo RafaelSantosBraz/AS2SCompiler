@@ -6,7 +6,8 @@
 package trees.cstecst;
 
 /**
- * Represents the defined attributes of universal nodes on CSTs and eCSTs
+ * Represents the attributes of universal nodes of CSTs and eCSTs
+ *
  * @author Rafael Braz
  */
 public class UniversalToken extends TokenAttributes {

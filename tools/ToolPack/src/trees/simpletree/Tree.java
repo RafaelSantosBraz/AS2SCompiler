@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class Tree<T> {
 
-    private Node<T> root;
+    private Node<T> root; // the first node of the tree
 
     public Tree() {
         root = new Node<>();
@@ -34,12 +34,7 @@ public class Tree<T> {
         this.root = root;
     }
 
-    /**
-     * Generates a new node and establishes parent-son relationship.
-     *
-     * @param parent
-     * @return the generated node
-     */
+    // generates a new node and establishes parent-son relationship.
     public Node<T> createNode(Node<T> parent) {
         Node<T> currentNode = new Node<>(parent);
         if (parent != null) {
@@ -48,24 +43,15 @@ public class Tree<T> {
         return currentNode;
     }
 
-    /**
-     * Method to convert the tree to a list of nodes ordered by index. It means
-     * that nodes with the same level in the tree have consecutive indexes
-     *
-     * @return ArrayList of nodes ordered by index
-     */
+    // Method to convert the tree to a list of nodes ordered by index. 
+    // It means that nodes with the same level in the tree have consecutive indexes
     public List<Node<T>> getTreeAsIndexOrderedList() {
         ArrayList<Node<T>> tempList = new ArrayList<>();
         tempList.add(root);
         return getNodeChildren(tempList);
     }
 
-    /**
-     * Recursive method to order all nodes in the tree
-     *
-     * @param tempList
-     * @return ArrayList of ordered nodes by index
-     */
+    // recursive ordenation of the nodes
     private ArrayList<Node<T>> getNodeChildren(ArrayList<Node<T>> tempList) {
         ArrayList<Node<T>> list = new ArrayList<>();
         ArrayList<Node<T>> newTempList = new ArrayList<>();
@@ -77,5 +63,5 @@ public class Tree<T> {
             list.addAll(getNodeChildren(newTempList));
         }
         return list;
-    }    
+    }
 }

@@ -7,7 +7,6 @@ package trees.simpletree;
 
 import java.util.ArrayList;
 import java.util.List;
-import trees.cstecst.TokenAttributes;
 
 /**
  * Represents each one of the nodes of a simple tree structure
@@ -17,19 +16,9 @@ import trees.cstecst.TokenAttributes;
  */
 public class Node<T> {
 
-    /**
-     * Represents the stored data -- in CSTs and eCSTs it is going to be a
-     * ConcreteToken or a UniversalToken
-     */
-    private T nodeData;
-    /**
-     * The parent node of the current node in the tree
-     */
-    private Node<T> parent;
-    /**
-     * All the children nodes of the current node
-     */
-    private List<Node<T>> children;
+    private T nodeData; // represents the stored data 
+    private Node<T> parent; // the parent node of the current node in the tree
+    private List<Node<T>> children; // All the children nodes of the current node
 
     public Node() {
         nodeData = null;
@@ -56,6 +45,7 @@ public class Node<T> {
     public void addChildAt(Node<T> child, int index) {
         children.add(index, child);
     }
+
     public void addChildren(List<Node<T>> children) {
         this.children.addAll(children);
     }
@@ -84,6 +74,7 @@ public class Node<T> {
         this.children = children;
     }
 
+    // returns a clone of the CURRENT node and ITS data 
     public Node<T> getClone() {
         Node<T> newNode = new Node<>(parent);
         newNode.setChildren(children);

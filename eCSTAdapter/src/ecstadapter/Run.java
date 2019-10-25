@@ -24,9 +24,9 @@ public class Run {
         CtoJavaAdapter adapter = new CtoJavaAdapter("D:\\GitHub\\StS-Compilation-Framework\\runtime\\Tmaps\\CtoJava");
         TreeXMLConverter conv = new TreeXMLConverter();
         conv.convertFromFile("D:\\GitHub\\StS-Compilation-Framework\\runtime\\output\\eCST.xml");
-        adapter.startWalking(conv.getTree());   
+        adapter.startWalking(conv.getTree());
         DOTConverter dot = new DOTConverter(conv.getTree());
-        dot.convertToFile("D:\\GitHub\\StS-Compilation-Framework\\runtime\\output\\eCSTAdapted.gv");        
+        dot.convertToFile("D:\\GitHub\\StS-Compilation-Framework\\runtime\\output\\eCSTAdapted.gv");
     }
-    
+
 }

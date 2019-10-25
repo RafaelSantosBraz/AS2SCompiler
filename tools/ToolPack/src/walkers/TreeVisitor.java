@@ -12,12 +12,14 @@ import trees.simpletree.Node;
 import trees.simpletree.Tree;
 
 /**
+ * Simulates ANTLR4 visitors for simple trees
  *
  * @author Rafael Braz
  * @param <T>
  */
 public abstract class TreeVisitor<T> {
 
+    // starts visiting the nodes
     public T startWalking(Tree<TokenAttributes> tree) {
         if (tree.getRoot() != null) {
             return visit(tree.getRoot());
@@ -25,10 +27,12 @@ public abstract class TreeVisitor<T> {
         return null;
     }
 
+    // method called for all the nodes
     protected T visit(Node<TokenAttributes> node) {
         return callSpecializedAction(node);
     }
 
+    // if there is a corresponding action, it will be executed
     private T callSpecializedAction(Node<TokenAttributes> node) {
         try {
             Method method = this.getClass().getDeclaredMethod(getMethodAppropriateName(node), node.getClass());
@@ -42,18 +46,22 @@ public abstract class TreeVisitor<T> {
         }
     }
 
+    // returns the name of the specialized action for the current node
     protected String getMethodAppropriateName(Node<TokenAttributes> node) {
         return "action" + node.getNodeData().getText();
     }
 
+    // default action for terminal nodes (leafs)
     public T defaultTermAction(Node<TokenAttributes> node) {
         return null;
     }
 
+    // default action for non-terminal nodes
     public T defaultNonTermAction(Node<TokenAttributes> node) {
         return visitChildren(node.getChildren());
     }
 
+    // method to visit each one of the children
     protected T visitChildren(List<Node<TokenAttributes>> children) {
         if (children == null) {
             return null;
@@ -65,6 +73,7 @@ public abstract class TreeVisitor<T> {
         return result;
     }
 
+    // aggregate the results os all the children nodes (two at a time)
     protected T aggregateResult(T aggregate, T nextResult) {
         if (aggregate == null && nextResult == null) {
             return null;

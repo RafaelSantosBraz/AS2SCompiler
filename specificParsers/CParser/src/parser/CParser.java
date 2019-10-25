@@ -5,37 +5,24 @@
  */
 package parser;
 
-import converter.DOTConverter;
-import converter.XMLConverter;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import org.antlr.v4.runtime.ANTLRFileStream;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.TokenStream;
-import trees.cstecst.TokenAttributes;
-import trees.cstecst.UniversalToken;
-import trees.csttotree.CSTtoTree;
-import trees.simpletree.Tree;
+import parsers.SpecificParser;
 
 /**
+ * aims to analyze C code and generates a CST
  *
  * @author Rafael Braz
  */
-public class CParser {
+public class CParser extends SpecificParser {
 
-    private final List<ParserRuleContext> rootRules;
-    private final Tree<TokenAttributes> tree;
-
-    public CParser() {
-        rootRules = new ArrayList<>();
-        tree = new Tree<>(new UniversalToken("root", -1));
-    }
-
+    // starts parsing the source-code from a directory
+    @Override
     public boolean startParsing(String inputDir, String outputDir) {
         try {
             File directory = new File(inputDir);
@@ -55,6 +42,7 @@ public class CParser {
         }
     }
 
+    // syntactically check the code through the ANTLR4 recognition
     private boolean syntaxChecking(File f) {
         try {
             CharStream stream = new ANTLRFileStream(f.getAbsolutePath(), "UTF-8");
@@ -66,41 +54,6 @@ public class CParser {
         } catch (IOException | RecognitionException e) {
             return false;
         }
-    }
-
-    private ArrayList<Tree<TokenAttributes>> getTrees() {
-        ArrayList<Tree<TokenAttributes>> trees = new ArrayList<>();
-        rootRules.stream().map((r) -> {
-            CSTtoTree conv = new CSTtoTree();
-            conv.startVisiting(r, conv.getTree().getRoot());
-            return conv;
-        }).forEachOrdered((conv) -> {
-            trees.add(conv.getTree());
-        });
-        return trees;
-    }
-
-    private void treeUnion(ArrayList<Tree<TokenAttributes>> trees) {
-        //tree.setRoot(new Node<>(new UniversalToken("CompilationUnit", 31)));
-        trees.forEach((t) -> {
-            tree.getRoot().addChildren(t.getRoot().getChildren());
-        });
-    }
-
-    private boolean exportCSTDOT(Tree<TokenAttributes> tree, String outputPath) {
-        return new DOTConverter<>(tree).convertToFile(outputPath);
-    }
-
-    private boolean exportCSTXML(Tree<TokenAttributes> tree, String outputPath) {
-        return new XMLConverter(tree).convertToFile(outputPath);
-    }
-
-    public List<ParserRuleContext> getRootRules() {
-        return rootRules;
-    }
-
-    public Tree<TokenAttributes> getTree() {
-        return tree;
     }
 
 }

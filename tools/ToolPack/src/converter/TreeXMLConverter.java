@@ -19,6 +19,8 @@ import org.xml.sax.SAXException;
 import trees.simpletree.*;
 
 /**
+ * converts a XML file containing a tree (CST or eCST) into a simple tree
+ * structure in memory
  *
  * @author Rafael Braz
  */
@@ -30,6 +32,7 @@ public class TreeXMLConverter {
         tree = new Tree<>();
     }
 
+    // starts the convertion
     public boolean convertFromFile(String inputPath) {
         try {
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -47,6 +50,7 @@ public class TreeXMLConverter {
         }
     }
 
+    // recursively converts the XML elements
     private void convertion(NodeList children, trees.simpletree.Node<TokenAttributes> parent) {
         for (int c = 0; c < children.getLength(); c++) {
             org.w3c.dom.Node tempXMLNode = children.item(c);

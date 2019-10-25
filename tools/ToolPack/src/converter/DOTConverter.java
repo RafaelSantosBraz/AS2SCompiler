@@ -13,6 +13,7 @@ import java.util.List;
 import trees.simpletree.*;
 
 /**
+ * converts a simple tree structure to a corresponding Graphviz file (.gv)
  *
  * @author Rafael Braz
  * @param <T>
@@ -31,6 +32,7 @@ public class DOTConverter<T> {
         treeAsList = this.tree.getTreeAsIndexOrderedList();
     }
 
+    // starts the convertion
     public boolean convertToFile(String outputPath) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputPath, false))) {
             writer.write("digraph G {");
@@ -48,6 +50,7 @@ public class DOTConverter<T> {
         }
     }
 
+    // recursively converts the nodes to graphviz
     private boolean convertion(Node<T> node, BufferedWriter writer) {
         try {
             if (node != null && node.getNodeData() != null) {
@@ -74,6 +77,7 @@ public class DOTConverter<T> {
         }
     }
 
+    // adapts the \" and \n from the source to the gv file
     private String normalizeText(String text) {
         String txtTemp = text.replace("\\", "\\\\");
         txtTemp = txtTemp.replace("\"", "\\\"");

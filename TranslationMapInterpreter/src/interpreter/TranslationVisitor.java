@@ -17,6 +17,8 @@ import trees.simpletree.Node;
 import trees.simpletree.Tree;
 
 /**
+ * extends the ANTLR visitor for the tmap grammar and executes the rules and
+ * actions
  *
  * @author Rafael Braz
  */
@@ -42,6 +44,7 @@ public class TranslationVisitor extends TranslationGrammarBaseVisitor<Object> {
         return nextResult;
     }
 
+    // executes the tmap code starting from a initial rule, return the resulting tree
     public Tree<TokenAttributes> start(TranslationGrammarParser.ProgContext ctx, String firstRuleName) {
         rules.addAll(ctx.rulee());
         Tree<TokenAttributes> eCST = new Tree<>(new UniversalToken("root", -1));
@@ -56,6 +59,7 @@ public class TranslationVisitor extends TranslationGrammarBaseVisitor<Object> {
         return eCST;
     }
 
+    // retains the previous node to simulate a stack of nodes
     private Object magicVisit(ParseTree ctx, Node<TokenAttributes> CST_node) {
         current_node = CST_node;
         Object result = visit(ctx);
@@ -282,7 +286,7 @@ public class TranslationVisitor extends TranslationGrammarBaseVisitor<Object> {
             return result;
         } catch (Exception e) {
             return null;
-        }        
+        }
     }
 
     @Override
@@ -381,6 +385,7 @@ public class TranslationVisitor extends TranslationGrammarBaseVisitor<Object> {
         return result;
     }
 
+    // search for a tmap rule context that has tha given name
     private TranslationGrammarParser.RuleeContext getRuleContext(String ruleName) {
         for (TranslationGrammarParser.RuleeContext p : rules) {
             if (p.NODE_NAME().getSymbol().getText().equals(ruleName)) {
@@ -390,6 +395,7 @@ public class TranslationVisitor extends TranslationGrammarBaseVisitor<Object> {
         return null;
     }
 
+    // remove \" ... \" of a String from the CST
     private String normalizeTmapText(String text) {
         return text.substring(1, text.length() - 1);
     }

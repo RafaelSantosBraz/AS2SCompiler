@@ -21,7 +21,7 @@ public class JavaGenerator extends TreeVisitor<Object> {
     }
     
     public Object actionFUNCTION_DECL(Node<TokenAttributes> node) {
-        System.out.println("func?");
+        System.out.println("func?");        
         return true;
     }
     

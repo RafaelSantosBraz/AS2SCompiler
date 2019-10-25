@@ -564,7 +564,7 @@ jumpStatement
     ;
 
 compilationUnit // initial rule
-    :   translationUnit? //EOF
+    :   translationUnit//? //EOF
     ;
 
 translationUnit

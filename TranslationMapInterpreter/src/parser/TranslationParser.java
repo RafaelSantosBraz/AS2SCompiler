@@ -11,24 +11,19 @@ import interpreter.TranslationVisitor;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
-import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.v4.runtime.ANTLRFileStream;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.RecognitionException;
-import org.antlr.v4.runtime.RuleContext;
-import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.TokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
-import org.antlr.v4.runtime.tree.TerminalNodeImpl;
 import trees.cstecst.TokenAttributes;
 import trees.simpletree.Node;
 import trees.simpletree.Tree;
 
 /**
+ * aims to convert a CST into a eCST by a given tmap code
  *
  * @author Rafael Braz
  */
@@ -44,6 +39,7 @@ public class TranslationParser {
         rules = new ArrayList<>();
     }
 
+    // converts a CST into a eCST by using a tmap code on a file, exporting the result as a XML file
     public boolean start(String tmapPath, String firstRuleName, String outputDir) {
         try {
             CharStream stream = new ANTLRFileStream(tmapPath);
@@ -58,6 +54,7 @@ public class TranslationParser {
         }
     }
 
+    // converts a CST into a eCST by using a tmap code as a String, returning the built tree
     public static Tree<TokenAttributes> startFromString(String tmapCode, String firstRuleName, Node<TokenAttributes> currentNode) {
         try {
             CharStream stream = new ANTLRInputStream(tmapCode);

@@ -12,7 +12,7 @@ import java.io.IOException;
 import trees.simpletree.*;
 
 /**
- *
+ * converts a simple tree to a corresponding XML file
  * @author Rafael Braz
  */
 public class XMLConverter {
@@ -27,6 +27,7 @@ public class XMLConverter {
         }
     }
 
+    // starts converting
     public boolean convertToFile(String outputPath) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputPath, false))) {
             writer.write("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>");
@@ -37,6 +38,7 @@ public class XMLConverter {
         }
     }
 
+    // recursively converts the nodes
     private boolean convertion(Node<TokenAttributes> node, BufferedWriter writer) {
         try {
             if (node != null && node.getNodeData() != null) {
@@ -58,6 +60,7 @@ public class XMLConverter {
         }
     }
 
+    // rewrite the \", \n, and '<' to a XML version
     private String normalizeLessThan(String text) {
         String txtTemp = text.replace("<", "&#60;");
         //txtTemp = txtTemp.replace("\\n", "\\\\n");
