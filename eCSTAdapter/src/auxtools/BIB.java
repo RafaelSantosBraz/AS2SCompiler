@@ -10,8 +10,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import parser.TranslationParser;
 import trees.cstecst.TokenAttributes;
 import trees.cstecst.UniversalToken;
@@ -19,19 +17,13 @@ import trees.simpletree.Node;
 import trees.simpletree.Tree;
 
 /**
+ * provides static methods to eCST adapters
  *
  * @author Rafael Braz
  */
 public class BIB {
 
-    public static String getTmapCodeFromFile(String auxTmapsDir, String fileName) {
-        try {
-            return new String(Files.readAllBytes(Paths.get(auxTmapsDir + File.separator + fileName)));
-        } catch (IOException ex) {
-            return null;
-        }
-    }
-
+    // returns a new node and establishes a parent-child realationship 
     public static Node<TokenAttributes> createNodeWithParent(Node<TokenAttributes> parent, String text) {
         Node<TokenAttributes> node = new Node<>(parent);
         node.setNodeData(new UniversalToken(text, -1));
@@ -39,6 +31,7 @@ public class BIB {
         return node;
     }
 
+    // returns a new node and establishes a parent-child realationship at a given index of the children list
     public static Node<TokenAttributes> createNodeWithParent(Node<TokenAttributes> parent, String text, int index) {
         Node<TokenAttributes> node = new Node<>(parent);
         node.setNodeData(new UniversalToken(text, -1));
@@ -46,10 +39,12 @@ public class BIB {
         return node;
     }
 
+    // retuns a new node without a parent-child relationship
     public static Node<TokenAttributes> createNode(String text) {
         return new Node<>(new UniversalToken(text, -1));
     }
 
+    // replace the original node with a new node
     public static void replaceNode(Node<TokenAttributes> originalNode, Node<TokenAttributes> newNode) {
         if (originalNode == null || newNode == null) {
             return;
@@ -68,6 +63,7 @@ public class BIB {
         }
     }
 
+    // removre a given node from the tree
     public static void removeNode(Node<TokenAttributes> node) {
         if (node != null) {
             if (node.getParent() == null) {
@@ -89,6 +85,7 @@ public class BIB {
         }
     }
 
+    // searches for a node that has the given name and return it (the first to appear)
     public static Node<TokenAttributes> getChildByText(List<Node<TokenAttributes>> set, String text) {
         for (Node<TokenAttributes> c : set) {
             if (c.getNodeData().getText().equals(text)) {
@@ -98,6 +95,16 @@ public class BIB {
         return null;
     }
 
+    // returns the tmap code as a string from a file
+    public static String getTmapCodeFromFile(String auxTmapsDir, String fileName) {
+        try {
+            return new String(Files.readAllBytes(Paths.get(auxTmapsDir + File.separator + fileName)));
+        } catch (IOException ex) {
+            return null;
+        }
+    }
+
+    // receives a tmap code that do NOT belong to a defined tmap rule, encapsules it and executes it. Returns the generated tree
     public static List<Node<TokenAttributes>> tmapOneRuleCodeCall(String tmapCode, Node<TokenAttributes> currentNode) {
         String code = "\"rule_tmap_standard_\" -> {" + tmapCode + "}";
         Tree<TokenAttributes> tree = TranslationParser.startFromString(code, "\"rule_tmap_standard_\"", currentNode);
@@ -107,6 +114,7 @@ public class BIB {
         return null;
     }
 
+    // receveives a tmap code that HAS defined rules and executes it from the initial one. Returns the generated tree
     public static List<Node<TokenAttributes>> tmapCompleteCodeCall(String tmapCode, String initialRuleName, Node<TokenAttributes> currentNode) {
         Tree<TokenAttributes> tree = TranslationParser.startFromString(tmapCode, initialRuleName, currentNode);
         if (tree.getRoot() != null) {

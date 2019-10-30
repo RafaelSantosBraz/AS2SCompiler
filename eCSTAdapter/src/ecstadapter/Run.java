@@ -8,8 +8,6 @@ package ecstadapter;
 import adapters.CtoJavaAdapter;
 import converter.DOTConverter;
 import converter.TreeXMLConverter;
-import trees.cstecst.TokenAttributes;
-import trees.simpletree.Tree;
 
 /**
  *
@@ -28,5 +26,4 @@ public class Run {
         DOTConverter dot = new DOTConverter(conv.getTree());
         dot.convertToFile("D:\\GitHub\\StS-Compilation-Framework\\runtime\\output\\eCSTAdapted.gv");
     }
-
 }

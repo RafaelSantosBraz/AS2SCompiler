@@ -8,7 +8,7 @@ package adapters;
 import walkers.ActionWalker;
 
 /**
- *
+ * aims to adapt a eCST generated from Java code to a C eCST
  * @author Rafael Braz
  */
 public class JavatoCAdapter extends ActionWalker{

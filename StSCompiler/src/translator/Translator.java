@@ -12,18 +12,20 @@ import converter.DOTConverter;
 import converter.TreeXMLConverter;
 import converter.XMLConverter;
 import java.io.File;
-import parser.JavaParser;
 import parser.TranslationParser;
 import trees.cstecst.TokenAttributes;
 import trees.simpletree.Tree;
 import walkers.ActionWalker;
 
 /**
+ * represents the second mechanism of the framework - encapsule the
+ * convertion/translation process
  *
  * @author Rafael Braz
  */
 public class Translator {
 
+    // converts a given CST into a corresponding eCST
     public boolean createeCST(String CSTPath, String tmapPath, String initialRuleName, String outputDir) {
         TreeXMLConverter conv = new TreeXMLConverter();
         if (!conv.convertFromFile(CSTPath)) {
@@ -32,6 +34,7 @@ public class Translator {
         return new TranslationParser(conv.getTree()).start(tmapPath, initialRuleName, outputDir);
     }
 
+    // adapts a given eCST by the patterns of the output language
     public boolean adapteCST(String eCSTPath, String auxTmapsDir, String inputLang, String outputLang) {
         TreeXMLConverter conv = new TreeXMLConverter();
         if (!conv.convertFromFile(eCSTPath)) {
@@ -62,6 +65,7 @@ public class Translator {
         return new XMLConverter(tree).convertToFile(outputPath);
     }
 
+    // returns the path to the directory that has all the complete/partial tmap code files used in the adaptation process
     public static String inferAuxTmapsDir(String tmapPath, String inputLang, String outputLang) {
         int index = tmapPath.lastIndexOf(File.separator);
         String dir = null;

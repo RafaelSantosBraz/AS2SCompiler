@@ -12,12 +12,13 @@ import trees.simpletree.Node;
 import walkers.ActionWalker;
 
 /**
+ * aims to adapt a eCST generated from C code to a Java eCST
  *
  * @author Rafael Braz
  */
 public class CtoJavaAdapter extends ActionWalker {
 
-    private final String auxTmapsDir;
+    private final String auxTmapsDir; // path to all files of partial/complete tmap code
 
     public CtoJavaAdapter(String auxTmapsDir) {
         this.auxTmapsDir = auxTmapsDir;
@@ -48,8 +49,7 @@ public class CtoJavaAdapter extends ActionWalker {
         List<Node<TokenAttributes>> nodes = BIB.tmapOneRuleCodeCall(tmapCode, node);
         if (!nodes.isEmpty()) {
             BIB.replaceNode(BIB.getChildByText(node.getChildren(), "NAME"), nodes.get(0));
-        }        
+        }
     }
 
-    
 }

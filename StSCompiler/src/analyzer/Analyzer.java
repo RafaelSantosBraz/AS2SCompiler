@@ -10,14 +10,16 @@ import parser.CParser;
 import parser.JavaParser;
 
 /**
- *
+ * represents the first mechanism of the framework - encapsule the analysis
+ * process
  * @author Rafael Braz
  */
 public class Analyzer {
 
-    public static final String C = "c";
-    public static final String JAVA = "java";
+    public static final String C = "c"; // use this const to refer C lang
+    public static final String JAVA = "java"; // use this const to refer Java lang
 
+    // converts source-code in a directory into a CST
     public boolean createCST(String language, String inputDir, String outputDir) {
         switch (language) {
             case Analyzer.C:

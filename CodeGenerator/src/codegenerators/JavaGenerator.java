@@ -10,7 +10,7 @@ import trees.simpletree.Node;
 import walkers.TreeVisitor;
 
 /**
- *
+ * aims to translate adapted eCST into an Object Code (Java code)
  * @author Rafael Braz
  */
 public class JavaGenerator extends TreeVisitor<Object> {
