@@ -4,6 +4,12 @@
 <childElement>
 <token column="-1" index="-1" line="0" text='CompilationUnit' type="59"/>
 <childElement>
+<token column="-1" index="-1" line="0" text='NAME' type="-1"/>
+<childElement>
+<token column="-1" index="-1" line="0" text='A' type="-1"/>
+</childElement>
+</childElement>
+<childElement>
 <token column="-1" index="-1" line="0" text='TranslationUnit' type="60"/>
 <childElement>
 <token column="-1" index="-1" line="0" text='TranslationUnit' type="60"/>

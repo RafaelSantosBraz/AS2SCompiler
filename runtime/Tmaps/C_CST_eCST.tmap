@@ -8,6 +8,7 @@
     "COMPILATION_UNIT" = {
         "PACKAGE_DECL" = {
             "CONCRETE_UNIT_DECL" = {
+                "NAME",
                 rule("rule_c_file", "TranslationUnit")                
             }
         }
