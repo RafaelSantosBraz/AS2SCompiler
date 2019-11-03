@@ -8,6 +8,7 @@ package parser;
 import auxtools.BIB;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import org.antlr.v4.runtime.ANTLRFileStream;
 import org.antlr.v4.runtime.CharStream;
@@ -16,7 +17,6 @@ import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.TokenStream;
 import parsers.SpecificParser;
 import trees.cstecst.TokenAttributes;
-import trees.cstecst.UniversalToken;
 import trees.simpletree.Node;
 
 /**
@@ -42,6 +42,7 @@ public class CParser extends SpecificParser {
             }
             treeUnion(getTrees());
             addCompilationUnitNames(files);
+            correctIncludes();
             return exportCSTDOT(tree, outputDirectory.getAbsolutePath() + File.separator + "CST.gv") && exportCSTXML(tree, outputDirectory.getAbsolutePath() + File.separator + "CST.xml");
         } catch (RecognitionException e) {
             return false;
@@ -74,9 +75,32 @@ public class CParser extends SpecificParser {
         }
     }
 
-    //
+    // rewrite all the 'include' String lines into tree-style elements
     private void correctIncludes() {
-
+        List<Node<TokenAttributes>> comps = tree.getRoot().getChildren();
+        comps.forEach((t) -> {
+            Node<TokenAttributes> includes = BIB.getChildByText(t.getChildren(), "Includes");
+            List<Node<TokenAttributes>> newNodes = new ArrayList<>();
+            if (includes != null) {
+                List<Node<TokenAttributes>> children = includes.getChildren();
+                for (Node<TokenAttributes> inc : children) {
+                    String s = inc.getNodeData().getText();
+                    Node<TokenAttributes> node;
+                    if (s.contains("<")) {
+                        String name = s.substring(s.indexOf('<') + 1, s.indexOf('>'));
+                        node = BIB.tmapOneRuleCodeCall("\"include\" = {new_leaf(\"<\"), new_leaf(\"" + name + "\"), new_leaf(\">\")}", null).get(0);
+                    } else {
+                        String name = s.substring(s.indexOf('"') + 1, s.lastIndexOf('"'));
+                        node = BIB.tmapOneRuleCodeCall("\"include\" = {new_leaf(\"'\"), new_leaf(\"" + name + "\"), new_leaf(\"'\")}", null).get(0);
+                    }
+                    newNodes.add(node);
+                }
+                includes.setChildren(newNodes);
+                newNodes.forEach((i) -> {
+                    i.setParent(includes);
+                });
+            }
+        });
     }
 
 }

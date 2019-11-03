@@ -17,7 +17,7 @@ import trees.simpletree.Node;
 import trees.simpletree.Tree;
 
 /**
- * provides static methods to eCST adapters
+ * provides static methods to eCST adapters and Parsers
  *
  * @author Rafael Braz
  */
