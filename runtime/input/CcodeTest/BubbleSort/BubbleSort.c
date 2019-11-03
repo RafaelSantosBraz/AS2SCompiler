@@ -1,9 +1,12 @@
+/* Bubble Sort 
+*  adapted from ()
+*/
+
 #include <stdio.h>
 
 void bubble(char item[], int count)
 {
-    int a;
-    int b;
+    int a, b;
     char t;
     for (a = 1; a < count; ++a)
     {
@@ -19,11 +22,16 @@ void bubble(char item[], int count)
     }
 }
 
-
-void main()
-{    
-   char vet[] = {'r','a','f','a','e','l'};   
-   printf("%d\n", sizeof(vet));
-   bubble(vet, sizeof(vet));
-   printf("%s\n", vet);
+void main(int argc, char *argv[])
+{
+    char vet[argc - 1];
+    int c;
+    for (c = 0; c < argc - 1; c++)
+    {
+        vet[c] = argv[c + 1][0];
+    }
+    bubble(vet, argc-1);
+    for (c = 0; c < argc-1; c++){
+        printf("%c\n", vet[c]);
+    }
 }

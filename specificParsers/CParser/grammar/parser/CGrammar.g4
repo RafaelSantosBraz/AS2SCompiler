@@ -66,7 +66,7 @@ unaryExpression
     |   '++' unaryExpression
     |   '--' unaryExpression
     |   unaryOperator castExpression
-    //|   'sizeof' unaryExpression
+    |   'sizeof' unaryExpression
     //|   'sizeof' '(' typeName ')'
     //|   '_Alignof' '(' typeName ')'
     //|   '&&' Identifier // GCC extension address of label

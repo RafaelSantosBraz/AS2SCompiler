@@ -44,7 +44,7 @@ public class CtoJavaAdapter extends ActionWalker {
     }
 
     // C printf to Java System.out.printf
-    public void actionFUNCTION_CAL(Node<TokenAttributes> node) {
+    public void actionFUNCTION_CALL(Node<TokenAttributes> node) {
         String tmapCode = BIB.getTmapCodeFromFile(auxTmapsDir, "printfCtoJava.tmap");
         List<Node<TokenAttributes>> nodes = BIB.tmapOneRuleCodeCall(tmapCode, node);
         if (!nodes.isEmpty()) {

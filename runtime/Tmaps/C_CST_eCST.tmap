@@ -232,17 +232,54 @@
         }
     },
     if (current_node == :"CastExpression"){
-        "CONST" = {
-            child
-        }
+        if (first_child == :"UnaryExpression"){
+            if (first_child.first_child == :"++"){
+                "ASSIGNMENT_STATEMENT" = {
+                    "ASSIGN_OPERATOR" = {                                        
+                        "OPERATOR" = {
+                            new_leaf("++")
+                        },
+                        "NAME" = {
+                            first_child.last_child.last
+                        }                            
+                    } 
+                }
+            },
+            if (first_child.first_child == :"--"){
+                "ASSIGNMENT_STATEMENT" = {
+                    "ASSIGN_OPERATOR" = {                                        
+                        "OPERATOR" = {
+                            new_leaf("--")
+                        },
+                        "NAME" = {
+                            first_child.last_child.last
+                        }                            
+                    } 
+                }
+            },
+            if (first_child.first_child == :"sizeof"){          
+                "FUNCTION_CALL" = {
+                    "NAME" = {
+                        new_leaf("sizeof")
+                    },
+                    "ARGUMENT_LIST" = {
+                        "ARGUMENT" = {
+                            rule("rule_expression", first_child."UnaryExpression".last.parent)
+                        }
+                    }
+                }
+            }
+        } else {
+            "CONST" = {
+                child
+            }
+        }        
     },
     if (first_child == :"AssignmentExpression"){
         "ASSIGNMENT_STATEMENT" = {
            "ASSIGN_OPERATOR" = {
-               first_child."AssignmentOperator".child,
-               "NAME" = {
-                   first_child.first_child.last
-               },
+               first_child."AssignmentOperator".child,               
+               rule("rule_expression", first_child.first_child.last.parent),
                "VALUE" = {
                    rule("rule_expression", first_child.last_child.last.parent)
                }
@@ -266,7 +303,7 @@
     if (first_child == :"PostfixExpression"){
         if (first_child.first_child == :"PostfixExpression"){
             if (first_child.child(1) == :"("){
-               "FUNCTION_CAL" = {
+               "FUNCTION_CALL" = {
                    "NAME" = {
                        first_child.first_child.last
                    },
@@ -298,6 +335,18 @@
                             }                            
                         } 
                     }
+                },
+                if (first_child.child(1) == :"["){
+                    "NAME" = {
+                        first_child.first_child.last
+                    },
+                    "SEPARATOR" = {
+                        new_leaf("[")
+                    },
+                    ? rule("rule_expression", first_child."Expression".last.parent),
+                    "SEPARATOR" = {
+                        new_leaf("]")
+                    }
                 }
             }
         }
@@ -307,7 +356,7 @@
     },
     if (first_child == :"EqualityExpression"){
         rule("rule_comparison_operator", current_node)
-    }
+    }  
 }
 
 // handle with the comparison operation : receives "Expression".last.parent
@@ -337,9 +386,21 @@
 "rule_param_decl" -> {
     "PARAMETER_DECL" = {
         rule("rule_modifiers", "DeclarationSpecifiers".children),
-        "NAME" = {
-            "Declarator".last
-        }
+        if ("Declarator".last != :"DirectDeclarator"){
+            "NAME" = {
+                "Declarator".last
+            }
+        } else {
+            "NAME" = {
+                "Declarator".last."DirectDeclarator".child
+            },
+            "SEPARATOR" = {
+                new_leaf("[")
+            },
+            "SEPARATOR" = {
+                new_leaf("]")
+            }
+        }        
     }
 }
 
@@ -361,10 +422,33 @@
                 "OPERATOR" = {
                     new_leaf("=")
                 },
-                "NAME" = {
-                   "Declarator".last 
+                if ("Declarator".last != :"DirectDeclarator"){
+                    "NAME" = {
+                        "Declarator".last
+                    }
+                } else {
+                    "NAME" = {
+                        "Declarator".last."DirectDeclarator".child
+                    },
+                    "SEPARATOR" = {
+                        new_leaf("[")
+                    },
+                    ? rule("rule_expression", "Declarator".last."AssignmentExpression".last.parent),
+                    "SEPARATOR" = {
+                        new_leaf("]")
+                    }
                 },
-                rule("rule_expression", "Initializer".last.parent)                           
+                if ("Initializer".child(0) == :"{"){
+                    "SEPARATOR" = {
+                        new_leaf("{")
+                    },
+                    rule("rule_initializer_list", "Initializer"."InitializerList"),
+                    "SEPARATOR" = {
+                        new_leaf("}")
+                    }
+                } else {
+                    rule("rule_expression", "Initializer".last.parent)                           
+                }                
             } 
         }
     },
@@ -372,6 +456,19 @@
         "NAME" = {
             "Declarator".last
         }
+    }
+}
+
+//handle with the list of initializers for array : receives "InitializerList"
+"rule_initializer_list" -> {    
+    ? rule("rule_initializer_list", "InitializerList"),
+    ? rule("rule_initializer", "Initializer")    
+}
+
+// handle with a initializer value for a array : receives "Initializer"
+"rule_initializer" -> {
+    "VALUE" = {
+        rule("rule_expression", last.parent)
     }
 }
 
