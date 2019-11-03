@@ -7,10 +7,20 @@
 "rule_compilation_unit" -> {
     "COMPILATION_UNIT" = {
         "PACKAGE_DECL" = {
+            ? rule("rule_import_declaration", "Includes".children),
             "CONCRETE_UNIT_DECL" = {
                 "NAME",
                 rule("rule_c_file", "TranslationUnit")                
             }
+        }
+    }
+}
+
+// handle with the include: receives "Include"
+"rule_import_declaration" -> {
+    "IMPORT_DECL" = {
+        "NAME" = {
+            child(1)
         }
     }
 }

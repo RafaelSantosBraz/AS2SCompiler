@@ -88,10 +88,10 @@ public class CParser extends SpecificParser {
                     Node<TokenAttributes> node;
                     if (s.contains("<")) {
                         String name = s.substring(s.indexOf('<') + 1, s.indexOf('>'));
-                        node = BIB.tmapOneRuleCodeCall("\"include\" = {new_leaf(\"<\"), new_leaf(\"" + name + "\"), new_leaf(\">\")}", null).get(0);
+                        node = BIB.tmapOneRuleCodeCall("\"Include\" = {new_leaf(\"<\"), new_leaf(\"" + name + "\"), new_leaf(\">\")}", null).get(0);
                     } else {
                         String name = s.substring(s.indexOf('"') + 1, s.lastIndexOf('"'));
-                        node = BIB.tmapOneRuleCodeCall("\"include\" = {new_leaf(\"'\"), new_leaf(\"" + name + "\"), new_leaf(\"'\")}", null).get(0);
+                        node = BIB.tmapOneRuleCodeCall("\"Include\" = {new_leaf(\"'\"), new_leaf(\"" + name + "\"), new_leaf(\"'\")}", null).get(0);
                     }
                     newNodes.add(node);
                 }
