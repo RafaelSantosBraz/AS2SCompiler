@@ -1,4 +1,4 @@
-#include <stdio.h>
+#include "stdio.h"
 
 void bubble(char item[], int count)
 {
@@ -19,11 +19,10 @@ void bubble(char item[], int count)
     }
 }
 
-
 void main()
-{    
-   char vet[] = {'r','a','f','a','e','l'};   
-   printf("%d\n", sizeof(vet));
-   bubble(vet, sizeof(vet));
-   printf("%s\n", vet);
+{
+    char vet[] = {'r', 'a', 'f', 'a', 'e', 'l'};
+    printf("%d\n", sizeof(vet));
+    bubble(vet, sizeof(vet));
+    printf("%s\n", vet);
 }

@@ -5,6 +5,7 @@
  */
 package parser;
 
+import auxtools.BIB;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -61,17 +62,21 @@ public class CParser extends SpecificParser {
         }
     }
 
+    // create a node for the file name
     private void addCompilationUnitNames(File files[]) {
         List<Node<TokenAttributes>> comps = tree.getRoot().getChildren();
-        for (int c = 0; c < files.length ; c++) {
-            File f = files[c];                        
-            String name = f.getName().substring(0, f.getName().lastIndexOf('.'));  
-            Node<TokenAttributes> child = new Node<>(comps.get(c));
-            child.setNodeData(new UniversalToken("NAME", -1));
-            Node<TokenAttributes> childName = new Node<>(child);
-            childName.setNodeData(new UniversalToken(name, -1));
-            child.addChild(childName);
-            comps.get(c).addChildAt(child, 0);
+        for (int c = 0; c < files.length; c++) {
+            File f = files[c];
+            String name = f.getName().substring(0, f.getName().lastIndexOf('.'));
+            Node<TokenAttributes> node = BIB.tmapOneRuleCodeCall("\"NAME\"={new_leaf(\"" + name + "\")}", null).get(0);
+            node.setParent(comps.get(c));
+            comps.get(c).addChildAt(node, 0);
         }
     }
+
+    //
+    private void correctIncludes() {
+
+    }
+
 }

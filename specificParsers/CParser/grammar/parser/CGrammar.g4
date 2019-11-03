@@ -564,7 +564,11 @@ jumpStatement
     ;
 
 compilationUnit // initial rule
-    :   translationUnit//? //EOF
+    :   includes translationUnit//? //EOF
+    ;
+
+includes
+    : IncludeDirective*
     ;
 
 translationUnit
@@ -934,10 +938,10 @@ ComplexDefine
     :   '#' Whitespace? 'define'  ~[#]*
         -> skip
     ;
-         
+      
 IncludeDirective
     :   '#' Whitespace? 'include' Whitespace? (('"' ~[\r\n]* '"') | ('<' ~[\r\n]* '>' )) Whitespace? Newline
-        -> skip
+        
     ;
 
 // ignore the following asm blocks:
