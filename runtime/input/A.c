@@ -1,25 +1,20 @@
 #include <stdio.h>
 
-void insert(char item[], int count)
+int factorial(int num)
 {
-    int a;
-    int b;
-    char t;
-    for (a = 1; a < count; ++a)
+    int fat = 1;
+    while (num > 1)
     {
-        t = item[a];
-        for (b = a - 1; b >= 0 || t < item[b]; b--)
-        {
-            item[b + 1] = item[b];
-        }
-        item[b + 1] = t;
+        fat *= num--;
     }
+    return fat;
 }
 
 void main()
 {
-    char vet[] = {'r', 'a', 'f', 'a', 'e', 'l'};
-    printf("%d\n", sizeof(vet));
-    insert(vet, sizeof(vet));
-    printf("%s\n", vet);
+    //char vet[] = {'a', 'b', 'c', 'd', 'e', 'f'};
+    //printf("%d\n", sizeof(vet));
+    //int p = binary(vet, sizeof(vet), 'c');
+    printf("%d\n", factorial(15));
+    //printf("%c\n", vet[p]);
 }
