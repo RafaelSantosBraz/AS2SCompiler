@@ -29,11 +29,26 @@ public class CtoJavaAdapter extends ActionWalker {
         node.getNodeData().setText("final");
     }
 
-    // function main to method main
+    // functions to methods, inclusively main
     public void actionFUNCTION_DECL(Node<TokenAttributes> node) {
         String tmapCode = BIB.getTmapCodeFromFile(auxTmapsDir, "mainCtoJava.tmap");
         List<Node<TokenAttributes>> nodes = BIB.tmapOneRuleCodeCall(tmapCode, node);
-        BIB.replaceNode(node, nodes.get(0));
+        if (nodes.get(0).getNodeData().getText().equals("FUNCTION_DECL")) {
+            BIB.replaceNode(node, nodes.get(0));
+        } else {
+            nodes.get(0).setParent(node);
+            node.addChildAt(nodes.get(0), 0);
+        }
+    }
+
+    // adds modifiers to variable declarations 
+    public void actionVAR_DECL(Node<TokenAttributes> node) {
+        String tmapCode = BIB.getTmapCodeFromFile(auxTmapsDir, "globalVarCtoJava.tmap");
+        List<Node<TokenAttributes>> nodes = BIB.tmapOneRuleCodeCall(tmapCode, node);
+        if (!nodes.isEmpty()) {
+            nodes.get(0).setParent(node);
+            node.addChildAt(nodes.get(0), 0);
+        }
     }
 
     // remove C double TYPE

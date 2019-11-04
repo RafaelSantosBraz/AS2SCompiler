@@ -479,9 +479,22 @@
         }
     },
     if (last_child == :"Declarator"){
-        "NAME" = {
-            "Declarator".last
-        }
+        if ("Declarator".last != :"DirectDeclarator"){
+            "NAME" = {
+                "Declarator".last
+            }
+        } else {
+            "NAME" = {
+                "Declarator".last."DirectDeclarator".child
+            },
+            "SEPARATOR" = {
+                new_leaf("[")
+            },
+            ? rule("rule_expression", "Declarator".last."AssignmentExpression".last.parent),
+            "SEPARATOR" = {
+                new_leaf("]")
+            }
+        }        
     }
 }
 

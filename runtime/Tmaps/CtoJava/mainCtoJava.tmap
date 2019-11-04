@@ -14,7 +14,13 @@ if ("NAME".child == :"main") {
             "PARAMETER_DECL" = {
                 "TYPE" = {
                     "NAME" = {
-                        new_leaf("String[]")
+                        new_leaf("String")
+                    },
+                    "SEPARATOR" = {
+                        new_leaf("[")
+                    },
+                    "SEPARATOR" = {
+                        new_leaf("]")
                     }
                 },
                 "NAME" = {
@@ -23,6 +29,11 @@ if ("NAME".child == :"main") {
             }
         },
         "BLOCK_SCOPE"
+    }
+} else {
+    "MODIFIER_LIST" = {
+        new_leaf("public"),
+        new_leaf("static")
     }
 }
 

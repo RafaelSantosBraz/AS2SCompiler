@@ -1,0 +1,6 @@
+if (parent == :"CONCRETE_UNIT_DECL"){
+    "MODIFIER_LIST" = {
+        new_leaf("public"),
+        new_leaf("static")
+    }
+}
