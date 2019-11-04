@@ -63,6 +63,7 @@ public class XMLConverter {
     // rewrite the \", \n, and '<' to a XML version
     private String normalizeLessThan(String text) {
         String txtTemp = text.replace("<", "&#60;");
+        txtTemp = txtTemp.replace("&", "&#38;");
         //txtTemp = txtTemp.replace("\\n", "\\\\n");
         // txtTemp = txtTemp.replace("\\n", "\\n");
         if (txtTemp.charAt(0) == '\'') {

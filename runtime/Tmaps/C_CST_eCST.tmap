@@ -367,7 +367,22 @@
     },
     if (first_child == :"EqualityExpression"){
         rule("rule_comparison_operator", current_node)
-    }  
+    },
+    if (first_child == :"LogicalAndExpression"){
+        rule("rule_logical_operator", current_node)
+    },
+    if (first_child == :"LogicalOrExpression"){
+        rule("rule_logical_operator", current_node)
+    }
+}
+
+// handle with the comparison operation : receives "Expression".last.parent
+"rule_logical_operator" -> {
+    "LOGICAL_OPERATOR" = {
+        first_child.child(1),
+        rule("rule_expression", first_child.first_child.last.parent),
+        rule("rule_expression", first_child.last_child.last.parent)
+    }
 }
 
 // handle with the comparison operation : receives "Expression".last.parent
