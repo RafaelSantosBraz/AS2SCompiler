@@ -75,4 +75,9 @@ public class CtoJavaAdapter extends ActionWalker {
         }
     }
 
+    // Removing C imports
+    public void actionIMPORT_DECL(Node<TokenAttributes> node) {
+        BIB.removeChain(node);
+    }
+
 }

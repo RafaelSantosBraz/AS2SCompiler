@@ -30,11 +30,19 @@ public abstract class ActionWalker {
         if (!callSpecializedAction(node)) {
             defaultAction(node);
         }
-        List<Node<TokenAttributes>> children = node.getChildren();        
-        if (children != null) {            
-            for (int c = 0; c < children.size(); c++) {                
+        visitingChildren(node);
+    }
+
+    private void visitingChildren(Node<TokenAttributes> node) {
+        List<Node<TokenAttributes>> children = node.getChildren();
+        if (children != null) {
+            int prevHash = children.hashCode();
+            for (int c = 0; c < children.size(); c++) {
                 visiting(children.get(c));
-            }            
+            }
+            if (prevHash != children.hashCode()) {
+                visitingChildren(node);
+            }
         }
     }
 
@@ -58,5 +66,5 @@ public abstract class ActionWalker {
     public void defaultAction(Node<TokenAttributes> node) {
         // does nothing
     }
-    
+
 }

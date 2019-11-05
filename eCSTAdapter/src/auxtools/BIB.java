@@ -63,7 +63,7 @@ public class BIB {
         }
     }
 
-    // removre a given node from the tree
+    // removre a given node from the tree but keeps the children
     public static void removeNode(Node<TokenAttributes> node) {
         if (node != null) {
             if (node.getParent() == null) {
@@ -81,6 +81,15 @@ public class BIB {
                         node.getParent().addChildAt(t, index);
                     });
                 }
+            }
+        }
+    }
+
+    // delete the node and all the children
+    public static void removeChain(Node<TokenAttributes> node) {
+        if (node != null) {
+            if (node.getParent() != null) {
+                node.getParent().getChildren().remove(node);
             }
         }
     }
