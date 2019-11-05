@@ -50,7 +50,12 @@ public class CtoJavaAdapter extends ActionWalker {
             nodes.get(0).setParent(node.getParent());
             BIB.replaceNode(node, nodes.get(0));
         } else {
-            
+            tmapCode = BIB.getTmapCodeFromFile(auxTmapsDir, "arrayCtoJava.tmap");
+            nodes = BIB.tmapOneRuleCodeCall(tmapCode, node);
+            if (!nodes.isEmpty()) {
+                nodes.get(0).setParent(node.getParent());
+                BIB.replaceNode(node, nodes.get(0));
+            }
         }
     }
 

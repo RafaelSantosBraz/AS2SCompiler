@@ -19,6 +19,7 @@ int factorial(int num)
 void main()
 {
     char vet[] = {'a', 'b', 'c', 'd', 'e', 'f'};
+    int c[2];
     int i = factorial(2);
     //printf("%d\n", sizeof(vet));
     //int p = binary(vet, sizeof(vet), 'c');

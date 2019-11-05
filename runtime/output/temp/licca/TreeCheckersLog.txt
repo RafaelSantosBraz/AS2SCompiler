@@ -16,6 +16,14 @@ VAR_DECL, no NAME in first level, D:\GitHub\StS-Compilation-Framework\licca\eCST
 MODIFIER_LIST TYPE 
     int ASSIGNMENT_STATEMENT ASSIGN_OPERATOR 
         = NAME 
+            c [ ] VALUE INSTANTIATES 
+                int [ CONST 
+                    2 ] 
+
+VAR_DECL, no NAME in first level, D:\GitHub\StS-Compilation-Framework\licca\eCSTgenerator\..\..\runtime\input\B.java, 
+MODIFIER_LIST TYPE 
+    int ASSIGNMENT_STATEMENT ASSIGN_OPERATOR 
+        = NAME 
             i VALUE FUNCTION_CALL 
                 NAME 
                     factorial ARGUMENT_LIST SEPARATOR 

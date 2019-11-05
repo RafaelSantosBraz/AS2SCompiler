@@ -5,31 +5,33 @@ if (parent == :"CONCRETE_UNIT_DECL"){
             new_leaf("static")
         },
         if (last_child == :"NAME"){
-            "TYPE",
+            "TYPE".child,
             "NAME",
             new_leaf("VALUE")
         } else {        
             if (last_child.child == :"]"){
                 "TYPE" = {
-                    "TYPE".last,
+                    "TYPE".last                                   
+                },
+                "SEPARATOR" = {
+                    new_leaf("[")
+                },
+                "SEPARATOR" = {
+                    new_leaf("]")
+                }
+            } else {
+                if (last_child.child.last_child.child == :"}"){
+                    "TYPE" = {
+                        "TYPE".last                        
+                    },
                     "SEPARATOR" = {
                         new_leaf("[")
                     },
                     "SEPARATOR" = {
                         new_leaf("]")
-                    }                
-                }
-            } else {
-                if (last_child."ASSIGN_OPERATOR".last_child.child == :"}"){
-                    "TYPE" = {
-                        "TYPE".last,
-                        "SEPARATOR" = {
-                            new_leaf("[")
-                        },
-                        "SEPARATOR" = {
-                            new_leaf("]")
-                        }
                     }
+                } else {
+                    "TYPE".child
                 }
             },
             if (child(1) == :"NAME"){

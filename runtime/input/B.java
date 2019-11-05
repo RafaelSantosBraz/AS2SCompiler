@@ -16,6 +16,7 @@ public class B {
 
     public static void main(String[] args) {
         char vet[] = { 'a', 'b', 'c', 'd', 'e', 'f' };
+        int c[] = new int[2];
         int i = factorial(2);
     }
 }
