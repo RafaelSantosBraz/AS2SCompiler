@@ -6,7 +6,7 @@ int c[2];
 int d[] = {2,4};
 int e[2] = {1,2};
 
-int factorial(int num, int a[])
+int factorial(int num)
 {
     int fat = 1;
     while (num > 1)
@@ -19,6 +19,7 @@ int factorial(int num, int a[])
 void main()
 {
     char vet[] = {'a', 'b', 'c', 'd', 'e', 'f'};
+    int i = factorial(2);
     //printf("%d\n", sizeof(vet));
     //int p = binary(vet, sizeof(vet), 'c');
     //printf("%d\n", factorial(15));

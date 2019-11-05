@@ -1,6 +1,74 @@
 if (parent == :"CONCRETE_UNIT_DECL"){
-    "MODIFIER_LIST" = {
-        new_leaf("public"),
-        new_leaf("static")
-    }
+    "ATTRIBUTE_DECL" = {
+        "MODIFIER_LIST" = {
+            new_leaf("public"),
+            new_leaf("static")
+        },
+        if (last_child == :"NAME"){
+            "TYPE",
+            "NAME",
+            new_leaf("VALUE")
+        } else {        
+            if (last_child.child == :"]"){
+                "TYPE" = {
+                    "TYPE".last,
+                    "SEPARATOR" = {
+                        new_leaf("[")
+                    },
+                    "SEPARATOR" = {
+                        new_leaf("]")
+                    }                
+                }
+            } else {
+                if (last_child."ASSIGN_OPERATOR".last_child.child == :"}"){
+                    "TYPE" = {
+                        "TYPE".last,
+                        "SEPARATOR" = {
+                            new_leaf("[")
+                        },
+                        "SEPARATOR" = {
+                            new_leaf("]")
+                        }
+                    }
+                }
+            },
+            if (child(1) == :"NAME"){
+                "NAME"
+            } else {
+                "ASSIGNMENT_STATEMENT"."ASSIGN_OPERATOR"."NAME"
+            },
+            if (last_child.child == :"]"){
+                "VALUE" = {
+                    "INSTANTIATES" = {
+                        "TYPE".last,
+                        "SEPARATOR" = {
+                            new_leaf("[")
+                        },
+                        "CONST",
+                        "SEPARATOR" = {
+                            new_leaf("]")
+                        }
+                    }
+                }   
+            } else {
+                if (last_child."ASSIGN_OPERATOR".last_child.child == :"}"){
+                    "VALUE" = {
+                        "SEPARATOR" = {
+                            new_leaf("{")
+                        },
+                        "ASSIGNMENT_STATEMENT"."ASSIGN_OPERATOR".children("VALUE"),
+                        "SEPARATOR" = {
+                            new_leaf("}")
+                        }
+                    }
+                } else {
+                    if (last_child == :"ASSIGNMENT_STATEMENT"){
+                        "VALUE" = {
+                            last_child."ASSIGN_OPERATOR".last_child
+                        }
+                    }
+                }
+            }     
+        }   
+    }    
 }

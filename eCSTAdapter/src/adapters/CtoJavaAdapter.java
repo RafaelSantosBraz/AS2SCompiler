@@ -41,13 +41,16 @@ public class CtoJavaAdapter extends ActionWalker {
         }
     }
 
-    // adds modifiers to variable declarations 
+    // global variable declarations to Java class atributes
+    // array declaration to Java pattern
     public void actionVAR_DECL(Node<TokenAttributes> node) {
         String tmapCode = BIB.getTmapCodeFromFile(auxTmapsDir, "globalVarCtoJava.tmap");
         List<Node<TokenAttributes>> nodes = BIB.tmapOneRuleCodeCall(tmapCode, node);
         if (!nodes.isEmpty()) {
-            nodes.get(0).setParent(node);
-            node.addChildAt(nodes.get(0), 0);
+            nodes.get(0).setParent(node.getParent());
+            BIB.replaceNode(node, nodes.get(0));
+        } else {
+            
         }
     }
 
