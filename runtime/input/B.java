@@ -1,4 +1,4 @@
-public class B {
+public class B { 
 
     public static int a;
     public static int b = 0;

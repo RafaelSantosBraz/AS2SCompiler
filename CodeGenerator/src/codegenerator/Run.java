@@ -19,7 +19,7 @@ public class Run {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        JavaGenerator generator = new JavaGenerator();
+        JavaGenerator generator = new JavaGenerator("D:\\GitHub\\StS-Compilation-Framework\\runtime\\output\\objcode");
         TreeXMLConverter conv = new TreeXMLConverter();
         conv.convertFromFile("D:\\GitHub\\StS-Compilation-Framework\\runtime\\output\\eCSTadapted.xml");
         System.out.println(generator.startWalking(conv.getTree()));   
