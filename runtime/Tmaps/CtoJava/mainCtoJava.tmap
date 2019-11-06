@@ -15,13 +15,13 @@ if ("NAME".child == :"main") {
                 "TYPE" = {
                     "NAME" = {
                         new_leaf("String")
-                    },
-                    "SEPARATOR" = {
-                        new_leaf("[")
-                    },
-                    "SEPARATOR" = {
-                        new_leaf("]")
-                    }
+                    }                    
+                },
+                "SEPARATOR" = {
+                    new_leaf("[")
+                },
+                "SEPARATOR" = {
+                    new_leaf("]")
                 },
                 "NAME" = {
                     new_leaf("args")

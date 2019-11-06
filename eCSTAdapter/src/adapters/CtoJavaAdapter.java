@@ -36,8 +36,10 @@ public class CtoJavaAdapter extends ActionWalker {
         if (nodes.get(0).getNodeData().getText().equals("FUNCTION_DECL")) {
             BIB.replaceNode(node, nodes.get(0));
         } else {
-            nodes.get(0).setParent(node);
-            node.addChildAt(nodes.get(0), 0);
+            if (!nodes.get(0).getNodeData().getText().equals(node.getChildren().get(0).getNodeData().getText())) {
+                nodes.get(0).setParent(node);
+                node.addChildAt(nodes.get(0), 0);
+            }
         }
     }
 

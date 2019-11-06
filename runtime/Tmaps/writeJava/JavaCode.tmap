@@ -1,0 +1,86 @@
+"rule_concrete_unit" -> {
+    new_leaf("public class"),
+    "NAME".child,
+    new_leaf("{"),
+    ? rule("rule_attr_decl", children("ATTRIBUTE_DECL")),
+    ? rule("rule_func_decl", children("FUNCTION_DECL")),
+    new_leaf("}")
+}
+
+"rule_func_decl" -> {
+    "MODIFIER_LIST".children,
+    "TYPE".child,
+    "NAME".child,
+    new_leaf("("),
+    ? rule("rule_parameter", "FORMAL_PARAM_LIST".children),
+    new_leaf(")"),
+    ? rule("rule_block_scope", "BLOCK_SCOPE")
+}
+
+"rule_block_scope" -> {
+    new_leaf("{"),
+    ? rule("rule_block_items", children),
+    new_leaf("}")
+}
+
+"rule_block_items" -> {
+    ? rule("rule_var_decl", "VAR_DECL")
+}
+
+"rule_var_decl" -> {
+    
+}
+
+"rule_parameter" -> {
+    rule("rule_parameter_aux", children)
+}
+
+"rule_parameter_aux" -> {
+    last
+}
+
+"rule_attr_decl" -> {
+    "MODIFIER_LIST".children,
+    "TYPE".child,
+    ? rule("rule_separators", children("SEPARATOR")),
+    "NAME".child,
+    ? rule("rule_aux_value", "VALUE".first_child),
+    new_leaf(";")
+}
+
+"rule_separators" -> {
+    child
+}
+
+"rule_aux_value" -> {
+    new_leaf("="),
+    rule("rule_value", parent)
+}
+
+"rule_value" -> {
+    ? rule("rule_instantiates", "INSTANTIATES"),
+    if (first_child == :"CONST"){
+        "CONST".child
+    },
+    if (first_child == :"SEPARATOR"){
+        new_leaf("{"),
+        ? rule("rule_list_value", children("VALUE")),
+        new_leaf("}")
+    }
+   
+}
+
+"rule_list_value" -> {
+    last,
+    new_leaf(",")
+}
+
+"rule_instantiates" -> {
+    new_leaf("new"),
+    first_child,
+    if (last_child == :"SEPARATOR"){
+        new_leaf("["),
+        "CONST".child,
+        new_leaf("]")
+    }
+}

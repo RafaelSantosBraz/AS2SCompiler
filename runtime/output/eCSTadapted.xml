@@ -286,15 +286,6 @@
 </childElement>
 </childElement>
 <childElement>
-<token column="-1" index="-1" line="0" text='MODIFIER_LIST' type="27"/>
-<childElement>
-<token column="17" index="-1" line="35" text='public' type="27"/>
-</childElement>
-<childElement>
-<token column="17" index="-1" line="36" text='static' type="27"/>
-</childElement>
-</childElement>
-<childElement>
 <token column="-1" index="-1" line="0" text='TYPE' type="27"/>
 <childElement>
 <token column="0" index="76" line="9" text='int' type="18"/>
@@ -528,17 +519,17 @@
 <token column="33" index="-1" line="17" text='String' type="27"/>
 </childElement>
 </childElement>
-<childElement>
-<token column="-1" index="-1" line="0" text='SEPARATOR' type="27"/>
-<childElement>
-<token column="33" index="-1" line="20" text='[' type="27"/>
-</childElement>
 </childElement>
 <childElement>
 <token column="-1" index="-1" line="0" text='SEPARATOR' type="27"/>
 <childElement>
-<token column="33" index="-1" line="23" text=']' type="27"/>
+<token column="29" index="-1" line="21" text='[' type="27"/>
 </childElement>
+</childElement>
+<childElement>
+<token column="-1" index="-1" line="0" text='SEPARATOR' type="27"/>
+<childElement>
+<token column="29" index="-1" line="24" text=']' type="27"/>
 </childElement>
 </childElement>
 <childElement>
