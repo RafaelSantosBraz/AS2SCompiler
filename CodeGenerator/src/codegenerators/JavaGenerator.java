@@ -31,12 +31,7 @@ public class JavaGenerator {
 
     // starts to generate Java code for the given eCST
     public boolean start(Tree<TokenAttributes> eCST) {
-        for (Node<TokenAttributes> n : eCST.getRoot().getChildren()) {
-            if (!actionCOMPILATION_UNIT(n)) {
-                return false;
-            }
-        }
-        return true;
+        return eCST.getRoot().getChildren().stream().noneMatch((n) -> (!actionCOMPILATION_UNIT(n)));
     }
 
     // creates a ".java" file for the compilation unit and writes all the class inside it

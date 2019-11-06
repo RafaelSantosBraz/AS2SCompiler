@@ -1,3 +1,4 @@
+// initial rule : receives "CONCRETE_UNIT_DECL"
 "rule_concrete_unit" -> {
     new_leaf("public class"),
     "NAME".child,
@@ -28,7 +29,10 @@
 }
 
 "rule_var_decl" -> {
-    
+    if (last_child == :"NAME"){
+        "TYPE".last,
+        "NAME".last
+    } 
 }
 
 "rule_parameter" -> {

@@ -44,7 +44,12 @@ public class Run {
         if (!translator.adapteCST(params[3] + File.separator + "eCST.xml", auxTmapDir, params[0], params[1])) {
             System.err.println("Error: it was not possible to adapt the eCST!");
             return;
-        }        
+        }
+        String auxWriteTmapDir = Translator.inferAuxWriteTmapsDir(params[4], params[1]);
+        if (!translator.gerateCode(params[3] + File.separator + "eCSTadapted.xml", auxWriteTmapDir, params[1])) {
+            System.err.println("Error: it was not possible to create the output program!");
+            return;
+        }
 //        new XMLDOTConverter().convertFromDir(
 //                "D:\\GitHub\\StS-Compilation-Framework\\runtime\\output\\temp\\licca",
 //                "D:\\GitHub\\StS-Compilation-Framework\\runtime\\output"

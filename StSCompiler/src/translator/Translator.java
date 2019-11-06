@@ -8,6 +8,7 @@ package translator;
 import adapters.CtoJavaAdapter;
 import adapters.JavatoCAdapter;
 import analyzer.Analyzer;
+import codegenerators.JavaGenerator;
 import converter.DOTConverter;
 import converter.TreeXMLConverter;
 import converter.XMLConverter;
@@ -57,6 +58,22 @@ public class Translator {
         return exportCSTDOT(conv.getTree(), dotPath) && exportCSTXML(conv.getTree(), xmlPath);
     }
 
+    // generates object code from a fiven adapted eCST
+    public boolean gerateCode(String eCSTPath, String auxTmapsDir, String outputLang) {
+        TreeXMLConverter conv = new TreeXMLConverter();
+        if (!conv.convertFromFile(eCSTPath)) {
+            return false;
+        }
+        int index = eCSTPath.lastIndexOf(File.separator);
+        String objCodePath = eCSTPath.replace(eCSTPath.substring(index + 1), "objcode");
+        if (outputLang.equals(Analyzer.C)) {
+            return true;
+        } else if (outputLang.equals(Analyzer.JAVA)) {
+            return new JavaGenerator(objCodePath, auxTmapsDir).start(conv.getTree());
+        }
+        return false;
+    }
+
     private boolean exportCSTDOT(Tree<TokenAttributes> tree, String outputPath) {
         return new DOTConverter<>(tree).convertToFile(outputPath);
     }
@@ -78,4 +95,16 @@ public class Translator {
         return dir;
     }
 
+    // returns the path to the directory that has all the complete/partial tmap code files used in the writing process
+    public static String inferAuxWriteTmapsDir(String tmapPath, String outputLang) {
+        int index = tmapPath.lastIndexOf(File.separator);
+        String dir = null;
+        if (outputLang.equals(Analyzer.JAVA)) {
+            dir = tmapPath.replace(tmapPath.substring(index + 1), "writejava");
+        }
+        if (outputLang.equals(Analyzer.C)) {
+            dir = tmapPath.replace(tmapPath.substring(index + 1), "writeC");
+        }
+        return dir;
+    }
 }
