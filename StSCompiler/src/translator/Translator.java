@@ -44,8 +44,7 @@ public class Translator {
         ActionWalker adapter = null;
         if (inputLang.equals(Analyzer.C) && outputLang.equals(Analyzer.JAVA)) {
             adapter = new CtoJavaAdapter(auxTmapsDir);
-        }
-        if (inputLang.equals(Analyzer.JAVA) && outputLang.equals(Analyzer.C)) {
+        } else if (inputLang.equals(Analyzer.JAVA) && outputLang.equals(Analyzer.C)) {
             adapter = new JavatoCAdapter();
         }
         if (adapter == null) {
@@ -88,8 +87,7 @@ public class Translator {
         String dir = null;
         if (inputLang.equals(Analyzer.C) && outputLang.equals(Analyzer.JAVA)) {
             dir = tmapPath.replace(tmapPath.substring(index + 1), "CtoJava");
-        }
-        if (inputLang.equals(Analyzer.JAVA) && outputLang.equals(Analyzer.C)) {
+        } else if (inputLang.equals(Analyzer.JAVA) && outputLang.equals(Analyzer.C)) {
             dir = tmapPath.replace(tmapPath.substring(index + 1), "JavatoC");
         }
         return dir;
@@ -99,11 +97,13 @@ public class Translator {
     public static String inferAuxWriteTmapsDir(String tmapPath, String outputLang) {
         int index = tmapPath.lastIndexOf(File.separator);
         String dir = null;
-        if (outputLang.equals(Analyzer.JAVA)) {
-            dir = tmapPath.replace(tmapPath.substring(index + 1), "writejava");
-        }
-        if (outputLang.equals(Analyzer.C)) {
-            dir = tmapPath.replace(tmapPath.substring(index + 1), "writeC");
+        switch (outputLang) {
+            case Analyzer.JAVA:
+                dir = tmapPath.replace(tmapPath.substring(index + 1), "writeJava");
+                break;
+            case Analyzer.C:
+                dir = tmapPath.replace(tmapPath.substring(index + 1), "writeC");
+                break;
         }
         return dir;
     }
