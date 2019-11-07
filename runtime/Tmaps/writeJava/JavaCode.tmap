@@ -25,14 +25,81 @@
 }
 
 "rule_block_items" -> {
-    ? rule("rule_var_decl", "VAR_DECL")
+    ? rule("rule_var_decl", current_node)
 }
 
 "rule_var_decl" -> {
     if (last_child == :"NAME"){
         "TYPE".last,
         "NAME".last
-    } 
+    } else {
+        "TYPE".last,
+        rule("rule_assignment_statement", "ASSIGNMENT_STATEMENT")
+    },
+    new_leaf(";")
+}
+
+"rule_assignment_statement" -> {
+    rule("rule_assign_operator", "ASSIGN_OPERATOR")
+}
+
+"rule_assign_operator" -> {
+    child(1).last,
+    if (child(2) == :"SEPARATOR"){
+        new_leaf("["),
+        ? "CONST".child,
+        new_leaf("]")
+    },
+    first_child.last,
+    if (last_child == :"VALUE") {
+        rule("rule_value", last_child)
+    } else {
+        if (last_child == :"CONST"){
+            "CONST".child
+        },
+        if (last_child == :"SEPARATOR"){
+            new_leaf("{"),
+            ? rule("rule_list_value", children("VALUE")),
+            new_leaf("}")
+        },
+        if (last_child == :"FUNCTION_CALL"){
+            last_child."NAME".child,
+            new_leaf("("),
+            ? rule("rule_argmn_list", last_child."ARGUMENT_LIST"),
+            new_leaf(")")
+        }
+    }
+}
+
+"rule_argmn_list" -> {
+    rule("rule_arg", children)
+}
+
+"rule_arg" -> {
+    ? rule("rule_expression", current_node)
+}
+
+"rule_expression" -> {
+    ? rule("rule_instantiates", "INSTANTIATES"),
+    ? rule("rule_operator", "OPERATOR"),
+    if (first_child == :"CONST"){
+        "CONST".child
+    },
+    if (last_child == :"SEPARATOR"){
+        new_leaf("{"),
+        ? rule("rule_list_value", children("VALUE")),
+        new_leaf("}")
+    },
+    if (last_child == :"FUNCTION_CALL"){
+        last_child."NAME".child,
+        new_leaf("("),
+        ? rule("rule_argmn_list", last_child."ARGUMENT_LIST"),
+        new_leaf(")")
+    }
+}
+
+"rule_operator" -> {
+    
 }
 
 "rule_parameter" -> {

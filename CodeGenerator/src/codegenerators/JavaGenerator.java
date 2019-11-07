@@ -47,6 +47,7 @@ public class JavaGenerator {
             PrintWriter curFile = new PrintWriter(new FileOutputStream(file), true);
             String tmapCode = BIB.getTmapCodeFromFile(auxTmapsDir, "JavaCode.tmap");
             List<Node<TokenAttributes>> nodes = BIB.tmapCompleteCodeCall(tmapCode, "\"rule_concrete_unit\"", node.getChildren().get(0).getChildren().get(0));
+            correctList(nodes);
             nodes.forEach((t) -> {
                 curFile.printf(" " + t.getNodeData().getText() + " ");
             });
@@ -57,4 +58,13 @@ public class JavaGenerator {
         return false;
     }
 
+    // remove some items of the generated list
+    private void correctList(List<Node<TokenAttributes>> nodes) {
+        for (int c = 0; c < nodes.size(); c++) {
+            // end of a array instantiation
+            if (nodes.get(c).getNodeData().getText().equals(",") && nodes.get(c + 1).getNodeData().getText().equals("}")) {
+                nodes.remove(c);
+            }
+        }
+    }
 }

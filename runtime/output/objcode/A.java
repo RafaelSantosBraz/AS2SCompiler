@@ -1,1 +1,13 @@
- public class  A  {  public  static  int  a  ;  public  static  int  b  =  0  ;  public  static  int  [  ]  c  =  new  int  [  2  ]  ;  public  static  int  [  ]  d  =  {  2  ,  4  ,  }  ;  public  static  int  [  ]  e  =  {  1  ,  2  ,  }  ;  public  static  int  factorial  (  int  num  )  {  }  public  static  void  main  (  String  [  ]  args  )  {  }  } 
+public class A {
+    public static int a;
+    public static int b = 0;
+    public static int[] c = new int[2];
+    public static int[] d = { 2, 4 };
+    public static int[] e = { 1, 2 };
+
+    public static int factorial(int num) {
+        int fat = 1;
+    }
+
+    public  static  void  main  (  String  [  ]  args  )  {  char  vet  [  ]  =  {  'a'  ,  'b'  ,  'c'  ,  'd'  ,  'e'  ,  'f'  }  ;  int  c  [  ]  =  new  int  [  2  ]  ;  int  i  =  factorial  (  2  )  ;  int  j  ;  int  w  =  ;  char  z  =  {  }  ;  }
+}
