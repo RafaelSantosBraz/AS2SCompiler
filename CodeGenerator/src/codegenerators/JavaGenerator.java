@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import trees.cstecst.TokenAttributes;
 import trees.cstecst.UniversalToken;
@@ -124,6 +125,27 @@ public class JavaGenerator extends TreeVisitor<Object> {
 
     public Object actionFUNCTION_DECL(Node<TokenAttributes> node) {
         List<String> res = new ArrayList<>();
+        res.addAll(stringifyChildren(node.getChildren().get(0)));
+        res.addAll(stringifyEachChildren(BIB.tmapOneRuleCodeCall("\"TYPE\".last , \"NAME\".last", node)));
+        res.add("(");
+        res.addAll((List<String>) visit(BIB.getChildByText(node.getChildren(), "FORMAL_PARAM_LIST")));
+        res.add(")");
+        res.addAll((List<String>) visit(BIB.getChildByText(node.getChildren(), "BLOCK_SCOPE")));
+        return res;
+    }
+
+    
+    public Object actionFORMAL_PARAM_LIST(Node<TokenAttributes> node) {
+        List<String> res = new ArrayList<>();
+
+        return res;
+    }
+
+    public Object actionBLOCK_SCOPE(Node<TokenAttributes> node) {
+        List<String> res = new ArrayList<>();
+        res.add("{");
+        
+        res.add("}");
         return res;
     }
 
@@ -186,4 +208,11 @@ public class JavaGenerator extends TreeVisitor<Object> {
         return res;
     }
 
+    /*
+    public Object actionFORMAL_PARAM_LIST(Node<TokenAttributes> node) {
+        List<String> res = new ArrayList<>();
+        
+        return res;
+    }
+     */
 }

@@ -4,4 +4,10 @@ public class A {
     public static int c[] = new int[2];
     public static int d[] = { 2, 4 };
     public static int e[] = { 1, 2 };
+
+    public static int factorial() {
+    }
+
+    public static void main() {
+    }
 }
