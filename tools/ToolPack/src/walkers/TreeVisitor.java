@@ -6,6 +6,7 @@
 package walkers;
 
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.List;
 import trees.cstecst.TokenAttributes;
 import trees.simpletree.Node;
@@ -36,8 +37,8 @@ public abstract class TreeVisitor<T> {
     private T callSpecializedAction(Node<TokenAttributes> node) {
         try {
             Method method = this.getClass().getDeclaredMethod(getMethodAppropriateName(node), node.getClass());
-            return (T) method.invoke(this, node);
-        } catch (Exception e) {
+            return (T) method.invoke(this, node);            
+        } catch (Exception e) {            
             List<Node<TokenAttributes>> children = node.getChildren();
             if (children == null || children.isEmpty()) {
                 return defaultTermAction(node);

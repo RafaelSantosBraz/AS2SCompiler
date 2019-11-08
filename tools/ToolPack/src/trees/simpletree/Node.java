@@ -80,5 +80,5 @@ public class Node<T> {
         newNode.setChildren(children);
         newNode.setNodeData(nodeData);
         return newNode;
-    }
+    }    
 }

@@ -68,7 +68,8 @@ public class Translator {
         if (outputLang.equals(Analyzer.C)) {
             return true;
         } else if (outputLang.equals(Analyzer.JAVA)) {
-            return new JavaGenerator(objCodePath, auxTmapsDir).start(conv.getTree());
+            new JavaGenerator(objCodePath, auxTmapsDir).startWalking(conv.getTree());
+            return true;
         }
         return false;
     }
