@@ -5,9 +5,7 @@ public class A {
     public static int d[] = { 2, 4 };
     public static int e[] = { 1, 2 };
 
-    public static int factorial() {
-    }
+    public  static  int  factorial  (  int  num  )  {  int  fat  =  1  ;  num  1  {  fat  *=  num  --  ;  ;  }  fat  }
 
-    public static void main() {
-    }
+    public  static  void  main  (  String  []  args  )  {  char  vet  [  ]  =  {  'a'  ,  'b'  ,  'c'  ,  'd'  ,  'e'  ,  'f'  }  ;  int  c  [  ]  =  new  int  [  2  ]  ;  int  i  =  factorial  (  2  )  ;  int  j  ;  int  w  =  2  2  ;  char  ;  }
 }

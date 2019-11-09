@@ -57,7 +57,7 @@ public class JavaGenerator extends TreeVisitor<Object> {
         List<String> res = new ArrayList<>();
         res.add(String.format("public class %s {", node.getChildren().get(0).getChildren().get(0).getNodeData().getText()));
         List<String> body = (List<String>) visitChildren(node.getChildren());
-        //body.remove(0);
+        body.remove(0);
         res.addAll(body);
         res.add("}");
         return res;
@@ -134,31 +134,133 @@ public class JavaGenerator extends TreeVisitor<Object> {
         return res;
     }
 
-    
     public Object actionFORMAL_PARAM_LIST(Node<TokenAttributes> node) {
         List<String> res = new ArrayList<>();
+        List<Node<TokenAttributes>> children = node.getChildren();
+        children.forEach((t) -> {
+            res.addAll((List<String>) visit(t));
+            res.add(",");
+        });
+        if (res.get(res.size() - 1).equals(",")) {
+            res.remove(res.size() - 1);
+        }
+        return res;
+    }
 
+    public Object actionPARAMETER_DECL(Node<TokenAttributes> node) {
+        List<String> res = new ArrayList<>();
+        res.addAll(stringifyEachChildren(BIB.tmapOneRuleCodeCall("\"TYPE\".last , \"NAME\".last", node)));
+        Node<TokenAttributes> sep = BIB.getChildByText(node.getChildren(), "SEPARATOR");
+        if (sep != null) {
+            res.add(1, "[]");
+        }
         return res;
     }
 
     public Object actionBLOCK_SCOPE(Node<TokenAttributes> node) {
         List<String> res = new ArrayList<>();
         res.add("{");
-        
+        res.addAll((List<String>) visitChildren(node.getChildren()));
         res.add("}");
         return res;
     }
 
-    // remove some items of the generated list
-    private void correctList(List<Node<TokenAttributes>> nodes) {
-        for (int c = 0; c < nodes.size(); c++) {
-            // end of a array instantiation
-            if (nodes.get(c).getNodeData().getText().equals(",") && nodes.get(c + 1).getNodeData().getText().equals("}")) {
-                nodes.remove(c);
-            }
+    public Object actionVAR_DECL(Node<TokenAttributes> node) {
+        List<String> res = new ArrayList<>();
+        List<String> ss = stringifyChildren(node);
+        if (ss.get(ss.size() - 1).equals("NAME")) {
+            res.addAll(stringifyEachChildren(BIB.tmapOneRuleCodeCall("\"TYPE\".last , \"NAME\".last", node)));
+            res.add(";");
+        } else {
+            res.addAll(stringifyEachChildren(BIB.tmapOneRuleCodeCall("\"TYPE\".last", node)));
+            res.addAll((List<String>) visit(BIB.getChildByText(node.getChildren(), "ASSIGNMENT_STATEMENT")));
         }
+        return res;
     }
 
+    public Object actionASSIGNMENT_STATEMENT(Node<TokenAttributes> node) {
+        List<String> res = new ArrayList<>();
+        res.addAll((List<String>) visitChildren(node.getChildren()));
+        res.add(";");
+        return res;
+    }
+
+    public Object actionASSIGN_OPERATOR(Node<TokenAttributes> node) {
+        List<String> res = new ArrayList<>();
+        List<String> ss = stringifyChildren(node);
+        switch (ss.size()) {
+            case 2:
+                if ((ss.contains("++") || ss.contains("--")) && ss.contains("NAME")) {
+                    if (ss.get(0).equals("NAME")) {
+                        res.addAll(stringifyEachChildren(BIB.tmapOneRuleCodeCall("\"NAME\".last", node)));
+                        res.add(ss.get(1));
+                    } else {
+                        res.add(ss.get(0));
+                        res.addAll(stringifyEachChildren(BIB.tmapOneRuleCodeCall("\"NAME\".last", node)));
+                    }
+                }
+                break;
+            case 3:
+                res.addAll((List<String>) visit(node.getChildren().get(1)));
+                res.add(ss.get(0));
+                res.addAll((List<String>) visit(node.getChildren().get(2)));
+                break;
+            default:
+                if (ss.contains("[") && ss.contains("{")) {
+                    res.addAll(stringifyEachChildren(BIB.tmapOneRuleCodeCall("\"NAME\".last", node)));
+                    res.add("[");
+                    int index = ss.indexOf("[");
+                    if (!ss.get(index + 1).equals("]")) {
+                        res.addAll((List<String>) visit(node.getChildren().get(index + 1)));
+                    }
+                    res.add("]");
+                    res.add(ss.get(0));
+                    res.add("{");
+                    List<Node<TokenAttributes>> children = node.getChildren();
+                    children.forEach((t) -> {
+                        if (getText(t).equals("VALUE")) {
+                            res.addAll((List<String>) visit(t));
+                            res.add(",");
+                        }
+                    });
+                    if (res.get(res.size() - 1).equals(",")) {
+                        res.remove(res.size() - 1);
+                    }
+                    res.add("}");
+                } else if (ss.contains("[") && ss.contains("VALUE")) {
+                    res.addAll(stringifyEachChildren(BIB.tmapOneRuleCodeCall("\"NAME\".last", node)));
+                    res.add("[");
+                    int index = ss.indexOf("[");
+                    if (!ss.get(index + 1).equals("]")) {
+                        res.addAll((List<String>) visit(node.getChildren().get(index + 1)));
+                    }
+                    res.add("]");
+                    res.add(ss.get(0));
+                    res.addAll((List<String>) visit(node.getChildren().get(ss.indexOf("VALUE"))));
+                }
+        }
+        return res;
+    }
+
+    public Object actionNAME(Node<TokenAttributes> node) {
+        List<String> res = new ArrayList<>();
+        res.addAll(stringifyEachChildren(BIB.tmapOneRuleCodeCall("last", node)));
+        return res;
+    }
+
+    public Object actionFUNCTION_CALL(Node<TokenAttributes> node) {
+        List<String> res = new ArrayList<>();
+        res.addAll((List<String>) visit(node.getChildren().get(0)));
+        res.add("(");
+        res.addAll((List<String>) visit(node.getChildren().get(1)));
+        res.add(")");
+        return res;
+    }
+
+    public Object actionARGUMENT_LIST(Node<TokenAttributes> node) {
+        return actionFORMAL_PARAM_LIST(node);
+    }
+    
     // returns a list of strings from the given node's children
     private List<String> stringifyEachChildren(List<Node<TokenAttributes>> nodes) {
         Node<TokenAttributes> parent = new Node<>(new UniversalToken("aux", -1));
