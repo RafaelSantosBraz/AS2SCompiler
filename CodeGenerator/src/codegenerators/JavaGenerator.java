@@ -48,18 +48,19 @@ public class JavaGenerator extends CodeGenerator {
 
     public Object actionCONCRETE_UNIT_DECL(Node<TokenAttributes> node) {
         List<String> res = new ArrayList<>();
-        res.add(String.format("public class %s {", node.getChildren().get(0).getChildren().get(0).getNodeData().getText()));
+        res.add(String.format("public class %s {", getText(node.getChildren().get(0).getChildren().get(0))));
         List<String> body = (List<String>) visitChildren(node.getChildren());
         body.remove(0);
         res.addAll(body);
-        res.add("}");                
+        res.add("}");
         return res;
     }
 
     public Object actionATTRIBUTE_DECL(Node<TokenAttributes> node) {
         ArrayList<String> res = new ArrayList<>();
         res.addAll(stringifyChildren(node.getChildren().get(0)));
-        res.addAll(stringifyEachChildren(BIB.tmapOneRuleCodeCall("\"TYPE\".last , \"NAME\".last", node)));
+        res.addAll(stringifyEachChildren(BIB.tmapOneRuleCodeCall("\"TYPE\".last", node)));
+        res.addAll((List<String>) visit(BIB.getChildByText(node.getChildren(), "NAME")));
         List<String> items = stringifyChildren(node);
         if (items.contains("[")) {
             res.add("[]");
@@ -119,7 +120,8 @@ public class JavaGenerator extends CodeGenerator {
     public Object actionFUNCTION_DECL(Node<TokenAttributes> node) {
         List<String> res = new ArrayList<>();
         res.addAll(stringifyChildren(node.getChildren().get(0)));
-        res.addAll(stringifyEachChildren(BIB.tmapOneRuleCodeCall("\"TYPE\".last , \"NAME\".last", node)));
+        res.addAll(stringifyEachChildren(BIB.tmapOneRuleCodeCall("\"TYPE\".last", node)));
+        res.addAll((List<String>) visit(BIB.getChildByText(node.getChildren(), "NAME")));
         res.add("(");
         res.addAll((List<String>) visit(BIB.getChildByText(node.getChildren(), "FORMAL_PARAM_LIST")));
         res.add(")");
@@ -142,7 +144,8 @@ public class JavaGenerator extends CodeGenerator {
 
     public Object actionPARAMETER_DECL(Node<TokenAttributes> node) {
         List<String> res = new ArrayList<>();
-        res.addAll(stringifyEachChildren(BIB.tmapOneRuleCodeCall("\"TYPE\".last , \"NAME\".last", node)));
+        res.addAll(stringifyEachChildren(BIB.tmapOneRuleCodeCall("\"TYPE\".last", node)));
+        res.addAll((List<String>) visit(BIB.getChildByText(node.getChildren(), "NAME")));
         Node<TokenAttributes> sep = BIB.getChildByText(node.getChildren(), "SEPARATOR");
         if (sep != null) {
             res.add(1, "[]");
@@ -162,7 +165,8 @@ public class JavaGenerator extends CodeGenerator {
         List<String> res = new ArrayList<>();
         List<String> ss = stringifyChildren(node);
         if (ss.get(ss.size() - 1).equals("NAME")) {
-            res.addAll(stringifyEachChildren(BIB.tmapOneRuleCodeCall("\"TYPE\".last , \"NAME\".last", node)));
+            res.addAll(stringifyEachChildren(BIB.tmapOneRuleCodeCall("\"TYPE\".last", node)));
+            res.addAll((List<String>) visit(BIB.getChildByText(node.getChildren(), "NAME")));
             res.add(";");
         } else {
             res.addAll(stringifyEachChildren(BIB.tmapOneRuleCodeCall("\"TYPE\".last", node)));
@@ -185,11 +189,11 @@ public class JavaGenerator extends CodeGenerator {
             case 2:
                 if ((ss.contains("++") || ss.contains("--")) && ss.contains("NAME")) {
                     if (ss.get(0).equals("NAME")) {
-                        res.addAll(stringifyEachChildren(BIB.tmapOneRuleCodeCall("\"NAME\".last", node)));
+                        res.addAll((List<String>) visit(BIB.getChildByText(node.getChildren(), "NAME")));
                         res.add(ss.get(1));
                     } else {
                         res.add(ss.get(0));
-                        res.addAll(stringifyEachChildren(BIB.tmapOneRuleCodeCall("\"NAME\".last", node)));
+                        res.addAll((List<String>) visit(BIB.getChildByText(node.getChildren(), "NAME")));
                     }
                 }
                 break;
@@ -200,7 +204,7 @@ public class JavaGenerator extends CodeGenerator {
                 break;
             default:
                 if (ss.contains("[") && ss.contains("{")) {
-                    res.addAll(stringifyEachChildren(BIB.tmapOneRuleCodeCall("\"NAME\".last", node)));
+                    res.addAll((List<String>) visit(BIB.getChildByText(node.getChildren(), "NAME")));
                     res.add("[");
                     int index = ss.indexOf("[");
                     if (!ss.get(index + 1).equals("]")) {
@@ -221,7 +225,7 @@ public class JavaGenerator extends CodeGenerator {
                     }
                     res.add("}");
                 } else if (ss.contains("[") && ss.contains("VALUE")) {
-                    res.addAll(stringifyEachChildren(BIB.tmapOneRuleCodeCall("\"NAME\".last", node)));
+                    res.addAll((List<String>) visit(BIB.getChildByText(node.getChildren(), "NAME")));
                     res.add("[");
                     int index = ss.indexOf("[");
                     if (!ss.get(index + 1).equals("]")) {
@@ -237,7 +241,14 @@ public class JavaGenerator extends CodeGenerator {
 
     public Object actionNAME(Node<TokenAttributes> node) {
         List<String> res = new ArrayList<>();
-        res.addAll(stringifyEachChildren(BIB.tmapOneRuleCodeCall("last", node)));
+        List<String> ss = stringifyChildren(node);
+        if (ss.size() == 1) {
+            res.addAll(stringifyEachChildren(BIB.tmapOneRuleCodeCall("last", node)));
+        } else {
+            res.addAll((List<String>) visit(node.getChildren().get(0)));
+            res.add(".");
+            res.addAll((List<String>) visit(node.getChildren().get(2)));
+        }
         return res;
     }
 
