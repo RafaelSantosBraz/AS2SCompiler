@@ -23,7 +23,7 @@ void select(char item[], int count)
                 exchange = 1;
             }
         }
-        if (exchange)
+        if (exchange != 0)
         {
             item[c] = item[a];
             item[a] = t;

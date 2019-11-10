@@ -1,20 +1,30 @@
 #include <stdio.h>
 
-void bubble(char item[], int count)
+void select(char item[], int count)
 {
     int a;
     int b;
+    int c;
+    int exchange;
     char t;
-    for (a = 1; a < count; ++a)
+    for (a = 0; a < count - 1; ++a)
     {
-        for (b = count - 1; b >= a; --b)
+        exchange = 0;
+        c = a;
+        t = item[a];
+        for (b = a + 1; b < count; ++b)
         {
-            if (item[b - 1] > item[b])
+            if (item[b] < t)
             {
-                t = item[b - 1];
-                item[b - 1] = item[b];
-                item[b] = t;
+                c = b;
+                t = item[b];
+                exchange = 1;
             }
+        }
+        if (exchange != 0)
+        {
+            item[c] = item[a];
+            item[a] = t;
         }
     }
 }

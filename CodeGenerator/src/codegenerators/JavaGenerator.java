@@ -35,7 +35,7 @@ public class JavaGenerator extends CodeGenerator {
             }
             file.createNewFile();
             PrintWriter curFile = new PrintWriter(new FileOutputStream(file), true);
-            List<String> words = (List<String>) visit(node.getChildren().get(0));
+            List<String> words = correctList((List<String>) visit(node.getChildren().get(0)));
             words.forEach((t) -> {
                 curFile.printf(" %s ", t);
             });
@@ -233,6 +233,10 @@ public class JavaGenerator extends CodeGenerator {
         return actionOPERATOR(node);
     }
 
+    public Object actionLOGICAL_OPERATOR(Node<TokenAttributes> node) {
+        return actionOPERATOR(node);
+    }
+
     public Object actionLOOP_STATEMENT(Node<TokenAttributes> node) {
         List<String> res = new ArrayList<>();
         //List<String> ss = stringifyChildren(node);
@@ -342,6 +346,16 @@ public class JavaGenerator extends CodeGenerator {
                                     res.addAll((List<String>) visit(node.getChildren().get(index + 1)));
                                 }
                                 res.add("]");
+                            } else {
+                                res.addAll((List<String>) visit(node.getChildren().get(index)));
+                                res.add("[");
+                                index = ss.indexOf("[");
+                                if (!ss.get(index + 1).equals("]")) {
+                                    res.addAll((List<String>) visit(node.getChildren().get(index + 1)));
+                                }
+                                res.add("]");
+                                res.add(ss.get(0));
+                                res.addAll((List<String>) visit(node.getChildren().get(node.getChildren().size() - 1)));
                             }
                         }
                     } else {
@@ -389,18 +403,11 @@ public class JavaGenerator extends CodeGenerator {
         res.add("(");
         res.addAll((List<String>) visit(node.getChildren().get(1)));
         res.add(")");
+        res.add(";");
         return res;
     }
 
     public Object actionARGUMENT_LIST(Node<TokenAttributes> node) {
         return actionFORMAL_PARAM_LIST(node);
     }
-
-    /*
-    public Object actionFORMAL_PARAM_LIST(Node<TokenAttributes> node) {
-        List<String> res = new ArrayList<>();
-        
-        return res;
-    }
-     */
 }
