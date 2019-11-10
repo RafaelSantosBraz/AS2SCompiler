@@ -178,8 +178,56 @@ public class JavaGenerator extends CodeGenerator {
     public Object actionASSIGNMENT_STATEMENT(Node<TokenAttributes> node) {
         List<String> res = new ArrayList<>();
         res.addAll((List<String>) visitChildren(node.getChildren()));
+        if (!res.get(res.size() - 1).equals(";")) {
+            res.add(";");
+        }
+        return res;
+    }
+
+    public Object actionJUMP_STATEMENT(Node<TokenAttributes> node) {
+        List<String> res = new ArrayList<>();
+        List<String> ss = stringifyChildren(node);
+        res.add(getText(BIB.tmapOneRuleCodeCall("\"KEYWORD\".last", node).get(0)));
+        if (ss.size() != 1) {
+            res.addAll((List<String>) visit(node.getChildren().get(1)));
+        }
         res.add(";");
         return res;
+    }
+
+    public Object actionCONDITION(Node<TokenAttributes> node) {
+        List<String> res = new ArrayList<>();
+        res.add("(");
+        res.addAll((List<String>) visitChildren(node.getChildren()));
+        res.add(")");
+        return res;
+    }
+
+    public Object actionCOMPARISON_OPERATOR(Node<TokenAttributes> node) {
+        return actionOPERATOR(node);
+    }
+
+    public Object actionLOOP_STATEMENT(Node<TokenAttributes> node) {
+        List<String> res = new ArrayList<>();
+        List<String> ss = stringifyChildren(node);
+        switch (getText(BIB.tmapOneRuleCodeCall("\"KEYWORD\".last", node).get(0))) {
+            case "while":
+                res.add("while");
+                res.addAll((List<String>) visit(BIB.getChildByText(node.getChildren(), "CONDITION")));
+                res.addAll((List<String>) visit(BIB.getChildByText(node.getChildren(), "BLOCK_SCOPE")));
+                break;
+            case "for":
+
+                break;
+            case "do":
+
+                break;
+        }
+        return res;
+    }
+
+    public Object actionOPERATOR(Node<TokenAttributes> node) {
+        return actionASSIGN_OPERATOR(node);
     }
 
     public Object actionASSIGN_OPERATOR(Node<TokenAttributes> node) {
@@ -203,37 +251,56 @@ public class JavaGenerator extends CodeGenerator {
                 res.addAll((List<String>) visit(node.getChildren().get(2)));
                 break;
             default:
-                if (ss.contains("[") && ss.contains("{")) {
-                    res.addAll((List<String>) visit(BIB.getChildByText(node.getChildren(), "NAME")));
-                    res.add("[");
-                    int index = ss.indexOf("[");
-                    if (!ss.get(index + 1).equals("]")) {
-                        res.addAll((List<String>) visit(node.getChildren().get(index + 1)));
-                    }
-                    res.add("]");
-                    res.add(ss.get(0));
-                    res.add("{");
-                    List<Node<TokenAttributes>> children = node.getChildren();
-                    children.forEach((t) -> {
-                        if (getText(t).equals("VALUE")) {
-                            res.addAll((List<String>) visit(t));
-                            res.add(",");
+                if (ss.indexOf("[") != -1) {
+                    if (ss.indexOf("[") == ss.lastIndexOf("[")) {
+                        if (ss.contains("{")) {
+                            res.addAll((List<String>) visit(BIB.getChildByText(node.getChildren(), "NAME")));
+                            res.add("[");
+                            int index = ss.indexOf("[");
+                            if (!ss.get(index + 1).equals("]")) {
+                                res.addAll((List<String>) visit(node.getChildren().get(index + 1)));
+                            }
+                            res.add("]");
+                            res.add(ss.get(0));
+                            res.add("{");
+                            List<Node<TokenAttributes>> children = node.getChildren();
+                            children.forEach((t) -> {
+                                if (getText(t).equals("VALUE")) {
+                                    res.addAll((List<String>) visit(t));
+                                    res.add(",");
+                                }
+                            });
+                            if (res.get(res.size() - 1).equals(",")) {
+                                res.remove(res.size() - 1);
+                            }
+                            res.add("}");
+                        } else if (ss.contains("VALUE")) {
+                            res.addAll((List<String>) visit(BIB.getChildByText(node.getChildren(), "NAME")));
+                            res.add("[");
+                            int index = ss.indexOf("[");
+                            if (!ss.get(index + 1).equals("]")) {
+                                res.addAll((List<String>) visit(node.getChildren().get(index + 1)));
+                            }
+                            res.add("]");
+                            res.add(ss.get(0));
+                            res.addAll((List<String>) visit(node.getChildren().get(ss.indexOf("VALUE"))));
+                        } else {
+                            int index = ss.indexOf("NAME");
+                            if (ss.get(index + 1).equals("NAME")) {
+                                res.addAll((List<String>) visit(node.getChildren().get(index)));
+                                res.add(ss.get(0));
+                                res.addAll((List<String>) visit(node.getChildren().get(index + 1)));
+                                res.add("[");
+                                index = ss.indexOf("[");
+                                if (!ss.get(index + 1).equals("]")) {
+                                    res.addAll((List<String>) visit(node.getChildren().get(index + 1)));
+                                }
+                                res.add("]");
+                            }
                         }
-                    });
-                    if (res.get(res.size() - 1).equals(",")) {
-                        res.remove(res.size() - 1);
+                    } else {
+
                     }
-                    res.add("}");
-                } else if (ss.contains("[") && ss.contains("VALUE")) {
-                    res.addAll((List<String>) visit(BIB.getChildByText(node.getChildren(), "NAME")));
-                    res.add("[");
-                    int index = ss.indexOf("[");
-                    if (!ss.get(index + 1).equals("]")) {
-                        res.addAll((List<String>) visit(node.getChildren().get(index + 1)));
-                    }
-                    res.add("]");
-                    res.add(ss.get(0));
-                    res.addAll((List<String>) visit(node.getChildren().get(ss.indexOf("VALUE"))));
                 }
         }
         return res;

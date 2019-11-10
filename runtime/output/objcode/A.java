@@ -1,11 +1,18 @@
 public class A {
-    public static int a;
-    public static int b = 0;
-    public static int c[] = new int[2];
-    public static int d[] = { 2, 4 };
-    public static int e[] = { 1, 2 };
-
-    public  static  int  factorial  (  int  num  )  {  int  fat  =  1  ;  num  1  {  fat  *=  num  --  ;  ;  }  fat  }
-
-    public  static  void  main  (  String  []  args  )  {  char  vet  [  ]  =  {  'a'  ,  'b'  ,  'c'  ,  'd'  ,  'e'  ,  'f'  }  ;  int  c  [  ]  =  new  int  [  2  ]  ;  int  i  =  factorial  (  2  )  ;  int  j  ;  int  w  =  2  2  ;  char  ;  }
+    public static int binary(char[] item, int count, char key) {
+        int low;
+        int high;
+        int mid;
+        low = 0;
+        high = count - 1;
+        while (low <= high) {
+            mid = low + high / 2;
+            {
+                {
+                    return mid;
+                }
+            }
+        }
+        return -1;
+    }
 }

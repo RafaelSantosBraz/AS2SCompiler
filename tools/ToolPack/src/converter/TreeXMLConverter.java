@@ -62,7 +62,7 @@ public class TreeXMLConverter {
                         int column = Integer.parseInt(elementNode.getAttribute("column"));
                         int index = Integer.parseInt(elementNode.getAttribute("index"));
                         int line = Integer.parseInt(elementNode.getAttribute("line"));
-                        String text = elementNode.getAttribute("text");
+                        String text = normalizeText(elementNode.getAttribute("text"));
                         int type = Integer.parseInt(elementNode.getAttribute("type"));
                         TokenAttributes tokenData;
                         if (column == TokenAttributes.ABSTRACT_NODE_COLUMN
@@ -84,6 +84,16 @@ public class TreeXMLConverter {
                 return;
             }
         }
+    }
+
+    private String normalizeText(String text) {
+        String res = text;
+        res = res.replace("&#60;", "<");
+        res = res.replace("&#62;", ">");
+        res = res.replace("&#38;", "&");
+        res = res.replace("&#39;", "'");
+        res = res.replace("&#34;", "\"");
+        return res;
     }
 
     public Tree<TokenAttributes> getTree() {

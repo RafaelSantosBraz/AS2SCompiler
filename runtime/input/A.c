@@ -1,25 +1,39 @@
 #include <stdio.h>
 
-int a;
-int b = 0;
-int c[2];
-int d[] = {2,4};
-int e[2] = {1,2};
-
-int factorial(int num)
+int binary(char item[], int count, char key)
 {
-    int fat = 1;
-    while (num > 1)
+    int low;
+    int high;
+    int mid;
+    low = 0;
+    high = count - 1;
+    while (low <= high)
     {
-        fat *= num--;
+        mid = (low + high) / 2;
+        if (key < item[mid])
+        {
+            high = mid - 1;
+        }
+        else
+        {
+            if (key > item[mid])
+            {
+                low = mid + 1;
+            }
+            else
+            {
+                return mid;
+            }
+        }
     }
-    return fat;
+    return -1;
 }
 
+/*
 void main()
 {
-    char vet[] = {'a', 'b', 'c', 'd', 'e', 'f'};
-    int c[2];
+    //char vet[] = {'a', 'b', 'c', 'd', 'e', 'f'};
+    //int c[2];
     int i = factorial(2);
     int j;
     int w = 2 + 2;
@@ -29,3 +43,4 @@ void main()
     //printf("%d\n", factorial(15));
     //printf("%c\n", vet[p]);
 }
+*/
