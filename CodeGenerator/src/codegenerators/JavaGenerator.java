@@ -6,47 +6,40 @@
 package codegenerators;
 
 import auxtools.BIB;
+import generators.CodeGenerator;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import trees.cstecst.TokenAttributes;
-import trees.cstecst.UniversalToken;
 import trees.simpletree.Node;
-import walkers.TreeVisitor;
 
 /**
  * aims to translate adapted eCST into an Object Code (Java code)
  *
  * @author Rafael Braz
  */
-public class JavaGenerator extends TreeVisitor<Object> {
-
-    private final String auxTmapsDir; // path to all files of partial/complete tmap code    
-    private final String outputPath;
+public class JavaGenerator extends CodeGenerator {
 
     public JavaGenerator(String outputPath, String auxTmapsDir) {
-        this.outputPath = outputPath;
-        this.auxTmapsDir = auxTmapsDir;
+        super(outputPath, auxTmapsDir);
     }
 
     public Object actionCOMPILATION_UNIT(Node<TokenAttributes> node) {
-        String name = BIB.tmapOneRuleCodeCall("\"PACKAGE_DECL\".\"CONCRETE_UNIT_DECL\".\"NAME\".child", node).get(0).getNodeData().getText();
+        String name = getText(BIB.tmapOneRuleCodeCall("\"PACKAGE_DECL\".\"CONCRETE_UNIT_DECL\".\"NAME\".child", node).get(0));
         try {
             File file = new File(outputPath + File.separator + name + ".java");
-            System.out.println(file.getPath());
             if (file.exists()) {
                 file.delete();
             }
             file.createNewFile();
             PrintWriter curFile = new PrintWriter(new FileOutputStream(file), true);
             List<String> words = (List<String>) visit(node.getChildren().get(0));
-            // correct
             words.forEach((t) -> {
                 curFile.printf(" %s ", t);
             });
+            System.out.println("Object Code: " + file.getPath());
         } catch (Exception e) {
             System.err.println("Error: it was not possible to create files for the Object Code");
         }
@@ -59,7 +52,7 @@ public class JavaGenerator extends TreeVisitor<Object> {
         List<String> body = (List<String>) visitChildren(node.getChildren());
         body.remove(0);
         res.addAll(body);
-        res.add("}");
+        res.add("}");                
         return res;
     }
 
@@ -259,55 +252,6 @@ public class JavaGenerator extends TreeVisitor<Object> {
 
     public Object actionARGUMENT_LIST(Node<TokenAttributes> node) {
         return actionFORMAL_PARAM_LIST(node);
-    }
-    
-    // returns a list of strings from the given node's children
-    private List<String> stringifyEachChildren(List<Node<TokenAttributes>> nodes) {
-        Node<TokenAttributes> parent = new Node<>(new UniversalToken("aux", -1));
-        parent.setChildren(nodes);
-        return stringifyChildren(parent);
-    }
-
-    // returns a list of strings from the given node's children
-    private List<String> stringifyChildren(Node<TokenAttributes> node) {
-        List<String> fy = new ArrayList<>();
-        List<Node<TokenAttributes>> children = node.getChildren();
-        for (int c = 0; c < children.size(); c++) {
-            Node<TokenAttributes> n = children.get(c);
-            String txt = getText(n);
-            if (txt.equals("OPERATOR") && stringifyChildren(n).size() == 1) {
-                fy.add(stringifyChildren(n).get(0));
-            } else if (txt.equals("SEPARATOR") && stringifyChildren(n).size() == 1) {
-                fy.add(stringifyChildren(n).get(0));
-            } else {
-                fy.add(getText(n));
-            }
-        }
-        return fy;
-    }
-
-    // returns the text of the node
-    private String getText(Node<TokenAttributes> node) {
-        return node.getNodeData().getText();
-    }
-
-    @Override
-    // aggregate the results os all the children nodes (two at a time)
-    protected Object aggregateResult(Object aggregate, Object nextResult) {
-        //System.out.println(aggregate + " " + nextResult);
-        if (aggregate == null && nextResult == null) {
-            return null;
-        }
-        if (nextResult == null) {
-            return aggregate;
-        }
-        if (aggregate == null) {
-            return nextResult;
-        }
-        List<String> res = new ArrayList<>();
-        res.addAll((List<String>) aggregate);
-        res.addAll((List<String>) nextResult);
-        return res;
     }
 
     /*
