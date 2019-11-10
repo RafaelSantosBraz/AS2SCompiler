@@ -116,24 +116,27 @@
                         new_leaf("}")
                     }
                 }                
+            },
+            if (current_node == :"IfElseStament"){
+                "BRANCH" = {
+                    "KEYWORD" = {
+                        new_leaf("else")
+                    },                    
+                    "BLOCK_SCOPE" = {
+                        "SEPARATOR" = {
+                            new_leaf("{")
+                        },
+                        ? rule("rule_statement", child(6)),
+                        "SEPARATOR" = {
+                            new_leaf("}")
+                        }
+                    }                
+                }
             }
         }
     },
     if (first_child == :"IfElseStament"){
-        "BRANCH" = {
-            "KEYWORD" = {
-                new_leaf("else")
-            },                    
-            "BLOCK_SCOPE" = {
-                "SEPARATOR" = {
-                    new_leaf("{")
-                },
-                ? rule("rule_statement", "IfElseStament".last_child),
-                "SEPARATOR" = {
-                    new_leaf("}")
-                }
-            }                
-        }
+        rule("rule_selection_statment", "IfElseStament")
     }
 }
 

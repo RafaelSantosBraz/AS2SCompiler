@@ -1,32 +1,22 @@
 #include <stdio.h>
 
-int binary(char item[], int count, char key)
+void bubble(char item[], int count)
 {
-    int low;
-    int high;
-    int mid;
-    low = 0;
-    high = count - 1;
-    while (low <= high)
+    int a;
+    int b;
+    char t;
+    for (a = 1; a < count; ++a)
     {
-        mid = (low + high) / 2;
-        if (key < item[mid])
+        for (b = count - 1; b >= a; --b)
         {
-            high = mid - 1;
-        }
-        else
-        {
-            if (key > item[mid])
+            if (item[b - 1] > item[b])
             {
-                low = mid + 1;
-            }
-            else
-            {
-                return mid;
+                t = item[b - 1];
+                item[b - 1] = item[b];
+                item[b] = t;
             }
         }
     }
-    return -1;
 }
 
 /*

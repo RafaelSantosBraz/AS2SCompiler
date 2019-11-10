@@ -1,18 +1,16 @@
 public class A {
-    public static int binary(char[] item, int count, char key) {
-        int low;
-        int high;
-        int mid;
-        low = 0;
-        high = count - 1;
-        while (low <= high) {
-            mid = low + high / 2;
-            {
-                {
-                    return mid;
+    public static void bubble(char[] item, int count) {
+        int a;
+        int b;
+        char t;
+        for (a = 1; ((a < count)); ++a) {
+            for (b = (count - 1); ((b >= a)); --b) {
+                if ((item[(b - 1)] > item[b])) {
+                    t = item[(b - 1)];
+                    item[(b - 1)] = item[b];
+                    item[b] = t;
                 }
             }
         }
-        return -1;
     }
 }

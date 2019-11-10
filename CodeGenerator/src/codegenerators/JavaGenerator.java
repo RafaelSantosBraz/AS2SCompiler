@@ -77,21 +77,32 @@ public class JavaGenerator extends CodeGenerator {
     public Object actionVALUE(Node<TokenAttributes> node) {
         List<String> res = new ArrayList<>();
         List<Node<TokenAttributes>> children = node.getChildren();
+        List<String> ss = stringifyChildren(node);
         if (children.size() == 1) {
             return visit(children.get(0));
         }
-        if (stringifyChildren(node).get(0).equals("{")) {
+        if (ss.get(0).equals("{")) {
             res.add("{");
-            for (Node<TokenAttributes> n : children) {
+            children.forEach((n) -> {
                 if (getText(n).equals("VALUE")) {
                     res.addAll((List<String>) visit(n));
                     res.add(",");
                 }
-            }
+            });
             if (res.get(res.size() - 1).equals(",")) {
                 res.remove(res.size() - 1);
             }
             res.add("}");
+        } else if (ss.contains("[")) {
+            res.addAll((List<String>) visit(node.getChildren().get(0)));
+            int index = ss.indexOf("[");
+            if (ss.get(index + 1).equals("]")) {
+                res.add("[]");
+            } else {
+                res.add("[");
+                res.addAll((List<String>) visit(node.getChildren().get(index + 1)));
+                res.add("]");
+            }
         }
         return res;
     }
@@ -203,13 +214,28 @@ public class JavaGenerator extends CodeGenerator {
         return res;
     }
 
+    public Object actionBRANCH(Node<TokenAttributes> node) {
+        List<String> res = new ArrayList<>();
+        switch (getText(BIB.tmapOneRuleCodeCall("\"KEYWORD\".last", node).get(0))) {
+            case "if":
+                res.add("if");
+                res.addAll((List<String>) visit(BIB.getChildByText(node.getChildren(), "CONDITION")));
+                break;
+            case "else":
+                res.add("else");
+                break;
+        }
+        res.addAll((List<String>) visit(BIB.getChildByText(node.getChildren(), "BLOCK_SCOPE")));
+        return res;
+    }
+
     public Object actionCOMPARISON_OPERATOR(Node<TokenAttributes> node) {
         return actionOPERATOR(node);
     }
 
     public Object actionLOOP_STATEMENT(Node<TokenAttributes> node) {
         List<String> res = new ArrayList<>();
-        List<String> ss = stringifyChildren(node);
+        //List<String> ss = stringifyChildren(node);
         switch (getText(BIB.tmapOneRuleCodeCall("\"KEYWORD\".last", node).get(0))) {
             case "while":
                 res.add("while");
@@ -217,17 +243,37 @@ public class JavaGenerator extends CodeGenerator {
                 res.addAll((List<String>) visit(BIB.getChildByText(node.getChildren(), "BLOCK_SCOPE")));
                 break;
             case "for":
-
+                res.add("for");
+                res.add("(");
+                res.addAll((List<String>) visit(BIB.getChildByText(node.getChildren(), "INIT")));
+                if (!res.get(res.size() - 1).equals(";")) {
+                    res.add(";");
+                }
+                res.addAll((List<String>) visit(BIB.getChildByText(node.getChildren(), "CONDITION")));
+                res.add(";");
+                res.addAll((List<String>) visit(BIB.getChildByText(node.getChildren(), "STEP")));
+                if (res.get(res.size() - 1).equals(";")) {
+                    res.remove(res.size() - 1);
+                }
+                res.add(")");
+                res.addAll((List<String>) visit(BIB.getChildByText(node.getChildren(), "BLOCK_SCOPE")));
                 break;
             case "do":
-
+                res.add("do");
+                res.addAll((List<String>) visit(BIB.getChildByText(node.getChildren(), "BLOCK_SCOPE")));
+                res.add("while");
+                res.addAll((List<String>) visit(BIB.getChildByText(node.getChildren(), "CONDITION")));
                 break;
         }
         return res;
     }
 
     public Object actionOPERATOR(Node<TokenAttributes> node) {
-        return actionASSIGN_OPERATOR(node);
+        List<String> res = new ArrayList<>();
+        res.add("(");
+        res.addAll((List<String>) actionASSIGN_OPERATOR(node));
+        res.add(")");
+        return res;
     }
 
     public Object actionASSIGN_OPERATOR(Node<TokenAttributes> node) {
@@ -299,7 +345,25 @@ public class JavaGenerator extends CodeGenerator {
                             }
                         }
                     } else {
-
+                        res.addAll((List<String>) visit(node.getChildren().get(1)));
+                        int index = ss.indexOf("[");
+                        if (ss.get(index + 1).equals("]")) {
+                            res.add("[]");
+                        } else {
+                            res.add("[");
+                            res.addAll((List<String>) visit(node.getChildren().get(index + 1)));
+                            res.add("]");
+                        }
+                        res.add(ss.get(0));
+                        index = ss.lastIndexOf("[");
+                        res.addAll((List<String>) visit(node.getChildren().get(index - 1)));
+                        if (ss.get(index + 1).equals("]")) {
+                            res.add("[]");
+                        } else {
+                            res.add("[");
+                            res.addAll((List<String>) visit(node.getChildren().get(index + 1)));
+                            res.add("]");
+                        }
                     }
                 }
         }
