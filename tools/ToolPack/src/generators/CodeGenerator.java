@@ -5,6 +5,9 @@
  */
 package generators;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import trees.cstecst.TokenAttributes;
@@ -76,6 +79,42 @@ public abstract class CodeGenerator extends TreeVisitor<Object> {
         return res;
     }
 
+    // remove ';' from wrong places
+    protected List<String> correctList(List<String> words) {
+        if (words != null) {
+            for (int c = 0; c < words.size() - 1; c++) {
+                if (words.get(c).equals(";")) {
+                    if (words.get(c + 1).equals(";")) {
+                        words.remove(c);
+                    } else if (words.get(c + 1).equals("]")) {
+                        words.remove(c);
+                    }
+                }
+            }
+        }
+        return words;
+    }
+
+    // encapsules the process of calling the visitor and writing the output on a file
+    protected Object writeToFile(String fileName, String fileExtension, Node<TokenAttributes> node) {
+        try {
+            File file = new File(outputPath + File.separator + fileName + fileExtension);
+            if (file.exists()) {
+                file.delete();
+            }
+            file.createNewFile();
+            PrintWriter curFile = new PrintWriter(new FileOutputStream(file), true);
+            List<String> words = correctList((List<String>) visit(node.getChildren().get(0)));
+            words.forEach((t) -> {
+                curFile.printf(" %s ", t);
+            });
+            System.out.println("Object Code: " + file.getPath());
+        } catch (Exception e) {
+            System.err.println("Error: it was not possible to create files for the Object Code");
+        }
+        return new ArrayList<>();
+    }
+
     public String getAuxTmapsDir() {
         return auxTmapsDir;
     }
@@ -84,16 +123,4 @@ public abstract class CodeGenerator extends TreeVisitor<Object> {
         return outputPath;
     }
 
-    protected List<String> correctList(List<String> words) {
-        for (int c = 0; c < words.size() - 1; c++) {
-            if (words.get(c).equals(";")) {
-                if (words.get(c + 1).equals(";")) {
-                    words.remove(c);
-                } else if (words.get(c + 1).equals("]")) {
-                    words.remove(c);
-                }
-            }
-        }
-        return words;
-    }
 }

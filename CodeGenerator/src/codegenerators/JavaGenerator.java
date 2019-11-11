@@ -28,22 +28,7 @@ public class JavaGenerator extends CodeGenerator {
 
     public Object actionCOMPILATION_UNIT(Node<TokenAttributes> node) {
         String name = getText(BIB.tmapOneRuleCodeCall("\"PACKAGE_DECL\".\"CONCRETE_UNIT_DECL\".\"NAME\".child", node).get(0));
-        try {
-            File file = new File(outputPath + File.separator + name + ".java");
-            if (file.exists()) {
-                file.delete();
-            }
-            file.createNewFile();
-            PrintWriter curFile = new PrintWriter(new FileOutputStream(file), true);
-            List<String> words = correctList((List<String>) visit(node.getChildren().get(0)));
-            words.forEach((t) -> {
-                curFile.printf(" %s ", t);
-            });
-            System.out.println("Object Code: " + file.getPath());
-        } catch (Exception e) {
-            System.err.println("Error: it was not possible to create files for the Object Code");
-        }
-        return new ArrayList<>();
+        return writeToFile(name, ".java", node);
     }
 
     public Object actionCONCRETE_UNIT_DECL(Node<TokenAttributes> node) {

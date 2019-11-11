@@ -7,7 +7,7 @@ public class A {
     }
 
     void macarroni(){
-        
+
     }
 
     public static void main(String[] args) {

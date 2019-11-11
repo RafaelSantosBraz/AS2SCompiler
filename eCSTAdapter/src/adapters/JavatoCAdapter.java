@@ -59,8 +59,8 @@ public class JavatoCAdapter extends ActionWalker {
 
     // removing modifiers
     public void actionMODIFIER_LIST(Node<TokenAttributes> node) {
-        //node.getChildren().clear();
-        BIB.removeChain(node);
+        node.getChildren().clear();
+        //BIB.removeChain(node);
     }
 
     // adapting function parameter list
@@ -70,6 +70,11 @@ public class JavatoCAdapter extends ActionWalker {
             addThisReference(parList);
             String name = BIB.getText(BIB.getChildByText(node.getChildren(), "NAME").getChildren().get(0));
             nonStaticFuncs.add(name);
+        } else {
+            String name = BIB.getText(BIB.getChildByText(node.getChildren(), "NAME").getChildren().get(0));
+            if (name.equals("main")) {
+                BIB.getChildByText(node.getChildren(), "FORMAL_PARAM_LIST").getChildren().clear();
+            }
         }
     }
 
@@ -96,9 +101,49 @@ public class JavatoCAdapter extends ActionWalker {
 
     // System.out.printf to printf
     public void actionFUNCTION_CALL(Node<TokenAttributes> node) {
-        
+        Node<TokenAttributes> nodeName = BIB.getChildByText(node.getChildren(), "NAME");
+        String name = rewriteName(nodeName);
+        if (!name.equals("System.out.printf") && !name.equals("System.out.println")) {
+            return;
+        }
+        if (name.equals("System.out.println")) {
+            System.err.println("Warning: Use 'System.out.printf' instead of 'System.out.println'!");
+        }
+        replacePrintf(nodeName);
     }
-    
+
+    // replace System.out.printf into printf
+    private void replacePrintf(Node<TokenAttributes> node) {
+        Node<TokenAttributes> printf = BIB.tmapOneRuleCodeCall("new_leaf(\"printf\")", node).get(0);
+        node.getChildren().clear();
+        printf.setParent(node);
+        node.getChildren().add(printf);
+    }
+
+    // returns a complex name (multiple nodes) as a String
+    private String rewriteName(Node<TokenAttributes> node) {
+        List<String> names = nameUnion(node);
+        String res = "";
+        for (String s : names) {
+            res += s;
+        }
+        return res;
+    }
+
+    // recursively computes a complex name
+    private List<String> nameUnion(Node<TokenAttributes> node) {
+        List<String> res = new ArrayList<>();
+        List<Node<TokenAttributes>> children = node.getChildren();
+        if (children.size() == 1) {
+            res.add(BIB.getText(children.get(0)));
+        } else if (children.size() == 3) {
+            res.addAll(nameUnion(children.get(0)));
+            res.add(".");
+            res.addAll(nameUnion(children.get(2)));
+        }
+        return res;
+    }
+
     // returns if the node contains a modifier list which has the static keyword
     private boolean isStatic(Node<TokenAttributes> node) {
         Node<TokenAttributes> mods = BIB.getChildByText(node.getChildren(), "MODIFIER_LIST");
@@ -117,8 +162,7 @@ public class JavatoCAdapter extends ActionWalker {
         Node<TokenAttributes> par = BIB.tmapOneRuleCodeCall(code, parList).get(0);
         par.setParent(parList);
         Node<TokenAttributes> thetype = BIB.searchDownFor(par, "$");
-        System.out.println("correct this!");
-        thetype.getNodeData().setText(curUnitName);        
+        thetype.getNodeData().setText(curUnitName);
         if (children.isEmpty()) {
             children.add(par);
         } else {
