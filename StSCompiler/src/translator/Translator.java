@@ -8,6 +8,7 @@ package translator;
 import adapters.CtoJavaAdapter;
 import adapters.JavatoCAdapter;
 import analyzer.Analyzer;
+import codegenerators.CGenerator;
 import codegenerators.JavaGenerator;
 import converter.DOTConverter;
 import converter.TreeXMLConverter;
@@ -45,7 +46,7 @@ public class Translator {
         if (inputLang.equals(Analyzer.C) && outputLang.equals(Analyzer.JAVA)) {
             adapter = new CtoJavaAdapter(auxTmapsDir);
         } else if (inputLang.equals(Analyzer.JAVA) && outputLang.equals(Analyzer.C)) {
-            adapter = new JavatoCAdapter();
+            adapter = new JavatoCAdapter(auxTmapsDir);
         }
         if (adapter == null) {
             return true;
@@ -66,6 +67,7 @@ public class Translator {
         int index = eCSTPath.lastIndexOf(File.separator);
         String objCodePath = eCSTPath.replace(eCSTPath.substring(index + 1), "objcode");
         if (outputLang.equals(Analyzer.C)) {
+            new CGenerator(objCodePath, auxTmapsDir).startWalking(conv.getTree());
             return true;
         } else if (outputLang.equals(Analyzer.JAVA)) {
             new JavaGenerator(objCodePath, auxTmapsDir).startWalking(conv.getTree());

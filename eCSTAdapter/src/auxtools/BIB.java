@@ -132,4 +132,8 @@ public class BIB {
         return null;
     }
 
+    // returns the text value of the given node
+    public static String getText(Node<TokenAttributes> node){
+        return node.getNodeData().getText();
+    }
 }

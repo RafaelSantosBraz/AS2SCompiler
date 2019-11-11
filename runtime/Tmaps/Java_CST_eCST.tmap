@@ -11,11 +11,8 @@
                 "PackageDeclaration"."PackageName".child
             },
             ? rule("rule_import_declaration", children("ImportDeclaration")),            
-            ? "CONCRETE_UNIT_DECL" = {
+            "CONCRETE_UNIT_DECL" = {
                 rule("rule_class_declaration", "TypeDeclaration"."ClassDeclaration"."NormalClassDeclaration")                
-            },
-            ? "INTERFACE_UNIT_DECL" = {
-                rule("rule_interface_declaration", "TypeDeclaration"."InterfaceDeclaration"."NormalInterfaceDeclaration")
             }
         }
     }
@@ -49,36 +46,12 @@
     }     
 }
 
-// if the file contains a Java Interface, this rule has to be called : receives "NormalInterfaceDeclaration"
-"rule_interface_declaration" -> {
-
-}
-
 // if the file contains a Class, call this rule : receives "NormalClassDeclaration"
 "rule_class_declaration" -> {
     "NAME" = {
         "ClassName".child
-    },
-    ? "EXTENDS" = {
-        "TYPE" = {
-            "NAME" = {
-                "Superclass"."ClassType".child
-            }
-        }
-    },
-    ? rule("rule_implements", "Superinterfaces"."InterfaceTypeList".children("InterfaceType")),
+    },        
     rule ("rule_class_body", "ClassBody")
-}
-
-// handle with multiple interface implementations : receives "InterfaceType"
-"rule_implements" -> {
-     "IMPLEMENTS" = {
-        "TYPE" = {
-            "NAME" = {
-                "ClassType".child
-            }
-        }
-    }
 }
 
 // handle with all types of declaration/structures in the class body : receives "ClassBody"
@@ -195,28 +168,48 @@
         "TYPE" = {   
             if ("UnannType".last == :"UnannArrayType"){
                 "NAME" = {
-                    rule("rule_string_array_exception", "UnannType".last)
+                    rule("rule_array_parameter", "UnannType".last)
                 }
             } else {
                 if ("UnannType".last.parent == :"UnannClassType_lfno_unannClassOrInterfaceType"){
                     "NAME" = {
-                        rule("rule_string_array_exception", "UnannType".last)
+                        rule("rule_array_parameter", "UnannType".last)
                     }
                 } else {                   
-                    rule("rule_string_array_exception", "UnannType".last)                    
+                    rule("rule_array_parameter", "UnannType".last)                    
                 }
             }                                      
         },
-        "NAME" = {
-            "VariableDeclaratorId".child
-        }    
+        if ("UnannType".last == :"UnannArrayType"){
+            "SEPARATOR" = {
+                new_leaf("[")
+            },
+            "SEPARATOR" = {
+                new_leaf("]")
+            }
+        },
+        if ("VariableDeclaratorId".last == :"VariableDeclaratorId"){
+            "NAME" = {
+                "VariableDeclaratorId".child(0)               
+            },
+             "SEPARATOR" = {
+                new_leaf("[")
+            },
+            "SEPARATOR" = {
+                new_leaf("]")
+            }
+        } else {
+            "NAME" = {
+                "VariableDeclaratorId".last
+            }   
+        } 
     }
 }
 
-// handle with a String[] for psvm method : receives "UnannType".last
-"rule_string_array_exception" -> {
+// handle with a array for a method : receives "UnannType".last
+"rule_array_parameter" -> {
     if (parent.child == :"UnannArrayType"){
-        "UnannClassOrInterfaceType".last
+        child(0).last      
     } else {
         current_node
     }    

@@ -18,11 +18,11 @@ public class Run {
      */
     public static void main(String[] args) {
         String[] params = new String[]{
-            "c",
             "java",
+            "c",
             "D:\\GitHub\\StS-Compilation-Framework\\runtime\\input",
             "D:\\GitHub\\StS-Compilation-Framework\\runtime\\output",
-            "D:\\GitHub\\StS-Compilation-Framework\\runtime\\Tmaps\\C_CST_eCST.tmap"
+            "D:\\GitHub\\StS-Compilation-Framework\\runtime\\Tmaps\\Java_CST_eCST.tmap"
         };
         ProcessControl.execute(params);
     }
