@@ -133,7 +133,23 @@ public class BIB {
     }
 
     // returns the text value of the given node
-    public static String getText(Node<TokenAttributes> node){
+    public static String getText(Node<TokenAttributes> node) {
         return node.getNodeData().getText();
+    }
+
+    // searchs for a node that has the given name
+    public static Node<TokenAttributes> searchDownFor(Node<TokenAttributes> node, String name) {
+        for (Node<TokenAttributes> n : node.getChildren()) {
+            if (getText(n).equals(name)) {
+                return n;
+            }
+        }
+        for (Node<TokenAttributes> n : node.getChildren()) {
+            Node<TokenAttributes> search = searchDownFor(n, name);
+            if (search != null) {
+                return search;
+            }
+        }
+        return null;
     }
 }

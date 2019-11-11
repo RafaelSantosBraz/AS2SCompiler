@@ -659,6 +659,7 @@
             "NAME" = {
                 rule("rule_import_name", "TypeName")
             },
+            new_leaf("."),
             "NAME" = {
                 "MethodNameComplex".child
             }
