@@ -20,7 +20,7 @@ import walkers.ActionWalker;
  * @author Rafael Braz
  */
 public class JavatoCAdapter extends ActionWalker {
-
+    
     private final String auxTmapsDir; // path to all files of partial/complete tmap code
     private String curUnitName; // current concrete unit name
     private final SymbolTable symbolTable; // Symbol Table of the important values/nodes of the tree
@@ -63,19 +63,23 @@ public class JavatoCAdapter extends ActionWalker {
         //BIB.removeChain(node);
     }
 
-    // adapting function parameter list
+    // adapting function parameter list and constructors
     public void actionFUNCTION_DECL(Node<TokenAttributes> node) {
-        if (!isStatic(node)) {
-            Node<TokenAttributes> parList = BIB.getChildByText(node.getChildren(), "FORMAL_PARAM_LIST");
-            addThisReference(parList);
-            String name = BIB.getText(BIB.getChildByText(node.getChildren(), "NAME").getChildren().get(0));
-            symbolTable.addValue(name, new Symbol(name, Symbol.NON_STATIC_FUNC, node));
+        String name = BIB.getText(BIB.getChildByText(node.getChildren(), "NAME").getChildren().get(0));
+        if (name.equals(curUnitName)) {
+            BIB.searchDownFor(node, "void").getNodeData().setText(name);            
+            symbolTable.addValue(name, new Symbol(name, Symbol.CONSTRUCTOR, node));
         } else {
-            String name = BIB.getText(BIB.getChildByText(node.getChildren(), "NAME").getChildren().get(0));
-            if (name.equals("main")) {
-                BIB.getChildByText(node.getChildren(), "FORMAL_PARAM_LIST").getChildren().clear();
+            if (!isStatic(node)) {
+                Node<TokenAttributes> parList = BIB.getChildByText(node.getChildren(), "FORMAL_PARAM_LIST");
+                addThisReference(parList);
+                symbolTable.addValue(name, new Symbol(name, Symbol.NON_STATIC_FUNC, node));
+            } else {
+                if (name.equals("main")) {
+                    BIB.getChildByText(node.getChildren(), "FORMAL_PARAM_LIST").getChildren().clear();
+                }
+                symbolTable.addValue(name, new Symbol(name, Symbol.STATIC_FUNC, node));
             }
-            symbolTable.addValue(name, new Symbol(name, Symbol.STATIC_FUNC, node));
         }
     }
 
@@ -170,5 +174,5 @@ public class JavatoCAdapter extends ActionWalker {
             children.add(children.size(), par);
         }
     }
-
+    
 }

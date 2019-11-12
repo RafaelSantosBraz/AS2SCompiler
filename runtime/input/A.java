@@ -1,16 +1,21 @@
-import B;
-
 public class A {
+
+    public static int ist = 1;
+    public int din;
+
+    public A(){
+
+    }
 
     public void soup(int[] a){
         
     }
 
-    void macarroni(){
+    public void macarroni(){
 
     }
 
     public static void main(String[] args) {
-        System.out.printf("hi :)\n");
+        System.out.printf("hi there :)\n");
     }
 }

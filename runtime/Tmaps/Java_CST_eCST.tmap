@@ -138,10 +138,11 @@
             "UnannType".last
         },
         "NAME" = {
-            "VariableDeclaratorList"."VariableDeclarator"."VariableDeclaratorId".child
+            ? "VariableDeclaratorList"."VariableDeclarator"."VariableDeclaratorId".child,
+            ? "VariableDeclaratorList"."VariableDeclarator"."VariableDeclaratorComplex"."VariableDeclaratorId".child
         },
         "VALUE" = {
-            ? "VariableInitializer".last
+            ? rule("rule_assignment_value", "VariableDeclaratorList"."VariableDeclarator"."VariableDeclaratorComplex"."VariableInitializer".last.parent.parent)
         }
     }    
 }
