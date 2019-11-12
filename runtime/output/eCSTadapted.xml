@@ -63,7 +63,7 @@
 <childElement>
 <token column="-1" index="-1" line="0" text='CONST' type="27"/>
 <childElement>
-<token column="28" index="284" line="3" text='1' type="51"/>
+<token column="28" index="286" line="3" text='1' type="51"/>
 </childElement>
 </childElement>
 </childElement>
@@ -119,7 +119,7 @@
 <childElement>
 <token column="-1" index="-1" line="0" text='CONST' type="27"/>
 <childElement>
-<token column="25" index="297" line="4" text='4' type="51"/>
+<token column="25" index="305" line="4" text='4' type="51"/>
 </childElement>
 </childElement>
 </childElement>
@@ -128,7 +128,7 @@
 <childElement>
 <token column="-1" index="-1" line="0" text='CONST' type="27"/>
 <childElement>
-<token column="28" index="298" line="4" text='2' type="51"/>
+<token column="28" index="306" line="4" text='2' type="51"/>
 </childElement>
 </childElement>
 </childElement>
@@ -308,9 +308,42 @@
 <childElement>
 <token column="-1" index="-1" line="0" text='VALUE' type="27"/>
 <childElement>
+<token column="-1" index="-1" line="0" text='OPERATOR' type="27"/>
+<childElement>
+<token column="29" index="283" line="12" text='-' type="82"/>
+</childElement>
+<childElement>
+<token column="-1" index="-1" line="0" text='FUNCTION_CALL' type="27"/>
+<childElement>
+<token column="-1" index="-1" line="0" text='NAME' type="27"/>
+<childElement>
+<token column="31" index="330" line="12" text='fun' type="102"/>
+</childElement>
+</childElement>
+<childElement>
+<token column="-1" index="-1" line="0" text='ARGUMENT_LIST' type="27"/>
+<childElement>
+<token column="-1" index="-1" line="0" text='SEPARATOR' type="27"/>
+<childElement>
+<token column="25" index="-1" line="688" text='(' type="27"/>
+</childElement>
+</childElement>
+<childElement>
+<token column="-1" index="-1" line="0" text='ARGUMENT' type="27"/>
+<childElement>
 <token column="-1" index="-1" line="0" text='CONST' type="27"/>
 <childElement>
-<token column="16" index="305" line="12" text='42' type="51"/>
+<token column="35" index="378" line="12" text='2' type="51"/>
+</childElement>
+</childElement>
+</childElement>
+<childElement>
+<token column="-1" index="-1" line="0" text='SEPARATOR' type="27"/>
+<childElement>
+<token column="25" index="-1" line="692" text=')' type="27"/>
+</childElement>
+</childElement>
+</childElement>
 </childElement>
 </childElement>
 </childElement>
@@ -428,7 +461,7 @@
 <childElement>
 <token column="-1" index="-1" line="0" text='CONST' type="27"/>
 <childElement>
-<token column="26" index="306" line="20" text='"hi there :)\n"' type="55"/>
+<token column="26" index="325" line="20" text='"hi there :)\n"' type="55"/>
 </childElement>
 </childElement>
 </childElement>

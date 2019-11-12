@@ -1284,7 +1284,6 @@ andExpression
 equalityExpression
 	:	relationalExpression
 	|	equalityExpression equalityOperator relationalExpression
-	|	equalityExpression equalityOperator relationalExpression
 	;
 
 equalityOperator
@@ -1294,20 +1293,9 @@ equalityOperator
 
 relationalExpression
 	:	shiftExpression
-	|	relationalExpression relationalOperator shiftExpression
-	|	relationalExpression relationalOperator shiftExpression
-	|	relationalExpression relationalOperator shiftExpression
-	|	relationalExpression relationalOperator shiftExpression
-	|	relationalExpression relationalOperator referenceType
+	|	relationalExpression ('<' | '>' | '<=' | '>=') shiftExpression
+	|	relationalExpression 'instanceof' referenceType
 	;
-
-relationalOperator
-        : '<'
-        | '>'
-        | '<='
-        | '>='
-        | 'instanceof'
-        ;
 
 shiftExpression
 	:	additiveExpression
@@ -1318,23 +1306,15 @@ shiftExpression
 
 additiveExpression
 	:	multiplicativeExpression
-	|	additiveExpression mathOperatorSymbol multiplicativeExpression
-	|	additiveExpression mathOperatorSymbol multiplicativeExpression
+	|	additiveExpression '+' multiplicativeExpression
+	|	additiveExpression '-' multiplicativeExpression
 	;
-
-mathOperatorSymbol
-        : '+'
-        | '-'
-        | '*'
-        | '/'
-        | '%'
-        ;
 
 multiplicativeExpression
 	:	unaryExpression
-	|	multiplicativeExpression mathOperatorSymbol unaryExpression
-	|	multiplicativeExpression mathOperatorSymbol unaryExpression
-	|	multiplicativeExpression mathOperatorSymbol unaryExpression
+	|	multiplicativeExpression '*' unaryExpression
+	|	multiplicativeExpression '/' unaryExpression
+	|	multiplicativeExpression '%' unaryExpression
 	;
 
 unaryExpression

@@ -212,9 +212,31 @@ digraph G {
 	n_125 -> n_142
 	n_142 [label="VALUE", shape="rectangle"]
 	n_142 -> n_149
-	n_149 [label="CONST", shape="rectangle"]
+	n_149 [label="OPERATOR", shape="rectangle"]
 	n_149 -> n_151
-	n_151 [label="42", shape="ellipse"]
+	n_151 [label="-", shape="ellipse"]
+	n_149 -> n_152
+	n_152 [label="FUNCTION_CALL", shape="rectangle"]
+	n_152 -> n_153
+	n_153 [label="NAME", shape="rectangle"]
+	n_153 -> n_155
+	n_155 [label="fun", shape="ellipse"]
+	n_152 -> n_154
+	n_154 [label="ARGUMENT_LIST", shape="rectangle"]
+	n_154 -> n_156
+	n_156 [label="SEPARATOR", shape="rectangle"]
+	n_156 -> n_159
+	n_159 [label="(", shape="ellipse"]
+	n_154 -> n_157
+	n_157 [label="ARGUMENT", shape="rectangle"]
+	n_157 -> n_160
+	n_160 [label="CONST", shape="rectangle"]
+	n_160 -> n_162
+	n_162 [label="2", shape="ellipse"]
+	n_154 -> n_158
+	n_158 [label="SEPARATOR", shape="rectangle"]
+	n_158 -> n_161
+	n_161 [label=")", shape="ellipse"]
 	n_37 -> n_65
 	n_65 [label="SEPARATOR", shape="rectangle"]
 	n_65 -> n_99

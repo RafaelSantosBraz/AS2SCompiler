@@ -99,8 +99,8 @@ digraph G {
 	n_273 [label="PrimaryNoNewArray_lfno_primary", shape="rectangle"]
 	n_273 -> n_278
 	n_278 [label="Literal", shape="rectangle"]
-	n_278 -> n_283
-	n_283 [label="1", shape="ellipse"]
+	n_278 -> n_285
+	n_285 [label="1", shape="ellipse"]
 	n_25 -> n_37
 	n_37 [label=";", shape="ellipse"]
 	n_8 -> n_13
@@ -187,14 +187,14 @@ digraph G {
 	n_274 [label="UnaryExpressionNotPlusMinus", shape="rectangle"]
 	n_274 -> n_279
 	n_279 [label="PostfixExpression", shape="rectangle"]
-	n_279 -> n_284
-	n_284 [label="Primary", shape="rectangle"]
-	n_284 -> n_288
-	n_288 [label="PrimaryNoNewArray_lfno_primary", shape="rectangle"]
-	n_288 -> n_292
-	n_292 [label="Literal", shape="rectangle"]
-	n_292 -> n_296
-	n_296 [label="4", shape="ellipse"]
+	n_279 -> n_286
+	n_286 [label="Primary", shape="rectangle"]
+	n_286 -> n_291
+	n_291 [label="PrimaryNoNewArray_lfno_primary", shape="rectangle"]
+	n_291 -> n_298
+	n_298 [label="Literal", shape="rectangle"]
+	n_298 -> n_304
+	n_304 [label="4", shape="ellipse"]
 	n_138 -> n_152
 	n_152 [label=",", shape="ellipse"]
 	n_138 -> n_153
@@ -231,14 +231,14 @@ digraph G {
 	n_275 [label="UnaryExpressionNotPlusMinus", shape="rectangle"]
 	n_275 -> n_280
 	n_280 [label="PostfixExpression", shape="rectangle"]
-	n_280 -> n_285
-	n_285 [label="Primary", shape="rectangle"]
-	n_285 -> n_289
-	n_289 [label="PrimaryNoNewArray_lfno_primary", shape="rectangle"]
-	n_289 -> n_293
-	n_293 [label="Literal", shape="rectangle"]
-	n_293 -> n_297
-	n_297 [label="2", shape="ellipse"]
+	n_280 -> n_287
+	n_287 [label="Primary", shape="rectangle"]
+	n_287 -> n_292
+	n_292 [label="PrimaryNoNewArray_lfno_primary", shape="rectangle"]
+	n_292 -> n_299
+	n_299 [label="Literal", shape="rectangle"]
+	n_299 -> n_305
+	n_305 [label="2", shape="ellipse"]
 	n_129 -> n_139
 	n_139 [label="}", shape="ellipse"]
 	n_26 -> n_41
@@ -412,21 +412,167 @@ digraph G {
 	n_271 -> n_276
 	n_276 [label="AdditiveExpression", shape="rectangle"]
 	n_276 -> n_281
-	n_281 [label="MultiplicativeExpression", shape="rectangle"]
-	n_281 -> n_286
-	n_286 [label="UnaryExpression", shape="rectangle"]
-	n_286 -> n_290
-	n_290 [label="UnaryExpressionNotPlusMinus", shape="rectangle"]
-	n_290 -> n_294
-	n_294 [label="PostfixExpression", shape="rectangle"]
-	n_294 -> n_298
-	n_298 [label="Primary", shape="rectangle"]
-	n_298 -> n_300
-	n_300 [label="PrimaryNoNewArray_lfno_primary", shape="rectangle"]
-	n_300 -> n_302
-	n_302 [label="Literal", shape="rectangle"]
-	n_302 -> n_304
-	n_304 [label="42", shape="ellipse"]
+	n_281 [label="AdditiveExpression", shape="rectangle"]
+	n_281 -> n_288
+	n_288 [label="MultiplicativeExpression", shape="rectangle"]
+	n_288 -> n_293
+	n_293 [label="MultiplicativeExpression", shape="rectangle"]
+	n_293 -> n_300
+	n_300 [label="UnaryExpression", shape="rectangle"]
+	n_300 -> n_306
+	n_306 [label="UnaryExpressionNotPlusMinus", shape="rectangle"]
+	n_306 -> n_310
+	n_310 [label="PostfixExpression", shape="rectangle"]
+	n_310 -> n_314
+	n_314 [label="Primary", shape="rectangle"]
+	n_314 -> n_318
+	n_318 [label="PrimaryNoNewArray_lfno_primary", shape="rectangle"]
+	n_318 -> n_325
+	n_325 [label="(", shape="ellipse"]
+	n_318 -> n_326
+	n_326 [label="Expression", shape="rectangle"]
+	n_326 -> n_331
+	n_331 [label="AssignmentExpression", shape="rectangle"]
+	n_331 -> n_333
+	n_333 [label="ConditionalExpression", shape="rectangle"]
+	n_333 -> n_335
+	n_335 [label="ConditionalOrExpression", shape="rectangle"]
+	n_335 -> n_337
+	n_337 [label="ConditionalAndExpression", shape="rectangle"]
+	n_337 -> n_339
+	n_339 [label="InclusiveOrExpression", shape="rectangle"]
+	n_339 -> n_341
+	n_341 [label="ExclusiveOrExpression", shape="rectangle"]
+	n_341 -> n_343
+	n_343 [label="AndExpression", shape="rectangle"]
+	n_343 -> n_345
+	n_345 [label="EqualityExpression", shape="rectangle"]
+	n_345 -> n_347
+	n_347 [label="RelationalExpression", shape="rectangle"]
+	n_347 -> n_349
+	n_349 [label="ShiftExpression", shape="rectangle"]
+	n_349 -> n_351
+	n_351 [label="AdditiveExpression", shape="rectangle"]
+	n_351 -> n_353
+	n_353 [label="AdditiveExpression", shape="rectangle"]
+	n_353 -> n_357
+	n_357 [label="MultiplicativeExpression", shape="rectangle"]
+	n_357 -> n_360
+	n_360 [label="UnaryExpression", shape="rectangle"]
+	n_360 -> n_363
+	n_363 [label="UnaryExpressionNotPlusMinus", shape="rectangle"]
+	n_363 -> n_366
+	n_366 [label="PostfixExpression", shape="rectangle"]
+	n_366 -> n_369
+	n_369 [label="Primary", shape="rectangle"]
+	n_369 -> n_372
+	n_372 [label="PrimaryNoNewArray_lfno_primary", shape="rectangle"]
+	n_372 -> n_375
+	n_375 [label="Literal", shape="rectangle"]
+	n_375 -> n_378
+	n_378 [label="42", shape="ellipse"]
+	n_351 -> n_354
+	n_354 [label="+", shape="ellipse"]
+	n_351 -> n_355
+	n_355 [label="MultiplicativeExpression", shape="rectangle"]
+	n_355 -> n_358
+	n_358 [label="UnaryExpression", shape="rectangle"]
+	n_358 -> n_361
+	n_361 [label="UnaryExpressionNotPlusMinus", shape="rectangle"]
+	n_361 -> n_364
+	n_364 [label="PostfixExpression", shape="rectangle"]
+	n_364 -> n_367
+	n_367 [label="Primary", shape="rectangle"]
+	n_367 -> n_370
+	n_370 [label="PrimaryNoNewArray_lfno_primary", shape="rectangle"]
+	n_370 -> n_373
+	n_373 [label="Literal", shape="rectangle"]
+	n_373 -> n_376
+	n_376 [label="3", shape="ellipse"]
+	n_318 -> n_327
+	n_327 [label=")", shape="ellipse"]
+	n_288 -> n_294
+	n_294 [label="*", shape="ellipse"]
+	n_288 -> n_295
+	n_295 [label="UnaryExpression", shape="rectangle"]
+	n_295 -> n_301
+	n_301 [label="UnaryExpressionNotPlusMinus", shape="rectangle"]
+	n_301 -> n_307
+	n_307 [label="PostfixExpression", shape="rectangle"]
+	n_307 -> n_311
+	n_311 [label="Primary", shape="rectangle"]
+	n_311 -> n_315
+	n_315 [label="PrimaryNoNewArray_lfno_primary", shape="rectangle"]
+	n_315 -> n_319
+	n_319 [label="Literal", shape="rectangle"]
+	n_319 -> n_328
+	n_328 [label="2", shape="ellipse"]
+	n_276 -> n_282
+	n_282 [label="-", shape="ellipse"]
+	n_276 -> n_283
+	n_283 [label="MultiplicativeExpression", shape="rectangle"]
+	n_283 -> n_289
+	n_289 [label="UnaryExpression", shape="rectangle"]
+	n_289 -> n_296
+	n_296 [label="UnaryExpressionNotPlusMinus", shape="rectangle"]
+	n_296 -> n_302
+	n_302 [label="PostfixExpression", shape="rectangle"]
+	n_302 -> n_308
+	n_308 [label="Primary", shape="rectangle"]
+	n_308 -> n_312
+	n_312 [label="PrimaryNoNewArray_lfno_primary", shape="rectangle"]
+	n_312 -> n_316
+	n_316 [label="MethodInvocation_lfno_primary", shape="rectangle"]
+	n_316 -> n_320
+	n_320 [label="MethodName", shape="rectangle"]
+	n_320 -> n_329
+	n_329 [label="fun", shape="ellipse"]
+	n_316 -> n_321
+	n_321 [label="(", shape="ellipse"]
+	n_316 -> n_322
+	n_322 [label="ArgumentList", shape="rectangle"]
+	n_322 -> n_330
+	n_330 [label="Expression", shape="rectangle"]
+	n_330 -> n_332
+	n_332 [label="AssignmentExpression", shape="rectangle"]
+	n_332 -> n_334
+	n_334 [label="ConditionalExpression", shape="rectangle"]
+	n_334 -> n_336
+	n_336 [label="ConditionalOrExpression", shape="rectangle"]
+	n_336 -> n_338
+	n_338 [label="ConditionalAndExpression", shape="rectangle"]
+	n_338 -> n_340
+	n_340 [label="InclusiveOrExpression", shape="rectangle"]
+	n_340 -> n_342
+	n_342 [label="ExclusiveOrExpression", shape="rectangle"]
+	n_342 -> n_344
+	n_344 [label="AndExpression", shape="rectangle"]
+	n_344 -> n_346
+	n_346 [label="EqualityExpression", shape="rectangle"]
+	n_346 -> n_348
+	n_348 [label="RelationalExpression", shape="rectangle"]
+	n_348 -> n_350
+	n_350 [label="ShiftExpression", shape="rectangle"]
+	n_350 -> n_352
+	n_352 [label="AdditiveExpression", shape="rectangle"]
+	n_352 -> n_356
+	n_356 [label="MultiplicativeExpression", shape="rectangle"]
+	n_356 -> n_359
+	n_359 [label="UnaryExpression", shape="rectangle"]
+	n_359 -> n_362
+	n_362 [label="UnaryExpressionNotPlusMinus", shape="rectangle"]
+	n_362 -> n_365
+	n_365 [label="PostfixExpression", shape="rectangle"]
+	n_365 -> n_368
+	n_368 [label="Primary", shape="rectangle"]
+	n_368 -> n_371
+	n_371 [label="PrimaryNoNewArray_lfno_primary", shape="rectangle"]
+	n_371 -> n_374
+	n_374 [label="Literal", shape="rectangle"]
+	n_374 -> n_377
+	n_377 [label="2", shape="ellipse"]
+	n_316 -> n_323
+	n_323 [label=")", shape="ellipse"]
 	n_132 -> n_145
 	n_145 [label=";", shape="ellipse"]
 	n_69 -> n_90
@@ -587,22 +733,22 @@ digraph G {
 	n_272 [label="ShiftExpression", shape="rectangle"]
 	n_272 -> n_277
 	n_277 [label="AdditiveExpression", shape="rectangle"]
-	n_277 -> n_282
-	n_282 [label="MultiplicativeExpression", shape="rectangle"]
-	n_282 -> n_287
-	n_287 [label="UnaryExpression", shape="rectangle"]
-	n_287 -> n_291
-	n_291 [label="UnaryExpressionNotPlusMinus", shape="rectangle"]
-	n_291 -> n_295
-	n_295 [label="PostfixExpression", shape="rectangle"]
-	n_295 -> n_299
-	n_299 [label="Primary", shape="rectangle"]
-	n_299 -> n_301
-	n_301 [label="PrimaryNoNewArray_lfno_primary", shape="rectangle"]
-	n_301 -> n_303
-	n_303 [label="Literal", shape="rectangle"]
-	n_303 -> n_305
-	n_305 [label="\"hi there :)\\n\"", shape="ellipse"]
+	n_277 -> n_284
+	n_284 [label="MultiplicativeExpression", shape="rectangle"]
+	n_284 -> n_290
+	n_290 [label="UnaryExpression", shape="rectangle"]
+	n_290 -> n_297
+	n_297 [label="UnaryExpressionNotPlusMinus", shape="rectangle"]
+	n_297 -> n_303
+	n_303 [label="PostfixExpression", shape="rectangle"]
+	n_303 -> n_309
+	n_309 [label="Primary", shape="rectangle"]
+	n_309 -> n_313
+	n_313 [label="PrimaryNoNewArray_lfno_primary", shape="rectangle"]
+	n_313 -> n_317
+	n_317 [label="Literal", shape="rectangle"]
+	n_317 -> n_324
+	n_324 [label="\"hi there :)\\n\"", shape="ellipse"]
 	n_185 -> n_206
 	n_206 [label=")", shape="ellipse"]
 	n_162 -> n_173
