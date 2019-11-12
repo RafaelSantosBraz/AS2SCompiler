@@ -1,0 +1,5 @@
+"ASSIGNMENT_STATEMENT" = {
+    "ASSIGN_OPERATOR" = {
+        new_leaf("=")
+    }
+}

@@ -20,7 +20,7 @@ import walkers.ActionWalker;
  * @author Rafael Braz
  */
 public class JavatoCAdapter extends ActionWalker {
-    
+
     private final String auxTmapsDir; // path to all files of partial/complete tmap code
     private String curUnitName; // current concrete unit name
     private final SymbolTable symbolTable; // Symbol Table of the important values/nodes of the tree
@@ -60,14 +60,43 @@ public class JavatoCAdapter extends ActionWalker {
     // removing modifiers
     public void actionMODIFIER_LIST(Node<TokenAttributes> node) {
         node.getChildren().clear();
-        //BIB.removeChain(node);
+    }
+
+    // attribute declaration to variable declaration
+    public void actionATTRIBUTE_DECL(Node<TokenAttributes> node) {
+        Node<TokenAttributes> value = BIB.getChildByText(node.getChildren(), "VALUE");
+        String name = BIB.getText(BIB.getChildByText(node.getChildren(), "NAME").getChildren().get(0));
+        node.getNodeData().setText("VAR_DECL");
+        if (isStatic(node)) {
+            symbolTable.addValue(name, new Symbol(name, Symbol.STATIC_GLOB_VAR, node));
+        } else {
+            symbolTable.addValue(name, new Symbol(name, Symbol.NON_STATIC_GLOB_VAR, node));
+        }
+        if (value.getChildren().isEmpty()) {
+            BIB.removeChain(value);
+        } else {
+            String code = BIB.getTmapCodeFromFile(auxTmapsDir, "attrJavatoC.tmap");
+            Node<TokenAttributes> as = BIB.tmapOneRuleCodeCall(code, node).get(0);
+            as.setParent(node);
+            List<Node<TokenAttributes>> children = node.getChildren();
+            children.add(children.size(), as);
+            Node<TokenAttributes> op = BIB.tmapOneRuleCodeCall("child", as).get(0);
+            Node<TokenAttributes> nameNode = BIB.getChildByText(node.getChildren(), "NAME");
+            Node<TokenAttributes> valueNode = BIB.getChildByText(node.getChildren(), "VALUE");
+            op.getChildren().add(1, nameNode);
+            op.getChildren().add(2, valueNode);
+            nameNode.setParent(op);
+            valueNode.setParent(op);
+            node.getChildren().remove(nameNode);
+            node.getChildren().remove(valueNode);
+        }
     }
 
     // adapting function parameter list and constructors
     public void actionFUNCTION_DECL(Node<TokenAttributes> node) {
         String name = BIB.getText(BIB.getChildByText(node.getChildren(), "NAME").getChildren().get(0));
         if (name.equals(curUnitName)) {
-            BIB.searchDownFor(node, "void").getNodeData().setText(name);            
+            BIB.searchDownFor(node, "void").getNodeData().setText(name);
             symbolTable.addValue(name, new Symbol(name, Symbol.CONSTRUCTOR, node));
         } else {
             if (!isStatic(node)) {
@@ -174,5 +203,5 @@ public class JavatoCAdapter extends ActionWalker {
             children.add(children.size(), par);
         }
     }
-    
+
 }

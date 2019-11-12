@@ -1,17 +1,18 @@
 public class A {
 
     public static int ist = 1;
-    public int din;
+    public int[] din = { 4, 2 };
 
-    public A(){
+    public A() {
 
     }
 
-    public void soup(int[] a){
-        
+    public void soup(int[] a) {
+        int b;
+        int c = 42;
     }
 
-    public void macarroni(){
+    public void macarroni() {
 
     }
 

@@ -135,14 +135,26 @@
             ? rule("rule_field_modifier", children("FieldModifier"))
         },
         "TYPE" = {
-            "UnannType".last
-        },
+            if ("UnannType".last == :"UnannArrayType"){
+                "UnannType".last."UnannPrimitiveType".last
+            } else{
+               "UnannType".last 
+            }
+        },        
         "NAME" = {
             ? "VariableDeclaratorList"."VariableDeclarator"."VariableDeclaratorId".child,
             ? "VariableDeclaratorList"."VariableDeclarator"."VariableDeclaratorComplex"."VariableDeclaratorId".child
         },
+        if ("UnannType".last == :"UnannArrayType"){
+            "SEPARATOR" = {
+                new_leaf("[")
+            },
+            "SEPARATOR" = {
+                new_leaf("]")
+            }
+        },
         "VALUE" = {
-            ? rule("rule_assignment_value", "VariableDeclaratorList"."VariableDeclarator"."VariableDeclaratorComplex"."VariableInitializer".last.parent.parent)
+            ? rule("rule_assignment_value", "VariableDeclaratorList"."VariableDeclarator"."VariableDeclaratorComplex"."VariableInitializer".last.parent.parent)            
         }
     }    
 }
@@ -513,7 +525,45 @@
     ? rule("rule_assignment_method_invocation", child."MethodInvocation_lfno_primary"),
     ? rule("rule_assignment_instantiates", child."ClassInstanceCreationExpression_lfno_primary"),
     ? rule("rule_math_expression", child),
-    ? rule("rule_relational_expression", child)    
+    ? rule("rule_relational_expression", child),
+    ? rule("rule_array__instantiates", child."ArrayCreationExpression"),
+    ? rule("rule_array_initializer", "VariableInitializer"."ArrayInitializer")  
+}
+
+// handle with the initialization of an array like '{4, 2}' : receives "ArrayInitializer"
+"rule_array_initializer" -> {
+    "SEPARATOR" = {
+        new_leaf("{")
+    },
+    ? rule("rule_initializer_list", "VariableInitializerList".children("VariableInitializer")),
+    "SEPARATOR" = {
+        new_leaf("}")
+    }
+}
+
+// handle with each of the initializers in a list : receives "VariableInitializer"
+"rule_initializer_list" -> {
+    "VALUE" = {
+        rule("rule_assignment_value", "Expression".last.parent.parent)
+    }
+}
+
+// handle with the instantiation of an array : receives "ArrayCreationExpression"
+"rule_array__instantiates" -> {
+    "INSTANTIATES" = {
+        "TYPE" = {
+            "NAME" = {
+                child(1).last
+            }
+        },
+        "SEPARATOR" = {
+            new_leaf("[")
+        },
+        rule("rule_assignment_value", "DimExprs".child."Expression".last.parent.parent),
+        "SEPARATOR" = {
+            new_leaf("]")
+        }
+    }    
 }
 
 // handle with relational expression : receives "Expression".last.parent
