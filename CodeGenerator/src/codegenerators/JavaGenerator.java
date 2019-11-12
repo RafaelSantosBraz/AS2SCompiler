@@ -116,7 +116,10 @@ public class JavaGenerator extends CodeGenerator {
         res.addAll(stringifyEachChildren(BIB.tmapOneRuleCodeCall("\"TYPE\".last", node)));
         res.addAll((List<String>) visit(BIB.getChildByText(node.getChildren(), "NAME")));
         res.add("(");
-        res.addAll((List<String>) visit(BIB.getChildByText(node.getChildren(), "FORMAL_PARAM_LIST")));
+        Node<TokenAttributes> parList = BIB.getChildByText(node.getChildren(), "FORMAL_PARAM_LIST");
+        if (parList != null){
+            res.addAll((List<String>) visit(parList));
+        }        
         res.add(")");
         res.addAll((List<String>) visit(BIB.getChildByText(node.getChildren(), "BLOCK_SCOPE")));
         return res;

@@ -4,7 +4,7 @@ public class A {
     public int[] din = { 4, 2 };
 
     public A() {
-
+        super();
     }
 
     public void soup(int[] a) {

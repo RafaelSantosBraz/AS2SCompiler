@@ -84,9 +84,7 @@ public abstract class CodeGenerator extends TreeVisitor<Object> {
         if (words != null) {
             for (int c = 0; c < words.size() - 1; c++) {
                 if (words.get(c).equals(";")) {
-                    if (words.get(c + 1).equals(";")) {
-                        words.remove(c);
-                    } else if (words.get(c + 1).equals("]")) {
+                    if (words.get(c + 1).equals(";") || words.get(c + 1).equals("]") || words.get(c + 1).equals(")")) {
                         words.remove(c);
                     }
                 }

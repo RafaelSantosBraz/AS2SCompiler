@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-
+/*
 void main(void);
 void pr(struct A*);
 
@@ -35,4 +35,12 @@ void main()
     soup_ptr = &soup;
     printf("%d\n", soup_ptr(2, 2));    
     printf("hi :)\n");
+}
+*/
+
+void teste(){
+    int c = (42 + 3) * 2 - fun(2);
+    if (c >= 2){
+        printf("oi\n");
+    }
 }
