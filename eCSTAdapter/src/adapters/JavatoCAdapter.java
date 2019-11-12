@@ -8,6 +8,8 @@ package adapters;
 import auxtools.BIB;
 import java.util.ArrayList;
 import java.util.List;
+import symboltable.Symbol;
+import symboltable.SymbolTable;
 import trees.cstecst.TokenAttributes;
 import trees.simpletree.Node;
 import walkers.ActionWalker;
@@ -21,13 +23,11 @@ public class JavatoCAdapter extends ActionWalker {
 
     private final String auxTmapsDir; // path to all files of partial/complete tmap code
     private String curUnitName; // current concrete unit name
-    private final List<String> nonStaticFuncs; // represents all the non static methods adapted to receive a "_this" reference
-    private final List<String> classes; // represents all the classes / concrete units declarated
+    private final SymbolTable symbolTable; // Symbol Table of the important values/nodes of the tree
 
     public JavatoCAdapter(String auxTmapsDir) {
         this.auxTmapsDir = auxTmapsDir;
-        nonStaticFuncs = new ArrayList<>();
-        classes = new ArrayList<>();
+        symbolTable = new SymbolTable();
     }
 
     // Java array to C array format -- parameters
@@ -69,19 +69,20 @@ public class JavatoCAdapter extends ActionWalker {
             Node<TokenAttributes> parList = BIB.getChildByText(node.getChildren(), "FORMAL_PARAM_LIST");
             addThisReference(parList);
             String name = BIB.getText(BIB.getChildByText(node.getChildren(), "NAME").getChildren().get(0));
-            nonStaticFuncs.add(name);
+            symbolTable.addValue(name, new Symbol(name, Symbol.NON_STATIC_FUNC, node));
         } else {
             String name = BIB.getText(BIB.getChildByText(node.getChildren(), "NAME").getChildren().get(0));
             if (name.equals("main")) {
                 BIB.getChildByText(node.getChildren(), "FORMAL_PARAM_LIST").getChildren().clear();
             }
+            symbolTable.addValue(name, new Symbol(name, Symbol.STATIC_FUNC, node));
         }
     }
 
     // keeping the unit name 
     public void actionCONCRETE_UNIT_DECL(Node<TokenAttributes> node) {
         curUnitName = BIB.getText(BIB.getChildByText(node.getChildren(), "NAME").getChildren().get(0));
-        classes.add(curUnitName);
+        symbolTable.addValue(curUnitName, new Symbol(curUnitName, Symbol.CLASS, node));
     }
 
     // true to 1 
@@ -168,18 +169,6 @@ public class JavatoCAdapter extends ActionWalker {
         } else {
             children.add(children.size(), par);
         }
-    }
-
-    // returns if the given node is a clas / concrete unit 
-    public boolean isClass(Node<TokenAttributes> node) {
-        String txt = BIB.getText(node);
-        return classes.stream().anyMatch((s) -> (s.equals(txt)));
-    }
-
-    // returns if the given node is a non static function/method
-    public boolean isNonStaticFunction(Node<TokenAttributes> node) {
-        String txt = BIB.getText(node);
-        return nonStaticFuncs.stream().anyMatch((s) -> (s.equals(txt)));
     }
 
 }
