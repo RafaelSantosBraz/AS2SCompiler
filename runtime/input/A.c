@@ -40,6 +40,7 @@ void main()
 
 void teste(){
     int c = (42 + 3) * 2 - fun(2);
+    c++;
     if (c >= 2){
         printf("oi\n");
     }

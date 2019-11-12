@@ -9,7 +9,11 @@ public class A {
 
     public void soup(int[] a) {
         int b;
+        ++b;
+        a--;
+        //int[] f;
         int c = (42 + 3) * 2 - fun(2);
+        int c = (42 + c) * 2 - b;
     }
 
     public void macarroni() {
