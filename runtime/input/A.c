@@ -38,13 +38,12 @@ void main()
 }
 */
 
+
+
 void main()
 {
-    if ((x % 2) == 0 && x != 42) {    
-        return 1;
-    }
-    else
-    {
-        return 0;
-    }
+    int j;
+        for (j = 0; j < 10; j++) {
+            printf("%d ", j);
+        }
 }

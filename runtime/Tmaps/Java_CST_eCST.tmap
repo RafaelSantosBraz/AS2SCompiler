@@ -285,7 +285,7 @@
             new_leaf("while")
         },        
         rule("rule_for_condition", "Expression"),
-        rule("rule_block_scope", "Statement".last."BlockStatements")                 
+        rule("rule_block_scope", "Statement".last)                 
     }
 }
 
@@ -305,22 +305,14 @@
 // handle with the update statement of a loop : receives "ForUpdate"
 "rule_for_step" -> {
     "STEP" = {
-        ? rule("rule_assignment", last),
-        ? "ASSIGNMENT_STATEMENT" = {
-            "NAME" = {
-               last."PostfixExpression".last 
-            },
-            "OPERATOR" = {
-                rule("rule_for_++_--", last)
-            }            
+        if (last == :"Assignment"){
+            rule("rule_assignment", last)
+        } else {    
+            ? "ASSIGNMENT_STATEMENT" = {  
+                rule("rule_assignment_value", last.parent.parent)          
+            }
         }
     }
-}
-
-// handle with a ++ or -- in a loop : receives "ForUpdate".last
-"rule_for_++_--" -> {
-    ? "++",
-    ? "--"
 }
 
 // handle with a CONDITION statement for a for a LOOP_STATEMENT : receives "Expression"
@@ -493,6 +485,9 @@
         if (child == :"MethodInvocation_lfno_primary"){
             rule("rule_assignment_method_invocation", child)
         } else {
+            if (child == :"MethodInvocation"){
+                rule("rule_assignment_method_invocation", child)
+            },
             if (child == :"PostDecrementExpression"){
                 rule("rule_post_unary_operator", child)
             },
@@ -702,19 +697,23 @@
     if (current_node == :"PrimaryNoNewArray_lfno_primary"){
         rule ("rule_assignment_value", "Expression".last.parent.parent)
     } else{
-        if (child(1) == :"EqualityOperator"){
+        if (current_node ==:"RelationalExpression"){
             rule("rule_relational_expression", current_node)
-        } else {   
-            if (child(1) == :"&&"){
-                rule("rule_logical_expression", current_node)
-            } else {
-                if (child(1) == :"||"){
+        } else {
+            if (child(1) == :"EqualityOperator"){
+                rule("rule_relational_expression", current_node)
+            } else {   
+                if (child(1) == :"&&"){
                     rule("rule_logical_expression", current_node)
                 } else {
-                    rule("rule_operator", current_node)
-                }
-            }            
-        }        
+                    if (child(1) == :"||"){
+                        rule("rule_logical_expression", current_node)
+                    } else {
+                        rule("rule_operator", current_node)
+                    }
+                }            
+            }
+        }                
     } 
 }
 
