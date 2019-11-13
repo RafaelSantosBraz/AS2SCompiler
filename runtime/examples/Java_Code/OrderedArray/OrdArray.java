@@ -4,15 +4,13 @@
 
 public class OrdArray {
 
-    public int[] a;
     public int nElems;
 
-    public OrdArray(int max) {
-        a = new int[max];
+    public OrdArray() {
         nElems = 0;
     }
 
-    public int find(int searchKey) {
+    public int find(int searchKey, int[] a) {
         int lowerBound = 0;
         int upperBound = nElems - 1;
         int curIn;
@@ -34,7 +32,7 @@ public class OrdArray {
         }
     }
 
-    public void insert(int value) {
+    public void insert(int value, int[] a) {
         int j;
         for (j = 0; j < nElems; j++) {
             if (a[j] > value) {
@@ -49,7 +47,7 @@ public class OrdArray {
         nElems++;
     }
 
-    public void display() {
+    public void display(int[] a) {
         int j;
         for (j = 0; j < nElems; j++) {
             System.out.printf("%d ", a[j]);

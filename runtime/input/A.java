@@ -1,19 +1,28 @@
 public class A {
 
+    /*
     public static int ist = 1;
-    public int[] din = { 4, 2 };
+    public int[] f = { 4, 2 };
+    public int g[] = { 4, 2 };
+    public int[] h = new int[3];
+    public int i[] = new int[5];
+    */    
 
     public A() {
-        super();
+
     }
 
     public void soup(int[] a) {
-        int b;
-        ++b;
-        a--;
-        //int[] f;
-        int c = (42 + 3) * 2 - fun(2);
-        int c = (42 + c) * 2 - b;
+        // int b;
+        // ++b;
+        // a--;
+        //int[] f = {4, 2};
+        //int g[] = {4, 2};
+        // int[] h = new int[3];
+        // int i[] = new int[5];
+        int c = 1;
+         //int c = (42 + 3) * 2 - fun(2);
+         //int c = (42 + c) * 2 - b;
     }
 
     public void macarroni() {

@@ -82,17 +82,17 @@
         "FORMAL_PARAM_LIST" = {
             ? rule("rule_parameter_declaration", "ConstructorDeclarator"."FormalParameterList")
         },
-        rule("rule_block_scope", "ConstructorBody"."BlockStatements")
+        rule("rule_block_scope", "ConstructorBody")
     }
 }
 
-// handle with a block scope : receives "BlockStatements"
+// handle with a block scope : receives "Block"
 "rule_block_scope" -> {
     "BLOCK_SCOPE" = {
         "SEPARATOR" = {
             new_leaf("{")
         },            
-        ? rule("rule_block_stateements", children("BlockStatement")),            
+        ? rule("rule_block_stateements", "BlockStatements".children("BlockStatement")),            
         "SEPARATOR" = {
             new_leaf("}")
         }
@@ -120,7 +120,7 @@
         "FORMAL_PARAM_LIST" = {
             ? rule("rule_parameter_declaration", "MethodHeader"."MethodDeclarator"."FormalParameterList")
         },
-        rule("rule_block_scope", "MethodBody"."Block"."BlockStatements")        
+        rule("rule_block_scope", "MethodBody"."Block")        
     }
 }
 
@@ -136,10 +136,6 @@
             } else{
                "UnannType".last 
             }
-        },        
-        "NAME" = {
-            ? "VariableDeclaratorList"."VariableDeclarator"."VariableDeclaratorId".child,
-            ? "VariableDeclaratorList"."VariableDeclarator"."VariableDeclaratorComplex"."VariableDeclaratorId".child
         },
         if ("UnannType".last == :"UnannArrayType"){
             "SEPARATOR" = {
@@ -148,11 +144,43 @@
             "SEPARATOR" = {
                 new_leaf("]")
             }
-        },
+        },  
+        rule("rule_field_name", "VariableDeclaratorList"."VariableDeclarator"),     
         "VALUE" = {
-            ? rule("rule_assignment_value", "VariableDeclaratorList"."VariableDeclarator"."VariableDeclaratorComplex"."VariableInitializer".last.parent.parent)            
+            if ("VariableDeclaratorList"."VariableDeclarator"."VariableDeclaratorComplex"."VariableInitializer".last == :"ArrayInitializer"){
+                ? rule("rule_array_initializer", "VariableDeclaratorList"."VariableDeclarator"."VariableDeclaratorComplex"."VariableInitializer".child)
+            } else {
+                ? rule("rule_assignment_value", "VariableDeclaratorList"."VariableDeclarator"."VariableDeclaratorComplex"."VariableInitializer".last.parent.parent)
+            }            
         }
     }    
+}
+
+// handle with the name and [] for a field declaration : receives "VariableDeclarator"
+"rule_field_name" -> {
+    "NAME" = {
+        ? "VariableDeclaratorId".first_child,
+        ? "VariableDeclaratorComplex"."VariableDeclaratorId".first_child
+    },
+    if (child == :"VariableDeclaratorId"){
+        if ("VariableDeclaratorId".first_child != "VariableDeclaratorId".last_child){
+            "SEPARATOR" = {
+                new_leaf("[")
+            },
+            "SEPARATOR" = {
+                new_leaf("]")
+            }
+        }
+    } else {
+        if ("VariableDeclaratorComplex"."VariableDeclaratorId".first_child != "VariableDeclaratorComplex"."VariableDeclaratorId".last_child){
+            "SEPARATOR" = {
+                new_leaf("[")
+            },
+            "SEPARATOR" = {
+                new_leaf("]")
+            }
+        }
+    }
 }
 
 // return each modifier of a field in a class : receives "FieldModifier"
@@ -420,11 +448,21 @@
     "VAR_DECL" = {
         new_leaf("MODIFIER_LIST"),
         "TYPE" = {
-            "NAME" = {
-                "LocalVariableDeclaration"."UnannType".last
+            if (first_child."UnannType".last == :"UnannArrayType"){
+                first_child."UnannType".last."UnannPrimitiveType".last
+            } else{
+               first_child."UnannType".last 
             }
-        },    
-        rule("rule_local_variable_name_assignment", "LocalVariableDeclaration"."VariableDeclaratorList")
+        },
+        if (first_child."UnannType".last == :"UnannArrayType"){
+            "SEPARATOR" = {
+                new_leaf("[")
+            },
+            "SEPARATOR" = {
+                new_leaf("]")
+            }
+        },  
+        rule("rule_local_variable_name_assignment", first_child."VariableDeclaratorList")
     }    
 }
 
@@ -439,10 +477,33 @@
                 new_leaf("=")
             },            
             "NAME" = {
-                last.parent."VariableDeclaratorComplex"."VariableDeclaratorId".child
+                last.parent."VariableDeclaratorComplex"."VariableDeclaratorId".first_child
+            },
+            if ("VariableDeclarator".child == :"VariableDeclaratorId"){
+                if ("VariableDeclarator".child.first_child != "VariableDeclarator".child.last_child){
+                    "SEPARATOR" = {
+                        new_leaf("[")
+                    },
+                    "SEPARATOR" = {
+                        new_leaf("]")
+                    }
+                }
+            } else {
+                if ("VariableDeclarator".child.first_child.first_child != "VariableDeclarator".child.first_child.last_child){
+                    "SEPARATOR" = {
+                        new_leaf("[")
+                    },
+                    "SEPARATOR" = {
+                        new_leaf("]")
+                    }
+                }
             },
             "VALUE" = {
-                ? rule("rule_assignment_value", "VariableDeclarator"."VariableDeclaratorComplex"."VariableInitializer"."Expression".last.parent.parent)                
+                if ("VariableDeclarator"."VariableDeclaratorComplex"."VariableInitializer".last == :"ArrayInitializer"){
+                    ? rule("rule_array_initializer", "VariableDeclarator"."VariableDeclaratorComplex"."VariableInitializer".child)
+                } else {
+                    ? rule("rule_assignment_value", "VariableDeclarator"."VariableDeclaratorComplex"."VariableInitializer".last.parent.parent)
+                }
             }
         }        
     }
@@ -516,7 +577,7 @@
 // handle with the value for an Assignment -- expressions : receives ("Expression", "AdditiveExpression", or "MultiplicativeExpression").last.parent.parent
 "rule_assignment_value" -> {    
     if (first_child.child == :"MethodInvocation_lfno_primary"){
-        rule("rule_assignment_method_invocation", child."MethodInvocation_lfno_primary")
+        rule("rule_assignment_method_invocation", first_child."MethodInvocation_lfno_primary")
     } else {       
         ? rule("rule_assignment_value_literal", current_node),
         ? "NAME" = {
@@ -525,7 +586,7 @@
         ? rule("rule_assignment_instantiates", child."ClassInstanceCreationExpression_lfno_primary"),
         ? rule("rule_aux_expression", first_child.child),
         ? rule("rule_array__instantiates", child."ArrayCreationExpression"),
-        ? rule("rule_array_initializer", "VariableInitializer"."ArrayInitializer"),
+        ? rule("rule_array_initializer", "VariableInitializer"."ArrayInitializer"),        
         ? rule("rule_assignment_value_attr_call", "ExpressionName")              
     }      
 }

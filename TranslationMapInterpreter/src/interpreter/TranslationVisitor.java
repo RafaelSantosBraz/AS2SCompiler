@@ -124,6 +124,9 @@ public class TranslationVisitor extends TranslationGrammarBaseVisitor<Object> {
     public Object visitPartialcondition(TranslationGrammarParser.PartialconditionContext ctx) {
         if (ctx.visitingsequence() != null) {
             ArrayList<Node<TokenAttributes>> temp = (ArrayList<Node<TokenAttributes>>) magicVisit(ctx.visitingsequence(), current_node);
+            if (temp == null){
+                return null;
+            }
             if (temp.size() != 1) {
                 return null;
             }
