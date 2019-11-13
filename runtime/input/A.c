@@ -38,12 +38,27 @@ void main()
 }
 */
 
+struct MergeApp
+{
+    int a;
+};
 
+struct MergeApp* MergeApp(){
+    return (struct MergeApp *)malloc(sizeof(struct MergeApp));   
+}
 
 void main()
 {
-    int j;
-        for (j = 0; j < 10; j++) {
-            printf("%d ", j);
-        }
+    struct MergeApp *mg = MergeApp();
+    mg = MergeApp();
+    mg->a = 42;
+    printf("%d\n", mg->a);
+    free(mg) ;
+    //int arrayA[] = { 23, 47, 81, 95 };
+    //int arrayB[] = { 7, 14, 39, 55, 62, 74 };
+    // int arrayC[10];
+    // int j;
+    //   for (j = 0; j < 10; j++) {
+    //     printf("%d ", j);
+    // }
 }

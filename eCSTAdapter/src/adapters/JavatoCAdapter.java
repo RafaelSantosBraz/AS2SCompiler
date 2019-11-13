@@ -90,6 +90,37 @@ public class JavatoCAdapter extends ActionWalker {
             node.getChildren().remove(nameNode);
             node.getChildren().remove(valueNode);
         }
+        actionVAR_DECL(node);
+    }
+
+    // arrays declaration to C pattern
+    public void actionVAR_DECL(Node<TokenAttributes> node) {
+        Node<TokenAttributes> sep = BIB.getChildByText(node.getChildren(), "SEPARATOR");
+        if (sep != null) {
+            Node<TokenAttributes> sep2 = node.getChildren().get(node.getChildren().indexOf(sep) + 1);
+            BIB.removeChain(sep);
+            BIB.removeChain(sep2);
+            Node<TokenAttributes> asOp = BIB.tmapOneRuleCodeCall("last_child.child", node).get(0);
+            sep.setParent(asOp);
+            sep2.setParent(asOp);
+            asOp.getChildren().add(asOp.getChildren().size() - 1, sep);
+            asOp.getChildren().add(asOp.getChildren().size() - 1, sep2);
+            arrayCPattern(node, asOp, sep, sep2);
+        } else {
+            Node<TokenAttributes> asOp = BIB.tmapOneRuleCodeCall("last_child.child", node).get(0);
+            sep = BIB.getChildByText(asOp.getChildren(), "SEPARATOR");
+            Node<TokenAttributes> sep2 = asOp.getChildren().get(asOp.getChildren().indexOf(sep) + 1);
+            if (sep != null) {
+                arrayCPattern(node, asOp, sep, sep2);
+            }
+        }
+    }
+
+    // remove useless new ClassType
+    public void actionINSTANTIATES(Node<TokenAttributes> node) {
+        if (node.getChildren().size() == 1) {
+            BIB.removeChain(node);
+        }
     }
 
     // adapting function parameter list and constructors
@@ -144,6 +175,24 @@ public class JavatoCAdapter extends ActionWalker {
             System.err.println("Warning: Use 'System.out.printf' instead of 'System.out.println'!");
         }
         replacePrintf(nodeName);
+    }
+
+    // correct the new array to array[size]
+    private void arrayCPattern(Node<TokenAttributes> node, Node<TokenAttributes> asOp, Node<TokenAttributes> sep, Node<TokenAttributes> sep2) {
+        Node<TokenAttributes> val = asOp.getChildren().get(asOp.getChildren().size() - 1);
+        if (val.getChildren().size() == 1) {
+            Node<TokenAttributes> num = val.getChildren().get(0).getChildren().get(2);
+            Node<TokenAttributes> name = asOp.getChildren().get(1);
+            node.getChildren().add(node.getChildren().size() - 1, name);
+            node.getChildren().add(node.getChildren().size() - 1, sep);
+            node.getChildren().add(node.getChildren().size() - 1, num);
+            node.getChildren().add(node.getChildren().size() - 1, sep2);
+            name.setParent(node);
+            sep.setParent(node);
+            num.setParent(node);
+            sep2.setParent(node);
+            BIB.removeChain(node.getChildren().get(node.getChildren().size() - 1));
+        }
     }
 
     // replace System.out.printf into printf
