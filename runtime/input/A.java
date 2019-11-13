@@ -14,13 +14,13 @@ public class A {
 
     public void soup(int[] a) {
         // int b;
-        // ++b;
-        // a--;
+         ++b;
+         a--;
         //int[] f = {4, 2};
         //int g[] = {4, 2};
         // int[] h = new int[3];
         // int i[] = new int[5];
-        int c = 1;
+        arrayC[cDex++] = arrayA[aDex++] + 1;
          //int c = (42 + 3) * 2 - fun(2);
          //int c = (42 + c) * 2 - b;
     }

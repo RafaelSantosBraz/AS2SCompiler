@@ -41,5 +41,5 @@ void main()
 void main()
 {
     //int c = (42 + 3) * 2 - fun(2);
-    int f[] = { 4, 2 };
+    arrayC[cDex++] = arrayA[aDex++] + 1;
 }

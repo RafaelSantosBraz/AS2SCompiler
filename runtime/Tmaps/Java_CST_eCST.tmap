@@ -475,7 +475,7 @@
         "ASSIGN_OPERATOR" = {
             "OPERATOR" = {
                 new_leaf("=")
-            },            
+            },                     
             "NAME" = {
                 last.parent."VariableDeclaratorComplex"."VariableDeclaratorId".first_child
             },
@@ -539,7 +539,7 @@
         "ASSIGN_OPERATOR" = {            
             rule("rule_assignment_value", first_child.last.parent.parent),
             "OPERATOR" = {
-                last_child
+                last_child.last
             }
         }
     }  
@@ -550,7 +550,7 @@
     "ASSIGNMENT_STATEMENT" = {
         "ASSIGN_OPERATOR" = {            
             "OPERATOR" = {
-                first_child
+                first_child.last
             },
             rule("rule_assignment_value", last_child.last.parent.parent)
         }
@@ -564,8 +564,12 @@
             "OPERATOR" = {
                 "AssignmentOperator".child
             },
-            "NAME" = {
-                "LeftHandSide".last
+            if ("LeftHandSide".last == :"ArrayAccess"){
+                rule("rule_array_access", "LeftHandSide".last)
+            } else {
+                "NAME" = {
+                    "LeftHandSide".last
+                }
             },
             "VALUE" = {
                 ? rule("rule_assignment_value", "Expression".last.parent.parent)                                            
@@ -584,11 +588,49 @@
             "ExpressionName".child
         },
         ? rule("rule_assignment_instantiates", child."ClassInstanceCreationExpression_lfno_primary"),
-        ? rule("rule_aux_expression", first_child.child),
-        ? rule("rule_array__instantiates", child."ArrayCreationExpression"),
-        ? rule("rule_array_initializer", "VariableInitializer"."ArrayInitializer"),        
-        ? rule("rule_assignment_value_attr_call", "ExpressionName")              
+        if (first_child.child == :"ArrayAccess_lfno_primary"){
+            rule("rule_array_access", first_child.child)
+        } else {
+            if (first_child.child == :"PostfixExpression"){
+                rule("rule_post_unary_operator", first_child.child)
+            } else {
+                if (first_child.child == :"PostDecrementExpression"){
+                    rule("rule_post_unary_operator", first_child.child)
+                } else {
+                    if (first_child.child == :"PostIncrementExpression"){
+                        rule("rule_post_unary_operator", first_child.child)
+                    } else {
+                        if (first_child.child == :"PreDecrementExpression"){
+                            rule("rule_pre_unary_operator", first_child.child)
+                        } else {
+                            if (first_child.child == :"PreIncrementExpression"){
+                                rule("rule_pre_unary_operator", first_child.child)
+                            } else {
+                                ? rule("rule_aux_expression", first_child.child),
+                                ? rule("rule_array__instantiates", child."ArrayCreationExpression"),
+                                ? rule("rule_array_initializer", "VariableInitializer"."ArrayInitializer"),        
+                                ? rule("rule_assignment_value_attr_call", "ExpressionName")    
+                            }
+                        }
+                    }                      
+                }               
+            }            
+        }                  
     }      
+}
+
+// handle with an array access : receives "ArrayAccess_lfno_primary"
+"rule_array_access" -> {
+    "NAME" = {
+        "ExpressionName".child
+    },
+    "SEPARATOR" = {
+        new_leaf("[")
+    },
+    ? rule("rule_assignment_value", "Expression".last.parent.parent),
+    "SEPARATOR" = {
+        new_leaf("]")
+    }
 }
 
 // handle with the initialization of an array like '{4, 2}' : receives "ArrayInitializer"
