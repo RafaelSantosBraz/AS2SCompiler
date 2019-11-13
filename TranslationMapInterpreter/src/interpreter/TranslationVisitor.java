@@ -6,6 +6,7 @@
 package interpreter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.TerminalNode;
 import parser.TranslationGrammarBaseVisitor;
@@ -24,12 +25,12 @@ import trees.simpletree.Tree;
  */
 public class TranslationVisitor extends TranslationGrammarBaseVisitor<Object> {
 
-    private final ArrayList<TranslationGrammarParser.RuleeContext> rules;
+    private final HashMap<String, TranslationGrammarParser.RuleeContext> rules;
     private Node<TokenAttributes> current_node;
 
     public TranslationVisitor(Node<TokenAttributes> current_node) {
         this.current_node = current_node;
-        rules = new ArrayList<>();
+        rules = new HashMap<>();
     }
 
     // override the original ANTLR method because it was returning null when there were no more children
@@ -46,7 +47,9 @@ public class TranslationVisitor extends TranslationGrammarBaseVisitor<Object> {
 
     // executes the tmap code starting from a initial rule, return the resulting tree
     public Tree<TokenAttributes> start(TranslationGrammarParser.ProgContext ctx, String firstRuleName) {
-        rules.addAll(ctx.rulee());
+        ctx.rulee().parallelStream().forEach((t) -> {
+            rules.put(t.NODE_NAME().getSymbol().getText(), t);
+        });
         Tree<TokenAttributes> eCST = new Tree<>(new UniversalToken("root", -1));
         ArrayList<Node<TokenAttributes>> result = (ArrayList<Node<TokenAttributes>>) magicVisit(getRuleContext(firstRuleName), current_node);
         if (result == null) {
@@ -124,7 +127,7 @@ public class TranslationVisitor extends TranslationGrammarBaseVisitor<Object> {
     public Object visitPartialcondition(TranslationGrammarParser.PartialconditionContext ctx) {
         if (ctx.visitingsequence() != null) {
             ArrayList<Node<TokenAttributes>> temp = (ArrayList<Node<TokenAttributes>>) magicVisit(ctx.visitingsequence(), current_node);
-            if (temp == null){
+            if (temp == null) {
                 return null;
             }
             if (temp.size() != 1) {
@@ -390,12 +393,7 @@ public class TranslationVisitor extends TranslationGrammarBaseVisitor<Object> {
 
     // search for a tmap rule context that has tha given name
     private TranslationGrammarParser.RuleeContext getRuleContext(String ruleName) {
-        for (TranslationGrammarParser.RuleeContext p : rules) {
-            if (p.NODE_NAME().getSymbol().getText().equals(ruleName)) {
-                return p;
-            }
-        }
-        return null;
+        return rules.get(ruleName);
     }
 
     // remove \" ... \" of a String from the CST

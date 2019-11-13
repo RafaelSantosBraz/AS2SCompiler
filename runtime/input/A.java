@@ -1,43 +1,58 @@
-/* Merge App
+/* Ordered Array
 *  adapted from (Estruturas de Dados & Algoritmos em Java 2ed)
 */
 
-public class MergeApp {
-/*
-    public static void display(int[] theArray, int size) {
+public class OrdArray {
+
+    public int nElems;
+
+    public OrdArray() {
+        nElems = 0;
+    }
+
+    public int find(int searchKey, int[] a) {
+        int lowerBound = 0;
+        int upperBound = nElems - 1;
+        int curIn;
+        while (true) {
+            curIn = (lowerBound + upperBound) / 2;
+            if (a[curIn] == searchKey) {
+                return curIn;
+            } else {
+                if (lowerBound > upperBound) {
+                    return nElems;
+                } else {
+                    if (a[curIn] < searchKey) {
+                        lowerBound = curIn + 1;
+                    } else {
+                        upperBound = curIn - 1;
+                    }
+                }
+            }
+        }
+    }
+
+    public void insert(int value, int[] a) {
         int j;
-        for (j = 0; j < size; j++) {
-            System.out.printf("%d ", theArray[j]);
+        for (j = 0; j < nElems; j++) {
+            if (a[j] > value) {
+                break;
+            }
+        }
+        int k;
+        for (k = nElems; k > j; k--) {
+            a[k] = a[k - 1];
+        }
+        a[j] = value;
+        nElems++;
+    }
+
+    public void display(int[] a) {
+        int j;
+        for (j = 0; j < nElems; j++) {
+            System.out.printf("%d ", a[j]);
         }
         System.out.printf("\n");
     }
 
-    public static void merge(int[] arrayA, int sizeA, int[] arrayB, int sizeB, int[] arrayC) {
-        int aDex = 0;
-        int bDex = 0;
-        int cDex = 0;
-        while (aDex < sizeA && bDex < sizeB) {
-            if (arrayA[aDex] < arrayB[bDex]) {
-                arrayC[cDex++] = arrayA[aDex++];
-            } else {
-                arrayC[cDex++] = arrayB[bDex++];
-            }
-        }
-        while (aDex < sizeA) {
-            arrayC[cDex++] = arrayA[aDex++];
-        }
-        while (bDex < sizeB) {
-            arrayC[cDex++] = arrayB[bDex++];
-        }
-    }
-*/
-
-    // Example
-    public static void main(String[] args) {
-        //int[] arrayA = { 23, 47, 81, 95 };
-        //int[] arrayB = { 7, 14, 39, 55, 62, 74 };
-        //int[] arrayC = new int[10];
-        //merge(arrayA, 4, arrayB, 6, arrayC);
-        //display(arrayC, 10);
-    }
 }
