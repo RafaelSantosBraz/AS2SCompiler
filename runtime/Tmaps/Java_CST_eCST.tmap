@@ -360,15 +360,7 @@
                     new_leaf(")")
                 }
             },
-            "BLOCK_SCOPE" = {
-                "SEPARATOR" = {
-                    new_leaf("{")
-                },
-                ? rule("rule_block_scope", "Statement".last."BlockStatements".children("BlockStatement")),            
-                "SEPARATOR" = {
-                    new_leaf("}")
-                }
-            }
+            rule("rule_block_scope", "Statement".last)
         }
     }
 }
@@ -389,29 +381,13 @@
                     new_leaf(")")
                 }
             },
-            "BLOCK_SCOPE" = {
-                "SEPARATOR" = {
-                    new_leaf("{")
-                },
-                ? rule("rule_block_scope", "StatementNoShortIf".last."BlockStatements".children("BlockStatement")),            
-                "SEPARATOR" = {
-                    new_leaf("}")
-                }
-            }
+            rule("rule_block_scope", "StatementNoShortIf".last)
         },
         "BRANCH" = {
             "KEYWORD" = {
                 new_leaf("else")
             },            
-            "BLOCK_SCOPE" = {
-                "SEPARATOR" = {
-                    new_leaf("{")
-                },
-                ? rule("rule_block_scope", "Statement".last."BlockStatements".children("BlockStatement")),            
-                "SEPARATOR" = {
-                    new_leaf("}")
-                }
-            }
+            rule("rule_block_scope", "Statement".last)
         }
     }
 }
@@ -672,7 +648,20 @@
 // handle with relational expression : receives "Expression".last.parent
 "rule_relational_expression" -> {
    "COMPARISON_OPERATOR" = {
-        child(1),
+        child(1).last,
+        "VALUE" = {
+            rule("rule_assignment_value", child(0).last.parent.parent)
+        },
+        "VALUE" = {
+            rule("rule_assignment_value", child(2).last.parent.parent)
+        }
+    }
+}
+
+// handle with logical expression : receives "Expression".last.parent
+"rule_logical_expression" -> {
+   "LOGICAL_OPERATOR" = {
+        child(1).last,
         "VALUE" = {
             rule("rule_assignment_value", child(0).last.parent.parent)
         },
@@ -713,10 +702,18 @@
     if (current_node == :"PrimaryNoNewArray_lfno_primary"){
         rule ("rule_assignment_value", "Expression".last.parent.parent)
     } else{
-        if (current_node == :"RelationalExpression"){
+        if (child(1) == :"EqualityOperator"){
             rule("rule_relational_expression", current_node)
-        } else {            
-            rule("rule_operator", current_node)
+        } else {   
+            if (child(1) == :"&&"){
+                rule("rule_logical_expression", current_node)
+            } else {
+                if (child(1) == :"||"){
+                    rule("rule_logical_expression", current_node)
+                } else {
+                    rule("rule_operator", current_node)
+                }
+            }            
         }        
     } 
 }
