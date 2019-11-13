@@ -273,7 +273,7 @@
         "KEYWORD" = {
             new_leaf("do")
         },   
-        rule("rule_block_scope", "Statement".last."BlockStatements"),                    
+        rule("rule_block_scope", "Statement".last),                    
         rule("rule_for_condition", "Expression")
     }
 }
@@ -298,7 +298,7 @@
         ? rule("rule_for_init", "ForInit"),
         ? rule("rule_for_condition", "Expression"),
         ? rule("rule_for_step", "ForUpdate"),
-        rule("rule_block_scope", "Statement".last."BlockStatements")        
+        rule("rule_block_scope", "Statement".last)        
     }
 }
 
@@ -307,10 +307,8 @@
     "STEP" = {
         if (last == :"Assignment"){
             rule("rule_assignment", last)
-        } else {    
-            ? "ASSIGNMENT_STATEMENT" = {  
-                rule("rule_assignment_value", last.parent.parent)          
-            }
+        } else {                
+            ? rule("rule_assignment_value", last.parent.parent)          
         }
     }
 }

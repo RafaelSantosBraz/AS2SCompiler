@@ -47,7 +47,7 @@ public class TranslationVisitor extends TranslationGrammarBaseVisitor<Object> {
 
     // executes the tmap code starting from a initial rule, return the resulting tree
     public Tree<TokenAttributes> start(TranslationGrammarParser.ProgContext ctx, String firstRuleName) {
-        ctx.rulee().parallelStream().forEach((t) -> {
+        ctx.rulee().forEach((t) -> {
             rules.put(t.NODE_NAME().getSymbol().getText(), t);
         });
         Tree<TokenAttributes> eCST = new Tree<>(new UniversalToken("root", -1));
