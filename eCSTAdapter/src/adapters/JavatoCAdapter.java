@@ -13,6 +13,7 @@ import symboltable.SymbolTable;
 import trees.cstecst.TokenAttributes;
 import trees.cstecst.UniversalToken;
 import trees.simpletree.Node;
+import trees.simpletree.Tree;
 import walkers.ActionWalker;
 
 /**
@@ -262,9 +263,41 @@ public class JavatoCAdapter extends ActionWalker {
 
     // creates C structs for the classes and remove the obj attributes from the tree
     public void createStructs() {
-        
+        List<Symbol> classes = symbolTable.getClasses();
+        List<Symbol> nonStaticVars = symbolTable.getNonStaticVariables();
+        List<Symbol> nonStaticFuncs = symbolTable.getNonStaticFunctions();
+        classes.forEach((t) -> {
+            String code = BIB.getTmapCodeFromFile(auxTmapsDir, "structJavatoC.tmap");
+            Node<TokenAttributes> struct = BIB.tmapOneRuleCodeCall(code, t.getNode()).get(0);
+            Node<TokenAttributes> name = BIB.searchDownFor(struct, "$1");
+            name.getNodeData().setText(t.getName());
+            struct.setParent(t.getNode());
+            t.getNode().getChildren().add(2, struct);
+            Node<TokenAttributes> structBlock = struct.getChildren().get(1);
+            nonStaticVars.forEach((v) -> {
+                if (v.getNode().getParent().equals(t.getNode())) {
+                    BIB.removeChain(v.getNode());
+                    v.getNode().setParent(structBlock);
+                    structBlock.getChildren().add(structBlock.getChildren().size() - 1, v.getNode());
+                }
+            });
+            nonStaticFuncs.forEach((v) -> {
+                if (v.getNode().getParent().equals(t.getNode())) {
+                    Node<TokenAttributes> funcClone = v.getNode().getChainClone();
+                    funcClone.setParent(structBlock);
+                    structBlock.getChildren().add(structBlock.getChildren().size() - 1, funcClone);
+                    Node<TokenAttributes> fType = funcClone.getChildren().get(1);
+                    Node<TokenAttributes> fName = funcClone.getChildren().get(2);
+                    Node<TokenAttributes> fParam = funcClone.getChildren().get(3);
+                    funcClone.getChildren().clear();
+                    funcClone.getChildren().add(fType);
+                    funcClone.getChildren().add(fName);
+                    funcClone.getChildren().add(fParam);
+                }
+            });
+        });
     }
-    
+
     // create C prototypes of all functions in the tree
     public void createFuncPrototypes() {
         List<Symbol> funcs = symbolTable.getAllFunctions();
@@ -306,15 +339,20 @@ public class JavatoCAdapter extends ActionWalker {
                 BIB.searchDownFor(constr, "$2").getNodeData().setText(t.getName());
                 constr.setParent(t.getNode());
                 t.getNode().getChildren().add(2, constr);
-                symbolTable.addSymbol(new Symbol(t.getName(), Symbol.CONSTRUCTOR, constr));
+                Symbol symb = new Symbol(t.getName(), Symbol.CONSTRUCTOR, constr);
+                symbolTable.addSymbol(symb);
+                changeConstructorBody(symb);
             } else {
-                symbolTable.getConstructors().forEach((c) -> {
-                    if (c.getName().equals(t.getName())) {
-                        t.getNode().getChildren().remove(c.getNode());
-                        t.getNode().getChildren().add(2, c.getNode());
-                    }
-                });
+                Symbol c = symbolTable.getConstructorByName(t.getName());
+                t.getNode().getChildren().remove(c.getNode());
+                t.getNode().getChildren().add(2, c.getNode());
+                changeConstructorBody(c);
             }
         });
+    }
+
+    // change the given constructor to instantiate a struct and returns its pointer
+    public void changeConstructorBody(Symbol symbol) {
+            
     }
 }

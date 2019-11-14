@@ -71,6 +71,17 @@ public class SymbolTable {
         return res;
     }
 
+    // returns all non static global variables
+    public List<Symbol> getNonStaticVariables() {
+        List<Symbol> res = new ArrayList<>();
+        table.forEach((t) -> {
+            if (t.getType() == Symbol.NON_STATIC_GLOB_VAR) {
+                res.add(t);
+            }
+        });
+        return res;
+    }
+
     // returns all static and non static functions
     public List<Symbol> getAllFunctions() {
         List<Symbol> res = new ArrayList<>();
@@ -91,6 +102,17 @@ public class SymbolTable {
             }
         });
         return res;
+    }
+
+    // returns a constructor symbol that has a given name
+    public Symbol getConstructorByName(String name) {
+        try {
+            return (Symbol) table.stream().filter((b) -> {
+                return b.getName().equals(name) && b.getType() == Symbol.CONSTRUCTOR;
+            }).toArray()[0];
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     // check if a symbol is a constructor by its name

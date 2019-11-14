@@ -51,15 +51,15 @@ public class Translator {
         if (adapter == null) {
             return false;
         }
-        adapter.startWalking(conv.getTree());
+        adapter.startWalking(conv.getTree());        
         if (adapter instanceof JavatoCAdapter) {
             JavatoCAdapter adp = (JavatoCAdapter) adapter;
             adp.createConstructors();
             adp.correctFuncCalls();
             adp.createFuncPrototypes();
-            adp.createStructs();
+            adp.createStructs();            
         }
-        int index = eCSTPath.lastIndexOf(File.separator);
+        int index = eCSTPath.lastIndexOf(File.separator);        
         String xmlPath = eCSTPath.replace(eCSTPath.substring(index + 1), "eCSTadapted.xml");
         String dotPath = eCSTPath.replace(eCSTPath.substring(index + 1), "eCSTadapted.gv");
         return exportCSTDOT(conv.getTree(), dotPath) && exportCSTXML(conv.getTree(), xmlPath);
