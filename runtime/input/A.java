@@ -15,7 +15,13 @@ public class ChkNum {
         }
     }
 
+    void teste(){
+        _this.a = 2;
+        _this.isEven(a);
+        _this.isEven(_this.a);
+    }
+
     public ChkNum(){
-      
+     
     }
 }
