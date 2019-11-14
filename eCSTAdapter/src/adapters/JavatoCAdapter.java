@@ -11,6 +11,7 @@ import java.util.List;
 import symboltable.Symbol;
 import symboltable.SymbolTable;
 import trees.cstecst.TokenAttributes;
+import trees.cstecst.UniversalToken;
 import trees.simpletree.Node;
 import walkers.ActionWalker;
 
@@ -68,9 +69,9 @@ public class JavatoCAdapter extends ActionWalker {
         String name = BIB.getText(BIB.getChildByText(node.getChildren(), "NAME").getChildren().get(0));
         node.getNodeData().setText("VAR_DECL");
         if (isStatic(node)) {
-            symbolTable.addValue(name, new Symbol(name, Symbol.STATIC_GLOB_VAR, node));
+            symbolTable.addSymbol(new Symbol(name, Symbol.STATIC_GLOB_VAR, node));
         } else {
-            symbolTable.addValue(name, new Symbol(name, Symbol.NON_STATIC_GLOB_VAR, node));
+            symbolTable.addSymbol(new Symbol(name, Symbol.NON_STATIC_GLOB_VAR, node));
         }
         if (value.getChildren().isEmpty()) {
             BIB.removeChain(value);
@@ -128,17 +129,17 @@ public class JavatoCAdapter extends ActionWalker {
         String name = BIB.getText(BIB.getChildByText(node.getChildren(), "NAME").getChildren().get(0));
         if (name.equals(curUnitName)) {
             BIB.searchDownFor(node, "void").getNodeData().setText(name);
-            symbolTable.addValue(name, new Symbol(name, Symbol.CONSTRUCTOR, node));
+            symbolTable.addSymbol(new Symbol(name, Symbol.CONSTRUCTOR, node));
         } else {
             if (!isStatic(node)) {
                 Node<TokenAttributes> parList = BIB.getChildByText(node.getChildren(), "FORMAL_PARAM_LIST");
                 addThisReference(parList);
-                symbolTable.addValue(name, new Symbol(name, Symbol.NON_STATIC_FUNC, node));
+                symbolTable.addSymbol(new Symbol(name, Symbol.NON_STATIC_FUNC, node));
             } else {
                 if (name.equals("main")) {
                     BIB.getChildByText(node.getChildren(), "FORMAL_PARAM_LIST").getChildren().clear();
                 }
-                symbolTable.addValue(name, new Symbol(name, Symbol.STATIC_FUNC, node));
+                symbolTable.addSymbol(new Symbol(name, Symbol.STATIC_FUNC, node));
             }
         }
     }
@@ -146,7 +147,7 @@ public class JavatoCAdapter extends ActionWalker {
     // keeping the unit name 
     public void actionCONCRETE_UNIT_DECL(Node<TokenAttributes> node) {
         curUnitName = BIB.getText(BIB.getChildByText(node.getChildren(), "NAME").getChildren().get(0));
-        symbolTable.addValue(curUnitName, new Symbol(curUnitName, Symbol.CLASS, node));
+        symbolTable.addSymbol(new Symbol(curUnitName, Symbol.CLASS, node));
     }
 
     // true to 1 
@@ -169,6 +170,7 @@ public class JavatoCAdapter extends ActionWalker {
         Node<TokenAttributes> nodeName = BIB.getChildByText(node.getChildren(), "NAME");
         String name = rewriteName(nodeName);
         if (!name.equals("System.out.printf") && !name.equals("System.out.println")) {
+            symbolTable.addSymbol(new Symbol(name, Symbol.FUNC_CALL, node));
             return;
         }
         if (name.equals("System.out.println")) {
@@ -253,4 +255,66 @@ public class JavatoCAdapter extends ActionWalker {
         }
     }
 
+    // corrects function calls removing useless obj/class reference or adds obj/_this reference
+    public void correctFuncCalls() {
+
+    }
+
+    // creates C structs for the classes and remove the obj attributes from the tree
+    public void createStructs() {
+        
+    }
+    
+    // create C prototypes of all functions in the tree
+    public void createFuncPrototypes() {
+        List<Symbol> funcs = symbolTable.getAllFunctions();
+        funcs.forEach((t) -> {
+            Node<TokenAttributes> prot = new Node<>(t.getNode().getParent());
+            prot.setNodeData(new UniversalToken("PROTOTYPE", -1));
+            Node<TokenAttributes> typeClone = BIB.getChildByText(t.getNode().getChildren(), "TYPE").getChainClone();
+            Node<TokenAttributes> nameClone = BIB.getChildByText(t.getNode().getChildren(), "NAME").getChainClone();
+            Node<TokenAttributes> parmClone = BIB.getChildByText(t.getNode().getChildren(), "FORMAL_PARAM_LIST").getChainClone();
+            prot.getChildren().add(typeClone);
+            prot.getChildren().add(nameClone);
+            prot.getChildren().add(parmClone);
+            parmClone.getChildren().forEach((c) -> {
+                Node<TokenAttributes> type = BIB.getChildByText(c.getChildren(), "TYPE");
+                Node<TokenAttributes> sep = BIB.getChildByText(c.getChildren(), "SEPARATOR");
+                if (sep == null) {
+                    c.getChildren().clear();
+                    c.getChildren().add(type);
+                    return;
+                }
+                Node<TokenAttributes> sep2 = c.getChildren().get(c.getChildren().indexOf(sep) + 1);
+                c.getChildren().clear();
+                c.getChildren().add(type);
+                c.getChildren().add(sep);
+                c.getChildren().add(sep2);
+            });
+            prot.getParent().getChildren().add(2, prot);
+        });
+    }
+
+    // if the class does not have a constructor, this method will create one
+    public void createConstructors() {
+        List<Symbol> classes = symbolTable.getClasses();
+        classes.forEach((t) -> {
+            if (!symbolTable.isConstructorByName(t.getName())) {
+                String code = BIB.getTmapCodeFromFile(auxTmapsDir, "constrJavatoC.tmap");
+                Node<TokenAttributes> constr = BIB.tmapOneRuleCodeCall(code, t.getNode()).get(0);
+                BIB.searchDownFor(constr, "$1").getNodeData().setText(t.getName());
+                BIB.searchDownFor(constr, "$2").getNodeData().setText(t.getName());
+                constr.setParent(t.getNode());
+                t.getNode().getChildren().add(2, constr);
+                symbolTable.addSymbol(new Symbol(t.getName(), Symbol.CONSTRUCTOR, constr));
+            } else {
+                symbolTable.getConstructors().forEach((c) -> {
+                    if (c.getName().equals(t.getName())) {
+                        t.getNode().getChildren().remove(c.getNode());
+                        t.getNode().getChildren().add(2, c.getNode());
+                    }
+                });
+            }
+        });
+    }
 }

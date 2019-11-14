@@ -38,6 +38,12 @@ void main()
 }
 */
 
+void teste(int[]);
+
+void teste(int a[]){
+
+}
+
 struct MergeApp
 {
     int a;

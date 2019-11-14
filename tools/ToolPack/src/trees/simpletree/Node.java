@@ -80,5 +80,17 @@ public class Node<T> {
         newNode.setChildren(children);
         newNode.setNodeData(nodeData);
         return newNode;
-    }    
+    } 
+    
+    // returns a clone of the CURRENT node, ITS data and clones of ALL its children
+    public Node<T> getChainClone(){
+        Node<T> newNode = new Node<>(parent);
+        List<Node<T>> newChildren = new ArrayList<>();
+        children.forEach((t) -> {
+            newChildren.add(t.getChainClone());
+        });        
+        newNode.setChildren(newChildren);
+        newNode.setNodeData(nodeData);
+        return newNode;
+    }
 }

@@ -21,6 +21,7 @@ public class Symbol {
     public static final int CONSTRUCTOR = 3; // constructor of an object
     public static final int NON_STATIC_GLOB_VAR = 4; // attribute of an object
     public static final int STATIC_GLOB_VAR = 5; // attribute of a class / global variable
+    public static final int FUNC_CALL = 6; // function/method call
 
     private final String name; // key that represents the symbol
     private final int type; // type of the symbol -- one of the static constants declared here

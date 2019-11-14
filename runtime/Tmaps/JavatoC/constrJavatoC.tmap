@@ -1,0 +1,18 @@
+"FUNCTION_DECL" = {
+    new_leaf("MODIFIER_LIST"),
+    "TYPE" = {
+        new_leaf("$1")
+    },
+    "NAME" = {
+        new_leaf("$2")
+    },
+    new_leaf("FORMAL_PARAM_LIST"),
+    "BLOCK_SCOPE" = {
+        "SEPARATOR" = {
+            new_leaf("{")
+        },
+        "SEPARATOR" = {
+            new_leaf("}")
+        }
+    }
+}

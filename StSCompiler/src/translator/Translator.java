@@ -49,9 +49,16 @@ public class Translator {
             adapter = new JavatoCAdapter(auxTmapsDir);
         }
         if (adapter == null) {
-            return true;
+            return false;
         }
         adapter.startWalking(conv.getTree());
+        if (adapter instanceof JavatoCAdapter) {
+            JavatoCAdapter adp = (JavatoCAdapter) adapter;
+            adp.createConstructors();
+            adp.correctFuncCalls();
+            adp.createFuncPrototypes();
+            adp.createStructs();
+        }
         int index = eCSTPath.lastIndexOf(File.separator);
         String xmlPath = eCSTPath.replace(eCSTPath.substring(index + 1), "eCSTadapted.xml");
         String dotPath = eCSTPath.replace(eCSTPath.substring(index + 1), "eCSTadapted.gv");

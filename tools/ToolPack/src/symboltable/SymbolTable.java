@@ -5,7 +5,8 @@
  */
 package symboltable;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * provides structures and methods to keep important information about a tree
@@ -15,33 +16,85 @@ import java.util.HashMap;
  */
 public class SymbolTable {
 
-    private final HashMap<String, Symbol> table;
+    private final List<Symbol> table;
 
     public SymbolTable() {
-        table = new HashMap<>();
+        table = new ArrayList<>();
     }
 
-    public Symbol getSymbol(String key) {
-        return table.get(key);
+    // returns all symbols that have the given name
+    public List<Symbol> getSymbolsByName(String name) {
+        List<Symbol> res = new ArrayList<>();
+        table.stream().filter((b) -> (b.getName().equals(name))).forEachOrdered((b) -> {
+            res.add(b);
+        });
+        return res;
     }
 
-    public boolean hasKey(String key) {
-        return table.containsKey(key);
-    }
-
-    public void addValue(String key, Symbol value) {
-        table.put(key, value);
-    }
-
-    public void removeValue(String key) {
-        table.remove(key);
-    }
-
-    public int getSymbolType(String key) {
-        if (hasKey(key)) {
-            return getSymbol(key).getType();
+    public void addSymbol(Symbol symbol) {
+        if (table.stream().anyMatch((b) -> (b.getName().equals(symbol.getName()) && b.getNode().equals(symbol.getNode())))) {
+            return;
         }
-        return -1;
+        table.add(symbol);
     }
 
+    // returns all the symbols of CLASS type
+    public List<Symbol> getClasses() {
+        List<Symbol> classes = new ArrayList<>();
+        table.forEach((t) -> {
+            if (t.getType() == Symbol.CLASS) {
+                classes.add(t);
+            }
+        });
+        return classes;
+    }
+
+    // returns all static functions
+    public List<Symbol> getStaticFunctions() {
+        List<Symbol> res = new ArrayList<>();
+        table.forEach((t) -> {
+            if (t.getType() == Symbol.STATIC_FUNC) {
+                res.add(t);
+            }
+        });
+        return res;
+    }
+
+    // returns all non static functions
+    public List<Symbol> getNonStaticFunctions() {
+        List<Symbol> res = new ArrayList<>();
+        table.forEach((t) -> {
+            if (t.getType() == Symbol.NON_STATIC_FUNC) {
+                res.add(t);
+            }
+        });
+        return res;
+    }
+
+    // returns all static and non static functions
+    public List<Symbol> getAllFunctions() {
+        List<Symbol> res = new ArrayList<>();
+        table.forEach((t) -> {
+            if (t.getType() == Symbol.STATIC_FUNC || t.getType() == Symbol.NON_STATIC_FUNC) {
+                res.add(t);
+            }
+        });
+        return res;
+    }
+
+    // returns all the symbols of CONSTRUCTOR type
+    public List<Symbol> getConstructors() {
+        List<Symbol> res = new ArrayList<>();
+        table.forEach((t) -> {
+            if (t.getType() == Symbol.CONSTRUCTOR) {
+                res.add(t);
+            }
+        });
+        return res;
+    }
+
+    // check if a symbol is a constructor by its name
+    public boolean isConstructorByName(String name) {
+        return table.stream().anyMatch((b) -> (b.getName().equals(name) && b.getType() == Symbol.CONSTRUCTOR));
+    }
 }

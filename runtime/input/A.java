@@ -8,6 +8,7 @@ public class MergeApp {
     public int[] arrayB = { 7, 14, 39, 55, 62, 74 };
     public int[] arrayC = new int[10];
 
+    
     public MergeApp(){
         int a = 3;        
         int b[] = new int[3];
@@ -15,6 +16,7 @@ public class MergeApp {
         mg = new MergeApp();
         mg.func();
     }
+    
 
     public static void display(int[] theArray, int size) {
         int j;
