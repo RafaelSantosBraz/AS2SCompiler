@@ -353,6 +353,20 @@ public class JavatoCAdapter extends ActionWalker {
 
     // change the given constructor to instantiate a struct and returns its pointer
     public void changeConstructorBody(Symbol symbol) {
-            
+        String code = BIB.getTmapCodeFromFile(auxTmapsDir, "mallocJavatoC.tmap");
+        Node<TokenAttributes> node = BIB.tmapOneRuleCodeCall(code, symbol.getNode()).get(0);
+        Node<TokenAttributes> body = symbol.getNode().getChildren().get(symbol.getNode().getChildren().size() - 1);
+        node.setParent(body);
+        body.getChildren().add(1, node);
+        symbolTable.getNonStaticFunctions().forEach((t) -> {
+            String fCode = BIB.getTmapCodeFromFile(auxTmapsDir, "funcassignJavatoC.tmap");
+            Node<TokenAttributes> fNode = BIB.tmapOneRuleCodeCall(fCode, t.getNode()).get(0);
+            fNode.setParent(body);
+            body.getChildren().add(body.getChildren().size() - 1, fNode);
+        });
+        code = BIB.getTmapCodeFromFile(auxTmapsDir, "returnthisJavatoC.tmap");
+        node = BIB.tmapOneRuleCodeCall(code, symbol.getNode()).get(0);
+        node.setParent(body);
+        body.getChildren().add(body.getChildren().size() - 1, node);
     }
 }

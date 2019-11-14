@@ -16,6 +16,6 @@ public class ChkNum {
     }
 
     public ChkNum(){
-       
+      
     }
 }
