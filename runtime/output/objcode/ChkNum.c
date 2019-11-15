@@ -11,7 +11,7 @@ void met();
 int isEven(int, struct ChkNum *);
 struct ChkNum *ChkNum()
 {
-    struct ChkNum *_this = malloc(sizeof(struct ChkNum));
+    struct ChkNum *_this = malloc(sizeof(ChkNum));
     _this->isEven = isEven;
     _this->teste = teste;
     return _this;
@@ -19,7 +19,7 @@ struct ChkNum *ChkNum()
 char b = 'b';
 int isEven(int x, struct ChkNum *_this)
 {
-    if (COMPARISON_OPERATOR)
+    if (((x % 2) == 0))
     {
         return 1;
     }
@@ -28,10 +28,20 @@ int isEven(int x, struct ChkNum *_this)
         return 0;
     }
 }
-void met() void teste(struct ChkNum *_this)
+void met() {}
+void teste(struct ChkNum *_this)
 {
-    NAME = 1;
-    NAME = 'x';
-    char c = NAME;
-    NAME++ _this->isEven(obj->a, struct _this);
+    b = 1;
+    b = 'x';
+    char c = b;
+    //b++;
+    struct ChkNum *obj = ChkNum();
+    obj->a = 42;
+    printf("%d\n", _this->isEven(obj->a, _this));
+}
+
+void main(){
+    struct ChkNum* oi = ChkNum();
+    oi->teste(oi);
+    printf("%c\n", b);
 }

@@ -45,7 +45,9 @@ public class CGenerator extends CodeGenerator {
     public Object actionBLOCK_SCOPE(Node<TokenAttributes> node) {
         List<String> res = new ArrayList<>();
         res.add("{");
-        res.addAll((List<String>) visitChildren(node.getChildren()));
+        if (node.getChildren().size() > 2) {
+            res.addAll((List<String>) visitChildren(node.getChildren()));
+        }
         res.add("}");
         return res;
     }
@@ -62,9 +64,14 @@ public class CGenerator extends CodeGenerator {
 
     public Object actionASSIGN_OPERATOR(Node<TokenAttributes> node) {
         List<String> res = new ArrayList<>();
-        res.addAll((List<String>) visit(node.getChildren().get(1)));
-        res.addAll((List<String>) visit(node.getChildren().get(0)));
-        res.addAll((List<String>) visit(node.getChildren().get(2)));
+        if (node.getChildren().size() == 3) {
+            res.addAll((List<String>) visit(node.getChildren().get(1)));
+            res.addAll((List<String>) visit(node.getChildren().get(0)));
+            res.addAll((List<String>) visit(node.getChildren().get(2)));
+        } else {
+            res.addAll((List<String>) visit(node.getChildren().get(0)));
+            res.addAll((List<String>) visit(node.getChildren().get(1)));
+        }
         res.add(";");
         return res;
     }
@@ -91,23 +98,34 @@ public class CGenerator extends CodeGenerator {
     public Object actionCONDITION(Node<TokenAttributes> node) {
         List<String> res = new ArrayList<>();
         res.add("(");
-        res.add(getText(node.getChildren().get(1)));
+        res.addAll((List<String>) visit(node.getChildren().get(1)));
         res.add(")");
         return res;
     }
 
     public Object actionCOMPARISON_OPERATOR(Node<TokenAttributes> node) {
         List<String> res = new ArrayList<>();
-        if (node.getChildren().size() == 1) {
-            res.add(getText(node.getChildren().get(0)));
-        }
+        res.addAll((List<String>) actionOPERATOR(node));
         return res;
     }
-    
+
     public Object actionOPERATOR(Node<TokenAttributes> node) {
         List<String> res = new ArrayList<>();
-        if (node.getChildren().size() == 1) {
-            res.add(getText(node.getChildren().get(0)));
+        switch (node.getChildren().size()) {
+            case 1:
+                res.add(getText(node.getChildren().get(0)));
+                break;
+            case 2:
+                res.addAll((List<String>) visit(node.getChildren().get(0)));
+                res.addAll((List<String>) visit(node.getChildren().get(1)));
+                break;
+            case 3:
+                res.add("(");
+                res.addAll((List<String>) visit(node.getChildren().get(1)));
+                res.add(getText(node.getChildren().get(0)));
+                res.addAll((List<String>) visit(node.getChildren().get(2)));
+                res.add(")");
+                break;
         }
         return res;
     }
@@ -128,15 +146,7 @@ public class CGenerator extends CodeGenerator {
 
     public Object actionARGUMENT(Node<TokenAttributes> node) {
         List<String> res = new ArrayList<>();
-        if (getText(node.getChildren().get(0)).equals("NAME")) {
-            List<String> temp = (List<String>) visit(node.getChildren().get(0));
-            if (temp.size() == 1 && !isPrimitiveType(temp.get(0))) {
-                res.add("struct");
-            }
-            res.addAll(temp);
-        } else {
-            res.addAll((List<String>) visit(node.getChildren().get(0)));
-        }
+        res.addAll((List<String>) visit(node.getChildren().get(0)));
         res.add(",");
         return res;
     }
@@ -181,7 +191,9 @@ public class CGenerator extends CodeGenerator {
     public Object actionARGUMENT_LIST(Node<TokenAttributes> node) {
         List<String> res = new ArrayList<>();
         res.add("(");
-        res.addAll((List<String>) visitChildren(node.getChildren()));
+        if (node.getChildren().size() > 2) {
+            res.addAll((List<String>) visitChildren(node.getChildren()));
+        }
         res.add(")");
         return res;
     }
@@ -212,7 +224,14 @@ public class CGenerator extends CodeGenerator {
             return res;
         }
         if (node.getChildren().size() == 1) {
-            res.add(getText(node.getChildren().get(0)));
+            if (getText(node.getChildren().get(0)).equals("NAME") || getText(node.getChildren().get(0)).equals("TYPE")) {
+                res.addAll((List<String>) visit(node.getChildren().get(0)));
+                if (res.get(0).equals("struct")){
+                    res.remove(0);
+                }
+            } else {
+                res.add(getText(node.getChildren().get(0)));
+            }
         } else {
             res.addAll((List<String>) visit(node.getChildren().get(0)));
             res.add(getText(node.getChildren().get(1)));

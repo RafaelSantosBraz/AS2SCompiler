@@ -23,8 +23,10 @@ public class ChkNum {
         this.b = 1;
         ChkNum.b = 'x';
         char c = ChkNum.b;
-        ChkNum.b++;       
-        this.isEven(obj.a);
+        ChkNum.b++;
+        ChkNum obj = new ChkNum();       
+        obj.a = 42;
+        System.out.printf("%d\n", isEven(obj.a));
     }
 
     public ChkNum(){

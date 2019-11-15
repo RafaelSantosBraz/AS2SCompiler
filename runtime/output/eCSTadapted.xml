@@ -58,7 +58,7 @@
 <childElement>
 <token column="-1" index="-1" line="0" text='TYPE' type="27"/>
 <childElement>
-<token column="4" index="112" line="7" text='int' type="27"/>
+<token column="4" index="114" line="7" text='int' type="27"/>
 </childElement>
 </childElement>
 <childElement>
@@ -73,7 +73,7 @@
 <childElement>
 <token column="-1" index="-1" line="0" text='TYPE' type="27"/>
 <childElement>
-<token column="4" index="116" line="10" text='int' type="3"/>
+<token column="4" index="118" line="10" text='int' type="3"/>
 </childElement>
 </childElement>
 <childElement>
@@ -89,13 +89,13 @@
 <childElement>
 <token column="-1" index="-1" line="0" text='TYPE' type="27"/>
 <childElement>
-<token column="19" index="177" line="10" text='int' type="27"/>
+<token column="19" index="194" line="10" text='int' type="27"/>
 </childElement>
 </childElement>
 <childElement>
 <token column="-1" index="-1" line="0" text='NAME' type="27"/>
 <childElement>
-<token column="23" index="136" line="10" text='x' type="102"/>
+<token column="23" index="143" line="10" text='x' type="102"/>
 </childElement>
 </childElement>
 </childElement>
@@ -207,7 +207,7 @@
 <childElement>
 <token column="-1" index="-1" line="0" text='TYPE' type="27"/>
 <childElement>
-<token column="4" index="116" line="10" text='int' type="3"/>
+<token column="4" index="118" line="10" text='int' type="3"/>
 </childElement>
 </childElement>
 <childElement>
@@ -223,7 +223,7 @@
 <childElement>
 <token column="-1" index="-1" line="0" text='TYPE' type="27"/>
 <childElement>
-<token column="19" index="177" line="10" text='int' type="27"/>
+<token column="19" index="194" line="10" text='int' type="27"/>
 </childElement>
 </childElement>
 </childElement>
@@ -249,7 +249,7 @@
 <childElement>
 <token column="-1" index="-1" line="0" text='NAME' type="27"/>
 <childElement>
-<token column="11" index="69" line="30" text='ChkNum' type="102"/>
+<token column="11" index="69" line="32" text='ChkNum' type="102"/>
 </childElement>
 </childElement>
 <childElement>
@@ -268,7 +268,7 @@
 <childElement>
 <token column="-1" index="-1" line="0" text='TYPE' type="27"/>
 <childElement>
-<token column="11" index="69" line="30" text='ChkNum' type="102"/>
+<token column="11" index="69" line="32" text='ChkNum' type="102"/>
 </childElement>
 </childElement>
 <childElement>
@@ -328,7 +328,7 @@
 <childElement>
 <token column="-1" index="-1" line="0" text='NAME' type="27"/>
 <childElement>
-<token column="11" index="69" line="30" text='ChkNum' type="102"/>
+<token column="11" index="69" line="32" text='ChkNum' type="102"/>
 </childElement>
 </childElement>
 </childElement>
@@ -459,7 +459,7 @@
 <childElement>
 <token column="-1" index="-1" line="0" text='TYPE' type="27"/>
 <childElement>
-<token column="11" index="113" line="8" text='char' type="8"/>
+<token column="11" index="115" line="8" text='char' type="8"/>
 </childElement>
 </childElement>
 <childElement>
@@ -475,7 +475,7 @@
 <childElement>
 <token column="-1" index="-1" line="0" text='NAME' type="27"/>
 <childElement>
-<token column="16" index="114" line="8" text='b' type="102"/>
+<token column="16" index="116" line="8" text='b' type="102"/>
 </childElement>
 </childElement>
 <childElement>
@@ -483,7 +483,7 @@
 <childElement>
 <token column="-1" index="-1" line="0" text='CONST' type="27"/>
 <childElement>
-<token column="20" index="346" line="8" text="'b'" type="54"/>
+<token column="20" index="421" line="8" text="'b'" type="54"/>
 </childElement>
 </childElement>
 </childElement>
@@ -495,7 +495,7 @@
 <childElement>
 <token column="-1" index="-1" line="0" text='TYPE' type="27"/>
 <childElement>
-<token column="4" index="116" line="10" text='int' type="3"/>
+<token column="4" index="118" line="10" text='int' type="3"/>
 </childElement>
 </childElement>
 <childElement>
@@ -511,13 +511,13 @@
 <childElement>
 <token column="-1" index="-1" line="0" text='TYPE' type="27"/>
 <childElement>
-<token column="19" index="177" line="10" text='int' type="27"/>
+<token column="19" index="194" line="10" text='int' type="27"/>
 </childElement>
 </childElement>
 <childElement>
 <token column="-1" index="-1" line="0" text='NAME' type="27"/>
 <childElement>
-<token column="23" index="136" line="10" text='x' type="102"/>
+<token column="23" index="143" line="10" text='x' type="102"/>
 </childElement>
 </childElement>
 </childElement>
@@ -566,21 +566,21 @@
 <childElement>
 <token column="-1" index="-1" line="0" text='COMPARISON_OPERATOR' type="27"/>
 <childElement>
-<token column="20" index="284" line="11" text='==' type="73"/>
+<token column="20" index="338" line="11" text='==' type="73"/>
 </childElement>
 <childElement>
 <token column="-1" index="-1" line="0" text='VALUE' type="27"/>
 <childElement>
 <token column="-1" index="-1" line="0" text='OPERATOR' type="27"/>
 <childElement>
-<token column="15" index="420" line="11" text='%' type="88"/>
+<token column="15" index="529" line="11" text='%' type="88"/>
 </childElement>
 <childElement>
 <token column="-1" index="-1" line="0" text='VALUE' type="27"/>
 <childElement>
 <token column="-1" index="-1" line="0" text='NAME' type="27"/>
 <childElement>
-<token column="13" index="430" line="11" text='x' type="102"/>
+<token column="13" index="544" line="11" text='x' type="102"/>
 </childElement>
 </childElement>
 </childElement>
@@ -589,7 +589,7 @@
 <childElement>
 <token column="-1" index="-1" line="0" text='CONST' type="27"/>
 <childElement>
-<token column="17" index="432" line="11" text='2' type="51"/>
+<token column="17" index="547" line="11" text='2' type="51"/>
 </childElement>
 </childElement>
 </childElement>
@@ -600,7 +600,7 @@
 <childElement>
 <token column="-1" index="-1" line="0" text='CONST' type="27"/>
 <childElement>
-<token column="23" index="366" line="11" text='0' type="51"/>
+<token column="23" index="447" line="11" text='0' type="51"/>
 </childElement>
 </childElement>
 </childElement>
@@ -631,7 +631,7 @@
 <childElement>
 <token column="-1" index="-1" line="0" text='CONST' type="27"/>
 <childElement>
-<token column="19" index="413" line="12" text='1' type="53"/>
+<token column="19" index="517" line="12" text='1' type="53"/>
 </childElement>
 </childElement>
 </childElement>
@@ -670,7 +670,7 @@
 <childElement>
 <token column="-1" index="-1" line="0" text='CONST' type="27"/>
 <childElement>
-<token column="19" index="414" line="14" text='0' type="53"/>
+<token column="19" index="518" line="14" text='0' type="53"/>
 </childElement>
 </childElement>
 </childElement>
@@ -771,7 +771,7 @@
 <childElement>
 <token column="-1" index="-1" line="0" text='OPERATOR' type="27"/>
 <childElement>
-<token column="15" index="208" line="23" text='=' type="66"/>
+<token column="15" index="232" line="23" text='=' type="66"/>
 </childElement>
 </childElement>
 <childElement>
@@ -779,7 +779,7 @@
 <childElement>
 <token column="-1" index="-1" line="0" text='NAME' type="27"/>
 <childElement>
-<token column="13" index="226" line="23" text='b' type="102"/>
+<token column="13" index="260" line="23" text='b' type="102"/>
 </childElement>
 </childElement>
 </childElement>
@@ -788,7 +788,7 @@
 <childElement>
 <token column="-1" index="-1" line="0" text='CONST' type="27"/>
 <childElement>
-<token column="17" index="394" line="23" text='1' type="51"/>
+<token column="17" index="482" line="23" text='1' type="51"/>
 </childElement>
 </childElement>
 </childElement>
@@ -801,7 +801,7 @@
 <childElement>
 <token column="-1" index="-1" line="0" text='OPERATOR' type="27"/>
 <childElement>
-<token column="17" index="211" line="24" text='=' type="66"/>
+<token column="17" index="235" line="24" text='=' type="66"/>
 </childElement>
 </childElement>
 <childElement>
@@ -809,7 +809,7 @@
 <childElement>
 <token column="-1" index="-1" line="0" text='NAME' type="27"/>
 <childElement>
-<token column="15" index="245" line="24" text='b' type="102"/>
+<token column="15" index="285" line="24" text='b' type="102"/>
 </childElement>
 </childElement>
 </childElement>
@@ -818,7 +818,7 @@
 <childElement>
 <token column="-1" index="-1" line="0" text='CONST' type="27"/>
 <childElement>
-<token column="19" index="395" line="24" text="'x'" type="54"/>
+<token column="19" index="483" line="24" text="'x'" type="54"/>
 </childElement>
 </childElement>
 </childElement>
@@ -829,7 +829,7 @@
 <childElement>
 <token column="-1" index="-1" line="0" text='TYPE' type="27"/>
 <childElement>
-<token column="8" index="213" line="25" text='char' type="8"/>
+<token column="8" index="237" line="25" text='char' type="8"/>
 </childElement>
 </childElement>
 <childElement>
@@ -845,7 +845,7 @@
 <childElement>
 <token column="-1" index="-1" line="0" text='NAME' type="27"/>
 <childElement>
-<token column="13" index="214" line="25" text='c' type="102"/>
+<token column="13" index="238" line="25" text='c' type="102"/>
 </childElement>
 </childElement>
 <childElement>
@@ -855,7 +855,7 @@
 <childElement>
 <token column="-1" index="-1" line="0" text='NAME' type="27"/>
 <childElement>
-<token column="24" index="397" line="25" text='b' type="102"/>
+<token column="24" index="485" line="25" text='b' type="102"/>
 </childElement>
 </childElement>
 </childElement>
@@ -872,18 +872,144 @@
 <childElement>
 <token column="-1" index="-1" line="0" text='NAME' type="27"/>
 <childElement>
-<token column="15" index="249" line="26" text='b' type="102"/>
+<token column="15" index="289" line="26" text='b' type="102"/>
 </childElement>
 </childElement>
 </childElement>
 <childElement>
 <token column="-1" index="-1" line="0" text='OPERATOR' type="27"/>
 <childElement>
-<token column="16" index="196" line="26" text='++' type="79"/>
+<token column="16" index="213" line="26" text='++' type="79"/>
 </childElement>
 </childElement>
 </childElement>
 </childElement>
+<childElement>
+<token column="-1" index="-1" line="0" text='VAR_DECL' type="27"/>
+<childElement>
+<token column="-1" index="-1" line="0" text='TYPE' type="27"/>
+<childElement>
+<token column="8" index="241" line="27" text='ChkNum' type="102"/>
+</childElement>
+</childElement>
+<childElement>
+<token column="-1" index="-1" line="0" text='ASSIGNMENT_STATEMENT' type="27"/>
+<childElement>
+<token column="-1" index="-1" line="0" text='ASSIGN_OPERATOR' type="27"/>
+<childElement>
+<token column="-1" index="-1" line="0" text='OPERATOR' type="27"/>
+<childElement>
+<token column="25" index="-1" line="443" text='=' type="27"/>
+</childElement>
+</childElement>
+<childElement>
+<token column="-1" index="-1" line="0" text='NAME' type="27"/>
+<childElement>
+<token column="15" index="242" line="27" text='obj' type="102"/>
+</childElement>
+</childElement>
+<childElement>
+<token column="-1" index="-1" line="0" text='VALUE' type="27"/>
+<childElement>
+<token column="-1" index="-1" line="0" text='FUNCTION_CALL' type="27"/>
+<childElement>
+<token column="-1" index="-1" line="0" text='NAME' type="27"/>
+<childElement>
+<token column="-1" index="-1" line="0" text='TYPE' type="27"/>
+<childElement>
+<token column="-1" index="-1" line="0" text='NAME' type="27"/>
+<childElement>
+<token column="25" index="505" line="27" text='ChkNum' type="102"/>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+<childElement>
+<token column="-1" index="-1" line="0" text='ARGUMENT_LIST' type="27"/>
+<childElement>
+<token column="-1" index="-1" line="0" text='SEPARATOR' type="27"/>
+<childElement>
+<token column="25" index="-1" line="773" text='(' type="27"/>
+</childElement>
+</childElement>
+<childElement>
+<token column="-1" index="-1" line="0" text='SEPARATOR' type="27"/>
+<childElement>
+<token column="25" index="-1" line="777" text=')' type="27"/>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+<childElement>
+<token column="-1" index="-1" line="0" text='ASSIGNMENT_STATEMENT' type="27"/>
+<childElement>
+<token column="-1" index="-1" line="0" text='ASSIGN_OPERATOR' type="27"/>
+<childElement>
+<token column="-1" index="-1" line="0" text='OPERATOR' type="27"/>
+<childElement>
+<token column="14" index="245" line="28" text='=' type="66"/>
+</childElement>
+</childElement>
+<childElement>
+<token column="-1" index="-1" line="0" text='NAME' type="27"/>
+<childElement>
+<token column="-1" index="-1" line="0" text='NAME' type="27"/>
+<childElement>
+<token column="8" index="291" line="28" text='obj' type="102"/>
+</childElement>
+</childElement>
+<childElement>
+<token column="33" index="-1" line="544" text='->' type="27"/>
+</childElement>
+<childElement>
+<token column="-1" index="-1" line="0" text='NAME' type="27"/>
+<childElement>
+<token column="12" index="292" line="28" text='a' type="102"/>
+</childElement>
+</childElement>
+</childElement>
+<childElement>
+<token column="-1" index="-1" line="0" text='VALUE' type="27"/>
+<childElement>
+<token column="-1" index="-1" line="0" text='CONST' type="27"/>
+<childElement>
+<token column="16" index="487" line="28" text='42' type="51"/>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+</childElement>
+<childElement>
+<token column="-1" index="-1" line="0" text='FUNCTION_CALL' type="27"/>
+<childElement>
+<token column="-1" index="-1" line="0" text='NAME' type="27"/>
+<childElement>
+<token column="35" index="-1" line="1" text='printf' type="27"/>
+</childElement>
+</childElement>
+<childElement>
+<token column="-1" index="-1" line="0" text='ARGUMENT_LIST' type="27"/>
+<childElement>
+<token column="-1" index="-1" line="0" text='SEPARATOR' type="27"/>
+<childElement>
+<token column="25" index="-1" line="796" text='(' type="27"/>
+</childElement>
+</childElement>
+<childElement>
+<token column="-1" index="-1" line="0" text='ARGUMENT' type="27"/>
+<childElement>
+<token column="-1" index="-1" line="0" text='CONST' type="27"/>
+<childElement>
+<token column="26" index="497" line="29" text='"%d\n"' type="55"/>
+</childElement>
+</childElement>
+</childElement>
+<childElement>
+<token column="-1" index="-1" line="0" text='ARGUMENT' type="27"/>
 <childElement>
 <token column="-1" index="-1" line="0" text='FUNCTION_CALL' type="27"/>
 <childElement>
@@ -900,7 +1026,7 @@
 <childElement>
 <token column="-1" index="-1" line="0" text='NAME' type="27"/>
 <childElement>
-<token column="13" index="218" line="27" text='isEven' type="102"/>
+<token column="34" index="506" line="29" text='isEven' type="102"/>
 </childElement>
 </childElement>
 </childElement>
@@ -919,7 +1045,7 @@
 <childElement>
 <token column="-1" index="-1" line="0" text='NAME' type="27"/>
 <childElement>
-<token column="20" index="398" line="27" text='obj' type="102"/>
+<token column="41" index="554" line="29" text='obj' type="102"/>
 </childElement>
 </childElement>
 <childElement>
@@ -928,7 +1054,7 @@
 <childElement>
 <token column="-1" index="-1" line="0" text='NAME' type="27"/>
 <childElement>
-<token column="24" index="399" line="27" text='a' type="102"/>
+<token column="45" index="555" line="29" text='a' type="102"/>
 </childElement>
 </childElement>
 </childElement>
@@ -939,6 +1065,15 @@
 <token column="-1" index="-1" line="0" text='NAME' type="27"/>
 <childElement>
 <token column="17" index="-1" line="3" text='_this' type="27"/>
+</childElement>
+</childElement>
+</childElement>
+<childElement>
+<token column="-1" index="-1" line="0" text='SEPARATOR' type="27"/>
+<childElement>
+<token column="25" index="-1" line="800" text=')' type="27"/>
+</childElement>
+</childElement>
 </childElement>
 </childElement>
 </childElement>
