@@ -433,6 +433,13 @@ public class JavatoCAdapter extends ActionWalker {
             return null;
         }
 
+        public Object actionVAR_DECL(Node<TokenAttributes> node) {
+            if (!BIB.getText(node.getParent()).equals("CONCRETE_UNIT_DECL")) {
+                visitChildren(node.getChildren());
+            }
+            return null;
+        }
+
         public Object actionSTRUCT(Node<TokenAttributes> node) {
             return null;
         }
@@ -461,11 +468,41 @@ public class JavatoCAdapter extends ActionWalker {
             if (node.getChildren().size() == 1) {
                 Node<TokenAttributes> name = BIB.tmapOneRuleCodeCall("last", node).get(0);
                 if (!BIB.getText(name).equals("_this")) {
-                    
+                    if (symbolTable.isNonStaticGlobVarByName(BIB.getText(name))) {
+                        String code = BIB.getTmapCodeFromFile(auxTmapsDir, "leftrefJavatoC.tmap");
+                        List<Node<TokenAttributes>> nodes = BIB.tmapOneRuleCodeCall(code, name);
+                        nodes.get(0).setParent(node);
+                        nodes.get(1).setParent(node);
+                        nodes.get(2).setParent(node);
+                        node.getChildren().clear();
+                        node.setChildren(nodes);
+                    }
                 }
             } else {
                 if (BIB.getText(node.getChildren().get(1)).equals(".")) {
-
+                    Node<TokenAttributes> leftName = BIB.tmapOneRuleCodeCall("last", node.getChildren().get(0)).get(0);
+                    Node<TokenAttributes> rightName = BIB.tmapOneRuleCodeCall("last", node.getChildren().get(2)).get(0);
+                    if (BIB.getText(leftName).equals("this")) {
+                        if (symbolTable.isStaticGlobVarByName(BIB.getText(rightName))) {
+                            node.getChildren().remove(0);
+                            node.getChildren().remove(0);
+                        } else {
+                            leftName.getNodeData().setText("_this");
+                            node.getChildren().get(1).getNodeData().setText("->");
+                        }
+                    } else {
+                        if (symbolTable.isClassByName(BIB.getText(leftName))) {
+                            node.getChildren().remove(0);
+                            node.getChildren().remove(0);
+                        } else {
+                            if (symbolTable.isNonStaticGlobVarByName(BIB.getText(rightName))) {
+                                node.getChildren().get(1).getNodeData().setText("->");
+                            } else {
+                                node.getChildren().remove(0);
+                                node.getChildren().remove(0);
+                            }
+                        }
+                    }
                 }
             }
             return null;

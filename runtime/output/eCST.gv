@@ -240,7 +240,7 @@ digraph G {
 	n_103 -> n_130
 	n_130 [label="NAME", shape="rectangle"]
 	n_130 -> n_161
-	n_161 [label="a", shape="ellipse"]
+	n_161 [label="b", shape="ellipse"]
 	n_84 -> n_104
 	n_104 [label="VALUE", shape="rectangle"]
 	n_104 -> n_131

@@ -20,7 +20,7 @@ public class ChkNum {
     }
 
     void teste(){
-        this.a = 1;
+        this.b = 1;
         ChkNum.b = 'x';
         char c = ChkNum.b;
         ChkNum.b++;       

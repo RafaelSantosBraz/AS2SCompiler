@@ -534,7 +534,7 @@ digraph G {
 	n_206 -> n_224
 	n_224 [label=".", shape="ellipse"]
 	n_206 -> n_225
-	n_225 [label="a", shape="ellipse"]
+	n_225 [label="b", shape="ellipse"]
 	n_169 -> n_185
 	n_185 [label="AssignmentOperator", shape="rectangle"]
 	n_185 -> n_207

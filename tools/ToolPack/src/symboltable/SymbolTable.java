@@ -104,12 +104,22 @@ public class SymbolTable {
     public boolean isNonStaticFunctionByName(String name) {
         return simpleNameTypeCheck(name, Symbol.NON_STATIC_FUNC);
     }
-    
-     // check if a symbol is a class by its name
+
+    // check if a symbol is a non static global variable by its name
+    public boolean isNonStaticGlobVarByName(String name) {
+        return simpleNameTypeCheck(name, Symbol.NON_STATIC_GLOB_VAR);
+    }
+
+    // check if a symbol is a static global variable by its name
+    public boolean isStaticGlobVarByName(String name) {
+        return simpleNameTypeCheck(name, Symbol.STATIC_GLOB_VAR);
+    }
+
+    // check if a symbol is a class by its name
     public boolean isClassByName(String name) {
         return simpleNameTypeCheck(name, Symbol.CLASS);
     }
-    
+
     // searches on the table for symbols that have a given type
     private List<Symbol> simpleTypeSearch(int type) {
         List<Symbol> res = new ArrayList<>();

@@ -779,16 +779,7 @@
 <childElement>
 <token column="-1" index="-1" line="0" text='NAME' type="27"/>
 <childElement>
-<token column="8" index="255" line="23" text='this' type="43"/>
-</childElement>
-</childElement>
-<childElement>
-<token column="37" index="-1" line="555" text='.' type="27"/>
-</childElement>
-<childElement>
-<token column="-1" index="-1" line="0" text='NAME' type="27"/>
-<childElement>
-<token column="13" index="226" line="23" text='a' type="102"/>
+<token column="13" index="226" line="23" text='b' type="102"/>
 </childElement>
 </childElement>
 </childElement>
@@ -815,15 +806,6 @@
 </childElement>
 <childElement>
 <token column="-1" index="-1" line="0" text='NAME' type="27"/>
-<childElement>
-<token column="-1" index="-1" line="0" text='NAME' type="27"/>
-<childElement>
-<token column="8" index="244" line="24" text='ChkNum' type="102"/>
-</childElement>
-</childElement>
-<childElement>
-<token column="33" index="-1" line="544" text='.' type="27"/>
-</childElement>
 <childElement>
 <token column="-1" index="-1" line="0" text='NAME' type="27"/>
 <childElement>
@@ -873,15 +855,6 @@
 <childElement>
 <token column="-1" index="-1" line="0" text='NAME' type="27"/>
 <childElement>
-<token column="17" index="396" line="25" text='ChkNum' type="102"/>
-</childElement>
-</childElement>
-<childElement>
-<token column="25" index="-1" line="588" text='.' type="27"/>
-</childElement>
-<childElement>
-<token column="-1" index="-1" line="0" text='NAME' type="27"/>
-<childElement>
 <token column="24" index="397" line="25" text='b' type="102"/>
 </childElement>
 </childElement>
@@ -896,15 +869,6 @@
 <token column="-1" index="-1" line="0" text='ASSIGN_OPERATOR' type="27"/>
 <childElement>
 <token column="-1" index="-1" line="0" text='NAME' type="27"/>
-<childElement>
-<token column="-1" index="-1" line="0" text='NAME' type="27"/>
-<childElement>
-<token column="8" index="248" line="26" text='ChkNum' type="102"/>
-</childElement>
-</childElement>
-<childElement>
-<token column="25" index="-1" line="588" text='.' type="27"/>
-</childElement>
 <childElement>
 <token column="-1" index="-1" line="0" text='NAME' type="27"/>
 <childElement>
@@ -959,7 +923,7 @@
 </childElement>
 </childElement>
 <childElement>
-<token column="25" index="-1" line="588" text='.' type="27"/>
+<token column="25" index="-1" line="588" text='->' type="27"/>
 </childElement>
 <childElement>
 <token column="-1" index="-1" line="0" text='NAME' type="27"/>
