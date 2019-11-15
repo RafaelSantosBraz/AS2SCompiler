@@ -15,6 +15,7 @@ import trees.cstecst.UniversalToken;
 import trees.simpletree.Node;
 import trees.simpletree.Tree;
 import walkers.ActionWalker;
+import walkers.TreeVisitor;
 
 /**
  * aims to adapt a eCST generated from Java code to a C eCST
@@ -407,5 +408,80 @@ public class JavatoCAdapter extends ActionWalker {
         node = BIB.tmapOneRuleCodeCall(code, symbol.getNode()).get(0);
         node.setParent(body);
         body.getChildren().add(body.getChildren().size() - 1, node);
+    }
+
+    // class that extends Tree Visitor to remove modifiers lists
+    public class ModList extends TreeVisitor<Object> {
+
+        public Object actionMODIFIER_LIST(Node<TokenAttributes> node) {
+            BIB.removeChain(node);
+            return null;
+        }
+
+        public Object actionPARAMETER_DECL(Node<TokenAttributes> node) {
+            if (BIB.getText(node.getChildren().get(0)).equals("MODIFIER_LIST")) {
+                node.getChildren().remove(0);
+            }
+            return null;
+        }
+    }
+
+    // class that extends Tree Visitor to correct attribute access
+    public class NameAdapter extends TreeVisitor<Object> {
+
+        public Object actionIMPORT_DECL(Node<TokenAttributes> node) {
+            return null;
+        }
+
+        public Object actionSTRUCT(Node<TokenAttributes> node) {
+            return null;
+        }
+
+        public Object actionPROTOTYPE(Node<TokenAttributes> node) {
+            return null;
+        }
+
+        public Object actionASSIGN_OPERATOR(Node<TokenAttributes> node) {
+            if (BIB.searchDownFor(node, "malloc") == null) {
+                visitChildren(node.getChildren());
+            }
+            return null;
+        }
+
+        public Object actionFUNCTION_DECL(Node<TokenAttributes> node) {
+            visit(node.getChildren().get(node.getChildren().size() - 1));
+            return null;
+        }
+
+        public Object actionFORMAL_PARAM_LIST(Node<TokenAttributes> node) {
+            return null;
+        }
+
+        public Object actionNAME(Node<TokenAttributes> node) {
+            if (node.getChildren().size() == 1) {
+                Node<TokenAttributes> name = BIB.tmapOneRuleCodeCall("last", node).get(0);
+                if (!BIB.getText(name).equals("_this")) {
+
+                }
+            } else {
+                if (BIB.getText(node.getChildren().get(1)).equals(".")) {
+
+                }
+            }
+            return null;
+        }
+
+    }
+
+    // corrects the access to static and non static attributes
+    public void correctAttrAccess(Tree<TokenAttributes> tree) {
+        NameAdapter adp = new NameAdapter();
+        adp.startWalking(tree);
+    }
+
+    // removes all modifier lists from the given tree
+    public void removeModifierLists(Tree<TokenAttributes> tree) {
+        ModList adp = new ModList();
+        adp.startWalking(tree);
     }
 }

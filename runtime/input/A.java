@@ -20,11 +20,10 @@ public class ChkNum {
     }
 
     void teste(){
-        //ChkNum.b = 'x';
-        //char c = ChkNum.b;
-        ChkNum.met();
-        isEven(2);
-        b.teste();        
+        ChkNum.b = 'x';
+        char c = ChkNum.b;
+        ChkNum.b++;       
+        isEven(obj.a);
     }
 
     public ChkNum(){
