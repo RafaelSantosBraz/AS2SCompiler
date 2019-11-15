@@ -20,10 +20,11 @@ public class ChkNum {
     }
 
     void teste(){
+        this.a = 1;
         ChkNum.b = 'x';
         char c = ChkNum.b;
         ChkNum.b++;       
-        isEven(obj.a);
+        this.isEven(obj.a);
     }
 
     public ChkNum(){

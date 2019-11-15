@@ -547,9 +547,21 @@
                         }
                     }
                 } else {
-                    "NAME" = {
-                        "LeftHandSide".last
-                    }
+                    if ("LeftHandSide".last == :"FieldAccess"){
+                        "NAME" = {
+                            "NAME" = {
+                                "LeftHandSide".child.first_child.last
+                            },
+                            new_leaf("."),
+                            "NAME" = {
+                                "LeftHandSide".child.last_child
+                            }
+                        }
+                    } else {
+                        "NAME" = {
+                            "LeftHandSide".last
+                        }
+                    }                    
                 }                
             },
             "VALUE" = {

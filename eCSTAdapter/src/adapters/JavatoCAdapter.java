@@ -411,7 +411,7 @@ public class JavatoCAdapter extends ActionWalker {
     }
 
     // class that extends Tree Visitor to remove modifiers lists
-    public class ModList extends TreeVisitor<Object> {
+    public static class ModList extends TreeVisitor<Object> {
 
         public Object actionMODIFIER_LIST(Node<TokenAttributes> node) {
             BIB.removeChain(node);
@@ -461,7 +461,7 @@ public class JavatoCAdapter extends ActionWalker {
             if (node.getChildren().size() == 1) {
                 Node<TokenAttributes> name = BIB.tmapOneRuleCodeCall("last", node).get(0);
                 if (!BIB.getText(name).equals("_this")) {
-
+                    
                 }
             } else {
                 if (BIB.getText(node.getChildren().get(1)).equals(".")) {
