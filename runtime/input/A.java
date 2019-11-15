@@ -15,10 +15,16 @@ public class ChkNum {
         }
     }
 
+    static void met(){
+
+    }
+
     void teste(){
-        _this.a = 2;
-        _this.isEven(a);
-        _this.isEven(_this.a);
+        //ChkNum.b = 'x';
+        //char c = ChkNum.b;
+        ChkNum.met();
+        isEven(2);
+        b.teste();        
     }
 
     public ChkNum(){

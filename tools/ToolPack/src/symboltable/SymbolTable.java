@@ -40,46 +40,27 @@ public class SymbolTable {
 
     // returns all the symbols of CLASS type
     public List<Symbol> getClasses() {
-        List<Symbol> classes = new ArrayList<>();
-        table.forEach((t) -> {
-            if (t.getType() == Symbol.CLASS) {
-                classes.add(t);
-            }
-        });
-        return classes;
+        return simpleTypeSearch(Symbol.CLASS);
     }
 
     // returns all static functions
     public List<Symbol> getStaticFunctions() {
-        List<Symbol> res = new ArrayList<>();
-        table.forEach((t) -> {
-            if (t.getType() == Symbol.STATIC_FUNC) {
-                res.add(t);
-            }
-        });
-        return res;
+        return simpleTypeSearch(Symbol.STATIC_FUNC);
+    }
+
+    // returns all function calls
+    public List<Symbol> getFunctionCalls() {
+        return simpleTypeSearch(Symbol.FUNC_CALL);
     }
 
     // returns all non static functions
     public List<Symbol> getNonStaticFunctions() {
-        List<Symbol> res = new ArrayList<>();
-        table.forEach((t) -> {
-            if (t.getType() == Symbol.NON_STATIC_FUNC) {
-                res.add(t);
-            }
-        });
-        return res;
+        return simpleTypeSearch(Symbol.NON_STATIC_FUNC);
     }
 
     // returns all non static global variables
     public List<Symbol> getNonStaticVariables() {
-        List<Symbol> res = new ArrayList<>();
-        table.forEach((t) -> {
-            if (t.getType() == Symbol.NON_STATIC_GLOB_VAR) {
-                res.add(t);
-            }
-        });
-        return res;
+        return simpleTypeSearch(Symbol.NON_STATIC_GLOB_VAR);
     }
 
     // returns all static and non static functions
@@ -95,13 +76,7 @@ public class SymbolTable {
 
     // returns all the symbols of CONSTRUCTOR type
     public List<Symbol> getConstructors() {
-        List<Symbol> res = new ArrayList<>();
-        table.forEach((t) -> {
-            if (t.getType() == Symbol.CONSTRUCTOR) {
-                res.add(t);
-            }
-        });
-        return res;
+        return simpleTypeSearch(Symbol.CONSTRUCTOR);
     }
 
     // returns a constructor symbol that has a given name
@@ -117,6 +92,37 @@ public class SymbolTable {
 
     // check if a symbol is a constructor by its name
     public boolean isConstructorByName(String name) {
-        return table.stream().anyMatch((b) -> (b.getName().equals(name) && b.getType() == Symbol.CONSTRUCTOR));
+        return simpleNameTypeCheck(name, Symbol.CONSTRUCTOR);
+    }
+
+    // check if a symbol is a static function by its name
+    public boolean isStaticFunctionByName(String name) {
+        return simpleNameTypeCheck(name, Symbol.STATIC_FUNC);
+    }
+
+    // check if a symbol is a non static function by its name
+    public boolean isNonStaticFunctionByName(String name) {
+        return simpleNameTypeCheck(name, Symbol.NON_STATIC_FUNC);
+    }
+    
+     // check if a symbol is a class by its name
+    public boolean isClassByName(String name) {
+        return simpleNameTypeCheck(name, Symbol.CLASS);
+    }
+    
+    // searches on the table for symbols that have a given type
+    private List<Symbol> simpleTypeSearch(int type) {
+        List<Symbol> res = new ArrayList<>();
+        table.forEach((t) -> {
+            if (t.getType() == type) {
+                res.add(t);
+            }
+        });
+        return res;
+    }
+
+    // check if there is a symbol that has given name and type
+    private boolean simpleNameTypeCheck(String name, int type) {
+        return table.stream().anyMatch((b) -> (b.getName().equals(name) && b.getType() == type));
     }
 }

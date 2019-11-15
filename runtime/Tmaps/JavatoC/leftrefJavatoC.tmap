@@ -1,0 +1,7 @@
+"NAME" = {
+    new_leaf("_this")
+},
+new_leaf("->"),
+"NAME" = {
+    last
+}

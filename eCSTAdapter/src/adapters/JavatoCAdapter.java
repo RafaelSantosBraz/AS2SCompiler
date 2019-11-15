@@ -258,7 +258,46 @@ public class JavatoCAdapter extends ActionWalker {
 
     // corrects function calls removing useless obj/class reference or adds obj/_this reference
     public void correctFuncCalls() {
-
+        symbolTable.getFunctionCalls().forEach((t) -> {
+            Node<TokenAttributes> mainName = t.getNode().getChildren().get(0);
+            if (mainName.getChildren().size() == 1) {
+                String funcName = BIB.tmapOneRuleCodeCall("last", mainName.getChildren().get(0)).get(0).getNodeData().getText();
+                if (symbolTable.isNonStaticFunctionByName(funcName)) {
+                    String code = BIB.getTmapCodeFromFile(auxTmapsDir, "addargJavatoC.tmap");
+                    Node<TokenAttributes> arg = BIB.tmapOneRuleCodeCall(code, t.getNode()).get(0);
+                    Node<TokenAttributes> argList = t.getNode().getChildren().get(1);
+                    argList.getChildren().add(argList.getChildren().size() - 1, arg);
+                    arg.setParent(argList);
+                    code = BIB.getTmapCodeFromFile(auxTmapsDir, "leftrefJavatoC.tmap");
+                    List<Node<TokenAttributes>> nodes = BIB.tmapOneRuleCodeCall(code, mainName);
+                    nodes.get(0).setParent(mainName);
+                    nodes.get(1).setParent(mainName);
+                    nodes.get(2).setParent(mainName);
+                    mainName.getChildren().clear();
+                    mainName.setChildren(nodes);
+                }
+            } else {
+                String leftName = BIB.tmapOneRuleCodeCall("last", mainName.getChildren().get(0)).get(0).getNodeData().getText();
+                String rightName = BIB.tmapOneRuleCodeCall("last", mainName.getChildren().get(2)).get(0).getNodeData().getText();
+                if (symbolTable.isClassByName(leftName)) {
+                    mainName.getChildren().remove(0);
+                    mainName.getChildren().remove(0);
+                } else {
+                    if (symbolTable.isStaticFunctionByName(rightName)) {
+                        mainName.getChildren().remove(0);
+                        mainName.getChildren().remove(0);
+                    } else {
+                        mainName.getChildren().get(1).getNodeData().setText("->");
+                        String code = BIB.getTmapCodeFromFile(auxTmapsDir, "addargJavatoC.tmap");
+                        Node<TokenAttributes> arg = BIB.tmapOneRuleCodeCall(code, t.getNode()).get(0);
+                        BIB.searchDownFor(arg, "_this").getNodeData().setText(leftName);
+                        Node<TokenAttributes> argList = t.getNode().getChildren().get(1);
+                        argList.getChildren().add(argList.getChildren().size() - 1, arg);
+                        arg.setParent(argList);
+                    }
+                }
+            }
+        });
     }
 
     // creates C structs for the classes and remove the obj attributes from the tree
