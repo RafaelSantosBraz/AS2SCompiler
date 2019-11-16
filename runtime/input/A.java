@@ -1,35 +1,23 @@
-/* Even or Odd
-*  adapted from (Java para Iniciantes 6ed)
+/* Tower of Hanoi
+*  adapted from (Estruturas de Dados & Algoritmos em Java 2ed)
 */
 
-public class ChkNum {
+public class TowersApp {
 
-    int a;
-    static char b = 'b';
+    public static int nDisks = 3;
 
-    boolean isEven(int x) {
-        if ((x % 2) == 0) {
-            return true;
+    public static void doTowers(int topN, char from, char inter, char to) {
+        if (topN == 1) {
+            System.out.printf("Disk 1 from %c to %c\n", from, to);
         } else {
-            return false;
+            doTowers(topN - 1, from, to, inter);
+            System.out.printf("Disk %d from %c to %c\n", topN, from, to);
+            doTowers(topN - 1, inter, from, to);
         }
     }
 
-    static void met(){
-
-    }
-
-    void teste(){
-        this.b = 1;
-        ChkNum.b = 'x';
-        char c = ChkNum.b;
-        ChkNum.b++;
-        ChkNum obj = new ChkNum();       
-        obj.a = 42;
-        System.out.printf("%d\n", isEven(obj.a));
-    }
-
-    public ChkNum(){
-     
+    // Example
+    public static void main(String[] args) {
+        doTowers(nDisks, 'A', 'B', 'C');
     }
 }

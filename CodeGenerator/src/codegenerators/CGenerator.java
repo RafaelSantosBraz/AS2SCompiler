@@ -9,6 +9,8 @@ import auxtools.BIB;
 import generators.CodeGenerator;
 import java.util.ArrayList;
 import java.util.List;
+import symboltable.Symbol;
+import symboltable.SymbolTable;
 import trees.cstecst.TokenAttributes;
 import trees.simpletree.Node;
 
@@ -19,8 +21,20 @@ import trees.simpletree.Node;
  */
 public class CGenerator extends CodeGenerator {
 
+    private final SymbolTable symbolTable;
+
     public CGenerator(String outputPath, String auxTmapsDir) {
         super(outputPath, auxTmapsDir);
+        symbolTable = new SymbolTable();
+    }
+
+    public Object actionroot(Node<TokenAttributes> node) {
+        List<String> res = new ArrayList<>();
+        node.getChildren().forEach((t) -> {
+            String name = getText(BIB.tmapOneRuleCodeCall("\"PACKAGE_DECL\".\"CONCRETE_UNIT_DECL\".\"NAME\".child", t).get(0));
+            symbolTable.addSymbol(new Symbol(name, Symbol.CLASS, t));
+        });
+        return visitChildren(node.getChildren());
     }
 
     public Object actionCOMPILATION_UNIT(Node<TokenAttributes> node) {
@@ -64,15 +78,40 @@ public class CGenerator extends CodeGenerator {
 
     public Object actionASSIGN_OPERATOR(Node<TokenAttributes> node) {
         List<String> res = new ArrayList<>();
-        if (node.getChildren().size() == 3) {
-            res.addAll((List<String>) visit(node.getChildren().get(1)));
-            res.addAll((List<String>) visit(node.getChildren().get(0)));
-            res.addAll((List<String>) visit(node.getChildren().get(2)));
-        } else {
-            res.addAll((List<String>) visit(node.getChildren().get(0)));
-            res.addAll((List<String>) visit(node.getChildren().get(1)));
+        switch (node.getChildren().size()) {
+            case 2:
+                res.addAll((List<String>) visit(node.getChildren().get(0)));
+                res.addAll((List<String>) visit(node.getChildren().get(1)));
+                break;
+            case 3:
+                res.addAll((List<String>) visit(node.getChildren().get(1)));
+                res.addAll((List<String>) visit(node.getChildren().get(0)));
+                res.addAll((List<String>) visit(node.getChildren().get(2)));
+                break;
+            default:
+                res.addAll((List<String>) visitChildren(node.getChildren().subList(1, node.getChildren().size() - 1)));
+                res.addAll((List<String>) visit(node.getChildren().get(0)));
+                res.addAll((List<String>) visit(node.getChildren().get(node.getChildren().size() - 1)));
         }
         res.add(";");
+        return res;
+    }
+
+    public Object actionVALUE(Node<TokenAttributes> node) {
+        List<String> res = new ArrayList<>();
+        if (getText(node.getChildren().get(0)).equals("SEPARATOR")) {
+            res.add("{");
+            node.getChildren().subList(1, node.getChildren().size() - 1).forEach((t) -> {
+                res.addAll((List<String>) visit(t));
+                res.add(",");
+            });
+            if (res.get(res.size() - 1).equals(",")) {
+                res.remove(res.size() - 1);
+            }
+            res.add("}");
+        } else {
+            res.addAll((List<String>) visitChildren(node.getChildren()));
+        }
         return res;
     }
 
@@ -109,6 +148,12 @@ public class CGenerator extends CodeGenerator {
         return res;
     }
 
+    public Object actionLOGICAL_OPERATOR(Node<TokenAttributes> node) {
+        List<String> res = new ArrayList<>();
+        res.addAll((List<String>) actionOPERATOR(node));
+        return res;
+    }
+
     public Object actionOPERATOR(Node<TokenAttributes> node) {
         List<String> res = new ArrayList<>();
         switch (node.getChildren().size()) {
@@ -125,7 +170,6 @@ public class CGenerator extends CodeGenerator {
                 res.add(getText(node.getChildren().get(0)));
                 res.addAll((List<String>) visit(node.getChildren().get(2)));
                 res.add(")");
-                break;
         }
         return res;
     }
@@ -133,7 +177,27 @@ public class CGenerator extends CodeGenerator {
     public Object actionFUNCTION_CALL(Node<TokenAttributes> node) {
         List<String> res = new ArrayList<>();
         res.addAll((List<String>) visitChildren(node.getChildren()));
+        if (res.get(0).equals("struct")){
+            res.remove(0);
+        }
         res.add(";");
+        return res;
+    }
+
+    public Object actionLOOP_STATEMENT(Node<TokenAttributes> node) {
+        List<String> res = new ArrayList<>();
+        res.addAll((List<String>) visit(node.getChildren().get(0)));
+        if (res.get(0).equals("for")) {
+            res.add("(");
+            for (int c = 1; c < node.getChildren().size() - 1; c++) {
+                res.addAll((List<String>) visit(node.getChildren().get(c)));
+                res.add(";");
+            }
+            res.add(")");
+            res.addAll((List<String>) visit(node.getChildren().get(node.getChildren().size() - 1)));
+        } else {
+            res.addAll((List<String>) visitChildren(node.getChildren().subList(1, node.getChildren().size())));
+        }
         return res;
     }
 
@@ -146,7 +210,14 @@ public class CGenerator extends CodeGenerator {
 
     public Object actionARGUMENT(Node<TokenAttributes> node) {
         List<String> res = new ArrayList<>();
-        res.addAll((List<String>) visit(node.getChildren().get(0)));
+        if (node.getChildren().size() == 1) {
+            res.addAll((List<String>) visit(node.getChildren().get(0)));
+            if (symbolTable.isClassByName(res.get(0))) {
+                res.add(0, "struct");
+            }
+        } else {
+            res.addAll((List<String>) visitChildren(node.getChildren()));
+        }
         res.add(",");
         return res;
     }
@@ -162,11 +233,17 @@ public class CGenerator extends CodeGenerator {
 
     public Object actionPARAMETER_DECL(Node<TokenAttributes> node) {
         List<String> res = new ArrayList<>();
-        res.addAll((List<String>) visit(node.getChildren().get(0)));
-        if (node.getChildren().size() == 2) {
-            res.addAll((List<String>) visit(node.getChildren().get(1)));
-        }
+        res.addAll((List<String>) visitChildren(node.getChildren()));
         res.add(",");
+        return res;
+    }
+
+    public Object actionSEPARATOR(Node<TokenAttributes> node) {
+        List<String> res = new ArrayList<>();
+        String s = getText(node.getChildren().get(0));
+        if (s.equals("[") || s.equals("]")) {
+            res.add(s);
+        }
         return res;
     }
 
@@ -226,9 +303,6 @@ public class CGenerator extends CodeGenerator {
         if (node.getChildren().size() == 1) {
             if (getText(node.getChildren().get(0)).equals("NAME") || getText(node.getChildren().get(0)).equals("TYPE")) {
                 res.addAll((List<String>) visit(node.getChildren().get(0)));
-                if (res.get(0).equals("struct")){
-                    res.remove(0);
-                }
             } else {
                 res.add(getText(node.getChildren().get(0)));
             }
@@ -245,36 +319,18 @@ public class CGenerator extends CodeGenerator {
         if (node.getChildren().size() == 1) {
             if (getText(node.getChildren().get(0)).equals("NAME")) {
                 List<String> temp = (List<String>) visit(node.getChildren().get(0));
-                if (temp.size() == 1 && !isPrimitiveType(temp.get(0))) {
+                if (temp.size() == 1 && symbolTable.isClassByName(temp.get(0))) {
                     res.add("struct");
                 }
                 res.addAll(temp);
             } else {
                 String s = getText(node.getChildren().get(0));
-                if (!isPrimitiveType(s)) {
+                if (symbolTable.isClassByName(s)) {
                     res.add("struct");
                 }
                 res.add(s);
             }
-        } else {
-            res.addAll((List<String>) visit(node.getChildren().get(0)));
-            res.add(getText(node.getChildren().get(1)));
-            res.addAll((List<String>) visit(node.getChildren().get(2)));
         }
         return res;
-    }
-
-    // check if a given type is a valid C primitive type
-    private boolean isPrimitiveType(String type) {
-        switch (type) {
-            case "int":
-            case "double":
-            case "char":
-            case "float":
-            case "void":
-                return true;
-            default:
-                return false;
-        }
     }
 }

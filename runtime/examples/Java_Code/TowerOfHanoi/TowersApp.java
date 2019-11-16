@@ -11,7 +11,7 @@ public class TowersApp {
             System.out.printf("Disk 1 from %c to %c\n", from, to);
         } else {
             doTowers(topN - 1, from, to, inter);
-            System.out.printf("Disk %c from %c to %c\n", topN, from, to);
+            System.out.printf("Disk %d from %c to %c\n", topN, from, to);
             doTowers(topN - 1, inter, from, to);
         }
     }
