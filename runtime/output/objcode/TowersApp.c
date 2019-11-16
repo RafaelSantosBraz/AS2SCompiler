@@ -2,15 +2,19 @@
 #include <stdio.h>
 struct TowersApp
 {
+    void (*teste)(int a, struct TowersApp *_this);
 };
 void main();
 void doTowers(int, char, char, char);
+void teste(int, struct TowersApp *);
 struct TowersApp *TowersApp()
 {
     struct TowersApp *_this = malloc(sizeof(struct TowersApp));
+    _this->teste = teste;
     return _this;
 }
 int nDisks = 3;
+void teste(int a, struct TowersApp *_this) {}
 void doTowers(int topN, char from, char inter, char to)
 {
     if ((topN == 1))

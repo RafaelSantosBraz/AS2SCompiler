@@ -71,9 +71,9 @@ public class JavatoCAdapter extends ActionWalker {
         String name = BIB.getText(BIB.getChildByText(node.getChildren(), "NAME").getChildren().get(0));
         node.getNodeData().setText("VAR_DECL");
         if (isStatic(node)) {
-            symbolTable.addSymbol(new Symbol(name, Symbol.STATIC_GLOB_VAR, node));
+            symbolTable.addSymbol(new Symbol(name, Symbol.STATIC_GLOB_VAR, node, symbolTable.getClassByName(curUnitName)));
         } else {
-            symbolTable.addSymbol(new Symbol(name, Symbol.NON_STATIC_GLOB_VAR, node));
+            symbolTable.addSymbol(new Symbol(name, Symbol.NON_STATIC_GLOB_VAR, node, symbolTable.getClassByName(curUnitName)));
         }
         if (value.getChildren().isEmpty()) {
             BIB.removeChain(value);
@@ -131,17 +131,17 @@ public class JavatoCAdapter extends ActionWalker {
         String name = BIB.getText(BIB.getChildByText(node.getChildren(), "NAME").getChildren().get(0));
         if (name.equals(curUnitName)) {
             BIB.searchDownFor(node, "void").getNodeData().setText(name);
-            symbolTable.addSymbol(new Symbol(name, Symbol.CONSTRUCTOR, node));
+            symbolTable.addSymbol(new Symbol(name, Symbol.CONSTRUCTOR, node, symbolTable.getClassByName(curUnitName)));
         } else {
             if (!isStatic(node)) {
                 Node<TokenAttributes> parList = BIB.getChildByText(node.getChildren(), "FORMAL_PARAM_LIST");
                 addThisReference(parList);
-                symbolTable.addSymbol(new Symbol(name, Symbol.NON_STATIC_FUNC, node));
+                symbolTable.addSymbol(new Symbol(name, Symbol.NON_STATIC_FUNC, node, symbolTable.getClassByName(curUnitName)));
             } else {
                 if (name.equals("main")) {
                     BIB.getChildByText(node.getChildren(), "FORMAL_PARAM_LIST").getChildren().clear();
                 }
-                symbolTable.addSymbol(new Symbol(name, Symbol.STATIC_FUNC, node));
+                symbolTable.addSymbol(new Symbol(name, Symbol.STATIC_FUNC, node, symbolTable.getClassByName(curUnitName)));
             }
         }
     }
@@ -399,10 +399,12 @@ public class JavatoCAdapter extends ActionWalker {
         node.setParent(body);
         body.getChildren().add(1, node);
         symbolTable.getNonStaticFunctions().forEach((t) -> {
-            String fCode = BIB.getTmapCodeFromFile(auxTmapsDir, "funcassignJavatoC.tmap");
-            Node<TokenAttributes> fNode = BIB.tmapOneRuleCodeCall(fCode, t.getNode()).get(0);
-            fNode.setParent(body);
-            body.getChildren().add(body.getChildren().size() - 1, fNode);
+            if (symbolTable.isInContextByNames(t.getName(), symbol.getName())) {
+                String fCode = BIB.getTmapCodeFromFile(auxTmapsDir, "funcassignJavatoC.tmap");
+                Node<TokenAttributes> fNode = BIB.tmapOneRuleCodeCall(fCode, t.getNode()).get(0);
+                fNode.setParent(body);
+                body.getChildren().add(body.getChildren().size() - 1, fNode);
+            }
         });
         code = BIB.getTmapCodeFromFile(auxTmapsDir, "returnthisJavatoC.tmap");
         node = BIB.tmapOneRuleCodeCall(code, symbol.getNode()).get(0);

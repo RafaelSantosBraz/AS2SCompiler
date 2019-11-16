@@ -26,11 +26,27 @@ public class Symbol {
     private final String name; // key that represents the symbol
     private final int type; // type of the symbol -- one of the static constants declared here
     private final Node<TokenAttributes> node; // real tree node of the symbol
+    private Symbol context; // parent context (class/method/function) of the symbol
 
     public Symbol(String name, int type, Node<TokenAttributes> node) {
         this.name = name;
         this.type = type;
         this.node = node;
+    }
+
+    public Symbol(String name, int type, Node<TokenAttributes> node, Symbol context) {
+        this.name = name;
+        this.type = type;
+        this.node = node;
+        this.context = context;
+    }
+
+    public Symbol getContext() {
+        return context;
+    }
+
+    public void setContext(Symbol context) {
+        this.context = context;
     }
 
     public String getName() {

@@ -7,7 +7,6 @@ struct OrdArray
     void (*insert)(int value, int a[], struct OrdArray *_this);
     void (*display)(int a[], struct OrdArray *_this);
 };
-void main();
 void display(int[], struct OrdArray *);
 void insert(int, int[], struct OrdArray *);
 int find(int, int[], struct OrdArray *);
@@ -78,17 +77,4 @@ void display(int a[], struct OrdArray *_this)
         printf("%d ", a[j]);
     }
     printf("\n");
-}
-void main()
-{
-    struct OrdArray *arr;
-    arr = OrdArray();
-    int mm[100];
-    arr->insert(77, mm, arr);
-    arr->insert(99, mm, arr);
-    arr->insert(5, mm, arr);
-    int searchKey = 55;
-    int p = arr->find(searchKey, mm, arr);
-    arr->display(mm, arr);
-    printf("%d\n", p);
 }

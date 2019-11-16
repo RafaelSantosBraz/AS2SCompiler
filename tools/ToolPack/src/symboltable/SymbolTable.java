@@ -31,6 +31,7 @@ public class SymbolTable {
         return res;
     }
 
+    // inserts a given symbol into the symbol table
     public void addSymbol(Symbol symbol) {
         if (table.stream().anyMatch((b) -> (b.getName().equals(symbol.getName()) && b.getNode().equals(symbol.getNode())))) {
             return;
@@ -38,9 +39,44 @@ public class SymbolTable {
         table.add(symbol);
     }
 
+    // checks if a given symbol (by name) is in given context
+    public boolean isInContextByName(String name, Symbol context) {
+        return table.stream().anyMatch((t) -> {
+            if (t.getName().equals(name) && t.getContext() != null) {
+                if (t.getContext().equals(context)) {
+                    return true;
+                }
+            }
+            return false;
+        });
+    }
+
+    // checks if a given symbol (by name) is in given context (by name)
+    public boolean isInContextByNames(String name, String context) {
+        return table.stream().anyMatch((t) -> {
+            if (t.getName().equals(name) && t.getContext() != null) {
+                if (t.getContext().getName().equals(context)) {
+                    return true;
+                }
+            }
+            return false;
+        });
+    }
+
     // returns all the symbols of CLASS type
     public List<Symbol> getClasses() {
         return simpleTypeSearch(Symbol.CLASS);
+    }
+
+    // returns a class that has a given name
+    public Symbol getClassByName(String name) {
+        try {
+            return (Symbol) table.stream().filter((b) -> {
+                return b.getName().equals(name) && b.getType() == Symbol.CLASS;
+            }).toArray()[0];
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     // returns all static functions
