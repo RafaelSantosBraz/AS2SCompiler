@@ -1,11 +1,7 @@
-/* Binary Search
-*  adapted from (C Completo e Total 3ed)
-*/
-
+#include <stdlib.h>
 #include <stdio.h>
 
 char vc[] = {'a', 'b', 'c'};
-
 int binary(char item[], int count, char key)
 {
     int low;
@@ -13,21 +9,20 @@ int binary(char item[], int count, char key)
     int mid;
     int x[20];
     low = 0;
-    double j;
     double y = -2.5 + 1.0 / 3.0;
-    high = count - 1;
-    while (low <= high)
+    high = (count - 1);
+    while ((low <= high))
     {
-        mid = (low + high) / 2;
-        if (key < item[mid])
+        mid = ((low + high) / 2);
+        if ((key < item[mid]))
         {
-            high = mid - 1;
+            high = (mid - 1);
         }
         else
         {
-            if (key > item[mid])
+            if ((key > item[mid]))
             {
-                low = mid + 1;
+                low = (mid + 1);
             }
             else
             {
@@ -37,12 +32,11 @@ int binary(char item[], int count, char key)
     }
     return -1;
 }
-
 void main()
-{    
+{
     char key = 'd';
     int p = binary(vc, 3, key);
-    if (p == -1)
+    if ((p == -1))
     {
         printf("nao tem\n");
     }

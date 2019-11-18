@@ -1479,7 +1479,7 @@ Digit
 
 fragment
 NonZeroDigit
-	:	[1-9]
+	:	'-'?[1-9]
 	;
 
 fragment
@@ -1585,10 +1585,10 @@ FloatingPointLiteral
 
 fragment
 DecimalFloatingPointLiteral
-	:	Digits '.' Digits? ExponentPart? FloatTypeSuffix?
-	|	'.' Digits ExponentPart? FloatTypeSuffix?
-	|	Digits ExponentPart FloatTypeSuffix?
-	|	Digits FloatTypeSuffix
+	:	 Digits '.' Digits? ExponentPart? FloatTypeSuffix?
+	|	 '.' Digits ExponentPart? FloatTypeSuffix?
+	|	 Digits ExponentPart FloatTypeSuffix?
+	|	 Digits FloatTypeSuffix
 	;
 
 fragment

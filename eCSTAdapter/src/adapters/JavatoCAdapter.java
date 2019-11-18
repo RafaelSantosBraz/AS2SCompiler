@@ -261,7 +261,7 @@ public class JavatoCAdapter extends ActionWalker {
     public void correctFuncCalls() {
         symbolTable.getFunctionCalls().forEach((t) -> {
             Node<TokenAttributes> mainName = t.getNode().getChildren().get(0);
-            if (mainName.getChildren().size() == 1) {
+            if (mainName.getChildren().size() == 1) {                
                 String funcName = BIB.tmapOneRuleCodeCall("last", mainName.getChildren().get(0)).get(0).getNodeData().getText();
                 if (symbolTable.isNonStaticFunctionByName(funcName)) {
                     String code = BIB.getTmapCodeFromFile(auxTmapsDir, "addargJavatoC.tmap");
@@ -313,7 +313,7 @@ public class JavatoCAdapter extends ActionWalker {
             name.getNodeData().setText(t.getName());
             struct.setParent(t.getNode());
             t.getNode().getChildren().add(2, struct);
-            Node<TokenAttributes> structBlock = struct.getChildren().get(1);
+            Node<TokenAttributes> structBlock = struct.getChildren().get(1);            
             nonStaticVars.forEach((v) -> {
                 if (v.getNode().getParent().equals(t.getNode())) {
                     BIB.removeChain(v.getNode());
