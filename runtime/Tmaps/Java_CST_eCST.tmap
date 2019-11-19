@@ -716,12 +716,28 @@
 // hadle with an operator : receives receives "Expression".last.parent.parent
 "rule_operator" -> {
     "OPERATOR" = {
-        child(1),        
+        child(1),    
         "VALUE" = {
-            rule("rule_assignment_value", child(0).last.parent.parent)   
+            if (first_child.last == :"MultiplicativeExpression"){
+                rule("rule_operator", first_child)
+            } else {
+                if (first_child.last == :"AdditiveExpression"){
+                    rule("rule_operator", first_child)
+                } else {
+                    rule("rule_assignment_value", child(0).last.parent.parent)   
+                }
+            }                       
         },
         "VALUE" = {
-            rule("rule_assignment_value", child(2).last.parent.parent)   
+            if (last_child.last == :"MultiplicativeExpression"){
+                rule("rule_operator", last_child)
+            } else {
+                if (last_child.last == :"AdditiveExpression"){
+                    rule("rule_operator", last_child)
+                } else {
+                    rule("rule_assignment_value", child(2).last.parent.parent)   
+                }
+            }              
         }             
     }
 }

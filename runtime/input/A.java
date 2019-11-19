@@ -8,7 +8,7 @@ public class A {
         int mid;
         int x[] = new int[20];
         low = 0;
-        double y = -2.5 + 1.0 / 3.0;
+        double y = -2.5 + 1.0 / 3.0 * 2;
         high = (count - 1);
         while ((low <= high)) {
             mid = ((low + high) / 2);

@@ -19,7 +19,7 @@ int binary(char item[], int count, char key)
     int mid;
     int x[20];
     low = 0;
-    double = y;
+    double y = (-2.5 + ((1.0 / 3.0) * 2));
     high = (count - 1);
     while ((low <= high))
     {
