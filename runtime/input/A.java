@@ -1,5 +1,6 @@
 public class A {
     public static char vc[] = { 'a', 'b', 'c' };
+    public static boolean b[] = {true, false, true};
 
     public static int binary(char[] item, int count, char key) {
         int low;
