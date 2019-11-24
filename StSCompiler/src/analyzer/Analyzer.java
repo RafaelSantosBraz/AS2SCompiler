@@ -5,13 +5,19 @@
  */
 package analyzer;
 
+import converter.DOTConverter;
+import converter.TreeXMLConverter;
 import java.io.File;
 import parser.CParser;
 import parser.JavaParser;
+import shorteners.TreeShortener;
+import trees.cstecst.TokenAttributes;
+import trees.simpletree.Tree;
 
 /**
  * represents the first mechanism of the framework - encapsule the analysis
  * process
+ *
  * @author Rafael Braz
  */
 public class Analyzer {
@@ -28,6 +34,21 @@ public class Analyzer {
                 return new JavaParser().startParsing(inputDir, outputDir + File.separator + "temp");
             default:
                 return false;
+        }
+    }
+
+    // creates a shorter version of a CST (without chains of nodes that have only one child)
+    public boolean createShorterCST(String CSTPath, String outputDir) {
+        try {
+            TreeXMLConverter conv = new TreeXMLConverter();
+            conv.convertFromFile(CSTPath);
+            TreeShortener tShort = new TreeShortener();
+            Tree<TokenAttributes> tree = tShort.shortenTree(conv.getTree());
+            DOTConverter<TokenAttributes> dot = new DOTConverter<>(tree);
+            dot.convertToFile(outputDir + File.separator + "CSTshort.gv");
+            return true;
+        } catch (Exception e) {
+            return false;
         }
     }
 

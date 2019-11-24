@@ -27,6 +27,9 @@ public class ProcessControl {
             System.err.println("Error: it was not possible to create the CST!");
             return;
         }
+        if (!new Analyzer().createShorterCST(params[3] + File.separator + "temp" + File.separator + "CST.xml", params[3] + File.separator + "temp")) {
+            System.err.println("Warning: it was not possible to create the shorter CST!");
+        }
         Translator translator = new Translator();
         if (!translator.createeCST(params[3] + File.separator + "temp" + File.separator + "CST.xml", params[4], "\"ruleinitial\"", params[3])) {
             System.err.println("Error: it was not possible to create the eCST!");
