@@ -1,37 +1,62 @@
-public class A {
-    public static char vc[] = { 'a', 'b', 'c' };
-    public static boolean b[] = {true, false, true};
+/* Ordered Array
+*  adapted from (Estruturas de Dados & Algoritmos em Java 2ed)
+*/
 
-    public static int binary(char[] item, int count, char key) {
-        int low;
-        int high;
-        int mid;
-        int x[] = new int[20];
-        low = 0;
-        double y = -2.5 + 1.0 / 3.0 * 2;
-        high = (count - 1);
-        while ((low <= high)) {
-            mid = ((low + high) / 2);
-            if ((key < item[mid])) {
-                high = (mid - 1);
+public class OrdArray {
+
+    public int nElems;
+
+    public OrdArray() {
+        nElems = 0;
+    }
+
+    public int find(int searchKey, int[] a) {
+        int lowerBound = 0;
+        int upperBound = nElems - 1;
+        int curIn;
+        while (true) {
+            curIn = (lowerBound + upperBound) / 2;
+            if (a[curIn] == searchKey) {
+                return curIn;
             } else {
-                if ((key > item[mid])) {
-                    low = (mid + 1);
+                if (lowerBound > upperBound) {
+                    return nElems;
                 } else {
-                    return mid;
+                    if (a[curIn] < searchKey) {
+                        lowerBound = curIn + 1;
+                    } else {
+                        upperBound = curIn - 1;
+                    }
                 }
             }
         }
-        return -1;
     }
 
-    public static void main(String[] args) {
-        char key = 'd';
-        int p = binary(vc, 3, key);
-        if ((p == -1)) {
-            System.out.printf("nao tem\n");
-        } else {
-            System.out.printf("encontrou na pos. %d\n", p);
+    public void insert(int value, int[] a) {
+        int j;
+        for (j = 0; j < nElems; j++) {
+            if (a[j] > value) {
+                break;
+            }
         }
+        int k;
+        for (k = nElems; k > j; k--) {
+            a[k] = a[k - 1];
+        }
+        a[j] = value;
+        nElems++;
     }
+
+    public void display(int[] a) {
+        int j;
+        for (j = 0; j < nElems; j++) {
+            System.out.printf("%d ", a[j]);
+        }
+        System.out.printf("\n");
+    }
+
+    public static void teste(){
+        
+    }
+
 }

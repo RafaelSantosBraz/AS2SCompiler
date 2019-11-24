@@ -115,3 +115,6 @@ $RECYCLE.BIN/
 /CodeGenerator/nbproject/private/
 /CodeGenerator/build/
 /CodeGenerator/dist/
+/tools/Shortener/nbproject/private/
+/tools/Shortener/build/
+/tools/Shortener/dist/
