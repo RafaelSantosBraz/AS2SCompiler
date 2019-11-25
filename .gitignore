@@ -6,6 +6,7 @@
 /grammar tests/CGrammar/build/
 /grammar tests/CGrammar/dist/
 /grammar tests/CSTtoXMLGenerator/nbproject/private/
+/docs/_site/
 
 # Created by https://www.gitignore.io/api/java,windows
 # Edit at https://www.gitignore.io/?templates=java,windows

@@ -1,1 +1,4 @@
 theme: jekyll-theme-slate
+title: [StSCompiler]
+description: [A Source-to-Source Compilation Framework]
+show_downloads: [true]
