@@ -1,3 +1,3 @@
-# Source-to-Source Compilation Framework
+# Another Source-to-Source Compiler
 
-Prototype and examples of a source-to-source compilation framework.
+Implementation of a source-to-source compiler through the principles of a language neutral-based compilation framework.

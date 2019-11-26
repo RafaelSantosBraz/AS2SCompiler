@@ -4,5 +4,5 @@ This directory aims to encapsule small projects that are used by almost all othe
 
 Currently, there are those sub-projects:
 
-* [Tree Shortener](https://github.com/RafaelSantosBraz/StS-Compilation-Framework/tree/master/tools/Shortener).
-* [ToolPack Project](https://github.com/RafaelSantosBraz/StS-Compilation-Framework/tree/master/tools/ToolPack).
+* [Tree Shortener](https://github.com/RafaelSantosBraz/AS2SCompiler/tree/master/tools/Shortener).
+* [ToolPack Project](https://github.com/RafaelSantosBraz/AS2SCompiler/tree/master/tools/ToolPack).

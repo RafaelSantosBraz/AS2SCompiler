@@ -4,5 +4,5 @@ There are here all the compiler front-ends (specific parsers) for the Source-to-
 
 The curretly specific parsers are:
 
-* [C parser](https://github.com/RafaelSantosBraz/StS-Compilation-Framework/blob/master/specificParsers/CParser/src/parser/CParser.java).
-* [Java parser](https://github.com/RafaelSantosBraz/StS-Compilation-Framework/blob/master/specificParsers/JavaParser/src/parser/JavaParser.java).
+* [C parser](https://github.com/RafaelSantosBraz/AS2SCompiler/blob/master/specificParsers/CParser/src/parser/CParser.java).
+* [Java parser](https://github.com/RafaelSantosBraz/AS2SCompiler/blob/master/specificParsers/JavaParser/src/parser/JavaParser.java).
