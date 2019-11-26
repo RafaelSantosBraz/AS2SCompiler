@@ -6,4 +6,4 @@ For example, converts a CST into a shorten version like that:
 
 ## Shorten CST
 
-![shorten CST](https://github.com/RafaelSantosBraz/StS-Compilation-Framework/tree/master/tools/Shortener/CST.png)
+![CST](./CST.png)
