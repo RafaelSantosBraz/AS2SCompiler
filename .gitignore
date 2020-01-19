@@ -9,6 +9,9 @@
 /docs/_site/
 /runtime/input/
 /runtime/output/
+/specificParsers/CParser/grammar/parser/.antlr
+/specificParsers/JavaParser/grammar/parser/.antlr
+/licca versions/
 
 # Created by https://www.gitignore.io/api/java,windows
 # Edit at https://www.gitignore.io/?templates=java,windows
