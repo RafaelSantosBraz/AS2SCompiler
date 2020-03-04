@@ -18,11 +18,11 @@ public class Run {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        CtoJavaAdapter adapter = new CtoJavaAdapter("D:\\GitHub\\StS-Compilation-Framework\\runtime\\Tmaps\\CtoJava");
-        TreeXMLConverter conv = new TreeXMLConverter();
-        conv.convertFromFile("D:\\GitHub\\StS-Compilation-Framework\\runtime\\output\\eCST.xml");
-        adapter.startWalking(conv.getTree());
-        DOTConverter dot = new DOTConverter(conv.getTree());
-        dot.convertToFile("D:\\GitHub\\StS-Compilation-Framework\\runtime\\output\\eCSTAdapted.gv");
+//        CtoJavaAdapter adapter = new CtoJavaAdapter("D:\\GitHub\\StS-Compilation-Framework\\runtime\\Tmaps\\CtoJava");
+//        TreeXMLConverter conv = new TreeXMLConverter();
+//        conv.convertFromFile("D:\\GitHub\\StS-Compilation-Framework\\runtime\\output\\eCST.xml");
+//        adapter.startWalking(conv.getTree());
+//        DOTConverter dot = new DOTConverter(conv.getTree());
+//        dot.convertToFile("D:\\GitHub\\StS-Compilation-Framework\\runtime\\output\\eCSTAdapted.gv");
     }
 }

@@ -22,8 +22,11 @@ public class JavaGenerator extends CodeGenerator {
         super(outputPath, auxTmapsDir);
     }
 
+    // all the "actionSOMETHING" methods implements a ANTLR visit-like method.
+
     public Object actionCOMPILATION_UNIT(Node<TokenAttributes> node) {
-        String name = getText(BIB.tmapOneRuleCodeCall("\"PACKAGE_DECL\".\"CONCRETE_UNIT_DECL\".\"NAME\".child", node).get(0));
+        String name = getText(
+                BIB.tmapOneRuleCodeCall("\"PACKAGE_DECL\".\"CONCRETE_UNIT_DECL\".\"NAME\".child", node).get(0));
         return writeToFile(name, ".java", node);
     }
 
@@ -223,7 +226,7 @@ public class JavaGenerator extends CodeGenerator {
 
     public Object actionLOOP_STATEMENT(Node<TokenAttributes> node) {
         List<String> res = new ArrayList<>();
-        //List<String> ss = stringifyChildren(node);
+        // List<String> ss = stringifyChildren(node);
         switch (getText(BIB.tmapOneRuleCodeCall("\"KEYWORD\".last", node).get(0))) {
             case "while":
                 res.add("while");

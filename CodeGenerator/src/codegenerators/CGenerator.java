@@ -20,6 +20,10 @@ import trees.simpletree.Node;
  */
 public class CGenerator extends CodeGenerator {
 
+    /**
+     * provide all important information about variables, files, functions and other
+     * abstract symbols.
+     */
     private final SymbolTable symbolTable;
 
     public CGenerator(String outputPath, String auxTmapsDir) {
@@ -27,23 +31,28 @@ public class CGenerator extends CodeGenerator {
         symbolTable = new SymbolTable();
     }
 
+    // all the "actionSOMETHING" methods implements a ANTLR visit-like method.
+
     public Object actionroot(Node<TokenAttributes> node) {
         List<String> res = new ArrayList<>();
         node.getChildren().forEach((t) -> {
-            String name = getText(BIB.tmapOneRuleCodeCall("\"PACKAGE_DECL\".\"CONCRETE_UNIT_DECL\".\"NAME\".child", t).get(0));
+            String name = getText(
+                    BIB.tmapOneRuleCodeCall("\"PACKAGE_DECL\".\"CONCRETE_UNIT_DECL\".\"NAME\".child", t).get(0));
             symbolTable.addSymbol(new Symbol(name, Symbol.CLASS, t));
         });
         return visitChildren(node.getChildren());
     }
 
     public Object actionCOMPILATION_UNIT(Node<TokenAttributes> node) {
-        String name = getText(BIB.tmapOneRuleCodeCall("\"PACKAGE_DECL\".\"CONCRETE_UNIT_DECL\".\"NAME\".child", node).get(0));
+        String name = getText(
+                BIB.tmapOneRuleCodeCall("\"PACKAGE_DECL\".\"CONCRETE_UNIT_DECL\".\"NAME\".child", node).get(0));
         return writeToFile(name, ".c", node);
     }
 
     public Object actionIMPORT_DECL(Node<TokenAttributes> node) {
         List<String> res = new ArrayList<>();
-        res.add(String.format("#include<%s>%s", getText(node.getChildren().get(0).getChildren().get(0)), System.lineSeparator()));
+        res.add(String.format("#include<%s>%s", getText(node.getChildren().get(0).getChildren().get(0)),
+                System.lineSeparator()));
         return res;
     }
 
@@ -176,7 +185,7 @@ public class CGenerator extends CodeGenerator {
     public Object actionFUNCTION_CALL(Node<TokenAttributes> node) {
         List<String> res = new ArrayList<>();
         res.addAll((List<String>) visitChildren(node.getChildren()));
-        if (res.get(0).equals("struct")){
+        if (res.get(0).equals("struct")) {
             res.remove(0);
         }
         res.add(";");
@@ -300,7 +309,8 @@ public class CGenerator extends CodeGenerator {
             return res;
         }
         if (node.getChildren().size() == 1) {
-            if (getText(node.getChildren().get(0)).equals("NAME") || getText(node.getChildren().get(0)).equals("TYPE")) {
+            if (getText(node.getChildren().get(0)).equals("NAME")
+                    || getText(node.getChildren().get(0)).equals("TYPE")) {
                 res.addAll((List<String>) visit(node.getChildren().get(0)));
             } else {
                 res.add(getText(node.getChildren().get(0)));

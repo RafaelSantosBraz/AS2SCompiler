@@ -17,18 +17,29 @@ import walkers.ActionWalker;
  */
 public class CtoJavaAdapter extends ActionWalker {
 
-    private final String auxTmapsDir; // path to all files of partial/complete tmap code
+    /**
+     * path to all files of partial/complete tmap code.
+     */
+    private final String auxTmapsDir;
 
     public CtoJavaAdapter(String auxTmapsDir) {
         this.auxTmapsDir = auxTmapsDir;
     }
 
-    // const to final
+    /**
+     * converts "const" to "final".
+     *
+     * @param node
+     */
     public void actionconst(Node<TokenAttributes> node) {
         node.getNodeData().setText("final");
     }
 
-    // functions to methods, inclusively main
+    /**
+     * converts functions to methods, inclusively "main".
+     *
+     * @param node
+     */
     public void actionFUNCTION_DECL(Node<TokenAttributes> node) {
         String tmapCode = BIB.getTmapCodeFromFile(auxTmapsDir, "mainCtoJava.tmap");
         List<Node<TokenAttributes>> nodes = BIB.tmapOneRuleCodeCall(tmapCode, node);
@@ -42,8 +53,12 @@ public class CtoJavaAdapter extends ActionWalker {
         }
     }
 
-    // global variable declarations to Java class atributes
-    // array declaration to Java pattern
+    /**
+     * converts global variable declarations to Java class atributes and array
+     * declarations to Java pattern
+     *
+     * @param node
+     */
     public void actionVAR_DECL(Node<TokenAttributes> node) {
         String tmapCode = BIB.getTmapCodeFromFile(auxTmapsDir, "globalVarCtoJava.tmap");
         List<Node<TokenAttributes>> nodes = BIB.tmapOneRuleCodeCall(tmapCode, node);
@@ -60,14 +75,22 @@ public class CtoJavaAdapter extends ActionWalker {
         }
     }
 
-    // remove C double TYPE
+    /**
+     * remove C double TYPE from the eCST.
+     *
+     * @param node
+     */
     public void actionTYPE(Node<TokenAttributes> node) {
         if (node.getChildren().get(0).getNodeData().getText().equals("TYPE")) {
             BIB.removeNode(node);
         }
     }
 
-    // C printf to Java System.out.printf
+    /**
+     * C printf to Java System.out.printf.
+     *
+     * @param node
+     */
     public void actionFUNCTION_CALL(Node<TokenAttributes> node) {
         String tmapCode = BIB.getTmapCodeFromFile(auxTmapsDir, "printfCtoJava.tmap");
         List<Node<TokenAttributes>> nodes = BIB.tmapOneRuleCodeCall(tmapCode, node);
@@ -76,7 +99,11 @@ public class CtoJavaAdapter extends ActionWalker {
         }
     }
 
-    // Removing C imports
+    /**
+     * removing C imports.
+     *
+     * @param node
+     */
     public void actionIMPORT_DECL(Node<TokenAttributes> node) {
         BIB.removeChain(node);
     }

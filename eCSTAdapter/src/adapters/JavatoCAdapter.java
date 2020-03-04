@@ -23,9 +23,18 @@ import walkers.TreeVisitor;
  */
 public class JavatoCAdapter extends ActionWalker {
 
-    private final String auxTmapsDir; // path to all files of partial/complete tmap code
-    private String curUnitName; // current concrete unit name
-    private final SymbolTable symbolTable; // Symbol Table of the important values/nodes of the tree
+    /**
+     * path to all files of partial/complete tmap code.
+     */
+    private final String auxTmapsDir;
+    /**
+     * current concrete unit name.
+     */
+    private String curUnitName;
+    /**
+     * Symbol Table of the important values/nodes of the tree.
+     */
+    private final SymbolTable symbolTable;
 
     public JavatoCAdapter(String auxTmapsDir) {
         this.auxTmapsDir = auxTmapsDir;
@@ -41,7 +50,11 @@ public class JavatoCAdapter extends ActionWalker {
         }
     }
 
-    // adding C includes
+    /**
+     * adding C includes.
+     *
+     * @param node
+     */
     public void actionPACKAGE_DECL(Node<TokenAttributes> node) {
         String code = BIB.getTmapCodeFromFile(auxTmapsDir, "importJavatoC.tmap");
         List<Node<TokenAttributes>> nodes = BIB.tmapOneRuleCodeCall(code, node);
@@ -51,7 +64,11 @@ public class JavatoCAdapter extends ActionWalker {
         node.getChildren().addAll(0, nodes);
     }
 
-    // Removing Java imports
+    /**
+     * removing Java imports.
+     *
+     * @param node
+     */
     public void actionIMPORT_DECL(Node<TokenAttributes> node) {
         String s = BIB.getText(node.getChildren().get(0).getChildren().get(0));
         if (!(s.equals("stdlib.h") || s.equals("stdio.h"))) {
@@ -59,12 +76,20 @@ public class JavatoCAdapter extends ActionWalker {
         }
     }
 
-    // removing modifiers
+    /**
+     * removing modifiers
+     *
+     * @param node
+     */
     public void actionMODIFIER_LIST(Node<TokenAttributes> node) {
         node.getChildren().clear();
     }
 
-    // attribute declaration to variable declaration
+    /**
+     * attribute declaration to variable declaration.
+     *
+     * @param node
+     */
     public void actionATTRIBUTE_DECL(Node<TokenAttributes> node) {
         Node<TokenAttributes> value = BIB.getChildByText(node.getChildren(), "VALUE");
         String name = BIB.getText(BIB.getChildByText(node.getChildren(), "NAME").getChildren().get(0));
@@ -95,7 +120,11 @@ public class JavatoCAdapter extends ActionWalker {
         actionVAR_DECL(node);
     }
 
-    // arrays declaration to C pattern
+    /**
+     * arrays declaration to C pattern.
+     *
+     * @param node
+     */
     public void actionVAR_DECL(Node<TokenAttributes> node) {
         Node<TokenAttributes> sep = BIB.getChildByText(node.getChildren(), "SEPARATOR");
         if (sep != null) {
@@ -118,14 +147,22 @@ public class JavatoCAdapter extends ActionWalker {
         }
     }
 
-    // remove useless new ClassType
+    /**
+     * remove useless new ClassType.
+     *
+     * @param node
+     */
     public void actionINSTANTIATES(Node<TokenAttributes> node) {
         if (node.getChildren().size() == 1) {
             BIB.removeChain(node);
         }
     }
 
-    // adapting function parameter list and constructors
+    /**
+     * adapting function parameter list and constructors.
+     *
+     * @param node
+     */
     public void actionFUNCTION_DECL(Node<TokenAttributes> node) {
         String name = BIB.getText(BIB.getChildByText(node.getChildren(), "NAME").getChildren().get(0));
         if (name.equals(curUnitName)) {
@@ -145,28 +182,48 @@ public class JavatoCAdapter extends ActionWalker {
         }
     }
 
-    // keeping the unit name 
+    /**
+     * keeping the current concrete unit name.
+     *
+     * @param node
+     */
     public void actionCONCRETE_UNIT_DECL(Node<TokenAttributes> node) {
         curUnitName = BIB.getText(BIB.getChildByText(node.getChildren(), "NAME").getChildren().get(0));
         symbolTable.addSymbol(new Symbol(curUnitName, Symbol.CLASS, node));
     }
 
-    // true to 1 
+    /**
+     * true to 1.
+     *
+     * @param node
+     */
     public void actiontrue(Node<TokenAttributes> node) {
         node.getNodeData().setText("1");
     }
 
-    // false to 0 
+    /**
+     * false to 0.
+     *
+     * @param node
+     */
     public void actionfalse(Node<TokenAttributes> node) {
         node.getNodeData().setText("0");
     }
 
-    // boolean to int
+    /**
+     * boolean to int.
+     *
+     * @param node
+     */
     public void actionboolean(Node<TokenAttributes> node) {
         node.getNodeData().setText("int");
     }
 
-    // System.out.printf to printf
+    /**
+     * System.out.printf to printf.
+     *
+     * @param node
+     */
     public void actionFUNCTION_CALL(Node<TokenAttributes> node) {
         Node<TokenAttributes> nodeName = BIB.getChildByText(node.getChildren(), "NAME");
         String name = rewriteName(nodeName);
@@ -180,7 +237,14 @@ public class JavatoCAdapter extends ActionWalker {
         replacePrintf(nodeName);
     }
 
-    // correct the new array to array[size]
+    /**
+     * correct the new array to array[size].
+     *
+     * @param node
+     * @param asOp operator node
+     * @param sep first separator
+     * @param sep2 second separator
+     */
     private void arrayCPattern(Node<TokenAttributes> node, Node<TokenAttributes> asOp, Node<TokenAttributes> sep, Node<TokenAttributes> sep2) {
         Node<TokenAttributes> val = asOp.getChildren().get(asOp.getChildren().size() - 1);
         if (val.getChildren().size() == 1) {
@@ -198,7 +262,11 @@ public class JavatoCAdapter extends ActionWalker {
         }
     }
 
-    // replace System.out.printf into printf
+    /**
+     * replace System.out.printf into printf.
+     *
+     * @param node
+     */
     private void replacePrintf(Node<TokenAttributes> node) {
         Node<TokenAttributes> printf = BIB.tmapOneRuleCodeCall("new_leaf(\"printf\")", node).get(0);
         node.getChildren().clear();
@@ -206,7 +274,12 @@ public class JavatoCAdapter extends ActionWalker {
         node.getChildren().add(printf);
     }
 
-    // returns a complex name (multiple nodes) as a String
+    /**
+     * returns a complex name (multiple nodes) as a String.
+     *
+     * @param node
+     * @return
+     */
     private String rewriteName(Node<TokenAttributes> node) {
         List<String> names = nameUnion(node);
         String res = "";
@@ -216,7 +289,12 @@ public class JavatoCAdapter extends ActionWalker {
         return res;
     }
 
-    // recursively computes a complex name
+    /**
+     * recursively computes a complex name.
+     *
+     * @param node
+     * @return
+     */
     private List<String> nameUnion(Node<TokenAttributes> node) {
         List<String> res = new ArrayList<>();
         List<Node<TokenAttributes>> children = node.getChildren();
@@ -230,7 +308,13 @@ public class JavatoCAdapter extends ActionWalker {
         return res;
     }
 
-    // returns if the node contains a modifier list which has the static keyword
+    /**
+     * returns if the node contains a modifier list which has the static
+     * keyword.
+     *
+     * @param node
+     * @return
+     */
     private boolean isStatic(Node<TokenAttributes> node) {
         Node<TokenAttributes> mods = BIB.getChildByText(node.getChildren(), "MODIFIER_LIST");
         if (mods != null) {
@@ -241,7 +325,12 @@ public class JavatoCAdapter extends ActionWalker {
         return false;
     }
 
-    // add a reference to the class/struct into the parameters list of a function
+    /**
+     * add a reference to the class/struct into the parameters list of a
+     * function.
+     *
+     * @param parList
+     */
     private void addThisReference(Node<TokenAttributes> parList) {
         List<Node<TokenAttributes>> children = parList.getChildren();
         String code = BIB.getTmapCodeFromFile(auxTmapsDir, "thisJavatoC.tmap");
@@ -256,11 +345,14 @@ public class JavatoCAdapter extends ActionWalker {
         }
     }
 
-    // corrects function calls removing useless obj/class reference or adds obj/_this reference
+    /**
+     * corrects function calls removing useless obj/class reference or adds
+     * obj/_this reference.
+     */
     public void correctFuncCalls() {
         symbolTable.getFunctionCalls().forEach((t) -> {
             Node<TokenAttributes> mainName = t.getNode().getChildren().get(0);
-            if (mainName.getChildren().size() == 1) {                
+            if (mainName.getChildren().size() == 1) {
                 String funcName = BIB.tmapOneRuleCodeCall("last", mainName.getChildren().get(0)).get(0).getNodeData().getText();
                 if (symbolTable.isNonStaticFunctionByName(funcName)) {
                     String code = BIB.getTmapCodeFromFile(auxTmapsDir, "addargJavatoC.tmap");
@@ -300,7 +392,10 @@ public class JavatoCAdapter extends ActionWalker {
         });
     }
 
-    // creates C structs for the classes and remove the obj attributes from the tree
+    /**
+     * creates C structs for the classes and remove the obj attributes from the
+     * tree.
+     */
     public void createStructs() {
         List<Symbol> classes = symbolTable.getClasses();
         List<Symbol> nonStaticVars = symbolTable.getNonStaticVariables();
@@ -312,7 +407,7 @@ public class JavatoCAdapter extends ActionWalker {
             name.getNodeData().setText(t.getName());
             struct.setParent(t.getNode());
             t.getNode().getChildren().add(2, struct);
-            Node<TokenAttributes> structBlock = struct.getChildren().get(1);            
+            Node<TokenAttributes> structBlock = struct.getChildren().get(1);
             nonStaticVars.forEach((v) -> {
                 if (v.getNode().getParent().equals(t.getNode())) {
                     BIB.removeChain(v.getNode());
@@ -337,7 +432,9 @@ public class JavatoCAdapter extends ActionWalker {
         });
     }
 
-    // create C prototypes of all functions in the tree
+    /**
+     * create C prototypes of all functions in the tree.
+     */
     public void createFuncPrototypes() {
         List<Symbol> funcs = symbolTable.getAllFunctions();
         funcs.forEach((t) -> {
@@ -367,7 +464,9 @@ public class JavatoCAdapter extends ActionWalker {
         });
     }
 
-    // if the class does not have a constructor, this method will create one
+    /**
+     * if the class does not have a constructor, this method will create one.
+     */
     public void createConstructors() {
         List<Symbol> classes = symbolTable.getClasses();
         classes.forEach((t) -> {
@@ -390,7 +489,12 @@ public class JavatoCAdapter extends ActionWalker {
         });
     }
 
-    // change the given constructor to instantiate a struct and returns its pointer
+    /**
+     * change the given constructor to instantiate a struct and returns its
+     * pointer.
+     *
+     * @param symbol
+     */
     public void changeConstructorBody(Symbol symbol) {
         String code = BIB.getTmapCodeFromFile(auxTmapsDir, "mallocJavatoC.tmap");
         Node<TokenAttributes> node = BIB.tmapOneRuleCodeCall(code, symbol.getNode()).get(0);
@@ -411,7 +515,9 @@ public class JavatoCAdapter extends ActionWalker {
         body.getChildren().add(body.getChildren().size() - 1, node);
     }
 
-    // class that extends Tree Visitor to remove modifiers lists
+    /**
+     * class that extends Tree Visitor to remove modifiers lists.
+     */
     public static class ModList extends TreeVisitor<Object> {
 
         public Object actionMODIFIER_LIST(Node<TokenAttributes> node) {
@@ -427,7 +533,9 @@ public class JavatoCAdapter extends ActionWalker {
         }
     }
 
-    // class that extends Tree Visitor to correct attribute access
+    /**
+     * class that extends Tree Visitor to correct attribute access.
+     */
     public class NameAdapter extends TreeVisitor<Object> {
 
         public Object actionIMPORT_DECL(Node<TokenAttributes> node) {
@@ -511,13 +619,21 @@ public class JavatoCAdapter extends ActionWalker {
 
     }
 
-    // corrects the access to static and non static attributes
+    /**
+     * corrects the access to static and non static attributes.
+     *
+     * @param tree
+     */
     public void correctAttrAccess(Tree<TokenAttributes> tree) {
         NameAdapter adp = new NameAdapter();
         adp.startWalking(tree);
     }
 
-    // removes all modifier lists from the given tree
+    /**
+     * removes all modifier lists from the given tree.
+     *
+     * @param tree
+     */
     public void removeModifierLists(Tree<TokenAttributes> tree) {
         ModList adp = new ModList();
         adp.startWalking(tree);
