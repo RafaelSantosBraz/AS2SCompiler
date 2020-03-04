@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * The MIT License - https://github.com/RafaelSantosBraz/AS2SCompiler/blob/master/LICENSE
+ * Copyright 2020 Rafael Braz.
  */
 package trees.cstecst;
 
