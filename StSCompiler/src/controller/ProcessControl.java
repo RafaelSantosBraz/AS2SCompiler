@@ -17,7 +17,11 @@ import converter.XMLDOTConverter;
  */
 public class ProcessControl {
 
-    // executes the entire framework
+    /**
+     * Executes the entire framework.
+     * 
+     * @param params
+     */
     public static void execute(String[] params) {
         if (params.length != 5) {
             System.out.println("StSCompiler : <in. lang.> <out. lang.> <in. dir.> <out. dir.> <tmap path>");
@@ -27,11 +31,13 @@ public class ProcessControl {
             System.err.println("Error: it was not possible to create the CST!");
             return;
         }
-        if (!new Analyzer().createShorterCST(params[3] + File.separator + "temp" + File.separator + "CST.xml", params[3] + File.separator + "temp")) {
+        if (!new Analyzer().createShorterCST(params[3] + File.separator + "temp" + File.separator + "CST.xml",
+                params[3] + File.separator + "temp")) {
             System.err.println("Warning: it was not possible to create the shorter CST!");
         }
         Translator translator = new Translator();
-        if (!translator.createeCST(params[3] + File.separator + "temp" + File.separator + "CST.xml", params[4], "\"ruleinitial\"", params[3])) {
+        if (!translator.createeCST(params[3] + File.separator + "temp" + File.separator + "CST.xml", params[4],
+                "\"ruleinitial\"", params[3])) {
             System.err.println("Error: it was not possible to create the eCST!");
             return;
         }
@@ -45,10 +51,10 @@ public class ProcessControl {
             System.err.println("Error: it was not possible to create the output program!");
             return;
         }
-//        new XMLDOTConverter().convertFromDir(
-//                "D:\\GitHub\\StS-Compilation-Framework\\runtime\\output\\temp\\licca",
-//                "D:\\GitHub\\StS-Compilation-Framework\\runtime\\output"
-//        );
+        // new XMLDOTConverter().convertFromDir(
+        // "D:\\GitHub\\StS-Compilation-Framework\\runtime\\output\\temp\\licca",
+        // "D:\\GitHub\\StS-Compilation-Framework\\runtime\\output"
+        // );
     }
 
 }

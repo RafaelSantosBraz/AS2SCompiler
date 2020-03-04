@@ -27,7 +27,15 @@ import walkers.ActionWalker;
  */
 public class Translator {
 
-    // converts a given CST into a corresponding eCST
+    /**
+     * converts a given CST into a corresponding eCST.
+     * 
+     * @param CSTPath
+     * @param tmapPath
+     * @param initialRuleName
+     * @param outputDir
+     * @return
+     */
     public boolean createeCST(String CSTPath, String tmapPath, String initialRuleName, String outputDir) {
         TreeXMLConverter conv = new TreeXMLConverter();
         if (!conv.convertFromFile(CSTPath)) {
@@ -36,7 +44,16 @@ public class Translator {
         return new TranslationParser(conv.getTree()).start(tmapPath, initialRuleName, outputDir);
     }
 
-    // adapts a given eCST by the patterns of the output language
+    /**
+     * adapts a given eCST through the patterns of the output language.
+     * 
+     * @param eCSTPath
+     * @param auxTmapsDir directory of the auxiliar tmap files used to adapt the
+     *                    eCST.
+     * @param inputLang
+     * @param outputLang
+     * @return
+     */
     public boolean adapteCST(String eCSTPath, String auxTmapsDir, String inputLang, String outputLang) {
         TreeXMLConverter conv = new TreeXMLConverter();
         if (!conv.convertFromFile(eCSTPath)) {
@@ -67,7 +84,15 @@ public class Translator {
         return exportCSTDOT(conv.getTree(), dotPath) && exportCSTXML(conv.getTree(), xmlPath);
     }
 
-    // generates object code from a fiven adapted eCST
+    /**
+     * generates the Object Code from a given already adapted eCST.
+     * 
+     * @param eCSTPath
+     * @param auxTmapsDir directory of the auxiliar tmap files used to convert the
+     *                    eCST.
+     * @param outputLang
+     * @return
+     */
     public boolean gerateCode(String eCSTPath, String auxTmapsDir, String outputLang) {
         TreeXMLConverter conv = new TreeXMLConverter();
         if (!conv.convertFromFile(eCSTPath)) {
@@ -85,15 +110,37 @@ public class Translator {
         return false;
     }
 
+    /**
+     * converts a given simple tree into a DOT version.
+     * 
+     * @param tree
+     * @param outputPath
+     * @return
+     */
     private boolean exportCSTDOT(Tree<TokenAttributes> tree, String outputPath) {
         return new DOTConverter<>(tree).convertToFile(outputPath);
     }
 
+    /**
+     * converts a given simple tree into a XML version.
+     * 
+     * @param tree
+     * @param outputPath
+     * @return
+     */
     private boolean exportCSTXML(Tree<TokenAttributes> tree, String outputPath) {
         return new XMLConverter(tree).convertToFile(outputPath);
     }
 
-    // returns the path to the directory that has all the complete/partial tmap code files used in the adaptation process
+    /**
+     * returns the path of the directory that has all the complete or partial tmap
+     * code files used in the adaptation process.
+     * 
+     * @param tmapPath   main tmap path.
+     * @param inputLang
+     * @param outputLang
+     * @return
+     */
     public static String inferAuxTmapsDir(String tmapPath, String inputLang, String outputLang) {
         int index = tmapPath.lastIndexOf(File.separator);
         String dir = null;
@@ -105,7 +152,14 @@ public class Translator {
         return dir;
     }
 
-    // returns the path to the directory that has all the complete/partial tmap code files used in the writing process
+    /**
+     * returns the path of the directory that has all the complete or partial tmap
+     * code files used in the code writing process.
+     * 
+     * @param tmapPath
+     * @param outputLang
+     * @return
+     */
     public static String inferAuxWriteTmapsDir(String tmapPath, String outputLang) {
         int index = tmapPath.lastIndexOf(File.separator);
         String dir = null;

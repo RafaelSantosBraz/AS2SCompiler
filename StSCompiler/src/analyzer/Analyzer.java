@@ -22,10 +22,23 @@ import trees.simpletree.Tree;
  */
 public class Analyzer {
 
-    public static final String C = "c"; // use this const to refer C lang
-    public static final String JAVA = "java"; // use this const to refer Java lang
+    /**
+     * Use this const to refer to C lang.
+     */
+    public static final String C = "c";
+    /**
+     * Use this const to refer to Java lang.
+     */
+    public static final String JAVA = "java";
 
-    // converts source-code in a directory into a CST
+    /**
+     * Converts all source-code in a directory (inputdir) to a CST.
+     *
+     * @param language
+     * @param inputDir
+     * @param outputDir
+     * @return
+     */
     public boolean createCST(String language, String inputDir, String outputDir) {
         switch (language) {
             case Analyzer.C:
@@ -37,7 +50,14 @@ public class Analyzer {
         }
     }
 
-    // creates a shorter version of a CST (without chains of nodes that have only one child)
+    /**
+     * Creates a shorter version of a CST (without chains of nodes that have
+     * only one child).
+     *
+     * @param CSTPath
+     * @param outputDir
+     * @return
+     */
     public boolean createShorterCST(String CSTPath, String outputDir) {
         try {
             TreeXMLConverter conv = new TreeXMLConverter();
