@@ -6,6 +6,8 @@ The compiler is designed to be easily extended, so you can add support to other 
 
 The complete description of the compiler, its documentation, documentation and usage instructions and examples can be found on the [project website](https://rafaelsantosbraz.github.io/AS2SCompiler/).
 
+Download the executable jar [here](https://github.com/RafaelSantosBraz/AS2SCompiler/releases).
+
 ## Compiling the Compiler
 
 To compile the AS2SCompiler source code, it is necessary to install and JDK v8+ (it was tested through [OpenJDK](https://openjdk.java.net/) 8) and the [ANTLR](https://www.antlr.org/) v4+.
@@ -17,8 +19,7 @@ After that, compile the _StSCompiler_ project and all its subprojects (CParser, 
 Everyone can modify the source code. Follow those steps to do and feel free to submit your improvements:
 
 * Fork this repository.
-* Change or add code (following the coding pattern).
-* Test your changes.
+* Change or add code.
 * Create a pull request.
 
 ### notes
