@@ -20,7 +20,12 @@ import parsers.SpecificParser;
  */
 public class JavaParser extends SpecificParser {
 
-    // starts parsing the source-code from a directory
+    /**
+     * starts parsing the source-code from a directory.
+     * @param inputDir
+     * @param outputDir
+     * @return 
+     */
     @Override
     public boolean startParsing(String inputDir, String outputDir) {
         try {
@@ -41,7 +46,11 @@ public class JavaParser extends SpecificParser {
         }
     }
 
-    // syntactically check the code through the ANTLR4 recognition
+    /**
+     * syntactically check the code through the ANTLR4 recognition
+     * @param f file to be verified.
+     * @return 
+     */
     private boolean syntaxChecking(File f) {
         try {
             CharStream stream = new ANTLRFileStream(f.getAbsolutePath(), "UTF-8");

@@ -21,18 +21,34 @@ import trees.simpletree.Tree;
  */
 public abstract class SpecificParser {
 
-    protected final List<ParserRuleContext> rootRules; // marks each of the "CompilationUnit" nodes
-    protected final Tree<TokenAttributes> tree; // the generated CST as simple tree
+    /**
+     * marks each of the "CompilationUnit" nodes.
+     */
+    protected final List<ParserRuleContext> rootRules;
+    /**
+     * the generated CST as simple tree.
+     */
+    protected final Tree<TokenAttributes> tree;
 
     public SpecificParser() {
         rootRules = new ArrayList<>();
         tree = new Tree<>(new UniversalToken("root", -1));
     }
 
-    // starts parsing the source-code from a directory -> abstract method
+    /**
+     * starts parsing the source-code from a directory -> abstract method.
+     *
+     * @param inputDir
+     * @param outputDir
+     * @return
+     */
     public abstract boolean startParsing(String inputDir, String outputDir);
 
-    // parses all the "CompilationUnit" nodes and return the simple trees
+    /**
+     * parses all the "CompilationUnit" nodes and return the simple trees.
+     *
+     * @return
+     */
     protected ArrayList<Tree<TokenAttributes>> getTrees() {
         ArrayList<Tree<TokenAttributes>> trees = new ArrayList<>();
         rootRules.stream().map((r) -> {
@@ -45,7 +61,11 @@ public abstract class SpecificParser {
         return trees;
     }
 
-    // puts all the trees together in a unique tree
+    /**
+     * puts all the trees together in a unique tree.
+     *
+     * @param trees
+     */
     protected void treeUnion(ArrayList<Tree<TokenAttributes>> trees) {
         //tree.setRoot(new Node<>(new UniversalToken("CompilationUnit", 31)));
         trees.forEach((t) -> {
@@ -53,10 +73,24 @@ public abstract class SpecificParser {
         });
     }
 
+    /**
+     * exorts a DOT version of the given tree.
+     *
+     * @param tree
+     * @param outputPath
+     * @return
+     */
     protected boolean exportCSTDOT(Tree<TokenAttributes> tree, String outputPath) {
         return new DOTConverter<>(tree).convertToFile(outputPath);
     }
 
+    /**
+     * exports a DOT version of the given tree.
+     *
+     * @param tree
+     * @param outputPath
+     * @return
+     */
     protected boolean exportCSTXML(Tree<TokenAttributes> tree, String outputPath) {
         return new XMLConverter(tree).convertToFile(outputPath);
     }

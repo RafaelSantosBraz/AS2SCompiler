@@ -28,8 +28,17 @@ import trees.simpletree.Tree;
  */
 public class TranslationParser {
 
+    /**
+     * the converted CST as a eCST.
+     */
     private Tree<TokenAttributes> eCST;
+    /**
+     * the CST to be converted.
+     */
     private final Tree<TokenAttributes> CST;
+    /**
+     * all the parse rules as an array.
+     */
     private final ArrayList<ParseTree> rules;
 
     public TranslationParser(Tree<TokenAttributes> CST) {
@@ -38,7 +47,15 @@ public class TranslationParser {
         rules = new ArrayList<>();
     }
 
-    // converts a CST into a eCST by using a tmap code on a file, exporting the result as a XML file
+    /**
+     * converts a CST into a eCST by using a tmap code on a file, exporting the
+     * result as a XML file.
+     *
+     * @param tmapPath auxiliar tmap path.
+     * @param firstRuleName
+     * @param outputDir
+     * @return
+     */
     public boolean start(String tmapPath, String firstRuleName, String outputDir) {
         try {
             CharStream stream = new ANTLRFileStream(tmapPath);
@@ -53,7 +70,15 @@ public class TranslationParser {
         }
     }
 
-    // converts a CST into a eCST by using a tmap code as a String, returning the built tree
+    /**
+     * converts a CST into a eCST by using a tmap code as a String, returning
+     * the built tree
+     *
+     * @param tmapCode
+     * @param firstRuleName
+     * @param currentNode
+     * @return
+     */
     public static Tree<TokenAttributes> startFromString(String tmapCode, String firstRuleName, Node<TokenAttributes> currentNode) {
         try {
             CharStream stream = new ANTLRInputStream(tmapCode);
@@ -71,11 +96,24 @@ public class TranslationParser {
         return eCST;
     }
 
+    /**
+     * exports a DOT version of the tree.
+     *
+     * @param GVeCSTPath
+     * @return
+     */
     private boolean exportDOTeCST(String GVeCSTPath) {
         DOTConverter<TokenAttributes> conv = new DOTConverter<>(eCST);
         return conv.convertToFile(GVeCSTPath);
     }
 
+    /**
+     * exports a XML version of the tree.
+     *
+     * @param tree
+     * @param outputPath
+     * @return
+     */
     private boolean exportXMLeCST(Tree<TokenAttributes> tree, String outputPath) {
         return new XMLConverter(tree).convertToFile(outputPath);
     }

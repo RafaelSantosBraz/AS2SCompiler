@@ -19,7 +19,12 @@ import trees.simpletree.Tree;
  */
 public abstract class TreeVisitor<T> {
 
-    // starts visiting the nodes
+    /**
+     * starts visiting the nodes.
+     *
+     * @param tree
+     * @return
+     */
     public T startWalking(Tree<TokenAttributes> tree) {
         if (tree.getRoot() != null) {
             return visit(tree.getRoot());
@@ -27,17 +32,27 @@ public abstract class TreeVisitor<T> {
         return null;
     }
 
-    // method called for all the nodes
+    /**
+     * method called for all the nodes.
+     *
+     * @param node
+     * @return
+     */
     protected T visit(Node<TokenAttributes> node) {
         return callSpecializedAction(node);
     }
 
-    // if there is a corresponding action, it will be executed
+    /**
+     * if there is a corresponding action, it will be executed.
+     *
+     * @param node
+     * @return
+     */
     private T callSpecializedAction(Node<TokenAttributes> node) {
         try {
             Method method = this.getClass().getDeclaredMethod(getMethodAppropriateName(node), node.getClass());
-            return (T) method.invoke(this, node);            
-        } catch (Exception e) {            
+            return (T) method.invoke(this, node);
+        } catch (Exception e) {
             List<Node<TokenAttributes>> children = node.getChildren();
             if (children == null || children.isEmpty()) {
                 return defaultTermAction(node);
@@ -46,22 +61,42 @@ public abstract class TreeVisitor<T> {
         }
     }
 
-    // returns the name of the specialized action for the current node
+    /**
+     * returns the name of the specialized action for the current node.
+     *
+     * @param node
+     * @return
+     */
     protected String getMethodAppropriateName(Node<TokenAttributes> node) {
         return "action" + node.getNodeData().getText();
     }
 
-    // default action for terminal nodes (leafs)
+    /**
+     * default action for terminal nodes (leafs).
+     *
+     * @param node
+     * @return
+     */
     public T defaultTermAction(Node<TokenAttributes> node) {
         return null;
     }
 
-    // default action for non-terminal nodes
+    /**
+     * default action for non-terminal nodes.
+     *
+     * @param node
+     * @return
+     */
     public T defaultNonTermAction(Node<TokenAttributes> node) {
         return visitChildren(node.getChildren());
     }
 
-    // method to visit each one of the children
+    /**
+     * method to visit each one of the children.
+     *
+     * @param children
+     * @return
+     */
     protected T visitChildren(List<Node<TokenAttributes>> children) {
         if (children == null) {
             return null;
@@ -73,7 +108,13 @@ public abstract class TreeVisitor<T> {
         return result;
     }
 
-    // aggregate the results os all the children nodes (two at a time)
+    /**
+     * aggregate the results os all the children nodes (two at a time).
+     *
+     * @param aggregate first result.
+     * @param nextResult second result.
+     * @return
+     */
     protected T aggregateResult(T aggregate, T nextResult) {
         if (aggregate == null && nextResult == null) {
             return null;

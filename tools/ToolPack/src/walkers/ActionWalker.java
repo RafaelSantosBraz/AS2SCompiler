@@ -17,14 +17,22 @@ import trees.simpletree.Tree;
  */
 public abstract class ActionWalker {
 
-    // starts walking on the tree
+    /**
+     * starts walking on the tree.
+     *
+     * @param tree
+     */
     public void startWalking(Tree<TokenAttributes> tree) {
         if (tree.getRoot() != null) {
             visiting(tree.getRoot());
         }
     }
 
-    // recursive method to visit all the nodes
+    /**
+     * recursive method to visit all the nodes.
+     *
+     * @param node
+     */
     private void visiting(Node<TokenAttributes> node) {
         if (!callSpecializedAction(node)) {
             defaultAction(node);
@@ -32,6 +40,11 @@ public abstract class ActionWalker {
         visitingChildren(node);
     }
 
+    /**
+     * visit all the children of the given node.
+     *
+     * @param node
+     */
     private void visitingChildren(Node<TokenAttributes> node) {
         List<Node<TokenAttributes>> children = node.getChildren();
         if (children != null) {
@@ -45,7 +58,12 @@ public abstract class ActionWalker {
         }
     }
 
-    // if there is a corresponding action, it will be executed
+    /**
+     * if there is a corresponding action, it will be executed.
+     *
+     * @param node
+     * @return
+     */
     private boolean callSpecializedAction(Node<TokenAttributes> node) {
         try {
             Method method = this.getClass().getDeclaredMethod(getMethodAppropriateName(node), node.getClass());
@@ -56,12 +74,21 @@ public abstract class ActionWalker {
         }
     }
 
-    // returns the name of the specialized action for the current node
+    /**
+     * returns the name of the specialized action for the current node.
+     *
+     * @param node
+     * @return
+     */
     protected String getMethodAppropriateName(Node<TokenAttributes> node) {
         return "action" + node.getNodeData().getText();
     }
 
-    // action to be executed if there is no specialized actions
+    /**
+     * action to be executed if there is no specialized actions.
+     *
+     * @param node
+     */
     public void defaultAction(Node<TokenAttributes> node) {
         // does nothing
     }

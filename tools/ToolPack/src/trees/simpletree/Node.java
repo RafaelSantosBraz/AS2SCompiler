@@ -15,9 +15,18 @@ import java.util.List;
  */
 public class Node<T> {
 
-    private T nodeData; // represents the stored data 
-    private Node<T> parent; // the parent node of the current node in the tree
-    private List<Node<T>> children; // All the children nodes of the current node
+    /**
+     * represents the stored data.
+     */
+    private T nodeData;
+    /**
+     * the parent node of the current node in the tree.
+     */
+    private Node<T> parent;
+    /**
+     * all the children nodes of the current node.
+     */
+    private List<Node<T>> children;
 
     public Node() {
         nodeData = null;
@@ -37,14 +46,30 @@ public class Node<T> {
         children = new ArrayList<>();
     }
 
+    /**
+     * add a given child to the children list.
+     *
+     * @param child
+     */
     public void addChild(Node<T> child) {
         children.add(child);
     }
 
+    /**
+     * add a given child to the children list at a given index.
+     *
+     * @param child
+     * @param index
+     */
     public void addChildAt(Node<T> child, int index) {
         children.add(index, child);
     }
 
+    /**
+     * add a given child list.
+     *
+     * @param children
+     */
     public void addChildren(List<Node<T>> children) {
         this.children.addAll(children);
     }
@@ -73,21 +98,30 @@ public class Node<T> {
         this.children = children;
     }
 
-    // returns a clone of the CURRENT node and ITS data 
+    /**
+     * returns a clone of the CURRENT node and ITS data .
+     *
+     * @return
+     */
     public Node<T> getClone() {
         Node<T> newNode = new Node<>(parent);
         newNode.setChildren(children);
         newNode.setNodeData(nodeData);
         return newNode;
-    } 
-    
-    // returns a clone of the CURRENT node, ITS data and clones of ALL its children
-    public Node<T> getChainClone(){
+    }
+
+    /**
+     * returns a clone of the CURRENT node, ITS data and clones of ALL its
+     * children.
+     *
+     * @return
+     */
+    public Node<T> getChainClone() {
         Node<T> newNode = new Node<>(parent);
         List<Node<T>> newChildren = new ArrayList<>();
         children.forEach((t) -> {
             newChildren.add(t.getChainClone());
-        });        
+        });
         newNode.setChildren(newChildren);
         newNode.setNodeData(nodeData);
         return newNode;

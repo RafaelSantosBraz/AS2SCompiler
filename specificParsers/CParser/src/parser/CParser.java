@@ -25,7 +25,13 @@ import trees.simpletree.Node;
  */
 public class CParser extends SpecificParser {
 
-    // starts parsing the source-code from a directory
+    /**
+     * Starts parsing the source-code from a directory.
+     *
+     * @param inputDir
+     * @param outputDir
+     * @return
+     */
     @Override
     public boolean startParsing(String inputDir, String outputDir) {
         try {
@@ -48,7 +54,12 @@ public class CParser extends SpecificParser {
         }
     }
 
-    // syntactically check the code through the ANTLR4 recognition
+    /**
+     * syntactically check the code through the ANTLR4 recognition.
+     *
+     * @param f file to be verified.
+     * @return
+     */
     private boolean syntaxChecking(File f) {
         try {
             CharStream stream = new ANTLRFileStream(f.getAbsolutePath(), "UTF-8");
@@ -62,7 +73,11 @@ public class CParser extends SpecificParser {
         }
     }
 
-    // create a node for the file name
+    /**
+     * create a node for the file name.
+     *
+     * @param files all the files that have been parsed.
+     */
     private void addCompilationUnitNames(File files[]) {
         List<Node<TokenAttributes>> comps = tree.getRoot().getChildren();
         for (int c = 0; c < files.length; c++) {
@@ -74,7 +89,9 @@ public class CParser extends SpecificParser {
         }
     }
 
-    // rewrite all the 'include' String lines into tree-style elements
+    /**
+     * rewrite all the 'include' String lines into tree-style elements.
+     */
     private void correctIncludes() {
         List<Node<TokenAttributes>> comps = tree.getRoot().getChildren();
         comps.forEach((t) -> {

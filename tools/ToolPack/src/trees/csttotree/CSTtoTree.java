@@ -19,13 +19,21 @@ import trees.simpletree.*;
  */
 public class CSTtoTree {
 
+    /**
+     * the converted CST as a simple tree.
+     */
     private final Tree<TokenAttributes> tree;
 
     public CSTtoTree() {
         tree = new Tree<>(new UniversalToken("root", -1));
     }
 
-    // starts the convertion
+    /**
+     * starts the convertion to a simple tree.
+     *
+     * @param visitingNode first node of the ANTLR CST.
+     * @param parent simple tree root node.
+     */
     public void startVisiting(ParseTree visitingNode, Node<TokenAttributes> parent) {
         visit(visitingNode, parent);
         //Node<TokenAttributes> newRoot = tree.getRoot().getChildren().get(0);
@@ -39,7 +47,12 @@ public class CSTtoTree {
         });
     }
 
-    // recursively converts the nodes
+    /**
+     * recursively converts the nodes.
+     *
+     * @param visitingNode
+     * @param parent
+     */
     private void visit(ParseTree visitingNode, Node<TokenAttributes> parent) {
         Object payload = visitingNode.getPayload();
         Node<TokenAttributes> currentNode = tree.createNode(parent);
@@ -55,7 +68,12 @@ public class CSTtoTree {
         currentNode.setNodeData(new ConcreteToken(-1, token.getText(), token.getType(), token.getLine(), token.getCharPositionInLine()));
     }
 
-    // changes the ANTLR4 rule name to CSTs and eCSTs style
+    /**
+     * changes the ANTLR4 rule name to CSTs and eCSTs style.
+     *
+     * @param rule ANTLR ParseRule context.
+     * @return
+     */
     private String getRuleRealName(RuleContext rule) {
         String s = rule.getClass().getSimpleName();
         if (s.endsWith("Context")) {

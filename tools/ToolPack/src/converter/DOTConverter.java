@@ -19,7 +19,13 @@ import trees.simpletree.*;
  */
 public class DOTConverter<T> {
 
+    /**
+     * Simple tree to be converted.
+     */
     private Tree<T> tree;
+    /**
+     * An one-dimension array that represents the tree.
+     */
     private final List<Node<T>> treeAsList;
 
     public DOTConverter(Tree<T> tree) {
@@ -31,7 +37,12 @@ public class DOTConverter<T> {
         treeAsList = this.tree.getTreeAsIndexOrderedList();
     }
 
-    // starts the convertion
+    /**
+     * starts the convertion to Graphviz (DOT).
+     *
+     * @param outputPath
+     * @return
+     */
     public boolean convertToFile(String outputPath) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputPath, false))) {
             writer.write("digraph G {");
@@ -49,7 +60,13 @@ public class DOTConverter<T> {
         }
     }
 
-    // recursively converts the nodes to graphviz
+    /**
+     * recursively converts the nodes to graphviz.
+     *
+     * @param node node to start the convertion.
+     * @param writer file writer.
+     * @return
+     */
     private boolean convertion(Node<T> node, BufferedWriter writer) {
         try {
             if (node != null && node.getNodeData() != null) {
@@ -76,7 +93,12 @@ public class DOTConverter<T> {
         }
     }
 
-    // adapts the \" and \n from the source to the gv file
+    /**
+     * adapts the \" and \n from the source to the gv file.
+     *
+     * @param text
+     * @return
+     */
     private String normalizeText(String text) {
         String txtTemp = text.replace("\\", "\\\\");
         txtTemp = txtTemp.replace("\"", "\\\"");

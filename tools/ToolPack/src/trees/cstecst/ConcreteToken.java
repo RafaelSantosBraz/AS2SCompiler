@@ -6,10 +6,20 @@ package trees.cstecst;
 
 /**
  * represents concrete tokens (terminal nodes) in eCSTs and CSTs
+ *
  * @author Rafael Braz
  */
 public class ConcreteToken extends TokenAttributes {
 
+    /**
+     * arguments follow the XML schema.
+     *
+     * @param index
+     * @param text
+     * @param type
+     * @param line
+     * @param column
+     */
     public ConcreteToken(int index, String text, int type, int line, int column) {
         super();
         this.index = index;

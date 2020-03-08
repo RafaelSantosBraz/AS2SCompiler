@@ -25,13 +25,21 @@ import trees.simpletree.*;
  */
 public class TreeXMLConverter {
 
+    /**
+     * Simple tree converted from XML.
+     */
     private final Tree<TokenAttributes> tree;
 
     public TreeXMLConverter() {
         tree = new Tree<>();
     }
 
-    // starts the convertion
+    /**
+     * starts the convertion from XML.
+     *
+     * @param inputPath
+     * @return
+     */
     public boolean convertFromFile(String inputPath) {
         try {
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -49,7 +57,12 @@ public class TreeXMLConverter {
         }
     }
 
-    // recursively converts the XML elements
+    /**
+     * recursively converts the XML elements
+     *
+     * @param children children nodes of the current node.
+     * @param parent the current node.
+     */
     private void convertion(NodeList children, trees.simpletree.Node<TokenAttributes> parent) {
         for (int c = 0; c < children.getLength(); c++) {
             org.w3c.dom.Node tempXMLNode = children.item(c);
@@ -85,6 +98,12 @@ public class TreeXMLConverter {
         }
     }
 
+    /**
+     * normalize all the XML forbiden tokens.
+     *
+     * @param text
+     * @return
+     */
     private String normalizeText(String text) {
         String res = text;
         res = res.replace("&#60;", "<");

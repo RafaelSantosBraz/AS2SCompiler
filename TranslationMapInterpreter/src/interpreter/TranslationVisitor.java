@@ -24,7 +24,13 @@ import trees.simpletree.Tree;
  */
 public class TranslationVisitor extends TranslationGrammarBaseVisitor<Object> {
 
+    /**
+     * all the Parse rule contexts as a hash map.
+     */
     private final HashMap<String, TranslationGrammarParser.RuleeContext> rules;
+    /**
+     * marks the current node for executing and returning.
+     */
     private Node<TokenAttributes> current_node;
 
     public TranslationVisitor(Node<TokenAttributes> current_node) {
@@ -32,7 +38,14 @@ public class TranslationVisitor extends TranslationGrammarBaseVisitor<Object> {
         rules = new HashMap<>();
     }
 
-    // override the original ANTLR method because it was returning null when there were no more children
+    /**
+     * override the original ANTLR method because it was returning null when
+     * there were no more children.
+     *
+     * @param aggregate first result.
+     * @param nextResult second result.
+     * @return
+     */
     @Override
     protected Object aggregateResult(Object aggregate, Object nextResult) {
         if (aggregate == null && nextResult == null) {
@@ -44,7 +57,14 @@ public class TranslationVisitor extends TranslationGrammarBaseVisitor<Object> {
         return nextResult;
     }
 
-    // executes the tmap code starting from a initial rule, return the resulting tree
+    /**
+     * executes the tmap code starting from a initial rule, return the resulting
+     * tree.
+     *
+     * @param ctx first rule context.
+     * @param firstRuleName the name of the first rule.
+     * @return
+     */
     public Tree<TokenAttributes> start(TranslationGrammarParser.ProgContext ctx, String firstRuleName) {
         ctx.rulee().forEach((t) -> {
             rules.put(t.NODE_NAME().getSymbol().getText(), t);
@@ -61,7 +81,13 @@ public class TranslationVisitor extends TranslationGrammarBaseVisitor<Object> {
         return eCST;
     }
 
-    // retains the previous node to simulate a stack of nodes
+    /**
+     * retains the previous node to simulate a stack of nodes.
+     *
+     * @param ctx context to be visited.
+     * @param CST_node current context node.
+     * @return
+     */
     private Object magicVisit(ParseTree ctx, Node<TokenAttributes> CST_node) {
         current_node = CST_node;
         Object result = visit(ctx);
@@ -69,6 +95,7 @@ public class TranslationVisitor extends TranslationGrammarBaseVisitor<Object> {
         return result;
     }
 
+    // all the visitSOMETHING methods bellow simulate a ANTLR-like visitor action.
     @Override
     public Object visitIfstatement(TranslationGrammarParser.IfstatementContext ctx) {
         ArrayList<Node<TokenAttributes>> result = new ArrayList<>();
@@ -348,6 +375,12 @@ public class TranslationVisitor extends TranslationGrammarBaseVisitor<Object> {
         return result;
     }
 
+    /**
+     * returns the last ocurrence of a chain.
+     *
+     * @param current_node
+     * @return
+     */
     private Node<TokenAttributes> findLast(Node<TokenAttributes> current_node) {
         if (current_node.getChildren().isEmpty() || current_node.getChildren().size() > 1) {
             return current_node;
@@ -363,6 +396,12 @@ public class TranslationVisitor extends TranslationGrammarBaseVisitor<Object> {
         return result;
     }
 
+    /**
+     * returns the first node of a chain.
+     *
+     * @param current_node
+     * @return
+     */
     private Node<TokenAttributes> findFirst(Node<TokenAttributes> current_node) {
         if (current_node.getParent() != null && current_node.getParent().getChildren().size() == 1) {
             return findFirst(current_node.getParent());
@@ -390,12 +429,22 @@ public class TranslationVisitor extends TranslationGrammarBaseVisitor<Object> {
         return result;
     }
 
-    // search for a tmap rule context that has tha given name
+    /**
+     * search for a tmap rule context that has tha given name.
+     *
+     * @param ruleName
+     * @return
+     */
     private TranslationGrammarParser.RuleeContext getRuleContext(String ruleName) {
         return rules.get(ruleName);
     }
 
-    // remove \" ... \" of a String from the CST
+    /**
+     * remove \" ... \" of a String from the CST.
+     *
+     * @param text
+     * @return
+     */
     private String normalizeTmapText(String text) {
         return text.substring(1, text.length() - 1);
     }

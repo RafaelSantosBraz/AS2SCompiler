@@ -12,10 +12,14 @@ import trees.simpletree.*;
 
 /**
  * converts a simple tree to a corresponding XML file
+ *
  * @author Rafael Braz
  */
 public class XMLConverter {
 
+    /**
+     * Simple tree to be converted.
+     */
     private Tree<TokenAttributes> tree;
 
     public XMLConverter(Tree<TokenAttributes> tree) {
@@ -26,7 +30,12 @@ public class XMLConverter {
         }
     }
 
-    // starts converting
+    /**
+     * Starts converting to XML.
+     *
+     * @param outputPath
+     * @return
+     */
     public boolean convertToFile(String outputPath) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputPath, false))) {
             writer.write("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>");
@@ -37,7 +46,13 @@ public class XMLConverter {
         }
     }
 
-    // recursively converts the nodes
+    /**
+     * recursively converts the nodes.
+     *
+     * @param node current node to be converted.
+     * @param writer file writer.
+     * @return
+     */
     private boolean convertion(Node<TokenAttributes> node, BufferedWriter writer) {
         try {
             if (node != null && node.getNodeData() != null) {
@@ -59,7 +74,12 @@ public class XMLConverter {
         }
     }
 
-    // rewrite the \", \n, and '<' to a XML version
+    /**
+     * rewrite all the forbiden tokens to a XML version.
+     *
+     * @param text
+     * @return
+     */
     private String normalizeLessThan(String text) {
         String txtTemp = text.replace("<", "&#60;");
         txtTemp = txtTemp.replace("&", "&#38;");

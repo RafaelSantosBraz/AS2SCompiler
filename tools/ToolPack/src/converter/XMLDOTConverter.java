@@ -9,11 +9,18 @@ import trees.cstecst.TokenAttributes;
 
 /**
  * converts a tree in a XML file into a corresponding Graphviz file
+ *
  * @author Rafael Braz
  */
 public class XMLDOTConverter {
 
-    // converts a simgle XML file into a single GV file
+    /**
+     * converts a simgle XML file into a single GV file.
+     *
+     * @param inputPath
+     * @param outputPath
+     * @return
+     */
     public boolean convertFromFile(String inputPath, String outputPath) {
         TreeXMLConverter convXML = new TreeXMLConverter();
         if (!convXML.convertFromFile(inputPath)) {
@@ -23,7 +30,13 @@ public class XMLDOTConverter {
         return convDOT.convertToFile(outputPath);
     }
 
-    // converts all XML files in a dir into GV files
+    /**
+     * converts all XML files in a dir into GV files.
+     *
+     * @param inputDir
+     * @param outputDir
+     * @return
+     */
     public boolean convertFromDir(String inputDir, String outputDir) {
         try {
             File directory = new File(inputDir);

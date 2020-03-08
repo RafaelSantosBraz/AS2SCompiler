@@ -17,7 +17,13 @@ import trees.simpletree.Tree;
  */
 public class TreeShortener {
 
-    // converts a given tree into a shorten version (without chains of nodes that have just one child)
+    /**
+     * converts a given tree into a shorten version (without chains of nodes
+     * that have just one child).
+     *
+     * @param tree
+     * @return
+     */
     public Tree<TokenAttributes> shortenTree(Tree<TokenAttributes> tree) {
         Tree<TokenAttributes> resTree = new Tree<>();
         resTree.setRoot(tree.getRoot().getChainClone());
@@ -25,7 +31,11 @@ public class TreeShortener {
         return resTree;
     }
 
-    // recursively shorten the nodes of the tree
+    /**
+     * recursively shorten the nodes of the tree.
+     *
+     * @param node node to start shorten.
+     */
     private void startShorten(Node<TokenAttributes> node) {
         if (node.getChildren().size() == 1) {
             Node<TokenAttributes> last = BIB.tmapOneRuleCodeCall("last", node).get(0);

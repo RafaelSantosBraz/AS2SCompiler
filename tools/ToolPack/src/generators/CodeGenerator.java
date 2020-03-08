@@ -21,22 +21,38 @@ import walkers.TreeVisitor;
  */
 public abstract class CodeGenerator extends TreeVisitor<Object> {
 
-    protected final String auxTmapsDir; // path to all files of partial/complete tmap code    
-    protected final String outputPath; // path to output directory
+    /**
+     * path to all files of partial/complete tmap code.
+     */
+    protected final String auxTmapsDir;
+    /**
+     * path to output directory.
+     */
+    protected final String outputPath;
 
     public CodeGenerator(String outputPath, String auxTmapsDir) {
         this.outputPath = outputPath;
         this.auxTmapsDir = auxTmapsDir;
     }
 
-    // returns a list of strings from the given node's children
+    /**
+     * returns a list of strings from the given node's children.
+     *
+     * @param nodes
+     * @return
+     */
     protected List<String> stringifyEachChildren(List<Node<TokenAttributes>> nodes) {
         Node<TokenAttributes> parent = new Node<>(new UniversalToken("aux", -1));
         parent.setChildren(nodes);
         return stringifyChildren(parent);
     }
 
-    // returns a list of strings from the given node's children
+    /**
+     * returns a list of strings from the children of a given node.
+     *
+     * @param node
+     * @return
+     */
     protected List<String> stringifyChildren(Node<TokenAttributes> node) {
         List<String> fy = new ArrayList<>();
         List<Node<TokenAttributes>> children = node.getChildren();
@@ -54,13 +70,24 @@ public abstract class CodeGenerator extends TreeVisitor<Object> {
         return fy;
     }
 
-    // returns the text of the node
+    /**
+     * returns the text of the node.
+     *
+     * @param node
+     * @return
+     */
     protected String getText(Node<TokenAttributes> node) {
         return node.getNodeData().getText();
     }
 
+    /**
+     * aggregate the results os all the children nodes (two at a time).
+     *
+     * @param aggregate first result.
+     * @param nextResult second result.
+     * @return
+     */
     @Override
-    // aggregate the results os all the children nodes (two at a time)
     protected Object aggregateResult(Object aggregate, Object nextResult) {
         //System.out.println(aggregate + " " + nextResult);
         if (aggregate == null && nextResult == null) {
@@ -78,7 +105,12 @@ public abstract class CodeGenerator extends TreeVisitor<Object> {
         return res;
     }
 
-    // remove ';' from wrong places
+    /**
+     * remove ';' from wrong places.
+     *
+     * @param words
+     * @return
+     */
     protected List<String> correctList(List<String> words) {
         if (words != null) {
             for (int c = 0; c < words.size() - 1; c++) {
@@ -96,7 +128,15 @@ public abstract class CodeGenerator extends TreeVisitor<Object> {
         return words;
     }
 
-    // encapsules the process of calling the visitor and writing the output on a file
+    /**
+     * encapsules the process of calling the visitor and writing the output on a
+     * file.
+     *
+     * @param fileName
+     * @param fileExtension
+     * @param node first node of the tree to be written.
+     * @return
+     */
     protected Object writeToFile(String fileName, String fileExtension, Node<TokenAttributes> node) {
         try {
             File file = new File(outputPath + File.separator + fileName + fileExtension);

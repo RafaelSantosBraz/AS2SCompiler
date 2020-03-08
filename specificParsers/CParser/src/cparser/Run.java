@@ -17,15 +17,15 @@ public class Run {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        CParser parser = new CParser();
-        parser.startParsing(
-                "D:\\GitHub\\StS-Compilation-Framework\\specific parsers\\JavaParser\\test\\input",
-                "D:\\GitHub\\StS-Compilation-Framework\\specific parsers\\JavaParser\\test\\output"
-        );
-        new XMLDOTConverter().convertFromDir(
-                "D:\\GitHub\\StS-Compilation-Framework\\specific parsers\\JavaParser\\test\\temp\\output",
-                "D:\\GitHub\\StS-Compilation-Framework\\specific parsers\\JavaParser\\test\\ecst"
-        );
+//        CParser parser = new CParser();
+//        parser.startParsing(
+//                "D:\\GitHub\\StS-Compilation-Framework\\specific parsers\\JavaParser\\test\\input",
+//                "D:\\GitHub\\StS-Compilation-Framework\\specific parsers\\JavaParser\\test\\output"
+//        );
+//        new XMLDOTConverter().convertFromDir(
+//                "D:\\GitHub\\StS-Compilation-Framework\\specific parsers\\JavaParser\\test\\temp\\output",
+//                "D:\\GitHub\\StS-Compilation-Framework\\specific parsers\\JavaParser\\test\\ecst"
+//        );
     }
     
 }
