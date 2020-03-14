@@ -12,6 +12,7 @@
 /specificParsers/CParser/grammar/parser/.antlr
 /specificParsers/JavaParser/grammar/parser/.antlr
 /licca versions/
+/libs
 
 # Created by https://www.gitignore.io/api/java,windows
 # Edit at https://www.gitignore.io/?templates=java,windows
