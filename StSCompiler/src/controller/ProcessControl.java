@@ -8,6 +8,7 @@ import analyzer.Analyzer;
 import java.io.File;
 import translator.Translator;
 import converter.XMLDOTConverter;
+import files.FileAux;
 
 /**
  * provides a static method to execute the entire framework
@@ -18,12 +19,20 @@ public class ProcessControl {
 
     /**
      * Executes the entire framework.
-     * 
+     *
      * @param params
      */
     public static void execute(String[] params) {
         if (params.length != 5) {
             System.out.println("StSCompiler : <in. lang.> <out. lang.> <in. dir.> <out. dir.> <tmap path>");
+            return;
+        }
+        if (!checkInput(params[2])) {
+            System.err.println("Error: <in. dir.> does not exist!");
+            return;
+        }
+        if (!prepareOutPaths(params[3])) {
+            System.err.println("Error: it was not possible to delete/create output folders! Verify permissions for files and folders then try again.");
             return;
         }
         if (!new Analyzer().createCST(params[0], params[2], params[3])) {
@@ -54,6 +63,38 @@ public class ProcessControl {
         // "D:\\GitHub\\StS-Compilation-Framework\\runtime\\output\\temp\\licca",
         // "D:\\GitHub\\StS-Compilation-Framework\\runtime\\output"
         // );
+    }
+
+    /**
+     * Deletes all files from the output folder. If it does not exist yet, it
+     * will be created.
+     *
+     * @param outputDir output directory's path.
+     * @return
+     */
+    private static boolean prepareOutPaths(String outputDir) {
+        String objectCode = outputDir + File.separator + "objcode" + File.separator + "objcode.txt";
+        String temp = outputDir + File.separator + "temp" + File.separator + "temp.txt";
+        if (new File(outputDir).exists()) {
+            if (!FileAux.deleteDir(outputDir)) {
+                return false;
+            }
+        } else {
+            if (!FileAux.createDirs(outputDir)) {
+                return false;
+            }
+        }
+        return FileAux.createDirs(objectCode) && FileAux.createDirs(temp);
+    }
+
+    /**
+     * Verifies if the given input path exists.
+     *
+     * @param inputDir input directory's path.
+     * @return
+     */
+    private static boolean checkInput(String inputDir) {
+        return new File(inputDir).exists();
     }
 
 }
