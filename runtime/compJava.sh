@@ -1,6 +1,6 @@
 # execute AS2SCompiler for Java->C
 cd ../StSCompiler/dist
-java -jar AS2SCompiler.jar java c ../../runtime/input ../../runtime/output ../../runtime/Tmaps/Java_CST_eCST.tmap
+java -jar StSCompiler.jar java c ../../runtime/input ../../runtime/output ../../runtime/Tmaps/Java_CST_eCST.tmap
 echo -------------------
 
 # compile and execute Java
