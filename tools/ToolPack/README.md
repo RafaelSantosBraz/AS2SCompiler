@@ -10,3 +10,4 @@ The currently tools included in this project are the following:
 * Methods and structures for specific parsers. ([here](https://github.com/RafaelSantosBraz/AS2SCompiler/tree/master/tools/ToolPack/src/parsers)).
 * Methods and structures for code generators. ([here](https://github.com/RafaelSantosBraz/AS2SCompiler/tree/master/tools/ToolPack/src/generators)).
 * Methods and structures for Symbol Tables. ([here](https://github.com/RafaelSantosBraz/AS2SCompiler/tree/master/tools/ToolPack/src/symboltable)).
+* Methods for manipulating files and folders.  ([here](https://github.com/RafaelSantosBraz/AS2SCompiler/tree/master/tools/ToolPack/src/files)).
