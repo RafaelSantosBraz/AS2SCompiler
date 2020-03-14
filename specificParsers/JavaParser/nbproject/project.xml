@@ -6,6 +6,7 @@
             <name>JavaParser</name>
             <source-roots>
                 <root id="antlr.generator.src.dir" name="Source ANTLR grammars"/>
+                <root id="antlr.generator.src.dir" name="Source ANTLR grammars"/>
                 <root id="src.dir"/>
             </source-roots>
             <test-roots>
@@ -24,4 +25,5 @@
         </references>
     </configuration>
 </project>
+<!-- Modified by ANTLR plugin -->
 <!-- Modified by ANTLR plugin -->

@@ -1,4 +1,4 @@
-# execute AS2SCompiler for Java->C
+# execute AS2SCompiler for C->Java
 cd ../StSCompiler/dist
 java -jar AS2SCompiler.jar c java ../../runtime/input ../../runtime/output ../../runtime/Tmaps/C_CST_eCST.tmap
 echo -------------------
