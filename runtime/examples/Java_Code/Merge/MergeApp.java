@@ -29,6 +29,9 @@ public class MergeApp {
         while (bDex < sizeB) {
             arrayC[cDex++] = arrayB[bDex++];
         }
+        display(arrayA, sizeA);
+        display(arrayB, sizeB);
+        display(arrayC, sizeA + sizeB);
     }
 
     // Example

@@ -6,7 +6,7 @@ public class IsFactor {
     public static void main(String[] args) {
         Factor x = new Factor();
         if (x.isFactor(2, 20)) {
-            System.out.printf("is factor\n");
+            System.out.printf("is factor");
         }
     }
 }
