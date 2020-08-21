@@ -1,8 +1,0 @@
-"JUMP_STATEMENT" = {
-    "KEYWORD" = {
-        new_leaf("return")
-    },
-    "NAME" = {
-        new_leaf("_this")
-    }
-}

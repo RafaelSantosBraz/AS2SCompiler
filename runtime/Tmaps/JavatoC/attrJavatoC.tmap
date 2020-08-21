@@ -1,7 +1,0 @@
-"ASSIGNMENT_STATEMENT" = {
-    "ASSIGN_OPERATOR" = {
-        "OPERATOR" = {
-            new_leaf("=")
-        }        
-    }
-}
