@@ -1,0 +1,6 @@
+AS2SCompiler/results_C.csv
+AS2SCompiler/results_J.csv
+AS2SCompiler/mutants.log
+AS2SCompiler/runtime/output/
+AS2SCompiler/runtime/input/*/*/mutants/
+AS2SCompiler/mutation/*/temp/
