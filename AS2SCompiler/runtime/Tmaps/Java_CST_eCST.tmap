@@ -1,0 +1,846 @@
+// first rule : receives "root"
+"ruleinitial" -> {
+    rule("rule_compilation_unit", children("CompilationUnit"))
+}
+
+// handle with each compilation unit : receives "CompilationUnit"
+"rule_compilation_unit" -> {
+    "COMPILATION_UNIT" = {
+        "PACKAGE_DECL" = {
+            ? "NAME" = {
+                "PackageDeclaration"."PackageName".child
+            },
+            ? rule("rule_import_declaration", children("ImportDeclaration")),            
+            "CONCRETE_UNIT_DECL" = {
+                rule("rule_class_declaration", "TypeDeclaration"."ClassDeclaration"."NormalClassDeclaration")                
+            }
+        }
+    }
+}
+
+// handle with the import action : receives "ImportDeclaration"
+"rule_import_declaration" -> {
+    "IMPORT_DECL" = {
+        "NAME" = {
+            rule("rule_import_name", "SingleTypeImportDeclaration"."TypeName")
+        }
+    }
+}
+
+// handle with the name(s) for a import : receives "TypeName"
+"rule_import_name" -> {
+    if (first_child != last_child){
+        "NAME" = {
+            if (first_child == :"PackageOrTypeName"){
+                rule("rule_import_name", "PackageOrTypeName")
+            } else {
+                first_child
+            } 
+        },
+        new_leaf("."),
+        "NAME" = {
+            last_child
+        }
+    } else {       
+        last_child        
+    }     
+}
+
+// if the file contains a Class, call this rule : receives "NormalClassDeclaration"
+"rule_class_declaration" -> {
+    "NAME" = {
+        "ClassName".child
+    },        
+    rule ("rule_class_body", "ClassBody")
+}
+
+// handle with all types of declaration/structures in the class body : receives "ClassBody"
+"rule_class_body" -> {
+    new_leaf("{"),
+    ? rule("rule_class_body_declaration", children("ClassBodyDeclaration")),
+    new_leaf("}")
+}
+
+// handle with each of declarations in class body : receives "ClassBodyDeclaration"
+"rule_class_body_declaration" -> {
+    ? rule("rule_constructor_declaration", children("ConstructorDeclaration")),
+    ? rule("rule_class_member_declaration", children("ClassMemberDeclaration"))
+}
+
+// handle with constructors : receives "ConstructorDeclaration"
+"rule_constructor_declaration" -> {
+    "FUNCTION_DECL" = {
+        "MODIFIER_LIST" = {
+            ? "ConstructorModifier".child
+        },
+        "TYPE" = {
+            new_leaf("void")
+        },
+        "NAME" = {
+            "ConstructorDeclarator"."SimpleTypeName".child
+        },
+        "FORMAL_PARAM_LIST" = {
+            ? rule("rule_parameter_declaration", "ConstructorDeclarator"."FormalParameterList")
+        },
+        rule("rule_block_scope", "ConstructorBody")
+    }
+}
+
+// handle with a block scope : receives "Block"
+"rule_block_scope" -> {
+    "BLOCK_SCOPE" = {
+        "SEPARATOR" = {
+            new_leaf("{")
+        },            
+        ? rule("rule_block_stateements", "BlockStatements".children("BlockStatement")),            
+        "SEPARATOR" = {
+            new_leaf("}")
+        }
+    }
+}
+
+// handle with fields and methods in classes : receives "ClassMemberDeclaration"
+"rule_class_member_declaration" -> {
+    ? rule("rule_field_declaration", "FieldDeclaration"),    
+    ? rule("rule_method_declaration", "MethodDeclaration")    
+}
+
+// handle with each method in a class : receives "MethodDeclaration"
+"rule_method_declaration" -> {
+    "FUNCTION_DECL" = {
+        "MODIFIER_LIST" = {
+            ? rule("rule_field_modifier", children("MethodModifier"))
+        },
+        "TYPE" = {
+            "MethodHeader"."Result".last
+        },
+        "NAME" = {
+            "MethodHeader"."MethodDeclarator"."MethodDeclaratorID".child
+        },
+        "FORMAL_PARAM_LIST" = {
+            ? rule("rule_parameter_declaration", "MethodHeader"."MethodDeclarator"."FormalParameterList")
+        },
+        rule("rule_block_scope", "MethodBody"."Block")        
+    }
+}
+
+// handle with each field in a class : receives "FieldDeclaration"
+"rule_field_declaration" -> {
+    "ATTRIBUTE_DECL" = {
+        "MODIFIER_LIST" = {
+            ? rule("rule_field_modifier", children("FieldModifier"))
+        },
+        "TYPE" = {
+            if ("UnannType".last == :"UnannArrayType"){
+                "UnannType".last."UnannPrimitiveType".last
+            } else{
+               "UnannType".last 
+            }
+        },
+        if ("UnannType".last == :"UnannArrayType"){
+            "SEPARATOR" = {
+                new_leaf("[")
+            },
+            "SEPARATOR" = {
+                new_leaf("]")
+            }
+        },  
+        rule("rule_field_name", "VariableDeclaratorList"."VariableDeclarator"),     
+        "VALUE" = {
+            ? if ("VariableDeclaratorList"."VariableDeclarator"."VariableDeclaratorComplex"."VariableInitializer".last == :"ArrayInitializer"){
+                ? rule("rule_array_initializer", "VariableDeclaratorList"."VariableDeclarator"."VariableDeclaratorComplex"."VariableInitializer".child)
+            } else {
+                ? rule("rule_assignment_value", "VariableDeclaratorList"."VariableDeclarator"."VariableDeclaratorComplex"."VariableInitializer".last.parent.parent)
+            }            
+        }
+    }    
+}
+
+// handle with the name and [] for a field declaration : receives "VariableDeclarator"
+"rule_field_name" -> {
+    "NAME" = {
+        ? "VariableDeclaratorId".first_child,
+        ? "VariableDeclaratorComplex"."VariableDeclaratorId".first_child
+    },
+    if (child == :"VariableDeclaratorId"){
+        if ("VariableDeclaratorId".first_child != "VariableDeclaratorId".last_child){
+            "SEPARATOR" = {
+                new_leaf("[")
+            },
+            "SEPARATOR" = {
+                new_leaf("]")
+            }
+        }
+    } else {
+        if ("VariableDeclaratorComplex"."VariableDeclaratorId".first_child != "VariableDeclaratorComplex"."VariableDeclaratorId".last_child){
+            "SEPARATOR" = {
+                new_leaf("[")
+            },
+            "SEPARATOR" = {
+                new_leaf("]")
+            }
+        }
+    }
+}
+
+// return each modifier of a field in a class : receives "FieldModifier"
+"rule_field_modifier" -> {
+    child
+}
+
+// handle with a list of parameters for a constructor : receives "FormalParameterList"
+"rule_parameter_declaration" -> {
+    ? rule("rule_formal_parameters", any children)
+}
+
+// a step to all formal parameters : receives "FormalParameters" or "LastFormalParameters"
+"rule_formal_parameters" -> {
+    rule("rule_formal_parameter", children("FormalParameter"))
+}
+
+// handle with each formal parameter : receives "FormalParameter"
+"rule_formal_parameter" -> {
+    "PARAMETER_DECL" = {
+        new_leaf("MODIFIER_LIST"),
+        "TYPE" = {   
+            if ("UnannType".last == :"UnannArrayType"){
+                "NAME" = {
+                    rule("rule_array_parameter", "UnannType".last)
+                }
+            } else {
+                if ("UnannType".last.parent == :"UnannClassType_lfno_unannClassOrInterfaceType"){
+                    "NAME" = {
+                        rule("rule_array_parameter", "UnannType".last)
+                    }
+                } else {                   
+                    rule("rule_array_parameter", "UnannType".last)                    
+                }
+            }                                      
+        },
+        if ("UnannType".last == :"UnannArrayType"){
+            "SEPARATOR" = {
+                new_leaf("[")
+            },
+            "SEPARATOR" = {
+                new_leaf("]")
+            }
+        },
+        if ("VariableDeclaratorId".last == :"VariableDeclaratorId"){
+            "NAME" = {
+                "VariableDeclaratorId".child(0)               
+            },
+             "SEPARATOR" = {
+                new_leaf("[")
+            },
+            "SEPARATOR" = {
+                new_leaf("]")
+            }
+        } else {
+            "NAME" = {
+                "VariableDeclaratorId".last
+            }   
+        } 
+    }
+}
+
+// handle with a array for a method : receives "UnannType".last
+"rule_array_parameter" -> {
+    if (parent.child == :"UnannArrayType"){
+        child(0).last      
+    } else {
+        current_node
+    }    
+}
+
+// handle with each of the statements of a block (step to each child): receives "BlockStatement"
+"rule_block_stateements" -> {
+    ? rule("rule_statement", child)  
+}
+
+// handle with each of the statements of a block : receives "Statement"
+"rule_statement" -> {
+    ? rule("rule_statement_without_trailing_substatement", child),
+    ? rule("rule_if_then_else_statement", "IfThenElseStatement"),
+    ? rule("rule_if_then_statement", "IfThenStatement"),
+    ? rule("rule_for_statement", "ForStatement"."BasicForStatement"),
+    ? rule("rule_while_statement", "WhileStatement"),
+    ? rule("rule_local_variable_declaration_statement", current_node)
+}
+
+// handle with a do-while statement : receives "DoStatement"
+"rule_do_while_statement" -> {
+     "LOOP_STATEMENT" = {
+        "KEYWORD" = {
+            new_leaf("do")
+        },   
+        rule("rule_block_scope", "Statement".last),                    
+        rule("rule_for_condition", "Expression")
+    }
+}
+
+// handle with a while loop : receives "WhileStatement"
+"rule_while_statement" -> {
+    "LOOP_STATEMENT" = {
+        "KEYWORD" = {
+            new_leaf("while")
+        },        
+        rule("rule_for_condition", "Expression"),
+        rule("rule_block_scope", "Statement".last)                 
+    }
+}
+
+// handle with a for loop : receives "BasicForStatement"
+"rule_for_statement" -> {
+    "LOOP_STATEMENT" = {
+        "KEYWORD" = {
+            new_leaf("for")
+        },
+        ? rule("rule_for_init", "ForInit"),
+        ? rule("rule_for_condition", "Expression"),
+        ? rule("rule_for_step", "ForUpdate"),
+        rule("rule_block_scope", "Statement".last)        
+    }
+}
+
+// handle with the update statement of a loop : receives "ForUpdate"
+"rule_for_step" -> {
+    "STEP" = {
+        if (last == :"Assignment"){
+            rule("rule_assignment", last)
+        } else {                
+            ? rule("rule_assignment_value", last.parent.parent)          
+        }
+    }
+}
+
+// handle with a CONDITION statement for a for a LOOP_STATEMENT : receives "Expression"
+"rule_for_condition" -> {
+    "CONDITION" = {
+        "SEPARATOR" = {
+            new_leaf("(")
+        },
+        rule("rule_assignment_value", last.parent.parent),
+        "SEPARATOR" = {
+            new_leaf(")")
+        }
+    }
+}
+
+// handle with the INIT section of a LOOP_STATEMENT : receives "ForInit"
+"rule_for_init" -> {
+    "INIT" = {
+        ? rule("rule_local_variable_declaration_statement", current_node),
+        ? rule("rule_assignment", last)
+    }
+}
+
+// handle with a if statement : receives "IfThenStatement"
+"rule_if_then_statement" -> {
+    "BRANCH_STATEMENT" = {
+        "BRANCH" = {
+            "KEYWORD" = {
+                new_leaf("if")
+            },
+            "CONDITION" = {
+                "SEPARATOR" = {
+                    new_leaf("(")
+                },
+                rule("rule_assignment_value", "Expression".last.parent.parent),
+                "SEPARATOR" = {
+                    new_leaf(")")
+                }
+            },
+            rule("rule_block_scope", "Statement".last)
+        }
+    }
+}
+
+// handle with a if/else statement : receives "IfThenElseStatement"
+"rule_if_then_else_statement" -> {
+    "BRANCH_STATEMENT" = {
+        "BRANCH" = {
+            "KEYWORD" = {
+                new_leaf("if")
+            },
+            "CONDITION" = {
+                "SEPARATOR" = {
+                    new_leaf("(")
+                },
+                rule("rule_assignment_value", "Expression".last.parent.parent),
+                "SEPARATOR" = {
+                    new_leaf(")")
+                }
+            },
+            rule("rule_block_scope", "StatementNoShortIf".last)
+        },
+        "BRANCH" = {
+            "KEYWORD" = {
+                new_leaf("else")
+            },            
+            rule("rule_block_scope", "Statement".last)
+        }
+    }
+}
+
+// handle with a Expression statement like an Assignment for example : receives "StatementWithoutTrailingSubstatement"
+"rule_statement_without_trailing_substatement" -> {
+    ? rule("rule_expression_statement", child."StatementExpression"),
+    ? rule("rule_return_statement", "ReturnStatement"),
+    ? rule("rule_break_statement", "BreakStatement"),
+    ? rule("rule_do_while_statement", "DoStatement")
+}
+
+// handle with the break statement in a block : receives "BreakStatement"
+"rule_break_statement" -> {
+    "JUMP_STATEMENT" = {
+        "KEYWORD" = {
+            new_leaf("break")
+        }       
+    }
+}
+
+// handle with the return statement in a block : receives "ReturnStatement"
+"rule_return_statement" -> {
+    "JUMP_STATEMENT" = {
+        "KEYWORD" = {
+            new_leaf("return")
+        },
+        ? rule("rule_assignment_value", "Expression".last.parent.parent)
+    }
+}
+
+// handle with the creation of a new local variable in a block scope : receives "LocalVariableDeclarationStatement"
+"rule_local_variable_declaration_statement" -> {
+    "VAR_DECL" = {
+        new_leaf("MODIFIER_LIST"),
+        "TYPE" = {
+            if (first_child."UnannType".last == :"UnannArrayType"){
+                first_child."UnannType".last."UnannPrimitiveType".last
+            } else{
+               first_child."UnannType".last 
+            }
+        },
+        if (first_child."UnannType".last == :"UnannArrayType"){
+            "SEPARATOR" = {
+                new_leaf("[")
+            },
+            "SEPARATOR" = {
+                new_leaf("]")
+            }
+        },  
+        rule("rule_local_variable_name_assignment", first_child."VariableDeclaratorList")
+    }    
+}
+
+// handle with local variable names or a Assignment : receives "VariableDeclaratorList"
+"rule_local_variable_name_assignment" -> {
+    ? "NAME" = {
+        last.parent.parent."VariableDeclaratorId".child
+    },
+    ? "ASSIGNMENT_STATEMENT" = {
+        "ASSIGN_OPERATOR" = {
+            "OPERATOR" = {
+                new_leaf("=")
+            },                     
+            "NAME" = {
+                last.parent."VariableDeclaratorComplex"."VariableDeclaratorId".first_child
+            },
+            if ("VariableDeclarator".child == :"VariableDeclaratorId"){
+                if ("VariableDeclarator".child.first_child != "VariableDeclarator".child.last_child){
+                    "SEPARATOR" = {
+                        new_leaf("[")
+                    },
+                    "SEPARATOR" = {
+                        new_leaf("]")
+                    }
+                }
+            } else {
+                if ("VariableDeclarator".child.first_child.first_child != "VariableDeclarator".child.first_child.last_child){
+                    "SEPARATOR" = {
+                        new_leaf("[")
+                    },
+                    "SEPARATOR" = {
+                        new_leaf("]")
+                    }
+                }
+            },
+            "VALUE" = {
+                if ("VariableDeclarator"."VariableDeclaratorComplex"."VariableInitializer".last == :"ArrayInitializer"){
+                    ? rule("rule_array_initializer", "VariableDeclarator"."VariableDeclaratorComplex"."VariableInitializer".child)
+                } else {
+                    ? rule("rule_assignment_value", "VariableDeclarator"."VariableDeclaratorComplex"."VariableInitializer".last.parent.parent)
+                }
+            }
+        }        
+    }
+}
+
+// handle with a Statement Expression from a StatementWithoutTrailingSubstatement : receives "StatementExpression"
+"rule_expression_statement" -> {
+    if (child == :"Assignment"){
+        rule("rule_assignment", child)
+    } else {
+        if (child == :"MethodInvocation_lfno_primary"){
+            rule("rule_assignment_method_invocation", child)
+        } else {
+            if (child == :"MethodInvocation"){
+                rule("rule_assignment_method_invocation", child)
+            },
+            if (child == :"PostDecrementExpression"){
+                rule("rule_post_unary_operator", child)
+            },
+            if (child == :"PostIncrementExpression"){
+                rule("rule_post_unary_operator", child)
+            },
+            if (child == :"PreDecrementExpression"){
+                rule("rule_pre_unary_operator", child)
+            },
+            if (child == :"PreIncrementExpression"){
+                rule("rule_pre_unary_operator", child)
+            }                    
+        }          
+    }    
+}
+
+// handle with pos unary operator : receives "PosDecrementExpression" or "PosIncrementExpression"
+"rule_post_unary_operator" -> {
+    "ASSIGNMENT_STATEMENT" = {
+        "ASSIGN_OPERATOR" = {            
+            rule("rule_assignment_value", first_child.last.parent.parent),
+            "OPERATOR" = {
+                last_child.last
+            }
+        }
+    }  
+}
+
+// handle with pre unary operator : receives "PreDecrementExpression" or "PreIncrementExpression"
+"rule_pre_unary_operator" -> {
+    "ASSIGNMENT_STATEMENT" = {
+        "ASSIGN_OPERATOR" = {            
+            "OPERATOR" = {
+                first_child.last
+            },
+            rule("rule_assignment_value", last_child.last.parent.parent)
+        }
+    }  
+}
+
+// handle with an Assignment Expression : receives "Assignment"
+"rule_assignment" -> {
+    "ASSIGNMENT_STATEMENT" = {
+        "ASSIGN_OPERATOR" = {            
+            "OPERATOR" = {
+                "AssignmentOperator".child
+            },
+            if ("LeftHandSide".last == :"ArrayAccess"){
+                rule("rule_array_access", "LeftHandSide".last)
+            } else {
+                if ("LeftHandSide".last == :"ExpressionName"){
+                    "NAME" = {
+                        "NAME" = {
+                            "LeftHandSide".last.first_child.child
+                        },
+                        new_leaf("."),
+                        "NAME" = {
+                            "LeftHandSide".last.last_child.child
+                        }
+                    }
+                } else {
+                    if ("LeftHandSide".last == :"FieldAccess"){
+                        "NAME" = {
+                            "NAME" = {
+                                "LeftHandSide".child.first_child.last
+                            },
+                            new_leaf("."),
+                            "NAME" = {
+                                "LeftHandSide".child.last_child
+                            }
+                        }
+                    } else {
+                        "NAME" = {
+                            "LeftHandSide".last
+                        }
+                    }                    
+                }                
+            },
+            "VALUE" = {
+                ? rule("rule_assignment_value", "Expression".last.parent.parent)                                            
+            }
+        }        
+    }
+}
+
+// handle with the value for an Assignment -- expressions : receives ("Expression", "AdditiveExpression", or "MultiplicativeExpression").last.parent.parent
+"rule_assignment_value" -> {    
+    if (first_child.child == :"MethodInvocation_lfno_primary"){
+        rule("rule_assignment_method_invocation", first_child."MethodInvocation_lfno_primary")
+    } else {       
+        ? rule("rule_assignment_value_literal", current_node),
+        ? "NAME" = {
+            "ExpressionName".child
+        },
+        if (first_child.child == :"ExpressionName"){
+            "NAME" = {
+                "NAME" = {
+                    "PostfixExpression"."ExpressionName".first_child.child
+                },
+                new_leaf("."),
+                "NAME" = {
+                    "PostfixExpression"."ExpressionName".last_child.child
+                }
+            }
+        } else {
+            ? rule("rule_assignment_instantiates", child."ClassInstanceCreationExpression_lfno_primary"),
+            if (first_child.child == :"ArrayAccess_lfno_primary"){
+                rule("rule_array_access", first_child.child)
+            } else {
+                if (first_child.child == :"PostfixExpression"){
+                    rule("rule_post_unary_operator", first_child.child)
+                } else {
+                    if (first_child.child == :"PostDecrementExpression"){
+                        rule("rule_post_unary_operator", first_child.child)
+                    } else {
+                        if (first_child.child == :"PostIncrementExpression"){
+                            rule("rule_post_unary_operator", first_child.child)
+                        } else {
+                            if (first_child.child == :"PreDecrementExpression"){
+                                rule("rule_pre_unary_operator", first_child.child)
+                            } else {
+                                if (first_child.child == :"PreIncrementExpression"){
+                                    rule("rule_pre_unary_operator", first_child.child)
+                                } else {
+                                    ? rule("rule_aux_expression", first_child.child),
+                                    ? rule("rule_array__instantiates", child."ArrayCreationExpression"),
+                                    ? rule("rule_array_initializer", "VariableInitializer"."ArrayInitializer"),        
+                                    ? rule("rule_assignment_value_attr_call", "ExpressionName")    
+                                }
+                            }
+                        }                      
+                    }               
+                }            
+            }
+        }                                  
+    }      
+}
+
+// handle with an array access : receives "ArrayAccess_lfno_primary"
+"rule_array_access" -> {
+    "NAME" = {
+        "ExpressionName".child
+    },
+    "SEPARATOR" = {
+        new_leaf("[")
+    },
+    ? rule("rule_assignment_value", "Expression".last.parent.parent),
+    "SEPARATOR" = {
+        new_leaf("]")
+    }
+}
+
+// handle with the initialization of an array like '{4, 2}' : receives "ArrayInitializer"
+"rule_array_initializer" -> {
+    "SEPARATOR" = {
+        new_leaf("{")
+    },
+    ? rule("rule_initializer_list", "VariableInitializerList".children("VariableInitializer")),
+    "SEPARATOR" = {
+        new_leaf("}")
+    }
+}
+
+// handle with each of the initializers in a list : receives "VariableInitializer"
+"rule_initializer_list" -> {
+    "VALUE" = {
+        rule("rule_assignment_value", "Expression".last.parent.parent)
+    }
+}
+
+// handle with the instantiation of an array : receives "ArrayCreationExpression"
+"rule_array__instantiates" -> {
+    "INSTANTIATES" = {
+        "TYPE" = {
+            "NAME" = {
+                child(1).last
+            }
+        },
+        "SEPARATOR" = {
+            new_leaf("[")
+        },
+        rule("rule_assignment_value", "DimExprs".child."Expression".last.parent.parent),
+        "SEPARATOR" = {
+            new_leaf("]")
+        }
+    }    
+}
+
+// handle with relational expression : receives "Expression".last.parent
+"rule_relational_expression" -> {
+   "COMPARISON_OPERATOR" = {
+        child(1).last,
+        "VALUE" = {
+            rule("rule_assignment_value", child(0).last.parent.parent)
+        },
+        "VALUE" = {
+            rule("rule_assignment_value", child(2).last.parent.parent)
+        }
+    }
+}
+
+// handle with logical expression : receives "Expression".last.parent
+"rule_logical_expression" -> {
+   "LOGICAL_OPERATOR" = {
+        child(1).last,
+        "VALUE" = {
+            rule("rule_assignment_value", child(0).last.parent.parent)
+        },
+        "VALUE" = {
+            rule("rule_assignment_value", child(2).last.parent.parent)
+        }
+    }
+}
+
+// handle with a reference to a object's field like x.y : receives "ExpressionName"
+"rule_assignment_value_attr_call" -> {
+    "NAME" = {
+        "NAME" = {
+            "AmbiguousName".child
+        },
+        new_leaf("."),
+        "NAME" = {
+            "ExpressionNameIdent".child
+        }
+    }
+}
+
+// hadle with an operator : receives receives "Expression".last.parent.parent
+"rule_operator" -> {
+    "OPERATOR" = {
+        child(1),    
+        "VALUE" = {
+            if (first_child.last == :"MultiplicativeExpression"){
+                rule("rule_operator", first_child)
+            } else {
+                if (first_child.last == :"AdditiveExpression"){
+                    rule("rule_operator", first_child)
+                } else {
+                    rule("rule_assignment_value", child(0).last.parent.parent)   
+                }
+            }                       
+        },
+        "VALUE" = {
+            if (last_child.last == :"MultiplicativeExpression"){
+                rule("rule_operator", last_child)
+            } else {
+                if (last_child.last == :"AdditiveExpression"){
+                    rule("rule_operator", last_child)
+                } else {
+                    rule("rule_assignment_value", child(2).last.parent.parent)   
+                }
+            }              
+        }             
+    }
+}
+
+// handle with operators for expressions : receives "Expression".last.parent.parent
+"rule_aux_expression" -> {
+    if (current_node == :"PrimaryNoNewArray_lfno_primary"){
+        rule ("rule_assignment_value", "Expression".last.parent.parent)
+    } else{
+        if (current_node ==:"RelationalExpression"){
+            rule("rule_relational_expression", current_node)
+        } else {
+            if (child(1) == :"EqualityOperator"){
+                rule("rule_relational_expression", current_node)
+            } else {   
+                if (child(1) == :"&&"){
+                    rule("rule_logical_expression", current_node)
+                } else {
+                    if (child(1) == :"||"){
+                        rule("rule_logical_expression", current_node)
+                    } else {
+                        rule("rule_operator", current_node)
+                    }
+                }            
+            }
+        }                
+    } 
+}
+
+// handle with the creation of a new instance of a class such as new X() : receives "ClassInstanceCreationExpression_lfno_primary"
+"rule_assignment_instantiates" -> {
+    "INSTANTIATES" = {
+        "TYPE" = {
+            "NAME" = {
+                "MethodNameComplex".child
+            }
+        }
+    },
+    "FUNCTION_CALL" = {
+        "NAME" = {
+            "TYPE" = {
+                "NAME" = {
+                    "MethodNameComplex".child
+                }
+            }
+        },
+        "ARGUMENT_LIST" = {
+            "SEPARATOR" = {
+                new_leaf("(")
+            },
+            ? rule("rule_assignment_method_arguments", "ArgumentList".children("Expression")),
+            "SEPARATOR" = {
+                new_leaf(")")
+            }
+        }
+    }
+}
+
+// handle with a constant value (literal) from an Assignment : receives variable but has a "Literal" as a child
+"rule_assignment_value_literal" -> {
+    "CONST" = {
+        "Literal".child
+    }
+}
+
+// handle with a mothod call as the value for an Assignment : receives "MethodInvocation_lfno_primary"
+"rule_assignment_method_invocation" -> {
+    "FUNCTION_CALL" = {
+        rule("rule_assignment_method_name", current_node),
+        "ARGUMENT_LIST" = {
+            "SEPARATOR" = {
+                new_leaf("(")
+            },
+            ? rule("rule_assignment_method_arguments", "ArgumentList".children("Expression")),
+            "SEPARATOR" = {
+                new_leaf(")")
+            }
+        }
+    }
+}
+
+// handle with the arguments of a method call : receives "Expression"
+"rule_assignment_method_arguments" -> {
+    "ARGUMENT" = {
+        ? rule("rule_assignment_value", last.parent.parent)        
+    }
+}
+
+// return the name of the method to be called : receives "MethodInvocation_lfno_primary"
+"rule_assignment_method_name" -> {
+    if (child(2) == :"MethodNameComplex"){
+        "NAME" = {
+            "NAME" = {
+                rule("rule_import_name", "TypeName")
+            },
+            new_leaf("."),
+            "NAME" = {
+                "MethodNameComplex".child
+            }
+        }
+    } else {
+        "NAME" = {
+            "MethodName".child
+        }
+    }    
+}

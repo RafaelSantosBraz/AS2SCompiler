@@ -1,0 +1,15 @@
+"STRUCT" = {
+    "TYPE" = {
+        "NAME" = {
+            new_leaf("$1")
+        }
+    },
+    "BLOCK_SCOPE" = {
+        "SEPARATOR" = {
+            new_leaf("{")
+        },
+        "SEPARATOR" = {
+            new_leaf("}")
+        }
+    }
+}

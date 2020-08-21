@@ -1,0 +1,50 @@
+"VAR_DECL" = {
+    "TYPE" = {
+        "NAME".child
+    },
+    "ASSIGNMENT_STATEMENT" = {
+        "ASSIGN_OPERATOR" = {
+            "OPERATOR" = {
+                new_leaf("=")
+            },
+            "NAME" = {
+                new_leaf("_this")
+            },
+            "VALUE" = {
+                "FUNCTION_CALL" = {
+                    "NAME" = {
+                        new_leaf("malloc")
+                    },
+                    "ARGUMENT_LIST" = {
+                        "SEPARATOR" = {
+                            new_leaf("(")
+                        },
+                        "ARGUMENT" = {
+                            "FUNCTION_CALL" = {
+                                "NAME" = {
+                                    new_leaf("sizeof")
+                                },
+                                "ARGUMENT_LIST" = {
+                                    "SEPARATOR" = {
+                                        new_leaf("(")
+                                    },
+                                    "ARGUMENT" = {
+                                        "NAME" = {
+                                            "NAME".child
+                                        }
+                                    },
+                                    "SEPARATOR" = {
+                                        new_leaf(")")
+                                    }
+                                }
+                            }
+                        },
+                        "SEPARATOR" = {
+                            new_leaf(")")
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

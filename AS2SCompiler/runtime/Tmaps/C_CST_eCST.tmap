@@ -1,0 +1,548 @@
+// first rule : receives "root"
+"ruleinitial" -> {
+    rule("rule_compilation_unit", children("CompilationUnit"))
+}
+
+// handle with each compilation unit : receives "CompilationUnit"
+"rule_compilation_unit" -> {
+    "COMPILATION_UNIT" = {
+        "PACKAGE_DECL" = {
+            ? rule("rule_import_declaration", "Includes".children),
+            "CONCRETE_UNIT_DECL" = {
+                "NAME",
+                rule("rule_c_file", "TranslationUnit")                
+            }
+        }
+    }
+}
+
+// handle with the include: receives "Include"
+"rule_import_declaration" -> {
+    "IMPORT_DECL" = {
+        "NAME" = {
+            child(1)
+        }
+    }
+}
+
+// handle with the concrete C file : receives "TranslationUnit"
+"rule_c_file" -> {
+    ? rule("rule_c_file", "TranslationUnit"),
+    rule("rule_external_declaration", "ExternalDeclaration")
+}
+
+// handle with each of function or declaration definitions : receives "ExternalDeclaration"
+"rule_external_declaration" -> {
+    ? rule("rule_func_definition", "FunctionDefinition"),
+    ? rule("rule_decl_definition", "Declaration")
+}
+
+// handle with the declaration of a function : receives "FunctionDefinition"
+"rule_func_definition" -> {
+    "FUNCTION_DECL" = {
+        "TYPE" = {
+            "TYPE" = {
+                "DeclarationSpecifiers".last
+            }
+        },
+        "NAME" = {
+            "Declarator"."DirectDeclarator"."DirectDeclarator".child
+        },
+        "SEPARATOR" = {
+            new_leaf("(")
+        },
+        ? "FORMAL_PARAM_LIST" = {
+            rule("rule_params_list", "Declarator"."DirectDeclarator"."ParameterTypeList"."ParameterList")
+        },        
+        "SEPARATOR" = {
+            new_leaf(")")
+        },
+        "BLOCK_SCOPE" = {
+            "SEPARATOR" = {
+                new_leaf("{")
+            },
+            ? rule("rule_block_scope", "CompoundStatement"."BlockItemList"),
+            "SEPARATOR" = {
+                new_leaf("}")
+            }
+        }
+    }
+}
+
+// handle with the block scope of a function : receives "BlockItemList"
+"rule_block_scope" -> {
+    ? rule("rule_block_scope", "BlockItemList"),
+    ? rule("rule_block_item", "BlockItem")
+}
+
+// handle with each of the block sope items : receives "BlockItem"
+"rule_block_item" -> {
+    ? rule("rule_statement", "Statement"),
+    ? rule("rule_decl_definition", "Declaration")
+}
+
+// handle with each statement in a block : receives "Statement"
+"rule_statement" -> {
+    ? rule("rule_expression", "ExpressionStatement"."Expression".last.parent),
+    ? rule("rule_jump_expression", "JumpStatement"),
+    ? rule("rule_iteration_statement", "IterationStatement"),
+    ? rule("rule_block_scope", "CompoundStatement"."BlockItemList"),
+    ? rule("rule_selection_statment", "SelectionStatement")
+}
+
+// handle with selection statements like if and if_else : receives "SelectionStatement"
+"rule_selection_statment" -> {
+    if (first_child == :"if"){
+        "BRANCH_STATEMENT" = {
+            "BRANCH" = {
+                "KEYWORD" = {
+                    new_leaf("if")
+                },
+                "CONDITION" = {
+                    "SEPARATOR" = {
+                        new_leaf("(")
+                    },
+                    rule("rule_expression", "Expression".last.parent),
+                    "SEPARATOR" = {
+                        new_leaf(")")
+                    }
+                },
+                "BLOCK_SCOPE" = {
+                    "SEPARATOR" = {
+                        new_leaf("{")
+                    },
+                    ? rule("rule_statement", child(4)),
+                    "SEPARATOR" = {
+                        new_leaf("}")
+                    }
+                }                
+            },
+            if (current_node == :"IfElseStament"){
+                "BRANCH" = {
+                    "KEYWORD" = {
+                        new_leaf("else")
+                    },                    
+                    "BLOCK_SCOPE" = {
+                        "SEPARATOR" = {
+                            new_leaf("{")
+                        },
+                        ? rule("rule_statement", child(6)),
+                        "SEPARATOR" = {
+                            new_leaf("}")
+                        }
+                    }                
+                }
+            }
+        }
+    },
+    if (first_child == :"IfElseStament"){
+        rule("rule_selection_statment", "IfElseStament")
+    }
+}
+
+// handle with a loop statement (for, while, do_while) : receives "IterationStatement"
+"rule_iteration_statement" -> {
+    "LOOP_STATEMENT" = {
+        if (first_child == :"while"){        
+            "KEYWORD" = {
+                first_child
+            },
+            "CONDITION" = {
+                "SEPARATOR" = {
+                    new_leaf("(")
+                },
+                rule("rule_expression", "Expression".last.parent),
+                "SEPARATOR" = {
+                    new_leaf(")")
+                }
+            },            
+            "BLOCK_SCOPE" = {
+                "SEPARATOR" = {
+                    new_leaf("{")
+                },
+                ? rule("rule_statement", "Statement"),
+                "SEPARATOR" = {
+                    new_leaf("}")
+                }
+            }            
+        },
+        if (first_child == :"do"){
+            "KEYWORD" = {
+                first_child
+            },
+            "CONDITION" = {
+                "SEPARATOR" = {
+                    new_leaf("(")
+                },                
+                rule("rule_expression", "Expression".last.parent),
+                "SEPARATOR" = {
+                    new_leaf(")")
+                }
+            },
+            "KEYWORD" = {
+                new_leaf("while")
+            },         
+            "BLOCK_SCOPE" = {
+                "SEPARATOR" = {
+                    new_leaf("{")
+                },
+                ? rule("rule_statement", "Statement"),
+                "SEPARATOR" = {
+                    new_leaf("}")
+                }
+            }    
+        },
+        if (first_child == :"for"){
+            "KEYWORD" = {
+                first_child
+            },
+            ? "INIT" = {
+                rule("rule_expression", "ForCondition"."Expression".last.parent)
+            },
+            ? "CONDITION" = {
+                rule("rule_expression", "ForCondition"."ForCond".last.parent)
+            },
+            ? "STEP" = {
+                rule("rule_expression", "ForCondition"."ForExpression".last.parent)
+            },
+            "BLOCK_SCOPE" = {
+                "SEPARATOR" = {
+                    new_leaf("{")
+                },
+                ? rule("rule_statement", "Statement"),
+                "SEPARATOR" = {
+                    new_leaf("}")
+                }
+            }
+        }
+    }
+}
+
+// handle with a jump expression like 'return' or 'break' : receives "JumpStatement"
+"rule_jump_expression" -> {
+    "JUMP_STATEMENT" = {
+        "KEYWORD" = {
+            first_child
+        },       
+        ? rule("rule_expression", "Expression".last.parent)        
+    }
+}
+
+// handle multiple math operations in sequence : receives "MultiplicativeExpression" or "AdditiveExpression"
+"rule_math_expression_aux" -> {
+    "OPERATOR" = {
+        child(1),
+        if (first_child.last == :"MultiplicativeExpression"){
+            rule("rule_math_expression_aux", first_child)
+        } else {
+            if (first_child.last == :"AdditiveExpression"){
+                rule("rule_math_expression_aux", first_child)
+            } else {
+                rule("rule_expression", first_child.last.parent)
+            }
+        },
+        if (last_child.last == :"MultiplicativeExpression"){
+            rule("rule_math_expression_aux", last_child)
+        } else {
+            if (last_child.last == :"AdditiveExpression"){
+                rule("rule_math_expression_aux", last_child)
+            } else {
+                rule("rule_expression", last_child.last.parent)
+            }
+        }                
+    }
+}
+
+// handle with expressions : receives "Expression".last.parent
+"rule_expression" -> {
+    if (current_node == :"PrimaryExpressionVar"){
+        "NAME" = {
+            child
+        }
+    },
+    if (first_child == :"PrimaryExpression"){
+        if (first_child.first_child == :"("){
+            rule("rule_expression", first_child."Expression".last.parent)
+        }        
+    },
+    if (current_node == :"PrimaryExpressionConstLiteral"){
+        "CONST" = {
+            child
+        }
+    },
+    if (current_node == :"CastExpression"){
+        if (first_child == :"UnaryExpression"){
+            if (first_child.first_child == :"++"){
+                "ASSIGNMENT_STATEMENT" = {
+                    "ASSIGN_OPERATOR" = {                                        
+                        "OPERATOR" = {
+                            new_leaf("++")
+                        },
+                        "NAME" = {
+                            first_child.last_child.last
+                        }                            
+                    } 
+                }
+            },
+            if (first_child.first_child == :"--"){
+                "ASSIGNMENT_STATEMENT" = {
+                    "ASSIGN_OPERATOR" = {                                        
+                        "OPERATOR" = {
+                            new_leaf("--")
+                        },
+                        "NAME" = {
+                            first_child.last_child.last
+                        }                            
+                    } 
+                }
+            },
+            if (first_child.first_child == :"sizeof"){          
+                "FUNCTION_CALL" = {
+                    "NAME" = {
+                        new_leaf("sizeof")
+                    },
+                    "ARGUMENT_LIST" = {
+                        "ARGUMENT" = {
+                            rule("rule_expression", first_child."UnaryExpression".last.parent)
+                        }
+                    }
+                }
+            }
+        } else {
+            "CONST" = {
+                child
+            }
+        }        
+    },
+    if (first_child == :"AssignmentExpression"){
+        "ASSIGNMENT_STATEMENT" = {
+           "ASSIGN_OPERATOR" = {
+               first_child."AssignmentOperator".child,               
+               rule("rule_expression", first_child.first_child.last.parent),
+               "VALUE" = {
+                   rule("rule_expression", first_child.last_child.last.parent)
+               }
+           } 
+        }
+    },
+    if (first_child == :"AdditiveExpression"){
+        rule("rule_math_expression_aux", first_child)
+    },
+    if (first_child == :"MultiplicativeExpression"){
+        rule("rule_math_expression_aux", first_child)
+    },
+    if (first_child == :"PostfixExpression"){
+        if (first_child.first_child == :"PostfixExpression"){
+            if (first_child.child(1) == :"("){
+               "FUNCTION_CALL" = {
+                   "NAME" = {
+                       first_child.first_child.last
+                   },
+                   "ARGUMENT_LIST" = {
+                       ? rule("rule_func_args", first_child."ArgumentExpressionList")
+                   }
+               }
+            } else {
+                if (first_child.child(1) == :"--"){
+                    "ASSIGNMENT_STATEMENT" = {
+                        "ASSIGN_OPERATOR" = {                            
+                            "NAME" = {
+                                first_child.first_child.last
+                            },
+                            "OPERATOR" = {
+                                new_leaf("--")
+                            }                            
+                        } 
+                    }
+                },
+                if (first_child.child(1) == :"++"){
+                   "ASSIGNMENT_STATEMENT" = {
+                        "ASSIGN_OPERATOR" = {                            
+                            "NAME" = {
+                                first_child.first_child.last
+                            },
+                            "OPERATOR" = {
+                                new_leaf("++")
+                            }                            
+                        } 
+                    }
+                },
+                if (first_child.child(1) == :"["){
+                    "NAME" = {
+                        first_child.first_child.last
+                    },
+                    "SEPARATOR" = {
+                        new_leaf("[")
+                    },
+                    ? rule("rule_expression", first_child."Expression".last.parent),
+                    "SEPARATOR" = {
+                        new_leaf("]")
+                    }
+                }
+            }
+        }
+    },
+    if (first_child == :"RelationalExpression"){
+        rule("rule_comparison_operator", current_node)
+    },
+    if (first_child == :"EqualityExpression"){
+        rule("rule_comparison_operator", current_node)
+    },
+    if (first_child == :"LogicalAndExpression"){
+        rule("rule_logical_operator", current_node)
+    },
+    if (first_child == :"LogicalOrExpression"){
+        rule("rule_logical_operator", current_node)
+    }
+}
+
+// handle with the comparison operation : receives "Expression".last.parent
+"rule_logical_operator" -> {
+    "LOGICAL_OPERATOR" = {
+        first_child.child(1),
+        rule("rule_expression", first_child.first_child.last.parent),
+        rule("rule_expression", first_child.last_child.last.parent)
+    }
+}
+
+// handle with the comparison operation : receives "Expression".last.parent
+"rule_comparison_operator" -> {
+    "COMPARISON_OPERATOR" = {
+        first_child.child(1),
+        rule("rule_expression", first_child.first_child.last.parent),
+        rule("rule_expression", first_child.last_child.last.parent)
+    }
+}
+
+// handle with the argument list of a function : receives "ArgumentExpressionList"
+"rule_func_args" -> {
+    ? rule("rule_func_args", "ArgumentExpressionList"),
+    ? "ARGUMENT" = {
+        rule("rule_expression", "AssignmentExpression".last.parent) 
+    }
+}
+
+//handle with the list of parameters for a function : receives "ParameterList"
+"rule_params_list" -> {    
+    ? rule("rule_params_list", "ParameterList"),
+    ? rule("rule_param_decl", "ParameterDeclaration")    
+}
+
+// handle with the conctrete declaration of a function's parameter : receives "ParameterDeclaration"
+"rule_param_decl" -> {
+    "PARAMETER_DECL" = {
+        rule("rule_modifiers", "DeclarationSpecifiers".children),
+        if ("Declarator".last != :"DirectDeclarator"){
+            "NAME" = {
+                "Declarator".last
+            }
+        } else {
+            "NAME" = {
+                "Declarator".last."DirectDeclarator".child
+            },
+            "SEPARATOR" = {
+                new_leaf("[")
+            },
+            "SEPARATOR" = {
+                new_leaf("]")
+            }
+        }        
+    }
+}
+
+// handle with global declarations : receives "Declaration"
+"rule_decl_definition" -> {
+    if (child(1) == :"InitDeclaratorList"){
+        "VAR_DECL" = {            
+            rule("rule_modifiers", "DeclarationSpecifiers".children),
+            rule("rule_initializer_or_name", "InitDeclaratorList"."InitDeclarator")        
+        }
+    }
+}
+
+// handle with the name or name + initializer for a declaration : receives "InitDeclarator"
+"rule_initializer_or_name" -> {
+    if (last_child == :"Initializer"){
+        "ASSIGNMENT_STATEMENT" = {
+            "ASSIGN_OPERATOR" = {                            
+                "OPERATOR" = {
+                    new_leaf("=")
+                },
+                if ("Declarator".last != :"DirectDeclarator"){
+                    "NAME" = {
+                        "Declarator".last
+                    }
+                } else {
+                    "NAME" = {
+                        "Declarator".last."DirectDeclarator".child
+                    },
+                    "SEPARATOR" = {
+                        new_leaf("[")
+                    },
+                    ? rule("rule_expression", "Declarator".last."AssignmentExpression".last.parent),
+                    "SEPARATOR" = {
+                        new_leaf("]")
+                    }
+                },
+                if ("Initializer".child(0) == :"{"){
+                    "SEPARATOR" = {
+                        new_leaf("{")
+                    },
+                    rule("rule_initializer_list", "Initializer"."InitializerList"),
+                    "SEPARATOR" = {
+                        new_leaf("}")
+                    }
+                } else {
+                    rule("rule_expression", "Initializer".last.parent)                           
+                }                
+            } 
+        }
+    },
+    if (last_child == :"Declarator"){
+        if ("Declarator".last != :"DirectDeclarator"){
+            "NAME" = {
+                "Declarator".last
+            }
+        } else {
+            "NAME" = {
+                "Declarator".last."DirectDeclarator".child
+            },
+            "SEPARATOR" = {
+                new_leaf("[")
+            },
+            ? rule("rule_expression", "Declarator".last."AssignmentExpression".last.parent),
+            "SEPARATOR" = {
+                new_leaf("]")
+            }
+        }        
+    }
+}
+
+//handle with the list of initializers for array : receives "InitializerList"
+"rule_initializer_list" -> {    
+    ? rule("rule_initializer_list", "InitializerList"),
+    ? rule("rule_initializer", "Initializer")    
+}
+
+// handle with a initializer value for a array : receives "Initializer"
+"rule_initializer" -> {
+    "VALUE" = {
+        rule("rule_expression", last.parent)
+    }
+}
+
+// handle with the modifiers for a declaration like const or int : receives "DeclarationSpecifier"
+"rule_modifiers" -> {
+    if (first_child == :"TypeQualifier"){
+        "MODIFIER" = {
+            first_child.child
+        }
+    },
+    if (first_child == :"TypeSpecifier"){
+        "TYPE" = {
+            "TYPE" = {
+                first_child.child
+            }
+        }
+    }
+}

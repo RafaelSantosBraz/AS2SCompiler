@@ -1,0 +1,10 @@
+"IMPORT_DECL" = {
+    "NAME" = {
+        new_leaf("stdlib.h")
+    }
+},
+"IMPORT_DECL" = {
+    "NAME" = {
+        new_leaf("stdio.h")
+    }
+}

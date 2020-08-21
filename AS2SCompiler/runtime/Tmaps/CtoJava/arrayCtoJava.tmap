@@ -1,0 +1,33 @@
+if (last_child.child == :"]"){
+    "VAR_DECL" = {
+        "TYPE".child,
+        "ASSIGNMENT_STATEMENT" = {
+            "ASSIGN_OPERATOR" = {
+                "OPERATOR" = {
+                    new_leaf("=")
+                },
+                "NAME",
+                "SEPARATOR" = {
+                    new_leaf("[")
+                },
+                "SEPARATOR" = {
+                    new_leaf("]")
+                },
+                "VALUE" = {
+                    "INSTANTIATES" = {
+                        "TYPE".last,
+                        "SEPARATOR" = {
+                            new_leaf("[")
+                        },
+                        "CONST",
+                        "SEPARATOR" = {
+                            new_leaf("]")
+                        }
+                    }
+                }
+                
+            }
+        }        
+
+    }
+}
