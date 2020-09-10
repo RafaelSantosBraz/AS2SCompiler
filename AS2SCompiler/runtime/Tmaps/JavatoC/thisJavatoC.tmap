@@ -1,9 +1,0 @@
-"PARAMETER_DECL" = {
-    new_leaf("MODIFIER_LIST"),
-    "TYPE" = {
-        new_leaf("$")
-    },
-    "NAME" = {
-        new_leaf("_this")
-    }
-}
