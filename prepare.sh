@@ -22,3 +22,6 @@ unzip $FILENAME -d $FOLDER
 
 # remove original file
 rm $FILENAME
+
+# set permissions
+chmod -R 777 $FOLDER/*
