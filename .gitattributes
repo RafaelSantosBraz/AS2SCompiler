@@ -1,6 +1,0 @@
-AS2SCompiler/mutation/c/music filter=lfs diff=lfs merge=lfs -text
-AS2SCompiler/jvm_jdk/openjdk/jdk-11/lib/modules filter=lfs diff=lfs merge=lfs -text
-AS2SCompiler/jvm_jdk/oracle/jdk-11.0.7/lib/modules filter=lfs diff=lfs merge=lfs -text
-AS2SCompiler/jvm_jdk/openjdk/jdk-11/lib/src.zip filter=lfs diff=lfs merge=lfs -text
-AS2SCompiler/jvm_jdk/oracle/jdk1.8.0_261/jre/lib/amd64/libjfxwebkit.so filter=lfs diff=lfs merge=lfs -text
-AS2SCompiler/jvm_jdk/oracle/jdk1.8.0_261/jre/lib/rt.jar filter=lfs diff=lfs merge=lfs -text
