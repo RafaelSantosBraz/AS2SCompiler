@@ -25,3 +25,6 @@ rm $FILENAME
 
 # set permissions
 chmod -R 777 $FOLDER/*
+
+# convert CRLF files into LF files
+sed -i $'s/\r$//' AS2SCompiler/testC.sh AS2SCompiler/testJava.sh
