@@ -27,4 +27,4 @@ rm $FILENAME
 chmod -R 777 $FOLDER/*
 
 # convert CRLF files into LF files
-sed -i $'s/\r$//' AS2SCompiler/testC.sh AS2SCompiler/testJava.sh
+sed -i $'s/\r$//' AS2SCompiler/testC.sh AS2SCompiler/testJava.sh AS2SCompiler/mutation/java/major/bin/javac AS2SCompiler/mutation/c/muts.txt AS2SCompiler/mutation/java/muts.txt
