@@ -11,6 +11,10 @@ function gdrive_download () {
   rm -rf /tmp/cookies.txt
 }
 
+# get mandatory programs
+sudo apt-get update
+sudo apt-get install unzip clang-format-7 gcc clang
+
 # call function for downloading
 gdrive_download $FILEID $FILENAME
 
