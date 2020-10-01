@@ -23,7 +23,8 @@ public class Run {
 //            "D:\\GitHub\\StS-Compilation-Framework\\runtime\\output",
 //            "D:\\GitHub\\StS-Compilation-Framework\\runtime\\Tmaps\\Java_CST_eCST.tmap"
 //        };
-//        ProcessControl.execute(params);        
+//        ProcessControl.execute(params);  
+        configuration.Configuration.RELEASE_FLAG = false;
         ProcessControl.execute(args);
     }
 

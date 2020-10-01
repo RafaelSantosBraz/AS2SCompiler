@@ -7,6 +7,8 @@ package files;
 import java.io.File;
 import java.io.IOException;
 import org.apache.commons.io.FileUtils;
+import configuration.Configuration;
+import org.apache.commons.io.FilenameUtils;
 
 /**
  * Tools for creating and manipulating files and directories for the Compiler.
@@ -14,6 +16,24 @@ import org.apache.commons.io.FileUtils;
  * @author Rafael Braz
  */
 public class FileAux {
+
+    /**
+     * directory of Tmap files.
+     */
+    public static final String TMAP_DIR
+            = Configuration.RELEASE_FLAG
+                    ? pathConverter("lib/Tmaps/")
+                    : pathConverter("../../runtime/Tmaps/");
+
+    /**
+     * replace '/' separators for correct the File.separator.
+     *
+     * @param path
+     * @return
+     */
+    public static String pathConverter(String path) {
+        return FilenameUtils.separatorsToSystem(path);
+    }
 
     /**
      * Creates all the directories from a given path.
