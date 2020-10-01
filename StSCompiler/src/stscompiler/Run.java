@@ -4,6 +4,7 @@
  */
 package stscompiler;
 
+import cli.ArgumentsCLI;
 import controller.ProcessControl;
 
 /**
@@ -25,7 +26,8 @@ public class Run {
 //        };
 //        ProcessControl.execute(params);  
         configuration.Configuration.RELEASE_FLAG = false;
-        ProcessControl.execute(args);
+        new ArgumentsCLI().start(args);
+        //ProcessControl.execute(args);
     }
 
 }
