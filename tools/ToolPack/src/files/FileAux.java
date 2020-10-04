@@ -33,8 +33,33 @@ public class FileAux {
      * @return
      */
     public static boolean createDirs(String path) {
-        File parent = new File(path).getParentFile();
-        return parent.exists() ? true : parent.mkdirs();
+        File dir = new File(path);
+        return dir.exists() ? true : dir.mkdirs();
+    }
+
+    /**
+     * Creates all the directories from a given path.
+     *
+     * @param path folder's path.
+     * @return
+     */
+    public static boolean createDirs(File path) {
+        return path.exists() ? true : path.mkdirs();
+    }
+
+    /**
+     * Creates all the directories from ALL given paths.
+     *
+     * @param paths
+     * @return
+     */
+    public static boolean createDirs(File... paths) {
+        for (File f : paths) {
+            if (!f.exists() && !f.mkdirs()) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
@@ -44,8 +69,18 @@ public class FileAux {
      * @return
      */
     public static boolean deleteDir(String path) {
+        return deleteDir(new File(path));
+    }
+
+    /**
+     * Deletes all files and folders of a specified path.
+     *
+     * @param path folder's path.
+     * @return
+     */
+    public static boolean deleteDir(File path) {
         try {
-            FileUtils.deleteDirectory(new File(path));
+            FileUtils.deleteDirectory(path);
             return true;
         } catch (IOException e) {
             System.err.println(e.getMessage());

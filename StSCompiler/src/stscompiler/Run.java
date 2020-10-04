@@ -4,7 +4,7 @@
  */
 package stscompiler;
 
-import cli.ArgumentsCLI;
+import configuration.Configuration;
 import controller.ProcessControl;
 
 /**
@@ -17,17 +17,9 @@ public class Run {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-//        String[] params = new String[]{
-//            "java",
-//            "c",
-//            "D:\\GitHub\\StS-Compilation-Framework\\runtime\\input",
-//            "D:\\GitHub\\StS-Compilation-Framework\\runtime\\output",
-//            "D:\\GitHub\\StS-Compilation-Framework\\runtime\\Tmaps\\Java_CST_eCST.tmap"
-//        };
-//        ProcessControl.execute(params);  
         configuration.Configuration.RELEASE_FLAG = false;
-        new ArgumentsCLI().start(args);
-        //ProcessControl.execute(args);
+        Configuration.ARGUMENTS_CLI.start(args);
+        ProcessControl.execute();
     }
 
 }
