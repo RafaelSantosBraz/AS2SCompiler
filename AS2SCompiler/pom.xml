@@ -56,7 +56,7 @@
                     </descriptorRefs>       
                     <archive>
                         <manifest>
-                            <mainClass></mainClass>
+                            <mainClass>frontend.Run</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

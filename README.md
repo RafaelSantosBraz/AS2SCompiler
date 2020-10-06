@@ -10,14 +10,18 @@ Download the executable jar [here](https://github.com/RafaelSantosBraz/AS2SCompi
 
 ## Compiling the Compiler
 
-To compile the AS2SCompiler source code, it is necessary those awesome open-source projects:
+To compile the AS2SCompiler source code, download those awesome open-source projects:
 
-* JDK v8+ (it was tested through [OpenJDK](https://openjdk.java.net/) 8 and 11)
-* [ANTLR](https://www.antlr.org/) v4.8+
-* [Apache's Commons IO](https://commons.apache.org/proper/commons-io/index.html) v2.8+
-* [Picocli](https://github.com/remkop/picocli) v4.5.1+
+* JDK v11+ (it was tested through [OpenJDK](https://openjdk.java.net/) 11.0.8)
+* [Maven](https://maven.apache.org/)
 
-After that, compile the _StSCompiler_ project and all its subprojects (CParser, CodeGenerator, JavaParser, Shortener, ToolPack, TranslationMapInterpreter, and eCSTAdapter). All of them are [Netbeans](https://netbeans.org/downloads/8.2/rc/) projects.
+After that, enter the _AS2SCompiler_ directory and execute the following command:
+
+```sh
+$ mvn clean package
+```
+
+The compiler will be in the _target_ directory.
 
 ## How to Contribute
 
