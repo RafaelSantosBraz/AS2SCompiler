@@ -4,7 +4,7 @@
  */
 package frontend;
 
-import configuration.Configuration;
+import frontend.cli.ArgumentsCLI;
 
 /**
  *
@@ -16,8 +16,7 @@ public class Run {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        //Configuration.RELEASE_FLAG = false;
-        Configuration.ARGUMENTS_CLI.start(args);
+        new ArgumentsCLI().start(args);
         ProcessControl.execute();
     }
 

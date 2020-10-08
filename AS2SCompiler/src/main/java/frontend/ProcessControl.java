@@ -28,10 +28,10 @@ public class ProcessControl {
             System.err.println("Error: it was not possible to create the CST!");
             return;
         }
-        if (!new Analyzer().createShorterCST(Configuration.TEMP_DIR.getPath() + File.separator + "CST.xml",
-                Configuration.TEMP_DIR.getPath())) {
-            System.err.println("Warning: it was not possible to create the shorter CST!");
-        }
+//        if (!new Analyzer().createShorterCST(Configuration.TEMP_DIR.getPath() + File.separator + "CST.xml",
+//                Configuration.TEMP_DIR.getPath())) {
+//            System.err.println("Warning: it was not possible to create the shorter CST!");
+//        }
         Translator translator = new Translator();
         String tmap_path = Configuration.TMAP_DIR.getPath() + File.separator
                 + (Configuration.INPUT_LANGUAGE.equals(Configuration.JAVA) ? "Java_CST_eCST.tmap" : "C_CST_eCST.tmap");

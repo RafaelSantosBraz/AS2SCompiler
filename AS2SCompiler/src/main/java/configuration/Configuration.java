@@ -4,7 +4,6 @@
  */
 package configuration;
 
-import frontend.cli.ArgumentsCLI;
 import files.FileAux;
 import java.io.File;
 import java.util.ArrayList;
@@ -47,11 +46,6 @@ public class Configuration {
      */
     public static final ArrayList<String> LANGUAGES
             = new ArrayList<>(Arrays.asList(new String[]{C, JAVA}));
-
-    /**
-     * keeps the command line arguments and options. It already has an instance.
-     */
-    public static final ArgumentsCLI ARGUMENTS_CLI = new ArgumentsCLI();
 
     /**
      * input language.
