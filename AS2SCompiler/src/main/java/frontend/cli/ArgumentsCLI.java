@@ -28,17 +28,22 @@ import java.util.concurrent.Callable;
         description = "Translate {C to Java} or {Java to C}.")
 public class ArgumentsCLI implements Callable<Integer> {
 
-    @Option(names = {"-iL", "--input-language", "--inp-lang"},
-            description = "source language (Languages: ${COMPLETION-CANDIDATES}).",
+    @Option(names = {"-il", "--input-language", "--inp-lang"},
+            description = "Source language (Languages: ${COMPLETION-CANDIDATES}).",
             required = true,
             completionCandidates = LanguageCondidates.class)
     private String inputLanguage;
 
-    @Option(names = {"-oL", "--output-language", "--out-lang"},
+    @Option(names = {"-ol", "--output-language", "--out-lang"},
             description = "Target language (Languages: ${COMPLETION-CANDIDATES}).",
             required = true,
             completionCandidates = LanguageCondidates.class)
     private String outputLanguage;
+
+    @Option(names = {"-r", "--recursive"},
+            description = "If 'true', it translates the source code of the input directory and its subdirectories. Default: 'false'",
+            defaultValue = "false")
+    private boolean recursive;
 
     @Parameters(
             index = "0",
@@ -71,6 +76,7 @@ public class ArgumentsCLI implements Callable<Integer> {
         }
         Configuration.INPUT_LANGUAGE = inputLanguage;
         Configuration.OUTPUT_LANGUAGE = outputLanguage;
+        Configuration.RECURSIVE = recursive;
         Configuration.OUTPUT_DIR = new File(outputDirectory.getPath());
         Configuration.INPUT_DIR = new File(inputDirectory.getPath());
         Configuration.setOutputDirs();
@@ -85,7 +91,7 @@ public class ArgumentsCLI implements Callable<Integer> {
     public void start(String args[]) {
         if (new CommandLine(new ArgumentsCLI()).execute(args) != 0) {
             System.exit(1);
-        }        
+        }
     }
 
 }

@@ -17,9 +17,9 @@ import java.util.Arrays;
 public class Configuration {
 
     /**
-     * flag for marking dev/release operations. true is release, false is dev.
+     * translate files recursively from the input directory?
      */
-    public static boolean RELEASE_FLAG = true;
+    public static boolean RECURSIVE = false;
 
     /**
      * directory of Tmap files.
@@ -29,7 +29,7 @@ public class Configuration {
     /**
      * the current version label for the compiler.
      */
-    public static final String VERSION = "AS2SCompiler v1.0-beta.3";
+    public static final String VERSION = "AS2SCompiler v1.0-beta.3.1";
 
     /**
      * represents the C language.

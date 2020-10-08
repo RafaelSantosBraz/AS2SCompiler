@@ -87,4 +87,16 @@ public class FileAux {
             return false;
         }
     }
+
+    /**
+     * list all files with given extensions in a directory, recursively or not.
+     *
+     * @param dir initial directory to search files from.
+     * @param exts array of the desired file extensions.
+     * @param recursive search within sub-directories?
+     * @return list of all files.
+     */
+    public static File[] listFiles(File dir, String[] exts, boolean recursive) {
+        return FileUtils.listFiles(dir, exts, recursive).toArray(File[]::new);
+    }
 }
