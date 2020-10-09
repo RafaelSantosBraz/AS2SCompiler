@@ -24,14 +24,7 @@ public class ProcessControl {
             System.err.println("Error: it was not possible to create or delete output folders! Verify permissions for files and folders then try again.");
             return;
         }
-        if (!new Analyzer().createCST()) {
-            System.err.println("Error: it was not possible to create the CST!");
-            return;
-        }
-//        if (!new Analyzer().createShorterCST(Configuration.TEMP_DIR.getPath() + File.separator + "CST.xml",
-//                Configuration.TEMP_DIR.getPath())) {
-//            System.err.println("Warning: it was not possible to create the shorter CST!");
-//        }
+        Analyzer.start();
         Translator translator = new Translator();
         String tmap_path = Configuration.TMAP_DIR.getPath() + File.separator
                 + (Configuration.INPUT_LANGUAGE.equals(Configuration.JAVA) ? "Java_CST_eCST.tmap" : "C_CST_eCST.tmap");
@@ -42,7 +35,7 @@ public class ProcessControl {
             return;
         }
         String auxTmapDir = Translator.inferAuxTmapsDir(tmap_path, Configuration.INPUT_LANGUAGE, Configuration.OUTPUT_LANGUAGE);
-        if (!translator.adapteCST(Configuration.OUTPUT_DIR.getPath() + File.separator + "eCST.xml", auxTmapDir,  Configuration.INPUT_LANGUAGE, Configuration.OUTPUT_LANGUAGE)) {
+        if (!translator.adapteCST(Configuration.OUTPUT_DIR.getPath() + File.separator + "eCST.xml", auxTmapDir, Configuration.INPUT_LANGUAGE, Configuration.OUTPUT_LANGUAGE)) {
             System.err.println("Error: it was not possible to adapt the eCST!");
             return;
         }
