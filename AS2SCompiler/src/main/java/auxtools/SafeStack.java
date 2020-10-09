@@ -46,7 +46,11 @@ public class SafeStack<T extends Object> {
      * @return item.
      */
     public synchronized T pop() {
-        return stack.pop();
+        try {
+            return stack.pop();
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     /**

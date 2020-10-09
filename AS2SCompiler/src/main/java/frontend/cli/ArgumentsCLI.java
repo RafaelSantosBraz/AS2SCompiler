@@ -12,6 +12,7 @@ import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.concurrent.Callable;
 
 /**
@@ -29,21 +30,31 @@ import java.util.concurrent.Callable;
 public class ArgumentsCLI implements Callable<Integer> {
 
     @Option(names = {"-il", "--input-language", "--inp-lang"},
+            completionCandidates = LanguageCondidates.class,
             description = "Source language (Languages: ${COMPLETION-CANDIDATES}).",
-            required = true,
-            completionCandidates = LanguageCondidates.class)
+            required = true)
     private String inputLanguage;
 
     @Option(names = {"-ol", "--output-language", "--out-lang"},
+            completionCandidates = LanguageCondidates.class,
             description = "Target language (Languages: ${COMPLETION-CANDIDATES}).",
-            required = true,
-            completionCandidates = LanguageCondidates.class)
+            required = true
+    )
     private String outputLanguage;
 
     @Option(names = {"-r", "--recursive"},
-            description = "If 'true', it translates the source code of the input directory and its subdirectories. Default: 'false'",
-            defaultValue = "false")
+            description = "Translates the source code of the input directory and its subdirectories. Default: 'false'",
+            defaultValue = "false",
+            negatable = true)
     private boolean recursive;
+
+    @Option(names = {"--expose"},
+            completionCandidates = IRTypes.class,
+            description = "keeps all intermediate representation files. (types: ${COMPLETION-CANDIDATES}). More than 1 is welcome.",
+            split = ",",
+            paramLabel = "type",
+            required = false)
+    private String[] exposes = new String[]{};
 
     @Parameters(
             index = "0",
@@ -74,6 +85,29 @@ public class ArgumentsCLI implements Callable<Integer> {
                     inputDirectory.getPath()));
             return 1;
         }
+        if (outputDirectory.exists() && inputDirectory.compareTo(outputDirectory) == 0) {
+            System.err.println(String.format("input and output directories can not be the same!",
+                    inputDirectory.getPath()));
+            return 1;
+        }
+        var exposesList = Arrays.asList(exposes);
+        exposesList.replaceAll((t) -> {
+            return t.toLowerCase();
+        });
+        exposesList.forEach((t) -> {
+            if (!Configuration.IR_TYPES.contains(t)) {
+                System.err.println(String.format("--expose option '%s' is not valid!", t));
+                System.exit(1);
+            }
+            switch (t) {
+                case "json":
+                    Configuration.EXPOSE_JSON = true;
+                    break;
+                case "xml":
+                    Configuration.EXPOSE_XML = true;
+                    break;
+            }
+        });
         Configuration.INPUT_LANGUAGE = inputLanguage;
         Configuration.OUTPUT_LANGUAGE = outputLanguage;
         Configuration.RECURSIVE = recursive;
@@ -105,5 +139,17 @@ class LanguageCondidates extends ArrayList<String> {
 
     LanguageCondidates() {
         super(Configuration.LANGUAGES);
+    }
+}
+
+/**
+ * all IR types.
+ *
+ * @author Rafael Braz
+ */
+class IRTypes extends ArrayList<String> {
+
+    IRTypes() {
+        super(Configuration.IR_TYPES);
     }
 }

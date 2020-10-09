@@ -48,6 +48,22 @@ public class Configuration {
             = new ArrayList<>(Arrays.asList(new String[]{C, JAVA}));
 
     /**
+     * represents all intermediate representation types.
+     */
+    public static final ArrayList<String> IR_TYPES
+            = new ArrayList<>(Arrays.asList(new String[]{"json", "xml"}));
+
+    /**
+     * expose all XML IR files?
+     */
+    public static boolean EXPOSE_JSON = false;
+
+    /**
+     * expose all JSON IR files?
+     */
+    public static boolean EXPOSE_XML = false;
+
+    /**
      * input language.
      */
     public static String INPUT_LANGUAGE = "";
