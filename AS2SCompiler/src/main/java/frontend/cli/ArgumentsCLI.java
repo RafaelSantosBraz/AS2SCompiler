@@ -106,8 +106,14 @@ public class ArgumentsCLI implements Callable<Integer> {
                 case "xml":
                     Configuration.EXPOSE_XML = true;
                     break;
+                case "dot":
+                    Configuration.EXPOSE_DOT = true;
+                    break;
             }
         });
+        if (!exposesList.isEmpty()) {
+            Configuration.EXPOSE_ANY = true;
+        }
         Configuration.INPUT_LANGUAGE = inputLanguage;
         Configuration.OUTPUT_LANGUAGE = outputLanguage;
         Configuration.RECURSIVE = recursive;

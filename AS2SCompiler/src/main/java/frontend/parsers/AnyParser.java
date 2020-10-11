@@ -6,6 +6,7 @@ package frontend.parsers;
 
 import auxtools.JSONHandler;
 import configuration.Configuration;
+import frontend.parsers.visitors.CVisitor;
 import java.io.File;
 import java.io.IOException;
 import org.antlr.v4.runtime.CharStreams;
@@ -26,11 +27,19 @@ public class AnyParser {
      * start parsing a given input file.
      *
      * @param file input file.
+     * @return the eCST StringBuilder for the input file.
      */
-    public static void parseFile(File file) {
+    public static StringBuilder parseFile(File file) {
         var ctx = syntaxChecking(file);
         expose(ctx, file);
-
+        switch (Configuration.INPUT_LANGUAGE) {
+            case Configuration.C:
+                return new CVisitor().start(ctx);
+            case Configuration.JAVA:
+                // put Java
+                return null;
+        }
+        return null;
     }
 
     /**
@@ -40,7 +49,7 @@ public class AnyParser {
      * @param file parsed file.
      */
     public static void expose(ParserRuleContext ctx, File file) {
-        if (Configuration.EXPOSE_JSON || Configuration.EXPOSE_XML) {
+        if (Configuration.EXPOSE_ANY) {
             JSONObject json = JSONHandler.antlrToJson(ctx);
             if (Configuration.EXPOSE_JSON) {
                 JSONHandler.writeToFileJSON(
@@ -52,6 +61,12 @@ public class AnyParser {
                 JSONHandler.writeToFileXML(
                         Configuration.CST_DIR,
                         String.format("%s.xml", FilenameUtils.removeExtension(file.getName())),
+                        json);
+            }
+            if (Configuration.EXPOSE_DOT) {
+                JSONHandler.writeToFileDOT(
+                        Configuration.CST_DIR,
+                        String.format("%s.dot", FilenameUtils.removeExtension(file.getName())),
                         json);
             }
         }

@@ -41,7 +41,7 @@ public class Analyzer {
                 // parsing file starts here
                 File file;
                 while ((file = fileStack.pop()) != null) {
-                    AnyParser.parseFile(file);
+                    var eCST = AnyParser.parseFile(file);
                 }
             });
             treads[i].start();

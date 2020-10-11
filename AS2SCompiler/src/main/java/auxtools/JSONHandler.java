@@ -12,6 +12,8 @@ import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.RuleContext;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTree;
+import org.apache.commons.io.file.Counters;
+import org.apache.commons.io.file.Counters.Counter;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 import org.json.XML;
@@ -64,11 +66,12 @@ public class JSONHandler {
             }
             type = token.getType();
         }
-        builder.append("\"type\":");
-        builder.append(type);
-        builder.append(",\"text\":\"");
-        builder.append(text);
-        builder.append("\"},\"childElement\": [");
+        builder
+                .append("\"type\":")
+                .append(type)
+                .append(",\"text\":\"")
+                .append(text)
+                .append("\"},\"childElement\": [");
         for (int c = 0; c < ctx.getChildCount(); c++) {
             builder.append("{");
             antlrToStringJsonRecursive(ctx.getChild(c), builder);
@@ -114,6 +117,67 @@ public class JSONHandler {
         } catch (IOException ex) {
             System.err.println("It was not possible to write XML file!" + ex.getMessage());
             System.exit(1);
+        }
+    }
+
+    /**
+     * receives a JSON object and writes the DOT version to a file.
+     *
+     * @param dir file directory.
+     * @param fileName file name + extension.
+     * @param json JSON object.
+     */
+    public static void writeToFileDOT(File dir, String fileName, JSONObject json) {
+        var builder = new StringBuilder("");
+        try (var writer = new FileWriter(
+                FileAux.pathConverter(
+                        String.format("%s/%s", dir.getAbsolutePath(), fileName)
+                )
+        )) {
+            builder
+                    .append("digraph G{splines=\"TRUE\";n_0[label=\"")
+                    .append(json.getJSONObject("token").getString("text"))
+                    .append("\",shape=\"rectangle\"]");
+            var array = json.getJSONArray("childElement");
+            int size = array.length();
+            var counter = Counters.longCounter();
+            for (int i = 0; i < size; i++) {
+                var child = array.getJSONObject(i);
+                convertDOTRecursive(builder, 0, child, counter);
+            }
+            builder.append("}");
+            writer.write(builder.toString());
+        } catch (IOException ex) {
+            System.err.println("It was not possible to write DOT file!" + ex.getMessage());
+            System.exit(1);
+        }
+    }
+
+    /**
+     * recursively converts each JSONObject int a DOT element.
+     *
+     * @param builder StringBuilder to write to.
+     * @param nParent index of the parent DOT element.
+     * @param json JSONObject of the current element.
+     */
+    private static void convertDOTRecursive(StringBuilder builder, long nParent, JSONObject json, Counter counter) {
+        counter.increment();
+        var n = counter.get();
+        builder
+                .append("n_")
+                .append(nParent)
+                .append("->n_")
+                .append(n)
+                .append(";n_")
+                .append(n)
+                .append("[label=\"")
+                .append(json.getJSONObject("token").getString("text"))
+                .append("\",shape=\"rectangle\"];");
+        var array = json.getJSONArray("childElement");
+        int size = array.length();
+        for (int i = 0; i < size; i++) {
+            var child = array.getJSONObject(i);
+            convertDOTRecursive(builder, n, child, counter);
         }
     }
 

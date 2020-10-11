@@ -51,8 +51,13 @@ public class Configuration {
      * represents all intermediate representation types.
      */
     public static final ArrayList<String> IR_TYPES
-            = new ArrayList<>(Arrays.asList(new String[]{"json", "xml"}));
+            = new ArrayList<>(Arrays.asList(new String[]{"json", "xml", "dot"}));
 
+    /**
+     * expose any IR file?
+     */
+    public static boolean EXPOSE_ANY = false;
+    
     /**
      * expose all XML IR files?
      */
@@ -62,6 +67,11 @@ public class Configuration {
      * expose all JSON IR files?
      */
     public static boolean EXPOSE_XML = false;
+
+    /**
+     * expose all DOT IR files?
+     */
+    public static boolean EXPOSE_DOT = false;
 
     /**
      * input language.
