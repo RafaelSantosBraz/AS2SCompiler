@@ -64,9 +64,11 @@ public class JSONHandler {
             }
             type = token.getType();
         }
-        builder.append(String.format("\"type\":%d,\"text\":\"%s\"", type, text));
-        builder.append("},");
-        builder.append("\"childElement\": [");
+        builder.append("\"type\":");
+        builder.append(type);
+        builder.append(",\"text\":\"");
+        builder.append(text);
+        builder.append("\"},\"childElement\": [");
         for (int c = 0; c < ctx.getChildCount(); c++) {
             builder.append("{");
             antlrToStringJsonRecursive(ctx.getChild(c), builder);
