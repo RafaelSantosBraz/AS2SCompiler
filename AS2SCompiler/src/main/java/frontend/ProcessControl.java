@@ -24,7 +24,7 @@ public class ProcessControl {
             System.err.println("Error: it was not possible to create or delete output folders! Verify permissions for files and folders then try again.");
             return;
         }
-        Analyzer.start();
+        var eCSTStack = Analyzer.start();
         Translator translator = new Translator();
         String tmap_path = Configuration.TMAP_DIR.getPath() + File.separator
                 + (Configuration.INPUT_LANGUAGE.equals(Configuration.JAVA) ? "Java_CST_eCST.tmap" : "C_CST_eCST.tmap");

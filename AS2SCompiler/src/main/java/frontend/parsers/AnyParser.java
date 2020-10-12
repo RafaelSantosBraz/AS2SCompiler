@@ -29,7 +29,7 @@ public class AnyParser {
      * @param file input file.
      * @return the eCST StringBuilder for the input file.
      */
-    public static StringBuilder parseFile(File file) {
+    public static JSONObject parseFile(File file) {
         var ctx = syntaxChecking(file);
         expose(ctx, file);
         switch (Configuration.INPUT_LANGUAGE) {
