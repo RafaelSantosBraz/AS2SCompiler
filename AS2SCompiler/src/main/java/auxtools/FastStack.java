@@ -8,16 +8,16 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 
 /**
- * generic high-performance thread-safe Stack implementation.
+ * generic high-performance Stack implementation.
  *
  * @author Rafael Braz
  * @param <T> type of the stack's elements. Extends Object.
  */
-public class SafeStack<T extends Object> {
+public class FastStack<T extends Object> {
 
     private final ArrayDeque<T> stack;
 
-    public SafeStack() {
+    public FastStack() {
         stack = new ArrayDeque<>();
     }
 
@@ -26,7 +26,7 @@ public class SafeStack<T extends Object> {
      *
      * @param initialCapacity the initial capacity of the stack.
      */
-    public SafeStack(int initialCapacity) {
+    public FastStack(int initialCapacity) {
         stack = new ArrayDeque<>(initialCapacity);
     }
 
@@ -35,7 +35,7 @@ public class SafeStack<T extends Object> {
      *
      * @return true or false.
      */
-    public synchronized boolean empty() {
+    public boolean empty() {
         return stack.isEmpty();
     }
 
@@ -45,7 +45,7 @@ public class SafeStack<T extends Object> {
      *
      * @return item.
      */
-    public synchronized T peek() {
+    public T peek() {
         return stack.peek();
     }
 
@@ -55,7 +55,7 @@ public class SafeStack<T extends Object> {
      *
      * @return item.
      */
-    public synchronized T pop() {
+    public T pop() {
         try {
             return stack.pop();
         } catch (Exception e) {
@@ -69,7 +69,7 @@ public class SafeStack<T extends Object> {
      * @param item the item to be included.
      * @return true if item is not null; false otherwise.
      */
-    public synchronized boolean push(T item) {
+    public boolean push(T item) {
         try {
             stack.push(item);
             return true;
@@ -85,7 +85,7 @@ public class SafeStack<T extends Object> {
      * @param items array of items to be included.
      * @return true if all items are not null; false otherwise.
      */
-    public synchronized boolean push(T[] items) {
+    public boolean push(T[] items) {
         for (T item : items) {
             if (item == null) {
                 return false;
@@ -102,7 +102,7 @@ public class SafeStack<T extends Object> {
      *
      * @return the number of elements in this stack.
      */
-    public synchronized int size() {
+    public int size() {
         return stack.size();
     }
 
@@ -111,7 +111,7 @@ public class SafeStack<T extends Object> {
      *
      * @return all elements as an ArrayList.
      */
-    public synchronized ArrayList<T> asList() {
+    public ArrayList<T> asList() {
         var res = new ArrayList<T>(stack.size());
         stack.forEach((t) -> {
             res.add(t);
