@@ -50,25 +50,27 @@ public class Analyzer {
                 File file;
                 while ((file = fileStack.pop()) != null) {
                     var eCST = AnyParser.parseFile(file);
-                    localStack.push(eCST);
+                    System.out.println(eCST.toString());
+                    var eCSTJson = new JSONObject(eCST.toString());
+                    localStack.push(eCSTJson);
                     if (Configuration.EXPOSE_ANY) {
                         if (Configuration.EXPOSE_JSON) {
                             JSONHandler.writeToFileJSON(
                                     Configuration.ECST_DIR,
                                     String.format("%s.json", FilenameUtils.removeExtension(file.getName())),
-                                    eCST);
+                                    eCSTJson);
                         }
                         if (Configuration.EXPOSE_XML) {
                             JSONHandler.writeToFileXML(
                                     Configuration.ECST_DIR,
                                     String.format("%s.xml", FilenameUtils.removeExtension(file.getName())),
-                                    eCST);
+                                    eCSTJson);
                         }
                         if (Configuration.EXPOSE_DOT) {
                             JSONHandler.writeToFileDOT(
                                     Configuration.ECST_DIR,
                                     String.format("%s.dot", FilenameUtils.removeExtension(file.getName())),
-                                    eCST);
+                                    eCSTJson);
                         }
                     }
                 }

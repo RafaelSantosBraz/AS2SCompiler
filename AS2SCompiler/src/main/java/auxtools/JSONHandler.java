@@ -14,7 +14,6 @@ import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.apache.commons.io.file.Counters;
 import org.apache.commons.io.file.Counters.Counter;
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 import org.json.XML;
@@ -182,22 +181,4 @@ public class JSONHandler {
         }
     }
 
-    /**
-     * build up a complete JSON object with token and childElement properties.
-     *
-     * @param json the parent JSON object.
-     * @param text text value of token propertie.
-     * @param type type value of token propertie.
-     * @return JSONObject json - parent.
-     */
-    public static JSONObject buildJSONComplete(JSONObject json, String text, int type) {
-        return json
-                .put(
-                        "token",
-                        new JSONObject()
-                                .put("text", text)
-                                .put("type", type)
-                )
-                .put("childElement", new JSONArray());
-    }
 }
