@@ -49,10 +49,8 @@ public class Analyzer {
                 var localStack = new FastStack<JSONObject>(files.length / cores);
                 File file;
                 while ((file = fileStack.pop()) != null) {
-                    var eCST = AnyParser.parseFile(file);
-                    System.out.println(eCST.toString());
-                    var eCSTJson = new JSONObject(eCST.toString());
-                    localStack.push(eCSTJson);
+                    var eCSTJson = AnyParser.parseFile(file);
+                    localStack.push(eCSTJson);                   
                     if (Configuration.EXPOSE_ANY) {
                         if (Configuration.EXPOSE_JSON) {
                             JSONHandler.writeToFileJSON(

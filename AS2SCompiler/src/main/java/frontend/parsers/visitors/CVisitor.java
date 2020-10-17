@@ -6,25 +6,16 @@ package frontend.parsers.visitors;
 
 import auxtools.ECST;
 import auxtools.JSONHandler;
-import auxtools.TreeStringBuilder;
 import frontend.parsers.CGrammarBaseVisitor;
 import frontend.parsers.CGrammarParser;
 import org.antlr.v4.runtime.tree.ParseTree;
+import org.json.JSONObject;
 
 /**
  *
  * @author Rafael Braz
  */
-public class CVisitor extends CGrammarBaseVisitor<String> {
-
-    /**
-     * the built eCST.
-     */
-    private final TreeStringBuilder eCST;
-
-    public CVisitor() {
-        eCST = new TreeStringBuilder(10000);
-    }
+public class CVisitor extends CGrammarBaseVisitor<JSONObject> {
 
     /**
      * start parsin the ANTLR tree.
@@ -32,50 +23,58 @@ public class CVisitor extends CGrammarBaseVisitor<String> {
      * @param ctx the initial ANTLR node.
      * @return the built eCST as a JSONObject.
      */
-    public TreeStringBuilder start(ParseTree ctx) {
-        visit(ctx);
-        return eCST;
+    public JSONObject start(ParseTree ctx) {
+        return visit(ctx);
     }
 
     @Override
-    public String visitCompilationUnit(CGrammarParser.CompilationUnitContext ctx) {
-        eCST
-                .appendTokenOpenChildren(
+    protected JSONObject aggregateResult(JSONObject aggregate, JSONObject nextResult) {
+        if (aggregate == null && nextResult == null) {
+            return null;
+        }
+        if (aggregate == null) {
+            return nextResult;
+        }
+        if (nextResult == null) {
+            return aggregate;
+        }
+        var wrap = JSONHandler.wrapCopy(aggregate);
+        JSONHandler.appendChildren(wrap, nextResult);
+        return wrap;
+    }
+
+    @Override
+    public JSONObject visitCompilationUnit(CGrammarParser.CompilationUnitContext ctx) {
+        var unit = JSONHandler
+                .buildFirstComplete(
                         ECST.COMPILATION_UNIT_LABEL,
                         ECST.COMPILATION_UNIT_TYPE
-                )
-                .appendTokenOpenChildren(
+                );
+        var pack = JSONHandler
+                .buildComplete(unit,
                         ECST.PACKAGE_DECL_LABEL,
                         ECST.PACKAGE_DECL_TYPE
                 );
-        visitChildren(ctx);
-        eCST
-                .appendCloseTokenChildren()
-                .appendCloseTokenChildren();
-        return null;
+        var children = visitChildren(ctx);
+        JSONHandler.appendChildren(pack, children);
+        // does not wrap because it is the "head" of the tree.
+        return unit;
     }
 
     @Override
-    public String visitDeclaration(CGrammarParser.DeclarationContext ctx) {
-        eCST
-                .appendComplete(
+    public JSONObject visitDeclaration(CGrammarParser.DeclarationContext ctx) {
+        var var_dec = JSONHandler
+                .buildFirstComplete(
                         ECST.VAR_DECL_LABEL,
-                        ECST.VAR_DECL_TYPE,
-                        this,
-                        ctx.getChild(CGrammarParser.DeclarationSpecifiersContext.class, 0)
+                        ECST.VAR_DECL_TYPE
                 );
-        return null;
+
+        return JSONHandler.wrap(var_dec);
     }
 
     @Override
-    public String visitTypeSpecifier(CGrammarParser.TypeSpecifierContext ctx) {
-        eCST
-                .appendTokenOpenChildren(
-                        ECST.TYPE_LABEL,
-                        ECST.TYPE_TYPE
-                )
-                .appendComplete(ctx.getText(), ECST.LEAF_TYPE)
-                .appendCloseTokenChildren();
+    public JSONObject visitTypeSpecifier(CGrammarParser.TypeSpecifierContext ctx) {
+
         return null;
     }
 

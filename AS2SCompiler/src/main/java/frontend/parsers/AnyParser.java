@@ -5,7 +5,6 @@
 package frontend.parsers;
 
 import auxtools.JSONHandler;
-import auxtools.TreeStringBuilder;
 import configuration.Configuration;
 import frontend.parsers.visitors.CVisitor;
 import java.io.File;
@@ -30,7 +29,7 @@ public class AnyParser {
      * @param file input file.
      * @return the eCST StringBuilder for the input file.
      */
-    public static TreeStringBuilder parseFile(File file) {
+    public static JSONObject parseFile(File file) {
         var ctx = syntaxChecking(file);
         expose(ctx, file);
         switch (Configuration.INPUT_LANGUAGE) {

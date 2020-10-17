@@ -8,12 +8,14 @@ import files.FileAux;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Arrays;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.RuleContext;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.apache.commons.io.file.Counters;
 import org.apache.commons.io.file.Counters.Counter;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 import org.json.XML;
@@ -181,4 +183,138 @@ public class JSONHandler {
         }
     }
 
+    /**
+     * build up a complete JSON object without binding it to any "parent" JSON
+     * object.
+     *
+     * @param text the text value of the token propertie.
+     * @param type the type value of the token propertie.
+     * @return the new JSON object.
+     */
+    public static JSONObject buildFirstComplete(String text, int type) {
+        return new JSONObject()
+                .put("token",
+                        new JSONObject()
+                                .put("text", text)
+                                .put("type", type)
+                )
+                .put("childElement",
+                        new JSONArray());
+    }
+
+    /**
+     * build up a complete JSON object and bind it to a "parent" JSON object.
+     *
+     * @param json the "parent" JSON object.
+     * @param text the text value of the token propertie.
+     * @param type the type value of the token propertie.
+     * @return the new JSON object.
+     */
+    public static JSONObject buildComplete(JSONObject json, String text, int type) {
+        JSONObject newJson;
+        json
+                .getJSONArray("childElement")
+                .put(
+                        newJson = new JSONObject()
+                                .put("token",
+                                        new JSONObject()
+                                                .put("text", text)
+                                                .put("type", type)
+                                )
+                                .put("childElement",
+                                        new JSONArray())
+                );
+        return newJson;
+    }
+
+    /**
+     * build up a wrapper for a given JSON object.
+     *
+     * @param json the JSON object to be wrapped up.
+     * @return the new wrapped object.
+     */
+    public static JSONObject wrap(JSONObject json) {
+        return new JSONObject()
+                .put("childElement",
+                        new JSONArray()
+                                .put(json)
+                );
+    }
+
+    /**
+     * similar to "wrap". Build up a wrapper for a given JSON object by copying
+     * its "childElement" array.
+     *
+     * @param json the JSON object that has the "childElement" array to copy.
+     * @return the new wrapped object.
+     */
+    public static JSONObject wrapCopy(JSONObject json) {
+        return new JSONObject()
+                .put("childElement",
+                        json.getJSONArray("childElement")
+                );
+    }
+
+    /**
+     * opposite to "wrap". Returns the JSON array of a wrapped JSON object.
+     *
+     * @param json the wrapped JSON object.
+     * @return the JSONArray of the wrapped JSON object.
+     */
+    public static JSONArray unWrap(JSONObject json) {
+        return json.getJSONArray("childElement");
+    }
+
+    /**
+     * add a Object (JSONObject) to the "childElement" array.
+     *
+     * @param json the JSONObject.
+     * @param child the child object to be added.
+     * @return the JSONObject (json).
+     */
+    public static JSONObject appendChild(JSONObject json, JSONObject child) {
+        json.getJSONArray("childElement").put(child);
+        return json;
+    }
+
+    /**
+     * add an array of Object (JSONObject) to the "childElement" array.
+     *
+     * @param json the JSONObject.
+     * @param children the children to be added.
+     * @return the JSONObject (json).
+     */
+    public static JSONObject appendChildren(JSONObject json, JSONObject... children) {
+        var element = json.getJSONArray("childElement");
+        for (var child : children) {
+            element.put(child);
+        }
+        return json;
+    }
+
+    /**
+     * add an array of Object (JSONObject) to the "childElement" array.
+     *
+     * @param json the JSONObject.
+     * @param children the children to be added (JSONArray).
+     * @return the JSONObject (json).
+     */
+    public static JSONObject appendChildren(JSONObject json, JSONArray children) {
+        for (var child : children) {
+            appendChild(json, (JSONObject) child);
+        }
+        return json;
+    }
+
+    /**
+     * add an array of Object (JSONObject) to the "childElement" array from a
+     * wrapped JSON object.
+     *
+     * @param json the JSONObject.
+     * @param wrap the wrapped JSON object.
+     * @return the JSONObject (json).
+     */
+    public static JSONObject appendChildren(JSONObject json, JSONObject wrap) {
+        return appendChildren(json, unWrap(wrap));
+    }
 }
